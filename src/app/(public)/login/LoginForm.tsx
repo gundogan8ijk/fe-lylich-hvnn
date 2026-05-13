@@ -3,9 +3,10 @@
 import Link from "next/link";
 import React from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { loginActionHook } from "@/hooks/authen-hook";
 
 export default function LoginPage() {
-    const [form, setForm] = React.useState({ username: "", password: "", });
+    const [form, setForm] = React.useState({ email: "", password: "", });
     const [showPassword, setShowPassword] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState("");
@@ -17,7 +18,8 @@ export default function LoginPage() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
-        // await loginActionHooks(form);
+        const err= await loginActionHook(form);
+        if(err) setError(err);
         setLoading(false);
     };
 
@@ -26,16 +28,13 @@ export default function LoginPage() {
         <>
             <h1 className="text-2xl font-bold mb-4 text-center text-gray-800">Đăng Nhập</h1>
 
-            {/* Thông báo lỗi */}
-            {error && (<p className="text-red-500 ">Đăng nhập không thành công</p>)}
-
             <form
                 onSubmit={handleSubmit}
                 className=" flex items-center justify-center"
             >
-                <div className="bg-white p-8 rounded-2xl shadow-lg w-96 text-center">
+                <div className="bg-white p-7 rounded-2xl shadow-lg w-96 text-center">
 
-                    {error && (<p className="text-red-500 text-sm text-center">{error}</p>)}
+                    <p className="text-red-500 text-sm text-center mb-3"> {error || "\u00A0"}</p>
 
                     {/* Email & Password */}
                     <div className="flex flex-col gap-4">
@@ -63,7 +62,7 @@ export default function LoginPage() {
                             <button
                                 type="button"
                                 onClick={() => setShowPassword((prev) => !prev)}
-                                className="absolute right-3 top-2 text-gray-500 hover:text-gray-700"
+                                className="absolute right-3 top-3 text-gray-500 hover:text-gray-700"
                             >
                                 {showPassword ? (<EyeOff size={18} />) : (<Eye size={18} />)}
                             </button>

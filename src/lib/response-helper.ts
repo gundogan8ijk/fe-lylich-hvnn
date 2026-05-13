@@ -1,4 +1,4 @@
-import { ApiError, ApiResponse } from "@/types/result-config";
+import { ApiError, ApiResponse } from "@/types/result-typeConfig";
 
 export const success = <T>(data: T, message = "Success"): ApiResponse<T> => {
     return {
@@ -8,10 +8,11 @@ export const success = <T>(data: T, message = "Success"): ApiResponse<T> => {
     };
 };
 
-export const fail = (message = "Error"): ApiError => {
+export const fail = (message = "Error", errors?: string[]): ApiError => {
     return {
         code: -1,
         message,
+        errors,
         data: null,
     };
 };

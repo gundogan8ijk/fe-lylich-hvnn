@@ -12,7 +12,7 @@ import backgroundImage from '#/images/backgroundImage.jpg';
 const navItems = [
     { label: 'Trang chủ', href: '/' },
     { label: 'Sản phẩm', href: '/products' },
-    { label: 'Về chúng tôi', href: '/about' },
+    { label: 'khoa', href: '/department' },
     { label: 'Blog', href: '/blog' },
     { label: 'Liên hệ', href: '/contact' },
 ];
@@ -32,7 +32,7 @@ export function PublicNavbar() {
                         <Image
                             src={backgroundImage}
                             alt="Background"
-                            fill unoptimized
+                            fill unoptimized priority
                             className="object-cover object-fill"
                         />
 

@@ -1,0 +1,288 @@
+import { create } from "zustand";
+import { defaultPagination, Pagination } from "@/types/pagination-typeConfig";
+
+// ─── Filter & Sort ────────────────────────────────────────────────────────────
+
+export type SortOrder = "asc" | "desc";
+
+export interface SortConfig {
+    field: string;
+    order: SortOrder;
+}
+
+export interface FilterConfig {
+    [key: string]: unknown;
+}
+
+// ─── Base State ───────────────────────────────────────────────────────────────
+
+interface BaseListState<T> {
+    // Danh sách
+    data: T[];
+    selectedItem: T | null;
+    selectedItems: T[];         // multi-select
+
+    // Trạng thái loading
+    loading: boolean;
+    loadingMore: boolean;       // infinite scroll / load more
+    submitting: boolean;        // đang submit form (create/update)
+    deleting: boolean;          // đang xoá
+
+    // Phân trang
+    pagination: Pagination;
+
+    // Tìm kiếm & lọc
+    searchQuery: string;
+    filters: FilterConfig;
+    sort: SortConfig | null;
+
+    // Trạng thái UI
+    isDrawerOpen: boolean;
+    isModalOpen: boolean;
+    isDeleteModalOpen: boolean;
+    drawerMode: "create" | "edit" | "view";
+
+    // Lỗi
+    error: string | null;
+}
+
+// ─── Actions ──────────────────────────────────────────────────────────────────
+
+interface BaseListActions<T> {
+    // ── Data ──
+    setData: (value: T[]) => void;
+    appendData: (value: T[]) => void;                       // thêm vào cuối (load more)
+    prependData: (value: T[]) => void;                      // thêm vào đầu (realtime)
+    addItem: (item: T) => void;                             // thêm 1 item
+    updateItem: (predicate: (item: T) => boolean, updater: Partial<T> | ((item: T) => T)) => void;
+    removeItem: (predicate: (item: T) => boolean) => void;  // xoá 1 item khỏi list local
+
+    // ── Selection ──
+    setSelectedItem: (item: T | null) => void;
+    setSelectedItems: (items: T[]) => void;
+    toggleSelectItem: (item: T, key: keyof T) => void;      // toggle 1 item trong multi-select
+    clearSelection: () => void;
+
+    // ── Loading ──
+    setLoading: (value: boolean) => void;
+    setLoadingMore: (value: boolean) => void;
+    setSubmitting: (value: boolean) => void;
+    setDeleting: (value: boolean) => void;
+
+    // ── Pagination ──
+    setPagination: (value: Pagination) => void;
+    setPage: (page: number) => void;
+    setPageSize: (size: number) => void;
+
+    // ── Search & Filter ──
+    setSearchQuery: (query: string) => void;
+    setFilters: (filters: FilterConfig) => void;
+    mergeFilters: (partial: FilterConfig) => void;           // merge thay vì replace
+    clearFilters: () => void;
+    setSort: (sort: SortConfig | null) => void;
+
+    // ── UI State ──
+    openDrawer: (mode: "create" | "edit" | "view", item?: T | null) => void;
+    closeDrawer: () => void;
+    openModal: (item?: T | null) => void;
+    closeModal: () => void;
+    openDeleteModal: (item?: T | null) => void;
+    closeDeleteModal: () => void;
+
+    // ── Error ──
+    setError: (error: string | null) => void;
+
+    // ── Reset ──
+    reset: () => void;
+    resetFilters: () => void;                                // chỉ reset filter/search/sort
+    resetUI: () => void;                                     // chỉ reset trạng thái UI
+}
+
+export type BaseListStore<T> = BaseListState<T> & BaseListActions<T>;
+
+// ─── Default State ────────────────────────────────────────────────────────────
+
+function buildInitialState<T>(): BaseListState<T> {
+    return {
+        data: [],
+        selectedItem: null,
+        selectedItems: [],
+
+        loading: false,
+        loadingMore: false,
+        submitting: false,
+        deleting: false,
+
+        pagination: defaultPagination,
+
+        searchQuery: "",
+        filters: {},
+        sort: null,
+
+        isDrawerOpen: false,
+        isModalOpen: false,
+        isDeleteModalOpen: false,
+        drawerMode: "create",
+
+        error: null,
+    };
+}
+
+// ─── Factory ──────────────────────────────────────────────────────────────────
+
+/**
+ * Tạo một Zustand store đầy đủ tính năng cho màn hình danh sách.
+ *
+ * @example — store cơ bản (1 dòng)
+ * const useDepartmentStore = createListStore<Department>();
+ *
+ * @example — mở rộng thêm state riêng
+ * type DeptStore = BaseListStore<Department> & {
+ *     activeTab: string;
+ *     setActiveTab: (v: string) => void;
+ * };
+ * const useDepartmentStore = create<DeptStore>((set, get, api) => ({
+ *     ...createListStore<Department>().getState(),
+ *     activeTab: "all",
+ *     setActiveTab: (v) => set({ activeTab: v }),
+ * }));
+ */
+export function createListStore<T>() {
+    const initialState = buildInitialState<T>();
+
+    return create<BaseListStore<T>>((set, get) => ({
+        ...initialState,
+
+        // ── Data ──────────────────────────────────────────────────────────────
+
+        setData: (value) => set({ data: value }),
+
+        appendData: (value) =>
+            set((s) => ({ data: [...s.data, ...value] })),
+
+        prependData: (value) =>
+            set((s) => ({ data: [...value, ...s.data] })),
+
+        addItem: (item) =>
+            set((s) => ({ data: [item, ...s.data] })),
+
+        updateItem: (predicate, updater) =>
+            set((s) => ({
+                data: s.data.map((item) => {
+                    if (!predicate(item)) return item;
+                    return typeof updater === "function"
+                        ? updater(item)
+                        : { ...item, ...updater };
+                }),
+            })),
+
+        removeItem: (predicate) =>
+            set((s) => ({ data: s.data.filter((item) => !predicate(item)) })),
+
+        // ── Selection ─────────────────────────────────────────────────────────
+
+        setSelectedItem: (item) => set({ selectedItem: item }),
+
+        setSelectedItems: (items) => set({ selectedItems: items }),
+
+        toggleSelectItem: (item, key) =>
+            set((s) => {
+                const exists = s.selectedItems.some((i) => i[key] === item[key]);
+                return {
+                    selectedItems: exists
+                        ? s.selectedItems.filter((i) => i[key] !== item[key])
+                        : [...s.selectedItems, item],
+                };
+            }),
+
+        clearSelection: () => set({ selectedItem: null, selectedItems: [] }),
+
+        // ── Loading ───────────────────────────────────────────────────────────
+
+        setLoading: (value) => set({ loading: value }),
+        setLoadingMore: (value) => set({ loadingMore: value }),
+        setSubmitting: (value) => set({ submitting: value }),
+        setDeleting: (value) => set({ deleting: value }),
+
+        // ── Pagination ────────────────────────────────────────────────────────
+
+        setPagination: (value) => set({ pagination: value }),
+
+        setPage: (page) =>
+            set((s) => ({ pagination: { ...s.pagination, page } })),
+
+        setPageSize: (size) =>
+            set((s) => ({ pagination: { ...s.pagination, pageSize: size, page: 1 } })),
+
+        // ── Search & Filter ───────────────────────────────────────────────────
+
+        setSearchQuery: (query) =>
+            set((s) => ({ searchQuery: query, pagination: { ...s.pagination, page: 1 } })),
+
+        setFilters: (filters) =>
+            set((s) => ({ filters, pagination: { ...s.pagination, page: 1 } })),
+
+        mergeFilters: (partial) =>
+            set((s) => ({
+                filters: { ...s.filters, ...partial },
+                pagination: { ...s.pagination, page: 1 },
+            })),
+
+        clearFilters: () =>
+            set((s) => ({
+                filters: {},
+                searchQuery: "",
+                sort: null,
+                pagination: { ...s.pagination, page: 1 },
+            })),
+
+        setSort: (sort) => set({ sort }),
+
+        // ── UI State ──────────────────────────────────────────────────────────
+
+        openDrawer: (mode, item = null) =>
+            set({ isDrawerOpen: true, drawerMode: mode, selectedItem: item }),
+
+        closeDrawer: () =>
+            set({ isDrawerOpen: false, selectedItem: null }),
+
+        openModal: (item = null) =>
+            set({ isModalOpen: true, selectedItem: item }),
+
+        closeModal: () =>
+            set({ isModalOpen: false, selectedItem: null }),
+
+        openDeleteModal: (item = null) =>
+            set({ isDeleteModalOpen: true, selectedItem: item }),
+
+        closeDeleteModal: () =>
+            set({ isDeleteModalOpen: false, selectedItem: null }),
+
+        // ── Error ─────────────────────────────────────────────────────────────
+
+        setError: (error) => set({ error }),
+
+        // ── Reset ─────────────────────────────────────────────────────────────
+
+        reset: () => set(initialState),
+
+        resetFilters: () =>
+            set((s) => ({
+                searchQuery: "",
+                filters: {},
+                sort: null,
+                pagination: { ...s.pagination, page: 1 },
+            })),
+
+        resetUI: () =>
+            set({
+                isDrawerOpen: false,
+                isModalOpen: false,
+                isDeleteModalOpen: false,
+                drawerMode: "create",
+                selectedItem: null,
+                selectedItems: [],
+                error: null,
+            }),
+    }));
+}

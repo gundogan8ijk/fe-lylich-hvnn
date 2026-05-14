@@ -1,27 +1,27 @@
+// department.store.ts
 import { create } from "zustand";
-import { Departments } from "@/types/department-type";
-import { defaultPagination, Pagination } from "@/types/result-typeConfig";
+import { Departments, DepartmentSortField, NoFilter } from "@/types/department-type";
+import { createQuerySlice, QuerySlice } from "./base-list/query-module";
+import { BaseSlice, createBaseSlice } from "./base-list/base-module";
+import { createPagedSlice, PagedSlice } from "./base-list/paged-module";
 
-interface DepartmentStore {
-    loading: boolean;
-    departmentAll: Departments[];
-    pagination: Pagination;
 
-    setLoading: (value: boolean) => void;
-    setDepartmentAll: (value: Departments[]) => void;
-    setPagination: (value: Pagination) => void;
+type DepartmentExtra = {
+    activeTab: string;
+
 };
 
-const storeDepartment = create<DepartmentStore>((set) => ({
-    loading: false,
-    departmentAll: [],
-    pagination: defaultPagination,
+export type DepartmentStore =
+    BaseSlice<Departments> & PagedSlice & QuerySlice<NoFilter, DepartmentSortField> &
+    DepartmentExtra;
 
-    setLoading: (value) => set({ loading: value }),
+export const storeDepartment = create<DepartmentStore>()(
+    (set, get, api) => ({
+        ...createBaseSlice<Departments>()(set, get, api),
+        ...createPagedSlice()(set, get, api),
+        ...createQuerySlice<NoFilter, DepartmentSortField>()(set, get, api),
 
-    setDepartmentAll: (value) => set({ departmentAll: value }),
+        activeTab: "all",
 
-    setPagination: (value) => set({ pagination: value }),
-}));
-
-export default storeDepartment;
+    })
+);

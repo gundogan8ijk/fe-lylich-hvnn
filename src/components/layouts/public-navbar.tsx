@@ -12,7 +12,7 @@ import backgroundImage from '#/images/backgroundImage.jpg';
 const navItems = [
     { label: 'Trang chủ', href: '/' },
     { label: 'Sản phẩm', href: '/products' },
-    { label: 'khoa', href: '/department' },
+    { label: 'Khoa', href: '/department' },
     { label: 'Blog', href: '/blog' },
     { label: 'Liên hệ', href: '/contact' },
 ];

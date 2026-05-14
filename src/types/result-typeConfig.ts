@@ -1,3 +1,5 @@
+import { Pagination } from "./pagination-typeConfig";
+
 export type ResponseCode = 1 | -1;
 
 export type ApiSuccess<T> = {
@@ -16,16 +18,10 @@ export type ApiError = {
 
 export type ApiResponse<T> = ApiSuccess<T> | ApiError;
 
-export type Pagination = {
-    page: number;
-    perPage: number;
-    totalCount: number;
-    totalPages: number;
+
+export type QueryResult<TData> = {
+    data: TData[];
+    meta: Pagination;
 };
 
-export const defaultPagination: Pagination = {
-    page: 1,
-    perPage: 10,
-    totalCount: 0,
-    totalPages: 1,
-};
+export type QueryResponse<T> = QueryResult<T> | ApiError;

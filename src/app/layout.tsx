@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 // Import các font mới từ next/font/google
 import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import NotifyProvider from "@/components/utils/Notify";
 
 const sansFont = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({
     >
       <body suppressHydrationWarning className="min-h-full flex flex-col font-sans">
         {children}
+        <NotifyProvider />
       </body>
     </html>
   );

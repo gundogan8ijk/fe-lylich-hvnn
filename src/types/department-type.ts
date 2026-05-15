@@ -22,6 +22,15 @@ export const DepartmentSearchFieldOptions: SearchOption<SearchType>[] = [
     { value: "code", label: "Mã" },
 ];
 
+
+export const DepartmentSearchOptions = [
+    { value: "name", label: "Tên" },
+    { value: "code", label: "Mã" },
+] as const;
+
+export type DepartmentSearchField =
+    typeof DepartmentSearchOptions[number]['value'];
+
 export const DepartmentSortOptions = [
     {
         label: 'Thành viên',
@@ -36,11 +45,6 @@ export const DepartmentSortOptions = [
 
 export type DepartmentSortField =
     typeof DepartmentSortOptions[number]['value'];
-
-export type NoFilter = Record<string, never>;
-
-
-
 
 
 

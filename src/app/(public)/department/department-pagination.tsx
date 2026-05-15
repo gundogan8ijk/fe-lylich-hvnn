@@ -1,11 +1,11 @@
 "use client";
 
-import PaginationButton from "@/components/query/paginationButton";
+import PaginationButtonStore from "@/components/query/paginationButton-dynamic";
 import { storeDepartment } from "@/stores/department-store";
 
 export default function DepartmentPagination() {
 
     return (
-        <PaginationButton store={storeDepartment} />
+        <PaginationButtonStore store={storeDepartment} />
     );
 }

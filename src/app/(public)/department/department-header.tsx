@@ -1,32 +1,27 @@
 'use client';
 
-import { useState } from 'react';
-import { Input } from '@/components/ui/input';
-
-import {Search, Filter } from 'lucide-react';
-import {  DepartmentSearchFieldOptions, DepartmentSortOptions, SearchType } from '@/types/department-type';
-import { SortButton } from '@/components/query/sortButton-Props';
+import { Filter } from 'lucide-react';
+import { DepartmentSortOptions, SearchType } from '@/types/department-type';
 import { storeDepartment } from '@/stores/department-store';
-import { SearchSelect } from '@/components/query/search-Selection';
-
-
+import { SearchBoxDynamic } from '@/components/query/search-Box-dynamic';
+import { SortButtonDynamic } from '@/components/query/sortButton-dynamic';
+import { SearchSelectDynamic } from '@/components/query/SearchSelect-dynamic';
+import React from 'react';
+import { getDepartmentsListAction } from '@/hooks/department-hook';
 
 interface DepartmentHeaderProps {
     onSearch?: (value: string, type: SearchType) => void;
 }
 
-export default function DepartmentHeader({
-    onSearch,
-}: DepartmentHeaderProps) {
-    const [searchValue, setSearchValue] = useState('');
-    const [searchType, setSearchType] = useState<SearchType>('name');
+export default function DepartmentHeader(
+    onSearch: DepartmentHeaderProps) {
+    const page = storeDepartment((s)=>s.query.page)
 
-    const handleSearchChange = (value: string) => {
-        setSearchValue(value);
-        onSearch?.(value, searchType);
-    };
+    const field = storeDepartment((s) => s.field)
 
-
+    React.useEffect(() => {
+        getDepartmentsListAction(page);
+    }, [page]);
 
     return (
         <div className="mb-12 space-y-8">
@@ -35,7 +30,6 @@ export default function DepartmentHeader({
                 <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                     Danh sách khoa đào tạo
                 </h1>
-
             </div>
 
             {/* Glassmorphism Control Bar */}
@@ -43,22 +37,12 @@ export default function DepartmentHeader({
 
                 {/* Search Section */}
                 <div className="flex flex-1 items-center gap-3">
-                    <div className="relative flex-1 group">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
-                        <Input
-                            placeholder={searchType === 'name' ? 'Tìm tên khoa...' : 'Nhập mã khoa...'}
-                            value={searchValue}
-                            onChange={(e) => handleSearchChange(e.target.value)}
-                            className="pl-10 h-11 bg-background/50 border-muted-foreground/20 focus-visible:ring-primary/30 rounded-xl transition-all"
-                        />
-                    </div>
 
-                    {/* <Select value={searchType} onValueChange={(v: SearchType) => setSearchType(v)}> */}
-                        <SearchSelect
-                        value={searchType}
-                        onChange={setSearchType}
-                        options={DepartmentSearchFieldOptions}
-                    />
+
+                    <SearchBoxDynamic store={storeDepartment} showButton={false} placeholder={field === 'name' ? 'Tìm tên khoa...' : 'Nhập mã khoa...'} />
+
+                    <SearchSelectDynamic
+                        useStore={storeDepartment} />
                 </div>
 
                 {/* Separator for Desktop */}
@@ -72,7 +56,7 @@ export default function DepartmentHeader({
 
                     <div className="flex gap-2">
                         {DepartmentSortOptions.map((item) => (
-                            <SortButton
+                            <SortButtonDynamic
                                 key={item.value}
                                 field={item.value}
                                 label={item.label}

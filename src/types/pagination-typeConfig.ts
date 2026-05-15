@@ -25,6 +25,18 @@ export type PaginationMeta = Pagination & {
     hasNext: boolean;
     hasPrev: boolean;
 };
+
+
+export type PaginationCount = {
+    totalCount: number;
+    totalPages: number;
+};
+
+const defaultPaginationCount: PaginationCount = {
+    totalCount: 0,
+    totalPages: 1,
+};
+
  
 export function buildPaginationMeta(p: Pagination): PaginationMeta {
     return {

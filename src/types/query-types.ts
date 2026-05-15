@@ -27,3 +27,6 @@ export type SearchOption<T extends string> = {
     label: string;
     value: T;
 };
+
+export type NoFilter = Record<string, never>;
+export type NoSort = never;

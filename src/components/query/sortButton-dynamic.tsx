@@ -1,8 +1,8 @@
-import { QuerySlice } from "@/stores/base-list/query-module";
 import { UseBoundStore, StoreApi } from "zustand";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ArrowUp, ArrowDown } from "lucide-react";
+import { QuerySlice } from "@/stores/base-list/query-module";
 
 type QueryStore<TFilter, TSortField extends string> =
     UseBoundStore<StoreApi<QuerySlice<TFilter, TSortField>>>;
@@ -24,7 +24,7 @@ type SortButtonProps<
     onClick?: (field: TSortField, sort?: SortState<TSortField>) => void;
 };
 
-export function SortButton<TFilter, TSortField extends string>({
+export function SortButtonDynamic<TFilter, TSortField extends string>({
     field,
     label,
     store,

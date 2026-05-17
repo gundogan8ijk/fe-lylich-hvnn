@@ -3,13 +3,14 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import { QuerySlice } from "@/stores/base-list/query-module";
+import { SortDirection } from "@/types/query-types";
 
 type QueryStore<TFilter, TSortField extends string> =
     UseBoundStore<StoreApi<QuerySlice<TFilter, TSortField>>>;
 
 type SortState<TSortField extends string> = {
     field: TSortField;
-    direction: "asc" | "desc";
+    direction: SortDirection;
 } | null;
 
 type SortButtonProps<

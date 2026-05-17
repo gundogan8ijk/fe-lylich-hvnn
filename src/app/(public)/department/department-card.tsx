@@ -24,7 +24,7 @@ export default function DepartmentCard({ department }: { department: Departments
                         <Image
                             src={department.avatarUrl}
                             alt={department.name}
-                            fill // Ảnh sẽ lấp đầy thẻ div h-40 ở trên
+                            fill loading="eager"
                             unoptimized
                             className="object-cover"
                         />
@@ -64,7 +64,7 @@ export default function DepartmentCard({ department }: { department: Departments
                         <div className="p-1.5 rounded-md bg-orange-50 group-hover:bg-orange-100 transition-colors">
                             <Users className="w-4 h-4 text-orange-600" />
                         </div>
-                        <span className="font-medium">{department.members} thành viên</span>
+                        <span className="font-medium">{department.members} giảng viên</span>
                     </div>
                 </div>
 

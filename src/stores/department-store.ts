@@ -1,27 +1,34 @@
 // department.store.ts
 import { create } from "zustand";
-import { Departments, DepartmentSearchFieldOptions, DepartmentSortField, SearchType } from "@/types/department-type";
+import { Departments, DepartmentSearchField, DepartmentSearchOptions, DepartmentSortField } from "@/types/department-type";
 import { createQuerySlice, QuerySlice } from "./base-list/query-module";
 import { BaseSlice, createBaseSlice } from "./base-list/base-module";
-import { createSearchFieldSlice, SearchFieldSlice } from "./base-list/searchOption-module";
 import { NoFilter } from "@/types/query-types";
 
 
 type DepartmentExtra = {
-    activeTab: string;
-
+    searchField: DepartmentSearchField;
+    setSearchField: (field: DepartmentSearchField) => void;
 };
 
-export type DepartmentStore = BaseSlice<Departments> &  QuerySlice<NoFilter, DepartmentSortField> &
-    SearchFieldSlice<SearchType> & DepartmentExtra;
+export type DepartmentStore = BaseSlice<Departments> & QuerySlice<NoFilter, DepartmentSortField> & DepartmentExtra;
 
 export const storeDepartment = create<DepartmentStore>()(
     (set, get, api) => ({
         ...createBaseSlice<Departments>()(set, get, api),
         ...createQuerySlice<NoFilter, DepartmentSortField>()(set, get, api),
-        ...createSearchFieldSlice<SearchType>(DepartmentSearchFieldOptions, DepartmentSearchFieldOptions[0].value)(set, get, api),
 
-        activeTab: "all",
+        searchField: DepartmentSearchOptions[0].value,
+
+
+        setSearchField: (field) =>
+            set((state) => ({
+                searchField: field,
+                query: {
+                    ...state.query,
+                    search: ""
+                }
+            })),
 
     })
 );

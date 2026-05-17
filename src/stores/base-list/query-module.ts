@@ -1,12 +1,13 @@
 import { StateCreator } from "zustand";
 import { ListQuery, FieldFilters, SortOption } from "@/types/query-types";
-import { Pagination } from "@/types/pagination-typeConfig";
+import { defaultPagination, Pagination } from "@/types/pagination-typeConfig";
 
 export type QuerySlice<TFilter, TSortField extends string> = {
     query: ListQuery<TFilter, TSortField>;
     loadingMore: boolean;
     totalCount: number;
     totalPages: number;
+    isSearch:boolean;
 
     setQuery: (q: Partial<ListQuery<TFilter, TSortField>>) => void;
 
@@ -32,7 +33,7 @@ export type QuerySlice<TFilter, TSortField extends string> = {
 };
 
 const defaultQuery = <TFilter, TSortField extends string>(
-    page = 1, perPage = 10
+    page = defaultPagination.page, perPage = defaultPagination.perPage
 ): ListQuery<TFilter, TSortField> => ({
     search: "",
     filters: undefined,
@@ -48,23 +49,24 @@ export const createQuerySlice =
         (set, get) => ({
             query: defaultQuery<TFilter, TSortField>(page, initialPerPage),
             loadingMore: false,
-            totalCount: 0,
-            totalPages: 1,
+            totalCount: defaultPagination.totalCount,
+            totalPages: defaultPagination.totalPages,
+            isSearch:false,
 
             setQuery: (q) =>
                 set((s) => ({
                     query: {
                         ...s.query,
                         ...q,
-                        page: q.page ?? 1,
+                        page: q.page ?? defaultPagination.page,
                     },
                 })),
 
             setSearch: (search) =>
-                set((s) => ({ query: { ...s.query, search, page: 1 }, })),
+                set((s) => ({ query: { ...s.query, search, page: defaultPagination.page }, isSearch: !s.isSearch,})),
 
             setFilters: (filters) =>
-                set((s) => ({ query: { ...s.query, filters, page: 1 }, })),
+                set((s) => ({ query: { ...s.query, filters, page:  defaultPagination.page }, })),
 
             mergeFilters: (partial) =>
                 set((s) => ({
@@ -110,6 +112,7 @@ export const createQuerySlice =
                         query: {
                             ...state.query,
                             sort: nextSort,
+                            page: 1,
                         },
                     };
                 }),

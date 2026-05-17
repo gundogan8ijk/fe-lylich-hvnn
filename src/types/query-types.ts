@@ -23,7 +23,7 @@ export type ListQuery<TFilter, TSortField extends string> = {
     perPage: number;
 };
 
-export type SearchOption<T extends string> = {
+export type SelectionOption<T extends string> = {
     label: string;
     value: T;
 };

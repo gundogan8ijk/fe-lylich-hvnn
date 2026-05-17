@@ -1,5 +1,5 @@
 import { Pagination } from "./pagination-typeConfig";
-import { SearchOption } from "./query-types";
+import { SelectionOption } from "./query-types";
 
 export type Departments = {
     id: string;
@@ -15,18 +15,11 @@ export type DepartmentList = {
     pagination: Pagination;
 };
 
-export type SearchType = 'name' | 'code';
-
-export const DepartmentSearchFieldOptions: SearchOption<SearchType>[] = [
-    { value: "name", label: "Tên" },
-    { value: "code", label: "Mã" },
-];
-
 
 export const DepartmentSearchOptions = [
     { value: "name", label: "Tên" },
     { value: "code", label: "Mã" },
-] as const;
+] as const satisfies readonly SelectionOption<"name" | "code">[];
 
 export type DepartmentSearchField =
     typeof DepartmentSearchOptions[number]['value'];
@@ -38,7 +31,7 @@ export const DepartmentSortOptions = [
     },
 
     {
-        label: 'Bộ môn',
+        label: 'bộ môn',
         value: 'disciplines',
     },
 ] as const;

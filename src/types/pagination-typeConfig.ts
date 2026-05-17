@@ -5,19 +5,11 @@ export type Pagination = {
     totalPages: number;
 };
 
-
 export const defaultPagination: Pagination = {
     page: 1,
     perPage: 10,
     totalCount: 0,
     totalPages: 1,
-};
-
-
-/** Phân trang */
-export type PaginationOptions = {
-    page: number;       // bắt đầu từ 1
-    pageSize: number;   // số item mỗi trang
 };
 
 /** Pagination đã tính sẵn hasNext/hasPrev cho UI */
@@ -26,18 +18,6 @@ export type PaginationMeta = Pagination & {
     hasPrev: boolean;
 };
 
-
-export type PaginationCount = {
-    totalCount: number;
-    totalPages: number;
-};
-
-const defaultPaginationCount: PaginationCount = {
-    totalCount: 0,
-    totalPages: 1,
-};
-
- 
 export function buildPaginationMeta(p: Pagination): PaginationMeta {
     return {
         ...p,
@@ -45,3 +25,20 @@ export function buildPaginationMeta(p: Pagination): PaginationMeta {
         hasPrev: p.page > 1,
     };
 }
+
+
+// export type PaginationCount = {
+//     totalCount: number;
+//     totalPages: number;
+// };
+
+// const defaultPaginationCount: PaginationCount = {
+//     totalCount: 0,
+//     totalPages: 1,
+// };
+
+// /** Phân trang */
+// export type PaginationOptions = {
+//     page: number;      
+//     pageSize: number;   
+// };

@@ -5,25 +5,22 @@ import {
     SelectContent,
     SelectItem,
 } from "@/components/ui/select";
-import { SearchFieldSlice } from "@/stores/base-list/searchOption-module";
-import { StoreApi, UseBoundStore } from "zustand";
+import { SelectionOption } from "@/types/query-types";
 
-type SearchSelectProps<T extends string> = {
-    useStore: UseBoundStore<StoreApi<SearchFieldSlice<T>>>;
+
+type Props<T extends string> = {
+    value: T;
+    onChange: (value: T) => void;
+    options: SelectionOption<T>[] | readonly SelectionOption<T>[];
 };
 
-export function SearchSelectDynamic<T extends string>({ useStore }: SearchSelectProps<T>) {
-    // 1. Lấy dữ liệu từ store được truyền vào thông qua props
-    const field = useStore((state) => state.field);
-    const setField = useStore((state) => state.setField);
-    const options = useStore((state) => state.options);
-
+export function SearchSelectProps<T extends string>({
+    value,
+    onChange,
+    options,
+}: Props<T>) {
     return (
-        <Select 
-            value={field} 
-            // 2. Ép kiểu v về T vì Radix Select trả về string
-            onValueChange={(v) => setField(v as T)}
-        >
+        <Select value={value} onValueChange={(v: T) => onChange(v)}>
             <SelectTrigger className="w-auto px-3 h-9 rounded-lg bg-muted/50 border border-border/60 hover:bg-muted hover:border-border/80 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:border-ring">
                 <SelectValue placeholder="Filter..." />
             </SelectTrigger>

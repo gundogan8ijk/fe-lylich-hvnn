@@ -71,7 +71,8 @@ export function PublicNavbar() {
                     <div className="mx-auto max-w-7xl px-6 py-3 flex items-center justify-between gap-6">
                         <div className="flex items-center gap-8">
                             {navItems.map((item) => {
-                                const isActive = pathname === item.href;
+                                // const isActive = pathname === item.href;
+                                const isActive = pathname.includes(item.href);
 
                                 return (
                                     <Link

@@ -6,10 +6,14 @@ import Image from 'next/image'
 import { Departments } from '@/types/department-type'
 import { Button } from '@/components/ui/button'
 import { GraduationCap, Users, ArrowRight } from 'lucide-react'
+import { useRouter } from "next/navigation";
+
 
 export default function DepartmentCard({ department }: { department: Departments }) {
     const getInitials = (name: string) =>
         name.split(' ').map((w) => w[0]).join('').toUpperCase().slice(0, 2)
+    const router = useRouter();
+
 
     return (
         <Card className="pt-0 group relative overflow-hidden bg-card border-muted hover:border-primary/50 hover:shadow-xl transition-all duration-500">
@@ -69,7 +73,8 @@ export default function DepartmentCard({ department }: { department: Departments
                 </div>
 
                 {/* BUTTON SECTION */}
-                <Button className="w-full mt-2 group/btn relative overflow-hidden transition-all hover:pr-8">
+                <Button className="w-full mt-2 group/btn relative overflow-hidden transition-all hover:pr-8"
+                    onClick={() => router.push(`/department/${department.id}`)}>
                     <span>Xem chi tiết</span>
                     <ArrowRight className="w-4 h-4 absolute right-4 opacity-0 -translate-x-2 transition-all group-hover/btn:opacity-100 group-hover/btn:translate-x-0" />
                 </Button>

@@ -1,6 +1,22 @@
 import { Pagination } from "./pagination-typeConfig";
 import { SelectionOption } from "./query-types";
 
+export interface DepartmentDetail {
+    id: string
+    code: string
+    name: string
+    describe: string
+    officeLocation: string
+    createdAt: string
+    membersAmount: number
+    disciplineAmount: number
+    deanId?: string | null
+    deanName?: string | null
+    viceDeanId?: string | null
+    viceDeanName?: string | null
+    avatarUrl?: string | null
+}
+
 export type Departments = {
     id: string;
     code: string;
@@ -14,7 +30,6 @@ export type DepartmentList = {
     items: Departments[];
     pagination: Pagination;
 };
-
 
 export const DepartmentSearchOptions = [
     { value: "name", label: "Tên" },
@@ -40,6 +55,16 @@ export type DepartmentSortField =
     typeof DepartmentSortOptions[number]['value'];
 
 
+export type Disciplines = {
+    id: string;
+    Name: string;
+}
+
+
+export type DisciplineList = {
+    items: Disciplines[];
+    pagination: Pagination;
+};
 
 // React.useEffect(() => {
 //         const fetchDepartments = async () => {

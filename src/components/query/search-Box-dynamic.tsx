@@ -47,9 +47,6 @@ export function SearchBoxDynamic<TFilter, TSortField extends string>({
     );
 }
 
-
-
-
 export function SearchBoxStatic<TFilter, TSortField extends string>({
     store,
     placeholder,

@@ -1,22 +1,26 @@
-import { getDepartmentsListApi } from "@/services/department-service";
-import {notify} from '@/components/utils/Notify'
+import { getByIdDepartmentsApi, getDepartmentsListApi } from "@/services/department-service";
+import { notify } from '@/components/utils/Notify'
 import { defaultPagination } from "@/types/pagination-typeConfig";
 import { storeDepartment } from "@/stores/department-store";
 import { toSearchParams } from "@/lib/query-options-toUrl-helper";
+import { Pompiere } from "next/font/google";
+import { DepartmentDetail } from "@/types/department-type";
 
 
-export async function getDepartmentsListAction() {
+export { getDepartmentsListAction, getDepartmentsDetailAction }
 
-    const { setLoading, setPagination,setData, query,searchField } = storeDepartment.getState();
+async function getDepartmentsListAction() {
+
+    const { setLoading, setPagination, setData, query, searchField } = storeDepartment.getState();
     setLoading(true);
 
-    const url=toSearchParams(query,searchField);
+    const url = toSearchParams(query, searchField);
 
     const res = await getDepartmentsListApi(url);
-    if (res.code === -1) { 
+    if (res.code === -1) {
         notify.error(res.message);
 
-        setLoading(false); 
+        setLoading(false);
     }
 
     if (res.data !== null) {
@@ -26,4 +30,13 @@ export async function getDepartmentsListAction() {
 
     setLoading(false);
 
+}
+
+async function getDepartmentsDetailAction(id: string): Promise<DepartmentDetail | null> {
+
+    const res = await getByIdDepartmentsApi(id);
+
+    if (res.code === -1) return null;
+
+    return res.data;
 }

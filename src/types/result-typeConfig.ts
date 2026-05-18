@@ -15,13 +15,13 @@ export type ApiError = {
     data: null;
 };
 
-
 export type ApiResponse<T> = ApiSuccess<T> | ApiError;
 
+// export type QueryResult<TData> = {
+//     code: 1;
+//     message: string;
+//     data: TData[];
+//     meta: Pagination;
+// };
 
-export type QueryResult<TData> = {
-    data: TData[];
-    meta: Pagination;
-};
-
-export type QueryResponse<T> = QueryResult<T> | ApiError;
+// export type QueryResponse<T> = QueryResult<T> | ApiError;

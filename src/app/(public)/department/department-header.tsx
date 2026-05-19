@@ -23,7 +23,7 @@ export default function DepartmentHeader() {
     return (
         <div className="mb-12 space-y-8">
             <div className="relative">
-                <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                <h1 className="text-3xl pb-1 md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                     Danh sách khoa đào tạo
                 </h1>
             </div>

@@ -1,13 +1,12 @@
-import { getByIdDepartmentsApi, getDepartmentsListApi } from "@/services/department-service";
+import { getByIdDepartmentsApi, getDepartmentsListApi, getListDisciplineApi, getListMemberApi } from "@/services/department-service";
 import { notify } from '@/components/utils/Notify'
 import { defaultPagination } from "@/types/pagination-typeConfig";
 import { storeDepartment } from "@/stores/department-store";
 import { toSearchParams } from "@/lib/query-options-toUrl-helper";
-import { Pompiere } from "next/font/google";
-import { DepartmentDetail } from "@/types/department-type";
+import { DepartmentDetail, DisciplineList, MemberList } from "@/types/department-type";
 
 
-export { getDepartmentsListAction, getDepartmentsDetailAction }
+export { getDepartmentsListAction, getDepartmentsDetailAction, getListDisciplineAction ,getListMemberAction}
 
 async function getDepartmentsListAction() {
 
@@ -35,6 +34,24 @@ async function getDepartmentsListAction() {
 async function getDepartmentsDetailAction(id: string): Promise<DepartmentDetail | null> {
 
     const res = await getByIdDepartmentsApi(id);
+
+    if (res.code === -1) return null;
+
+    return res.data;
+}
+
+async function getListDisciplineAction(id: string, param: URLSearchParams): Promise<DisciplineList | null> {
+
+    const res = await getListDisciplineApi(id, param);
+
+    if (res.code === -1) return null;
+
+    return res.data;
+}
+
+async function getListMemberAction(id: string, param: URLSearchParams): Promise<MemberList| null> {
+
+    const res = await getListMemberApi(id, param);
 
     if (res.code === -1) return null;
 

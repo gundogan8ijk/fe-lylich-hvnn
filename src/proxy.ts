@@ -62,6 +62,7 @@ export async function proxy(req: NextRequest) {
     }
 
     let roles: Role[] = accessToken ? await getRolesFromToken(accessToken) : [];
+    
 
     if (roles.length === 0 && refreshToken) {
         const refreshed = await refreshAccessTokenAction(refreshToken);
@@ -75,6 +76,7 @@ export async function proxy(req: NextRequest) {
     }
 
     const route = PROTECTED_ROUTES.find((p) => pathname.startsWith(p.prefix));
+
     if (route && !hasAnyRequiredRole(roles, route.roles)) {
         return NextResponse.redirect(
             new URL(ROLE_HOME[getDefaultFirstRole(roles)], req.url),

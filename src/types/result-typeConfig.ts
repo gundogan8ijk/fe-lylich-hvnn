@@ -1,5 +1,3 @@
-import { Pagination } from "./pagination-typeConfig";
-
 export type ResponseCode = 1 | -1;
 
 export type ApiSuccess<T> = {

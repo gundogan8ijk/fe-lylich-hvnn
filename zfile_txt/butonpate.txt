@@ -1,0 +1,69 @@
+      {getPages(currentPage, paged.totalPages).map((page, idx) => (
+                        page === '...'
+                            ? (
+                                <span key={`dots-${idx}`} className="px-2">
+                                    ...
+                                </span>
+                            )
+                            : (
+                                <button
+                                    key={`page-${page}`}
+                                    onClick={() => setCurrentPage(page as number)}
+                                    className={`w-8 h-8 rounded ${currentPage === page ? 'bg-black text-white' : 'border'
+                                        }`}
+                                >
+                                    {page}
+                                </button>
+                            )
+                    ))}
+
+
+                        <div className="flex gap-1">
+                        {Array.from({ length: paged.totalPages }, (_, i) => i + 1).map(page => (
+                            <button
+                                key={page}
+                                onClick={() => setCurrentPage(page)}
+                                className={`w-8 h-8 rounded ${currentPage === page
+                                    ? 'bg-black text-white'
+                                    : 'border'
+                                    }`}
+                            >
+                                {page}
+                            </button>
+                        ))}
+                    </div>
+
+
+                        const handlerChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setSearchQuery(value);
+        if (value === '') handleSearch()
+    };
+
+
+private void AddLinkHeader(int page, int perPage, int totalPages, string? search = null)
+{
+  var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.Path}";
+
+  string Link(string rel, int p)
+  {
+    var qs = $"page={p}&per_page={perPage}";
+    if (!string.IsNullOrWhiteSpace(search))
+      qs += $"&search={Uri.EscapeDataString(search)}";
+    return $"<{baseUrl}?{qs}>; rel=\"{rel}\"";
+  }
+
+  var parts = new List<string>();
+  if (page > 1)
+  {
+    parts.Add(Link("first", 1));
+    parts.Add(Link("prev", page - 1));
+  }
+  if (page < totalPages)
+  {
+    parts.Add(Link("next", page + 1));
+    parts.Add(Link("last", totalPages));
+  }
+
+  if (parts.Count > 0)
+    HttpContext.Response.Headers.Link = string.Join(", ", parts);

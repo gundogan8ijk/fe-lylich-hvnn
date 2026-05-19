@@ -40,7 +40,7 @@ export function DepartmentDetailClient({ id }: { id: string }) {
     const createdYear = new Date(createdAt).getFullYear()
 
     return (
-        <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8 px-4">
+        <main className="bg-gradient-to-br from-slate-50 to-slate-100 py-9 px-4">
             <div className="max-w-4xl mx-auto">
                 {/* Header Section */}
                 <div className="mb-8">
@@ -60,8 +60,7 @@ export function DepartmentDetailClient({ id }: { id: string }) {
                                         src={avatarUrl}
                                         alt={`Avatar của khoa ${name}`}
                                         fill   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                        className="object-cover"
-                                        priority
+                                        className="object-cover" loading="eager"
                                     />
                                 </div>
                             ) : <ImageUndefine></ImageUndefine>}

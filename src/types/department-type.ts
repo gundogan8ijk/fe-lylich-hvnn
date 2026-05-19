@@ -57,12 +57,28 @@ export type DepartmentSortField =
 
 export type Disciplines = {
     id: string;
-    Name: string;
+    name: string;
 }
 
 
 export type DisciplineList = {
     items: Disciplines[];
+    pagination: Pagination;
+};
+
+export type Members = {
+    id: string;
+    fullName: string;
+    lecturerCode: string;
+    position: string;
+    disciplineName: string;
+    joinedAt: Date;
+    avatarUrl: string;
+}
+
+
+export type MemberList = {
+    items: Members[];
     pagination: Pagination;
 };
 

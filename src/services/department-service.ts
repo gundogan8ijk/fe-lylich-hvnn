@@ -1,10 +1,10 @@
 import { ApiResponse } from "@/types/result-typeConfig";
 import { api } from "./axios-service-config";
-import { DepartmentDetail, DepartmentList, DisciplineList, Disciplines } from "@/types/department-type";
+import { DepartmentDetail, DepartmentList, DisciplineList, MemberList } from "@/types/department-type";
 import { success, fail } from "@/lib/response-helper";
 import axios from "axios";
 
-export { getDepartmentsListApi, getByIdDepartmentsApi,getListDisciplineApi }
+export { getDepartmentsListApi, getByIdDepartmentsApi, getListDisciplineApi ,getListMemberApi}
 
 const departmentListUrl = "/Departments";
 
@@ -45,10 +45,27 @@ const getByIdDepartmentsApi = async (id: string): Promise<ApiResponse<Department
     }
 };
 
-const getListDisciplineApi = async (id: string): Promise<ApiResponse<DisciplineList>> => {
+const getListDisciplineApi = async (id: string, param: URLSearchParams): Promise<ApiResponse<DisciplineList>> => {
     try {
         const ListDisciplineUrl = `/Departments/${id}/disciplines`;
-        const response = await api.get(ListDisciplineUrl);
+        const response = await api.get(ListDisciplineUrl, { params: param });
+
+        return success(response.data);
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const data = error.response?.data;
+            return fail(data?.message || data?.detail || "Không thể kết nối đến server",);
+        }
+
+        return fail();
+    }
+};
+
+
+const getListMemberApi = async (id: string, param: URLSearchParams): Promise<ApiResponse<MemberList>> => {
+    try {
+        const ListMemberUrl = `/Departments/${id}/members`;
+        const response = await api.get(ListMemberUrl, { params: param });
 
         return success(response.data);
     } catch (error) {

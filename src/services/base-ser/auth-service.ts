@@ -2,17 +2,18 @@ import { ApiResponse } from "@/types/base-type/result-typeConfig";
 import { fail, success } from "@/lib/response-helper";
 import axios from "axios";
 import { api } from "./axios-service-config";
+import { TimeToken } from "@/types/base-type/auth-type";
 
 const loginUrl = "/authentication/login/";
 const refreshTokenUrl = "/authentication/refresh";
 
 export { loginApi, refreshTokenApi };
 
-const loginApi = async (email: string, password: string): Promise<ApiResponse<null>> => {
+const loginApi = async (email: string, password: string): Promise<ApiResponse<TimeToken>> => {
     try {
-        await api.post(loginUrl, { email, password, })
+        const res = await api.post(loginUrl, { email, password, })
 
-        return success(null);
+        return success(res.data);
     } catch (err) {
         console.log(err);
         if (axios.isAxiosError(err)) {
@@ -27,11 +28,11 @@ const loginApi = async (email: string, password: string): Promise<ApiResponse<nu
     }
 }
 
-const refreshTokenApi = async (): Promise<ApiResponse<null>> => {
+const refreshTokenApi = async (): Promise<ApiResponse<TimeToken>> => {
     try {
-        await api.post(refreshTokenUrl);
+        const res = await api.post(refreshTokenUrl);
 
-        return success(null);
+        return success(res.data);
     } catch (err) {
         if (axios.isAxiosError(err)) {
             const data = err.response?.data;

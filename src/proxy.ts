@@ -1,73 +1,33 @@
-import { NextRequest, NextResponse } from "next/server";
-import { PROTECTED_ROUTES, ROLE_HOME } from "./constants/route-contant";
-import { getDefaultFirstRole, getRolesFromTokenSync, hasAnyRequiredRole } from "./lib/auth-helper";
-import { Role } from "./types/base-type/auth-type";
+import { NextRequest, NextResponse } from 'next/server'
+import { verifyToken } from './lib/auth-helper';
+
+// 1. Specify protected and public routes
+const PROTECTED_PREFIXES = ['/dashboard', '/admin', '/lecturer', '/manager']
+const AUTH_ROUTES = ['/login']
 
 const ACCESS_TOKEN_COOKIE_NAME = process.env.NEXT_PUBLIC_NAME_ACCESS_TOKEN ?? "";
 
-export async function proxy(req: NextRequest) {
-    const { pathname } = req.nextUrl;
-    const accessToken = req.cookies.get(ACCESS_TOKEN_COOKIE_NAME)?.value;
+export default async function proxy(req: NextRequest) {
+    const path = req.nextUrl.pathname
+    //các role
+    const isProtectedRoute = PROTECTED_PREFIXES.some(r => path.startsWith(r))
+    const isAuthRoute = AUTH_ROUTES.includes(path)
 
-    const roles: Role[] = accessToken ? getRolesFromTokenSync(accessToken) : [];
+    //lấy token sau đó xác thực
+    const accessToken = req.cookies.get(ACCESS_TOKEN_COOKIE_NAME)?.value ?? "";
+    const isAuthenticated = await verifyToken(accessToken)
 
-    // ── /auth/redirect: sau login hoặc refresh thành công client-side ────────
-    if (pathname === "/auth/redirect") {
-        if (roles.length === 0) {
-            return NextResponse.redirect(new URL("/login", req.url));
-        }
+    if (isProtectedRoute && !isAuthenticated)
+        return NextResponse.redirect(new URL('/login', req.nextUrl))
 
-        // Kiểm tra xem có tham số 'from' để quay lại trang cũ không
-        const from = req.nextUrl.searchParams.get("from");
-        if (from && from.startsWith("/")) {
-            const matchedRoute = PROTECTED_ROUTES.find((p) => from.startsWith(p.prefix));
-            if (matchedRoute) {
-                if (hasAnyRequiredRole(roles, matchedRoute.roles)) {
-                    return NextResponse.redirect(new URL(from, req.url));
-                }
-            }
-        }
+    if (isAuthRoute && isAuthenticated)
+        return NextResponse.redirect(new URL('/dashboard', req.nextUrl))
 
-        // Mặc định redirect về home của role
-        const defaultRole = getDefaultFirstRole(roles);
-        return NextResponse.redirect(new URL(ROLE_HOME[defaultRole], req.url));
-    }
-
-    // ── /login: nếu đã đăng nhập rồi → về trang home luôn ────────────────────
-    if (pathname === "/login") {
-        if (roles.length > 0) {
-            const defaultRole = getDefaultFirstRole(roles);
-            return NextResponse.redirect(new URL(ROLE_HOME[defaultRole], req.url));
-        }
-        return NextResponse.next();
-    }
-
-    // ── Các route được bảo vệ ─────────────────────────────────────────────────
-    const isProtected = PROTECTED_ROUTES.some((p) => pathname.startsWith(p.prefix));
-    if (!isProtected) return NextResponse.next();
-
-    // Nếu không có roles (không đăng nhập hoặc token không hợp lệ), chuyển hướng về login
-    if (roles.length === 0) {
-        return NextResponse.redirect(new URL(`/login?from=${encodeURIComponent(pathname)}`, req.url));
-    }
-
-    const matchedRoute = PROTECTED_ROUTES.find((p) => pathname.startsWith(p.prefix));
-
-    // Kiểm tra quyền truy cập (Authorization)
-    if (matchedRoute && !hasAnyRequiredRole(roles, matchedRoute.roles)) {
-        const defaultRole = getDefaultFirstRole(roles);
-        return NextResponse.redirect(new URL(ROLE_HOME[defaultRole], req.url));
-    }
-
-    return NextResponse.next();
+    return NextResponse.next()
 }
 
 export const config = {
     matcher: [
-        "/auth/redirect",
-        "/login",
-        "/admin/:path*",
-        "/lecturer/:path*",
-        "/manager/:path*",
+        '/((?!_next/static|_next/image|favicon\.ico|sitemap\.xml|robots\.txt|.*\.(?:png|jpg|jpeg|gif|svg|ico|webp)$).*)',
     ],
-};
+}

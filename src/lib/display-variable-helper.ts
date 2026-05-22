@@ -1,4 +1,9 @@
-export const getInitials = (name: string) => {
+export {
+  getInitials, getYear, getDateOnly
+
+}
+
+const getInitials = (name: string) => {
   return name
     .split(' ')
     .map(part => part[0])
@@ -7,6 +12,16 @@ export const getInitials = (name: string) => {
     .slice(0, 2);
 };
 
-export function getYear(date: string | Date): string {
-    return new Date(date).getFullYear().toString();
+function getYear(date: string | Date): string {
+  return new Date(date).getFullYear().toString();
+}
+
+function getDateOnly(dateInput: string | Date): string {
+  const date = new Date(dateInput);
+
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
 }

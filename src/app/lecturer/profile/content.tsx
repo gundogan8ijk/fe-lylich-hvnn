@@ -15,6 +15,7 @@ import { InlineEditField } from '@/components/custom/Inline-Edit-Field'
 import { storeLecturer } from '@/stores/store-item/lecturer-store'
 import { Lecturer } from '@/types/lecurer-type'
 import Loading from '@/components/utils/Loading'
+import { getDateOnly } from '@/lib/display-variable-helper'
 
 export default function ContentProfile() {
 
@@ -90,7 +91,7 @@ export default function ContentProfile() {
             <div className="flex-1">
               <InlineEditField
                 label="Ngày sinh"
-                value={lecturerData.birthDate}
+                value={getDateOnly(lecturerData.birthDate)}
                 onSave={(value) => handleFieldSave('birthDate', value)}
                 type="date"
                 icon={<Calendar size={18} />}

@@ -1,10 +1,11 @@
 import { Role } from "@/types/base-type/auth-type";
-import { decodeJwt } from "jose";
+import { jwtVerify } from "jose";
+import { cookies } from "next/headers";
 
 export {
     hasAnyRequiredRole,
-    getDefaultFirstRole,
-    getRolesFromTokenSync
+    getRolesFromTokenSync,
+    verifyToken,hasRequiredRolesAsync
 }
 
 function hasAnyRequiredRole(userRoles: Role[], requiredRoles: Role[]): boolean {
@@ -13,15 +14,11 @@ function hasAnyRequiredRole(userRoles: Role[], requiredRoles: Role[]): boolean {
     );
 }
 
-const ROLE_PRIORITY: Role[] = [Role.ADMIN, Role.MANAGER, Role.LECTURER, Role.VERIFIED];
+async function getRolesFromTokenSync(token: string): Promise<Role[] | -1> {
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
 
-function getDefaultFirstRole(roles: Role[]): Role {
-    return ROLE_PRIORITY.find(r => roles.includes(r)) ?? roles[roles.length-1];
-}
-
-function getRolesFromTokenSync(token: string): Role[] {
     try {
-        const payload = decodeJwt(token);
+        const { payload } = await jwtVerify(token, secret);
 
         const raw =
             payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] ??
@@ -31,9 +28,36 @@ function getRolesFromTokenSync(token: string): Role[] {
 
         const roles = (Array.isArray(raw) ? raw : [raw]) as Role[];
 
-        if (!roles.includes(Role.VERIFIED)) roles.push(Role.VERIFIED);
         return roles;
     } catch {
-        return [];
+        return -1;
     }
+}
+
+
+async function verifyToken(accessToken: string): Promise<boolean> {
+    if (!accessToken) return false;
+
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
+
+    try {
+        await jwtVerify(accessToken, secret);
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+
+async function hasRequiredRolesAsync(requiredRoles: Role[]): Promise<boolean> {
+    const cookieStore = await cookies();
+    const ACCESS_TOKEN_COOKIE_NAME =
+        process.env.NEXT_PUBLIC_NAME_ACCESS_TOKEN ?? "";
+    const token = cookieStore.get(ACCESS_TOKEN_COOKIE_NAME)?.value;
+
+    const thudangco = token ? await getRolesFromTokenSync(token) : [];
+    if (thudangco === -1) return false;
+
+    return hasAnyRequiredRole(thudangco, requiredRoles)
+
 }

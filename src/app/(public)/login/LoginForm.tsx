@@ -3,8 +3,7 @@
 import Link from "next/link";
 import React from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { loginActionHook } from "@/hooks/authen-hook";
-import { refreshTokenApi } from "@/services/base-ser/auth-service";
+import { loginActionHook, refreshTokenHook } from "@/hooks/authen-hook";
 
 export default function LoginPage() {
     const [form, setForm] = React.useState({ email: "", password: "", });
@@ -16,14 +15,14 @@ export default function LoginPage() {
         let isMounted = true;
         const checkAutoRefresh = async () => {
             try {
-                const res = await refreshTokenApi();
-                if (res.code === 1 && isMounted) {
+                const res = await refreshTokenHook();
+                if (res.success && isMounted) {
                     const params = new URLSearchParams(window.location.search);
                     const from = params.get("from");
                     if (from) {
-                        window.location.href = `/auth/redirect?from=${encodeURIComponent(from)}`;
+                        window.location.href = `/dashboard?from=${encodeURIComponent(from)}`;
                     } else {
-                        window.location.href = "/auth/redirect";
+                        window.location.href = "/dashboard";
                     }
                 }
             } catch (err) {

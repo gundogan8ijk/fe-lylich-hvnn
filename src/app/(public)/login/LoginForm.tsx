@@ -4,12 +4,39 @@ import Link from "next/link";
 import React from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { loginActionHook } from "@/hooks/authen-hook";
+import { refreshTokenApi } from "@/services/base-ser/auth-service";
 
 export default function LoginPage() {
     const [form, setForm] = React.useState({ email: "", password: "", });
     const [showPassword, setShowPassword] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState("");
+
+    React.useEffect(() => {
+        let isMounted = true;
+        const checkAutoRefresh = async () => {
+            try {
+                const res = await refreshTokenApi();
+                if (res.code === 1 && isMounted) {
+                    const params = new URLSearchParams(window.location.search);
+                    const from = params.get("from");
+                    if (from) {
+                        window.location.href = `/auth/redirect?from=${encodeURIComponent(from)}`;
+                    } else {
+                        window.location.href = "/auth/redirect";
+                    }
+                }
+            } catch (err) {
+                // Ignore silent refresh failures
+            }
+        };
+
+        checkAutoRefresh();
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });

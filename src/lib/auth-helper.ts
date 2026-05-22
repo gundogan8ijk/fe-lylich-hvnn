@@ -1,10 +1,11 @@
 import { Role } from "@/types/base-type/auth-type";
-import { jwtVerify } from "jose";
+import { jwtVerify, decodeJwt } from "jose";
 
 export {
     hasAnyRequiredRole,
     getDefaultFirstRole,
-    getRolesFromToken
+    getRolesFromToken,
+    getRolesFromTokenSync
 }
 
 function hasAnyRequiredRole(userRoles: Role[], requiredRoles: Role[]): boolean {
@@ -31,6 +32,25 @@ async function getRolesFromToken(token: string): Promise<Role[]> {
             [];
 
         // Normalize về array vì .NET có thể trả string nếu chỉ có 1 role
+        const roles = (Array.isArray(raw) ? raw : [raw]) as Role[];
+
+        if (!roles.includes(Role.VERIFIED)) roles.push(Role.VERIFIED);
+        return roles;
+    } catch {
+        return [];
+    }
+}
+
+function getRolesFromTokenSync(token: string): Role[] {
+    try {
+        const payload = decodeJwt(token);
+
+        const raw =
+            payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] ??
+            payload.roles ??
+            payload.role ??
+            [];
+
         const roles = (Array.isArray(raw) ? raw : [raw]) as Role[];
 
         if (!roles.includes(Role.VERIFIED)) roles.push(Role.VERIFIED);

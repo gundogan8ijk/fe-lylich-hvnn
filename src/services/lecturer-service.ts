@@ -1,19 +1,18 @@
 import { ApiResponse } from "@/types/base-type/result-typeConfig";
-import { DepartmentDetail, DepartmentList, DisciplineList, MemberList } from "@/types/department-type";
+import {  DepartmentList, DisciplineList, MemberList } from "@/types/department-type";
 import { success, fail } from "@/lib/response-helper";
 import axios from "axios";
 import { api } from "./base-ser/axios-service-config";
+import { Lecturer } from "@/types/lecurer-type";
 
-export { getDepartmentsListApi, getByIdDepartmentsApi, getListDisciplineApi ,getListMemberApi}
-
-const departmentListUrl = "/Departments";
-
+export { getLecturerMeApi,getDepartmentsListApi, getListDisciplineApi, getListMemberApi }
 
 const getDepartmentsListApi = async (
     params?: URLSearchParams
 
 ): Promise<ApiResponse<DepartmentList>> => {
     try {
+        const departmentListUrl = "/Departments";
         const response = await api.get(departmentListUrl, {
             params: params
         });
@@ -29,16 +28,16 @@ const getDepartmentsListApi = async (
     }
 };
 
-const getByIdDepartmentsApi = async (id: string): Promise<ApiResponse<DepartmentDetail>> => {
+const getLecturerMeApi = async (): Promise<ApiResponse<Lecturer>> => {
     try {
-        const departmentDetailUrl = `/Departments/${id}`;
-        const response = await api.get(departmentDetailUrl);
+        const detailUrl = `/lecturer/me`;
+        const response = await api.get(detailUrl);
 
         return success(response.data);
     } catch (error) {
         if (axios.isAxiosError(error)) {
             const data = error.response?.data;
-            return fail(data?.message || data?.detail || "Không thể kết nối đến server",);
+            return fail(data?.message || data?.detail || "đã có lỗi xảy ra",);
         }
 
         return fail();

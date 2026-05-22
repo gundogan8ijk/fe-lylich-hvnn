@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Role } from "./types/auth-type";
 import { PROTECTED_ROUTES, ROLE_HOME } from "./constants/route-contant";
 import { getDefaultFirstRole, getRolesFromToken, hasAnyRequiredRole } from "./lib/auth-helper";
 import { refreshAccessTokenAction } from "./hooks/refreshToken-hook";
+import { Role } from "./types/base-type/auth-type";
 
 const ACCESS_TOKEN_COOKIE_NAME = process.env.NEXT_PUBLIC_NAME_ACCESS_TOKEN ?? "";
 const REFRESH_TOKEN_COOKIE_NAME = process.env.NEXT_PUBLIC_NAME_REFRESH_TOKEN ?? "";

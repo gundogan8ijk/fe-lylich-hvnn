@@ -14,15 +14,16 @@ import {
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Badge } from '@/components/ui/badge'
+import { NavbarConfig, Notifications } from '@/types/base-type/layout-navbar'
 
 interface NavbarProps {
+    config: NavbarConfig,
+    notifications: Notifications[],
     sidebarOpen?: boolean
     onSidebarToggle?: () => void
 }
 
-
-
-export function NavbarLecturer({ sidebarOpen = false, onSidebarToggle }: NavbarProps) {
+export function NavbarProtected({config, notifications,  sidebarOpen = false, onSidebarToggle }: NavbarProps) {
     const [notificationOpen, setNotificationOpen] = useState(false)
     const unreadCount = notifications.filter((n) => !n.read).length
 
@@ -43,7 +44,7 @@ export function NavbarLecturer({ sidebarOpen = false, onSidebarToggle }: NavbarP
                         )}
                     </button>
 
-                    <h1 className="text-lg sm:text-xl font-bold text-foreground">Giáo Viên</h1>
+                    <h1 className="text-lg sm:text-xl font-bold text-foreground">{config.title}</h1>
                 </div>
 
                 <div className="flex items-center gap-4">
@@ -67,7 +68,7 @@ export function NavbarLecturer({ sidebarOpen = false, onSidebarToggle }: NavbarP
                                 variant="ghost"
                                 className="relative h-9 w-9 rounded-full bg-accent"
                             >
-                                <span className="text-sm font-bold">GV</span>
+                                <span className="text-sm font-bold"> {config.avatarText}</span>
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-56">
@@ -141,7 +142,7 @@ export function NavbarLecturer({ sidebarOpen = false, onSidebarToggle }: NavbarP
 }
 
 
-const notifications = [
+export const notifications = [
     {
         id: 1,
         title: 'Bài tập mới được nộp',
@@ -171,3 +172,4 @@ const notifications = [
         read: true,
     },
 ]
+

@@ -1,13 +1,14 @@
 export type ResponseCode = 1 | -1;
 
 export type ApiSuccess<T> = {
-    code: 1;
+    code: ResponseCode;
     message: string;
     data: T;
+    errors?: string[];
 };
 
 export type ApiError = {
-    code: -1;
+    code: ResponseCode;
     message: string;
     errors?: string[];
     data: null;

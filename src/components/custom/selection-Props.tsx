@@ -5,7 +5,7 @@ import {
     SelectContent,
     SelectItem,
 } from "@/components/ui/select";
-import { SelectionOption } from "@/types/query-types";
+import { SelectionOption } from "@/types/base-type/query-types";
 
 
 type Props<T extends string> = {

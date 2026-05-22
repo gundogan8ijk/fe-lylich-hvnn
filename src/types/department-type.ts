@@ -1,5 +1,5 @@
-import { Pagination } from "./pagination-typeConfig";
-import { SelectionOption } from "./query-types";
+import { Pagination } from "./base-type/pagination-typeConfig";
+import { SelectionOption } from "./base-type/query-types";
 
 export interface DepartmentDetail {
     id: string

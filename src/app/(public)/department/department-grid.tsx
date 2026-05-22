@@ -1,5 +1,5 @@
 'use client'
-import { storeDepartment } from '@/stores/department-store';
+import { storeDepartment } from '@/stores/store-list/department-store';
 import DepartmentCard from './department-card'
 import Loading from'@/components/utils/Loading'
 

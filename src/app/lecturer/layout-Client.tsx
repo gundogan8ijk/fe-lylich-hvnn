@@ -1,8 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { NavbarLecturer } from "./navbar"
-import { SidebarLecturer } from "./sidebar-lecturer"
+import { SidebarLecturer } from "../../components/layouts/sidebar"
+import { lecturerMenu } from "@/types/base-type/layout-Sidebar-type"
+import { NavbarProtected, notifications } from "@/components/layouts/navbar-ptotected"
+import { lecturerNavbarConfig } from "@/types/base-type/layout-navbar"
 
 export default function LayoutClient({ children, }: { children: React.ReactNode }) {
 
@@ -10,11 +12,12 @@ export default function LayoutClient({ children, }: { children: React.ReactNode 
 
     return (
         <div className="flex flex-col h-screen bg-background">
-            <NavbarLecturer sidebarOpen={sidebarOpen} onSidebarToggle={() => setSidebarOpen(!sidebarOpen)} />
+            <NavbarProtected config={lecturerNavbarConfig} notifications={notifications}
+                sidebarOpen={sidebarOpen} onSidebarToggle={() => setSidebarOpen(!sidebarOpen)} />
             <div className="flex flex-1 overflow-hidden">
                 {/* Sidebar - ẩn trên mobile, hiển thị từ md trở lên */}
                 <div className="hidden md:block md:w-64 lg:w-72">
-                    <SidebarLecturer />
+                    <SidebarLecturer items={lecturerMenu} />
                 </div>
 
                 {/* Mobile Sidebar - Overlay */}
@@ -26,7 +29,7 @@ export default function LayoutClient({ children, }: { children: React.ReactNode 
                 )}
                 <div className={`fixed left-0 top-16 bottom-0 w-64 z-50 transform transition-transform md:hidden ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
                     }`}>
-                    <SidebarLecturer onClose={() => setSidebarOpen(false)} />
+                    <SidebarLecturer items={lecturerMenu} onClose={() => setSidebarOpen(false)} />
                 </div>
 
                 {/* Main Content */}

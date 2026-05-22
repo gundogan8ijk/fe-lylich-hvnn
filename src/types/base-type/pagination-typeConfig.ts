@@ -25,20 +25,3 @@ export function buildPaginationMeta(p: Pagination): PaginationMeta {
         hasPrev: p.page > 1,
     };
 }
-
-
-// export type PaginationCount = {
-//     totalCount: number;
-//     totalPages: number;
-// };
-
-// const defaultPaginationCount: PaginationCount = {
-//     totalCount: 0,
-//     totalPages: 1,
-// };
-
-// /** Phân trang */
-// export type PaginationOptions = {
-//     page: number;      
-//     pageSize: number;   
-// };

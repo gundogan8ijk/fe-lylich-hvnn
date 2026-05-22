@@ -1,5 +1,5 @@
 
-import { loginApi } from "@/services/auth-service";
+import { loginApi } from "@/services/base-ser/auth-service";
 
 export {
     loginActionHook

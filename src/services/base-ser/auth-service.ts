@@ -1,24 +1,18 @@
-import { api } from "@/services/axios-service-config"
-import { AuthUser } from "@/types/auth-type";
-import { ApiResponse } from "@/types/result-typeConfig";
+import { ApiResponse } from "@/types/base-type/result-typeConfig";
 import { fail, success } from "@/lib/response-helper";
 import axios from "axios";
+import { api } from "./axios-service-config";
 
 const loginUrl = "/authentication/login/";
 const refreshTokenUrl = "/authentication/refresh";
 
 export { loginApi, refreshTokenApi };
 
-const loginApi = async (email: string, password: string): Promise<ApiResponse<AuthUser>> => {
+const loginApi = async (email: string, password: string): Promise<ApiResponse<null>> => {
     try {
-        const response = await api.post(loginUrl,
-            {
-                email,
-                password,
-            }
-        )
+        await api.post(loginUrl, { email, password, })
 
-        return success(response.data);
+        return success(null);
     } catch (err) {
         console.log(err);
         if (axios.isAxiosError(err)) {
@@ -33,11 +27,11 @@ const loginApi = async (email: string, password: string): Promise<ApiResponse<Au
     }
 }
 
-const refreshTokenApi = async (): Promise<ApiResponse<AuthUser>> => {
+const refreshTokenApi = async (): Promise<ApiResponse<null>> => {
     try {
-        const response = await api.post(refreshTokenUrl);
+        await api.post(refreshTokenUrl);
 
-        return success(response.data);
+        return success(null);
     } catch (err) {
         if (axios.isAxiosError(err)) {
             const data = err.response?.data;

@@ -1,4 +1,4 @@
-import { Role } from "@/types/auth-type";
+import { Role } from "@/types/base-type/auth-type";
 import { jwtVerify } from "jose";
 
 export {

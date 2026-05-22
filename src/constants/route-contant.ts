@@ -1,4 +1,4 @@
-import { ProtectedRoute, Role } from "@/types/auth-type";
+import { ProtectedRoute, Role } from "@/types/base-type/auth-type";
 
 
 export const PROTECTED_ROUTES: ProtectedRoute[] = [

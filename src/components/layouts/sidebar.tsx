@@ -2,47 +2,15 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import {BookOpen,FileText,BarChart3,Settings,HelpCircle, UserRoundCog} from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { SidebarItem } from '@/types/base-type/layout-Sidebar-type'
 
 interface SidebarProps {
+    items: SidebarItem[],
     onClose?: () => void
 }
 
-const menuItems = [
-    {
-        icon: BookOpen,
-        label: 'Lớp học',
-        href: '/dashboard/classes',
-    },
-    {
-        icon: UserRoundCog,
-        label: 'Hồ Sơ',
-        href: '/lecturer/me',
-    },
-    {
-        icon: FileText,
-        label: 'Bài giảng',
-        href: '/dashboard/lectures',
-    },
-    {
-        icon: BarChart3,
-        label: 'Đánh giá',
-        href: '/dashboard/grades',
-    },
-    {
-        icon: Settings,
-        label: 'Cài đặt lớp',
-        href: '/dashboard/settings',
-    },
-    {
-        icon: HelpCircle,
-        label: 'Trợ giúp',
-        href: '/dashboard/help',
-    },
-]
-
-export function SidebarLecturer({ onClose }: SidebarProps) {
+export function SidebarLecturer({items, onClose }: SidebarProps) {
     const pathname = usePathname()
 
     return (
@@ -50,7 +18,7 @@ export function SidebarLecturer({ onClose }: SidebarProps) {
             <div className="p-4 sm:p-6 space-y-4">
                 <h2 className="text-base sm:text-lg font-semibold text-foreground">Menu</h2>
                 <nav className="space-y-2">
-                    {menuItems.map((item) => {
+                    {items.map((item) => {
                         const Icon = item.icon
                         const isActive = pathname.startsWith(item.href)
 

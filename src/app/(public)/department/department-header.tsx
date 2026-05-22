@@ -2,7 +2,7 @@
 
 import { Filter } from 'lucide-react';
 import { DepartmentSearchOptions, DepartmentSortOptions, } from '@/types/department-type';
-import { storeDepartment } from '@/stores/department-store';
+import { storeDepartment } from '@/stores/store-list/department-store';
 import { SortButtonDynamic } from '@/components/query/sort-Button-dynamic';
 import React from 'react';
 import { getDepartmentsListAction } from '@/hooks/department-hook';

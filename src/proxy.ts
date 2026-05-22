@@ -5,8 +5,6 @@ import { Role } from "./types/base-type/auth-type";
 
 const ACCESS_TOKEN_COOKIE_NAME = process.env.NEXT_PUBLIC_NAME_ACCESS_TOKEN ?? "";
 
-// ─── Middleware ───────────────────────────────────────────────────────────────
-
 export async function proxy(req: NextRequest) {
     const { pathname } = req.nextUrl;
     const accessToken = req.cookies.get(ACCESS_TOKEN_COOKIE_NAME)?.value;

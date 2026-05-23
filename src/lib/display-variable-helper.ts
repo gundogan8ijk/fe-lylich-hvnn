@@ -1,5 +1,5 @@
 export {
-  getInitials, getYear, getDateOnly
+  getInitials, getYear, getDateOnly,formatDateForInput
 
 }
 
@@ -24,4 +24,17 @@ function getDateOnly(dateInput: string | Date): string {
   const year = date.getFullYear();
 
   return `${day}/${month}/${year}`;
+}
+
+function formatDateForInput(date?: string): string {
+
+    if (!date) return ''
+
+    const parts = date.split('/')
+
+    if (parts.length !== 3) return ''
+
+    const [day, month, year] = parts
+
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
 }

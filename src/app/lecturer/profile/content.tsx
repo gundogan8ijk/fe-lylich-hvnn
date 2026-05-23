@@ -8,7 +8,7 @@ import {
   User as UserIcon,
   IdCard,
 } from 'lucide-react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { InlineEditField } from '@/components/custom/Inline-Edit-Field'
@@ -16,6 +16,9 @@ import { storeLecturer } from '@/stores/store-item/lecturer-store'
 import { Lecturer } from '@/types/lecurer-type'
 import Loading from '@/components/utils/Loading'
 import { getDateOnly } from '@/lib/display-variable-helper'
+import { birthDateUpdateAction, cCCDUpdateAction, deleteEmailAction, deleteWebsiteAction, emailUpdateAction, firstNameUpdateAction, genderUpdateAction, lastNameUpdateAction, websiteUpdateAction } from '@/hooks/lecturer-hook'
+import { InlineEditCitizenIdField } from '@/components/custom/InlineEditCCCDField'
+import { InlineEditGenderField } from '@/components/custom/InlineEditGenderField'
 
 export default function ContentProfile() {
 
@@ -29,8 +32,6 @@ export default function ContentProfile() {
   if (isLoading) return <Loading></Loading>
   if (!lecturerData) return <></>
 
-  const fullName = ` ${lecturerData.lastName}${lecturerData.firstName}`
-  const initials = `${lecturerData.lastName.charAt(0)}${lecturerData.firstName.charAt(0)}`
 
   return (
     <div className="space-y-6 sm:space-y-8 max-w-4xl">
@@ -39,8 +40,8 @@ export default function ContentProfile() {
         <CardHeader>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
             <Avatar className="h-20 w-20 sm:h-24 sm:w-24">
-              <AvatarImage src={lecturerData.avatarUrl} alt={fullName} />
-              <AvatarFallback>{initials}</AvatarFallback>
+              <AvatarImage src={lecturerData.avatarUrl} alt={lecturerData.firstName ?? ""} />
+              <AvatarFallback>{lecturerData.firstName ?? ""}</AvatarFallback>
             </Avatar>
 
             <div className="flex-1 min-w-0">
@@ -48,7 +49,7 @@ export default function ContentProfile() {
                 <Badge variant="outline" className="w-fit bg-sky-300/80 font-bold">
                   {lecturerData.code}
                 </Badge>
-                <h2 className="text-2xl sm:text-3xl font-bold text-foreground">{fullName}</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-foreground">{lecturerData.lastName} {lecturerData.firstName}</h2>
               </div>
             </div>
           </div>
@@ -63,47 +64,32 @@ export default function ContentProfile() {
         <CardContent className="space-y-1">
           <div className='flex flex-col md:flex-row'>
             <div className="flex-1">
-              <InlineEditField
-                label="Họ"
-                value={lecturerData.lastName}
-                onSave={(value) => handleFieldSave('lastName', value)}
-                icon={<UserIcon size={18} />}
+              <InlineEditField label="Họ" value={lecturerData.lastName}
+                onSave={(value) => lastNameUpdateAction(value)} icon={<UserIcon size={18} />}
               />
             </div>
             <div className="flex-1">
-              <InlineEditField
-                label="Tên"
-                value={lecturerData.firstName}
-                onSave={(value) => handleFieldSave('firstName', value)}
-                icon={<UserIcon size={18} />}
+              <InlineEditField label="Tên" value={lecturerData.firstName}
+                onSave={(value) => firstNameUpdateAction(value)} icon={<UserIcon size={18} />}
               />
             </div>
           </div>
           <div className='flex flex-col md:flex-row'>
             <div className="flex-1">
-              <InlineEditField
-                label="Giới tính"
-                value={lecturerData.gender}
-                onSave={(value) => handleFieldSave('gender', value)}
-                icon={<UserIcon size={18} />}
+              <InlineEditGenderField label="Giới tính" value={lecturerData.gender}
+                onSave={(value) => genderUpdateAction(value)} icon={<UserIcon size={18} />}
               />
             </div>
             <div className="flex-1">
-              <InlineEditField
-                label="Ngày sinh"
-                value={getDateOnly(lecturerData.birthDate)}
-                onSave={(value) => handleFieldSave('birthDate', value)}
-                type="date"
+              <InlineEditField label="Ngày sinh" value={getDateOnly(lecturerData.birthDate)}
+                onSave={(value) => birthDateUpdateAction(value)} type="date"
                 icon={<Calendar size={18} />}
               />
             </div>
           </div>
-          
-          <InlineEditField
-            label="CMND/CCCD"
-            value={lecturerData.citizenIdentificationCard}
-            onSave={(value) => handleFieldSave('citizenIdentificationCard', value)}
-            icon={<IdCard size={18} />}
+
+          <InlineEditCitizenIdField label="CMND/CCCD" value={lecturerData.cccd}
+            onSave={(value) => cCCDUpdateAction(value)} icon={<IdCard size={18} />}
           />
         </CardContent>
       </Card>
@@ -114,12 +100,9 @@ export default function ContentProfile() {
           <CardTitle className="text-lg sm:text-xl">Thông tin liên hệ</CardTitle>
         </CardHeader>
         <CardContent className="space-y-1">
-          <InlineEditField
-            label="Email"
-            value={lecturerData.email}
-            onSave={(value) => handleFieldSave('email', value)}
-            type="email"
-            icon={<Mail size={18} />}
+          <InlineEditField label="Email" value={lecturerData.email}
+            onSave={(value) => emailUpdateAction(value)}
+            type="email" icon={<Mail size={18} />} onDelete={()=>deleteEmailAction()}
           />
           <InlineEditField
             label="Số điện thoại"
@@ -134,12 +117,8 @@ export default function ContentProfile() {
             onSave={(value) => handleFieldSave('address', value)}
             icon={<MapPin size={18} />}
           />
-          <InlineEditField
-            label="Website"
-            value={lecturerData.website}
-            onSave={(value) => handleFieldSave('website', value)}
-            type="url"
-            icon={<Globe size={18} />}
+          <InlineEditField label="Website" value={lecturerData.website} onDelete={()=>deleteWebsiteAction()}
+            onSave={(value) => websiteUpdateAction( value)} type="url" icon={<Globe size={18} />}
           />
         </CardContent>
       </Card>

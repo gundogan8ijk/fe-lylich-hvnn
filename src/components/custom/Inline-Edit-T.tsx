@@ -12,56 +12,57 @@ import {
     DialogDescription
 } from '@/components/ui/dialog'
 import { Edit2 } from 'lucide-react'
-import { formatDateForInput } from '@/lib/display-variable-helper'
 
-interface InlineEditFieldProps {
+interface InlineEditTProps<T> {
     label: string
-    value: string | null | undefined
-    onSave: (value: string) => void
+    value: T | null | undefined
+    onSave: (value: T) => void
     onDelete?: () => void
     icon?: React.ReactNode
-    type?: string
+
+    displayValue: (value: T | null | undefined) => string
+    parseValue: (input: string) => T
+    inputType?: string
 }
 
-export function InlineEditField({
+export function InlineEditT<T>({
     label,
     value,
     onSave,
     onDelete,
     icon,
-    type = 'text'
-}: InlineEditFieldProps) {
+    displayValue,
+    parseValue,
+    inputType = 'text'
+}: InlineEditTProps<T>) {
 
     const [isEditOpen, setIsEditOpen] = useState(false)
     const [isDeleteOpen, setIsDeleteOpen] = useState(false)
-    const [editValue, setEditValue] = useState(value ?? '')
+    const [editValue, setEditValue] = useState('')
 
-    const displayValue =
-        type === 'date' ? formatDateForInput(value ?? '') : value
-
-    // ✔ sync khi mở modal
     const openEdit = () => {
-        setEditValue( value ?? '')
+        setEditValue(value ? displayValue(value) : '')
         setIsEditOpen(true)
     }
 
     const handleSave = () => {
-        const newValue = (editValue ?? "").trim()
-        const oldValue = (value ?? "").trim()
+        const newValueStr = editValue.trim()
+        const oldValueStr = value ? displayValue(value).trim() : ''
 
-        if (!newValue) return
+        if (!newValueStr) return
 
-        if (newValue === oldValue) {
+        if (newValueStr === oldValueStr) {
             setIsEditOpen(false)
             return
         }
 
-        onSave(newValue)
+        const parsed = parseValue(newValueStr)
+        onSave(parsed)
         setIsEditOpen(false)
     }
 
     const handleCancel = () => {
-        setEditValue(value ?? '')
+        setEditValue(value ? displayValue(value) : '')
         setIsEditOpen(false)
     }
 
@@ -72,7 +73,7 @@ export function InlineEditField({
 
     return (
         <>
-            {/* FIELD UI */}
+            {/* FIELD */}
             <div className="flex items-center justify-between py-2 mx-3">
                 <div className="flex items-center gap-2">
                     {icon && (
@@ -86,7 +87,7 @@ export function InlineEditField({
                             {label}
                         </span>
                         <span className="text-foreground">
-                            {value || '-'}
+                            {value ? displayValue(value) : '-'}
                         </span>
                     </div>
                 </div>
@@ -98,11 +99,12 @@ export function InlineEditField({
                             size="sm"
                             className="text-red-500 hover:text-red-600"
                             onClick={() => setIsDeleteOpen(true)}
-                            hidden={value == null }
+                            hidden={value == null}
                         >
                             Xóa
                         </Button>
                     )}
+
                     <Button
                         variant="ghost"
                         size="sm"
@@ -123,48 +125,21 @@ export function InlineEditField({
                         </DialogDescription>
                     </DialogHeader>
 
-                    <div className="grid gap-4 py-4">
-                        <div className="grid gap-2">
-                            <label className="text-sm font-medium">
-                                Giá trị cũ
-                            </label>
-                            <Input
-                                type={type}
-                                value={displayValue ?? ''}
-                                disabled
-                                className="bg-muted"
-                            />
-                        </div>
-
-                        <div className="grid gap-2">
-                            <label className="text-sm font-medium">
-                                Giá trị mới
-                            </label>
-                            <Input
-                                type={type}
-                                value={editValue ?? ''}
-                                onChange={(e) =>
-                                    setEditValue(e.target.value)
-                                }
-                                autoFocus
-                            />
-                        </div>
+                    <div className="grid gap-2 py-4">
+                        <Input
+                            type={inputType}
+                            value={editValue}
+                            onChange={(e) => setEditValue(e.target.value)}
+                            autoFocus
+                        />
                     </div>
 
                     <DialogFooter>
-                        <Button
-                            variant="outline"
-                            onClick={handleCancel}
-                        >
+                        <Button variant="outline" onClick={handleCancel}>
                             Hủy
                         </Button>
 
-                        <Button
-                            onClick={handleSave}
-                            disabled={
-                                (editValue ?? "") === (value ?? "").trim()
-                            }
-                        >
+                        <Button onClick={handleSave}>
                             Lưu
                         </Button>
                     </DialogFooter>
@@ -172,39 +147,25 @@ export function InlineEditField({
             </Dialog>
 
             {/* DELETE MODAL */}
-            <Dialog
-                open={isDeleteOpen}
-                onOpenChange={setIsDeleteOpen}
-            >
+            <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>
-                            Xác nhận xóa
-                        </DialogTitle>
+                        <DialogTitle>Xác nhận xóa</DialogTitle>
                         <DialogDescription>
                             Hành động này không thể hoàn tác
                         </DialogDescription>
                     </DialogHeader>
 
                     <div className="py-3 text-sm text-muted-foreground">
-                        {label}:{' '}
-                        <b>{value || '-'}</b>
+                        {label}: <b>{value ? displayValue(value) : '-'}</b>
                     </div>
 
                     <DialogFooter>
-                        <Button
-                            variant="outline"
-                            onClick={() =>
-                                setIsDeleteOpen(false)
-                            }
-                        >
+                        <Button variant="outline" onClick={() => setIsDeleteOpen(false)}>
                             Hủy
                         </Button>
 
-                        <Button
-                            variant="destructive"
-                            onClick={handleDelete}
-                        >
+                        <Button variant="destructive" onClick={handleDelete}>
                             Xóa
                         </Button>
                     </DialogFooter>

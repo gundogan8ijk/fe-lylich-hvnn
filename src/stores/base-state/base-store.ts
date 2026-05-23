@@ -8,6 +8,7 @@ export type BaseStore<T extends object> = {
     setNull: () => void;
     update: (partial: Partial<T>) => void;
     setField: <K extends keyof T>(key: K, value: T[K]) => void;
+    setNullField: <K extends keyof T>(key: K) => void;
 
     updateLevel2: <K1 extends keyof T>(
         key1: K1,
@@ -32,6 +33,18 @@ export function createBaseStore<T extends object>(
             set((state) => {
                 if (!state.data) return state;
                 return { data: { ...state.data, [key]: value } };
+            }),
+
+        setNullField: (key) =>
+            set((state) => {
+                if (!state.data) return state;
+
+                return {
+                    data: {
+                        ...state.data,
+                        [key]: null
+                    }
+                };
             }),
 
         updateLevel2: (key1, partialL2) =>

@@ -17,7 +17,7 @@ export type Lecturer = {
     gender: Gender;
     birthDate: string;
 
-    citizenIdentificationCard: string;
+    cccd: string;
 
     educations: Education[];
 

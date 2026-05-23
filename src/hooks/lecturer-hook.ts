@@ -1,16 +1,34 @@
+// lecturer-action.ts
 import { notify } from '@/components/utils/Notify'
-import { deleteLecturerFileApi, getLecturerMeApi, updateLecturerFieldApi } from "@/services/lecturer-service";
+import { getErrorMessage } from '@/lib/response-helper';
+import { deleteLecturerApi, getLecturerMeApi, putLecturerApi } from "@/services/lecturer-service";
 import { storeLecturer } from "@/stores/store-item/lecturer-store";
 import { Gender, Lecturer } from '@/types/lecurer-type';
 
 export {
     getAcLecturer,
-    lastNameUpdateAction, firstNameUpdateAction, birthDateUpdateAction, cCCDUpdateAction,
-    genderUpdateAction, emailUpdateAction, websiteUpdateAction,
-    deleteLecturerFile, deleteAvatarAction,deleteWebsiteAction,deleteEmailAction
+    lastNameUpdateAction, firstNameUpdateAction, birthDateUpdateAction, cCCDUpdateAction,avatarUpdateAction,
+    genderUpdateAction, emailUpdateAction, websiteUpdateAction, phoneUpdateAction,addressUpdateAction,
+    deleteAvatarAction, deleteWebsiteAction, deleteEmailAction,deletePhoneAction,deleteAddressAction
 }
 
-// 1. Hàm lấy thông tin giảng viên giữ nguyên
+export type UpdatePhoneRequest = {
+    countryCode: string;
+    number: string;
+    extension?: string | null;
+};
+
+export type AddressRequest = {
+    street?: string
+    ward?: string
+    district?: string
+    city?: string
+    province?: string
+    country?: string
+    zipCode?: string
+    comments?: string
+}
+
 async function getAcLecturer() {
     const { setLoading, setData, setNull } = storeLecturer.getState();
     setLoading(true);
@@ -20,163 +38,196 @@ async function getAcLecturer() {
     setLoading(false);
 }
 
-/**
- * 💡 Hàm CORE GENERIC chạy chung cho tất cả các action update trường lẻ
- */
-async function updateLecturerField<TResponse, K extends keyof Lecturer>(
-    field: K,
-    value: Lecturer[K],
-    storeKey: K,
-    endpoint: string,
-    successMessage: string,
-    extract: (res: TResponse) => Lecturer[K] // Hàm để lấy đúng trường dữ liệu từ API trả về
-) {
+async function updateLecturerField<TResponse, K extends keyof Lecturer>(options: {
+    endpoint: string;
+    payload: unknown;
+    storeKey: K;
+    successMessage: string;
+    extract: (res: TResponse) => Lecturer[K];
+}) {
     const { setField } = storeLecturer.getState();
 
-    // 💡 SỬA Ở ĐÂY: Truyền đúng 3 tham số đơn lẻ như hàm gốc yêu cầu
-    const res = await updateLecturerFieldApi<TResponse>(
-        field,
-        value,
-        endpoint
-    );
+    const res = await putLecturerApi<TResponse>(options.endpoint, options.payload);
 
     if (res.code === -1 || res.data == null) {
-        notify.error(res.message);
+        notify.error(getErrorMessage(res.message, res.errors));
         return;
     }
 
-    // Lấy giá trị mới thông qua hàm extract bóc tách dữ liệu
-    const newValue = extract(res.data);
-
-    // Cập nhật vào Zustand Store
-    setField(storeKey, newValue);
-
-    notify.success(successMessage);
+    setField(options.storeKey, options.extract(res.data));
+    notify.success(options.successMessage);
 }
 
-
-async function deleteLecturerFile<K extends keyof Lecturer>(
-    storeKey: K,
-    endpoint: string,
-    successMessage: string
-) {
+async function deleteLecturerField<K extends keyof Lecturer>(options: {
+    endpoint: string;
+    storeKey: K;
+    successMessage: string;
+}) {
     const { setNullField } = storeLecturer.getState();
 
-    const res = await deleteLecturerFileApi(endpoint);
+    const res = await deleteLecturerApi(options.endpoint);
 
     if (res.code === -1) {
-        notify.error(res.message);
+        notify.error(getErrorMessage(res.message, res.errors));
         return;
     }
 
-    setNullField(storeKey);
-
-    notify.success(successMessage);
+    setNullField(options.storeKey);
+    notify.success(options.successMessage);
 }
 
-/**
- * 2. Các Action giờ chỉ cần gọi hàm generic ở trên, siêu ngắn gọn!
- */
-
 async function lastNameUpdateAction(lastName: string) {
-    await updateLecturerField<{ lastName: string }, "lastName">(
-        "lastName",
-        lastName,
-        "lastName",
-        "/lecturer/update-last-name", // Thay bằng đường dẫn API thực tế của bạn
-        "Cập nhật họ thành công",
-        (res) => res.lastName
-    );
+    await updateLecturerField<{ lastName: string }, "lastName">({
+        endpoint: "/lecturer/update-last-name",
+        payload: { lastName },
+        storeKey: "lastName",
+        successMessage: "Cập nhật họ thành công",
+        extract: (res) => res.lastName
+    });
 }
 
 async function firstNameUpdateAction(firstName: string) {
-    await updateLecturerField<{ firstName: string }, "firstName">(
-        "firstName",
-        firstName,
-        "firstName",
-        "/lecturer/update-first-name",
-        "Cập nhật tên thành công",
-        (res) => res.firstName
-    );
+    await updateLecturerField<{ firstName: string }, "firstName">({
+        endpoint: "/lecturer/update-first-name",
+        payload: { firstName },
+        storeKey: "firstName",
+        successMessage: "Cập nhật tên thành công",
+        extract: (res) => res.firstName
+    });
 }
 
 async function birthDateUpdateAction(birthDate: string) {
-    await updateLecturerField<{ birthDate: string }, "birthDate">(
-        "birthDate",
-        birthDate,
-        "birthDate",
-        "/lecturer/update-birthdate",
-        "Cập nhật ngày sinh thành công",
-        (res) => res.birthDate
-    );
+    await updateLecturerField<{ birthDate: string }, "birthDate">({
+        endpoint: "/lecturer/update-birthdate",
+        payload: { birthDate },
+        storeKey: "birthDate",
+        successMessage: "Cập nhật ngày sinh thành công",
+        extract: (res) => res.birthDate
+    });
 }
 
 async function cCCDUpdateAction(citizenIdentificationCard: string) {
-    await updateLecturerField<{ cccd: string }, "cccd">(
-        "cccd",
-        citizenIdentificationCard,
-        "cccd",
-        "/lecturer/update-cccd",
-        "Cập nhật CCCD thành công",
-        (res) => res.cccd
-    );
+    await updateLecturerField<{ cccd: string }, "cccd">({
+        endpoint: "/lecturer/update-citizen-identification-card",
+        payload: { cCCD: citizenIdentificationCard },
+        storeKey: "cccd",
+        successMessage: "Cập nhật CCCD thành công",
+        extract: (res) => res.cccd
+    });
 }
 
 async function genderUpdateAction(gender: Gender) {
-    await updateLecturerField<{ gender: Gender }, "gender">(
-        "gender",
-        gender,
-        "gender",
-        "/lecturer/update-gender",
-        "Cập nhật giới tính thành công",
-        (res) => res.gender
-    );
+    await updateLecturerField<{ gender: Gender }, "gender">({
+        endpoint: "/lecturer/update-gender",
+        payload: { gender },
+        storeKey: "gender",
+        successMessage: "Cập nhật giới tính thành công",
+        extract: (res) => res.gender
+    });
 }
 
 async function emailUpdateAction(email: string) {
-    await updateLecturerField<{ email: string }, "email">(
-        "email",
-        email,
-        "email",
-        "/lecturer/update-email",
-        "Cập nhật email thành công",
-        (res) => res.email
-    );
+    await updateLecturerField<{ email: string }, "email">({
+        endpoint: "/lecturer/update-email",
+        payload: { email },
+        storeKey: "email",
+        successMessage: "Cập nhật email thành công",
+        extract: (res) => res.email
+    });
 }
 
 async function websiteUpdateAction(website: string) {
-    await updateLecturerField<{ website: string }, "website">(
-        "website",
-        website,
-        "website",
-        "/lecturer/update-website",
-        "Cập nhật website thành công",
-        (res) => res.website
-    );
+    await updateLecturerField<{ website: string }, "website">({
+        endpoint: "/lecturer/update-website",
+        payload: { website },
+        storeKey: "website",
+        successMessage: "Cập nhật website thành công",
+        extract: (res) => res.website
+    });
 }
 
-async function deleteAvatarAction() {
-    await deleteLecturerFile(
-        "avatarUrl",
-        "/lecturer/delete-avatar",
-        "Xóa ảnh đại diện thành công"
-    );
+async function phoneUpdateAction(phoneData: UpdatePhoneRequest) {
+    await updateLecturerField<{ phoneNumber: string }, "phoneNumber">({
+        endpoint: "/lecturer/update-phone",
+        payload: {
+            countryCode: phoneData.countryCode || "+84",
+            number: phoneData.number,
+            extension: phoneData.extension || null
+        },
+        storeKey: "phoneNumber",
+        successMessage: "Cập nhật số điện thoại thành công",
+        extract: (res) => res.phoneNumber
+    });
 }
+
+async function addressUpdateAction(addressData: AddressRequest) {
+    await updateLecturerField<{ address: string }, "address">({
+        endpoint: "/lecturer/update-address",
+        payload: {
+            street: addressData.street,
+            ward: addressData.ward || null,
+            district: addressData.district || null,
+            city: addressData.city || null,
+            province: addressData.province || null,
+            country: addressData.country || "Vietnam",
+            zipCode: addressData.zipCode || "700000",
+            comments: addressData.comments || null
+        },
+        storeKey: "address",
+        successMessage: "Cập nhật địa chỉ thành công",
+        extract: (res) => res.address
+    });
+}
+
 
 
 async function deleteWebsiteAction() {
-    await deleteLecturerFile(
-        "website",
-        "/lecturer/delete-website",
-        "Xóa website thành công"
-    );
+    await deleteLecturerField({
+        endpoint: "/lecturer/delete-website",
+        storeKey: "website",
+        successMessage: "Xóa website thành công"
+    });
+}
+
+async function deleteAddressAction() {
+    await deleteLecturerField({
+        endpoint: "/lecturer/delete-address",
+        storeKey: "address",
+        successMessage: "Xóa địa chỉ thành công"
+    });
+}
+
+async function deletePhoneAction() {
+    await deleteLecturerField({
+        endpoint: "/lecturer/delete-phone",
+        storeKey: "phoneNumber",
+        successMessage: "Xóa số điện thoại thành công"
+    });
+}
+
+async function deleteEmailAction() {
+    await deleteLecturerField({
+        endpoint: "/lecturer/delete-email",
+        storeKey: "email",
+        successMessage: "Xóa email thành công"
+    });
 }
 
 
-async function deleteEmailAction() {
-    await deleteLecturerFile(
-        "email",
-        "/lecturer/delete-email",
-        "Xóa email thành công"
-    );
+async function avatarUpdateAction(avatarUrl: string) {
+    await updateLecturerField<{ avatarUrl: string }, "avatarUrl">({
+        endpoint: "/lecturer/update-avatar",
+        payload: { avatarUrl },
+        storeKey: "avatarUrl",
+        successMessage: "Cập nhật ảnh đại diện thành công",
+        extract: (res) => res.avatarUrl
+    });
+}
+
+async function deleteAvatarAction() {
+    await deleteLecturerField({
+        endpoint: "/lecturer/delete-avatar-url",
+        storeKey: "avatarUrl",
+        successMessage: "Xóa ảnh đại diện thành công"
+    });
 }

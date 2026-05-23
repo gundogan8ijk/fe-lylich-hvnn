@@ -4,13 +4,13 @@ export type ApiSuccess<T> = {
     code: ResponseCode;
     message: string;
     data: T;
-    errors?: string[];
+    errors?: never;
 };
 
 export type ApiError = {
     code: ResponseCode;
     message: string;
-    errors?: string[];
+    errors?: Record<string, string[]>;
     data: null;
 };
 

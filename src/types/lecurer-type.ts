@@ -1,13 +1,13 @@
 export type Education = {
     educationId:string;
     graduatedAt: string;
-    status: EducationStatus;
+    status: ApplicationStatus;
     trainingName: string;
     degreeName: string;
 };
 
 export type Gender = "Male" | "Female";
-export type EducationStatus = "Pending" | "Verified" | "Cancelled";
+export type ApplicationStatus = "Pending" | "Verified" | "Cancelled";
 
 export type Lecturer = {
     id: string;

@@ -22,7 +22,7 @@ const getDepartmentsListApi = async (
     } catch (error) {
         if (axios.isAxiosError(error)) {
             const data = error.response?.data;
-            return fail(data?.message || data?.detail || "Không thể kết nối đến server",);
+            return fail(data?.message || data?.detail , data.error);
         }
 
         return fail();
@@ -38,7 +38,7 @@ const getByIdDepartmentsApi = async (id: string): Promise<ApiResponse<Department
     } catch (error) {
         if (axios.isAxiosError(error)) {
             const data = error.response?.data;
-            return fail(data?.message || data?.detail || "Không thể kết nối đến server",);
+            return fail(data?.message || data?.detail , data.error);
         }
 
         return fail();
@@ -54,7 +54,7 @@ const getListDisciplineApi = async (id: string, param: URLSearchParams): Promise
     } catch (error) {
         if (axios.isAxiosError(error)) {
             const data = error.response?.data;
-            return fail(data?.message || data?.detail || "Không thể kết nối đến server",);
+            return fail(data?.message || data?.detail , data.error);
         }
 
         return fail();
@@ -71,7 +71,7 @@ const getListMemberApi = async (id: string, param: URLSearchParams): Promise<Api
     } catch (error) {
         if (axios.isAxiosError(error)) {
             const data = error.response?.data;
-            return fail(data?.message || data?.detail || "Không thể kết nối đến server",);
+            return fail(data?.message || data?.detail , data.error);
         }
 
         return fail();

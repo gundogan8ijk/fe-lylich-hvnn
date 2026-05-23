@@ -10,24 +10,24 @@ import {
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import { InlineEditField } from '@/components/custom/Inline-Edit-Field'
 import { storeLecturer } from '@/stores/store-item/lecturer-store'
-import { Lecturer } from '@/types/lecurer-type'
 import Loading from '@/components/utils/Loading'
 import { getDateOnly } from '@/lib/display-variable-helper'
-import { birthDateUpdateAction, cCCDUpdateAction, deleteEmailAction, deleteWebsiteAction, emailUpdateAction, firstNameUpdateAction, genderUpdateAction, lastNameUpdateAction, websiteUpdateAction } from '@/hooks/lecturer-hook'
-import { InlineEditCitizenIdField } from '@/components/custom/InlineEditCCCDField'
-import { InlineEditGenderField } from '@/components/custom/InlineEditGenderField'
+import { AddressRequest, addressUpdateAction, avatarUpdateAction, birthDateUpdateAction, cCCDUpdateAction, deleteAddressAction, deleteAvatarAction, deleteEmailAction, deletePhoneAction, deleteWebsiteAction, emailUpdateAction, firstNameUpdateAction, genderUpdateAction, lastNameUpdateAction, phoneUpdateAction, UpdatePhoneRequest, websiteUpdateAction } from '@/hooks/lecturer-hook'
+import FormPhoneNumber from '@/components/custom/from-input/from-phone-number'
+import FormAddress from '@/components/custom/from-input/from-addres'
+import { InlineEditField } from '@/components/custom/from-input/inline-edit-field'
+import { InlineEditGenderField } from '@/components/custom/from-input/inline-edit-gender'
+import { InlineEditCitizenIdField } from '@/components/custom/from-input/inline-edit-cccd'
+import { InlineEditShell } from '@/components/custom/inline-edit-shell.tsx'
+import { AvatarEdit } from '@/components/custom/AvatarEdit'
+import { EducationSection } from './EducationSection'
 
 export default function ContentProfile() {
 
   const lecturerData = storeLecturer((e) => e.data);
   const isLoading = storeLecturer((e) => e.isLoading);
 
-  const handleFieldSave = async (field: keyof Lecturer, value: string) => {
-
-  }
 
   if (isLoading) return <Loading></Loading>
   if (!lecturerData) return <></>
@@ -39,10 +39,12 @@ export default function ContentProfile() {
       <Card>
         <CardHeader>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-            <Avatar className="h-20 w-20 sm:h-24 sm:w-24">
-              <AvatarImage src={lecturerData.avatarUrl} alt={lecturerData.firstName ?? ""} />
-              <AvatarFallback>{lecturerData.firstName ?? ""}</AvatarFallback>
-            </Avatar>
+            <AvatarEdit
+              avatarUrl={lecturerData.avatarUrl}
+              fallback={lecturerData.firstName ?? ""}
+              onSave={(url) => avatarUpdateAction(url)}
+              onDelete={() => deleteAvatarAction()}
+            />
 
             <div className="flex-1 min-w-0">
               <div className="flex flex-col gap-2 sm:gap-4 mb-2">
@@ -102,36 +104,34 @@ export default function ContentProfile() {
         <CardContent className="space-y-1">
           <InlineEditField label="Email" value={lecturerData.email}
             onSave={(value) => emailUpdateAction(value)}
-            type="email" icon={<Mail size={18} />} onDelete={()=>deleteEmailAction()}
+            type="email" icon={<Mail size={18} />} onDelete={() => deleteEmailAction()}
           />
-          <InlineEditField
-            label="Số điện thoại"
-            value={lecturerData.phoneNumber}
-            onSave={(value) => handleFieldSave('phoneNumber', value)}
-            type="tel"
-            icon={<Phone size={18} />}
+
+          <InlineEditShell<UpdatePhoneRequest>
+            label="Số điện thoại" value={lecturerData.phoneNumber}
+            icon={<Phone size={18} />} onDelete={() => deletePhoneAction()}
+            onSave={(value) => phoneUpdateAction(value)}
+
+            renderInput={(editValue, setEditValue) => (
+              <FormPhoneNumber editValue={editValue} setEditValue={setEditValue} />
+            )}
           />
-          <InlineEditField
-            label="Địa chỉ"
-            value={lecturerData.address}
-            onSave={(value) => handleFieldSave('address', value)}
-            icon={<MapPin size={18} />}
+
+          <InlineEditShell<AddressRequest>
+            label="Địa chỉ" value={lecturerData.address} onDelete={() => deleteAddressAction()}
+            onSave={(value) => addressUpdateAction(value)} icon={<MapPin size={18} />}
+            renderInput={(editValue, setEditValue) => (
+              <FormAddress value={editValue} setValue={setEditValue} />
+            )}
           />
-          <InlineEditField label="Website" value={lecturerData.website} onDelete={()=>deleteWebsiteAction()}
-            onSave={(value) => websiteUpdateAction( value)} type="url" icon={<Globe size={18} />}
+
+          <InlineEditField label="Website" value={lecturerData.website} onDelete={() => deleteWebsiteAction()}
+            onSave={(value) => websiteUpdateAction(value)} type="url" icon={<Globe size={18} />}
           />
         </CardContent>
       </Card>
 
-      {/* Education Table - Tạm thời ẩn */}
-      {/* 
-      <EducationTable
-        educations={lecturerData.educations}
-        onAdd={handleAddEducation}
-        onEdit={handleEditEducation}
-        onDelete={handleDeleteEducation}
-      />
-      */}
+      <EducationSection educations={lecturerData.educations} />
     </div>
   )
 }

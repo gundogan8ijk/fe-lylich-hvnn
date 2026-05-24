@@ -1,5 +1,5 @@
 export {
-  getInitials, getYear, getDateOnly,formatDateForInput
+  getInitials, getYear, getDateOnly,formatDateForInput,formatDate
 
 }
 
@@ -37,4 +37,10 @@ function formatDateForInput(date?: string): string {
     const [day, month, year] = parts
 
     return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+}
+
+function formatDate(dateStr: string): string {
+    if (!dateStr) return '—'
+    const [y, m, d] = dateStr.split('-')
+    return `${d}/${m}/${y}`
 }

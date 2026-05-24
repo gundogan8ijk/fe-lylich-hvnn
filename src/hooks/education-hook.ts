@@ -1,96 +1,50 @@
-'use server'
+import { notify } from "@/components/utils/Notify";
+import { getErrorMessage } from "@/lib/response-helper";
+import { deleteEducationApi, registerEducationApi, RegisterEducationForm, updateEducationApi, UpdateEducationForm } from "@/services/education-ser";
+import { storeLecturer } from "@/stores/store-item/lecturer-store";
 
-import { Education } from '@/types/lecurer-type'
-import { storeLecturer } from '@/stores/store-item/lecturer-store'
-import { notify } from '@/components/utils/Notify'
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL
-
-// ---------- Types ----------
-
-export type AddEducationRequest = {
-    trainingName: string
-    degreeName: string
-    graduatedAt: string
-    status: Education['status']
+export {
+    registerEducationAction, deleteEducationAction,updateEducationAction
 }
 
-export type UpdateEducationRequest = AddEducationRequest & {
-    educationId: string
+async function registerEducationAction(educationForm: RegisterEducationForm) {
+
+    const { addEducation } = storeLecturer.getState();
+
+    const res = await registerEducationApi(educationForm);
+    if (res.code === -1) notify.error(getErrorMessage(res.message, res.errors));
+
+    if (res.data !== null) {
+        addEducation(res.data);
+        notify.success("them bang cap thanh cong")
+    }
 }
 
-// ---------- Helpers ----------
+async function deleteEducationAction(id: string) {
 
-function getLecturerId(): string | null {
-    return storeLecturer.getState().data?.id ?? null
-}
+    const { deleteEducation } = storeLecturer.getState();
 
-function updateEducationsInStore(updater: (prev: Education[]) => Education[]) {
-    const state = storeLecturer.getState()
-    if (!state.data) return
-    state.setData({
-        ...state.data,
-        educations: updater(state.data.educations),
-    })
-}
+    const res = await deleteEducationApi(id);
+    if (res.code === -1) notify.error(getErrorMessage(res.message, res.errors));
 
-// ---------- Actions ----------
-
-export async function addEducationAction(payload: AddEducationRequest): Promise<void> {
-    const id = getLecturerId()
-    if (!id) return
-
-    const res = await fetch(`${API_BASE}/lecturers/${id}/educations`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-    })
-
-    if (!res.ok) {
-        notify.error('Thêm học vấn thất bại')
-        throw new Error('Add education failed')
+    else {
+        deleteEducation(id);
+        notify.success("xóa thành công")
     }
 
-    const created: Education = await res.json()
-    updateEducationsInStore((prev) => [...prev, created])
-    notify.success('Đã thêm học vấn')
 }
 
-export async function updateEducationAction(payload: UpdateEducationRequest): Promise<void> {
-    const id = getLecturerId()
-    if (!id) return
+async function updateEducationAction(payload: UpdateEducationForm) {
+    const { updateEducation } = storeLecturer.getState();
 
-    const res = await fetch(`${API_BASE}/lecturers/${id}/educations/${payload.educationId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-    })
-
-    if (!res.ok) {
-        notify.error('Cập nhật học vấn thất bại')
-        throw new Error('Update education failed')
+    const res = await updateEducationApi(payload);
+    if (res.code === -1) {
+        notify.error(getErrorMessage(res.message, res.errors));
+        return;
     }
 
-    const updated: Education = await res.json()
-    updateEducationsInStore((prev) =>
-        prev.map((e) => (e.educationId === updated.educationId ? updated : e))
-    )
-    notify.success('Đã cập nhật học vấn')
-}
-
-export async function deleteEducationAction(educationId: string): Promise<void> {
-    const id = getLecturerId()
-    if (!id) return
-
-    const res = await fetch(`${API_BASE}/lecturers/${id}/educations/${educationId}`, {
-        method: 'DELETE',
-    })
-
-    if (!res.ok) {
-        notify.error('Xóa học vấn thất bại')
-        throw new Error('Delete education failed')
+    if (res.data !== null) {
+        updateEducation(res.data);
+        notify.success("Cập nhật bằng cấp thành công");
     }
-
-    updateEducationsInStore((prev) => prev.filter((e) => e.educationId !== educationId))
-    notify.success('Đã xóa học vấn')
 }

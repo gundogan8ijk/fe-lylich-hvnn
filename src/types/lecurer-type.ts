@@ -1,13 +1,5 @@
-export type Education = {
-    educationId:string;
-    graduatedAt: string;
-    status: ApplicationStatus;
-    trainingName: string;
-    degreeName: string;
-};
-
-export type Gender = "Male" | "Female";
-export type ApplicationStatus = "Pending" | "Verified" | "Cancelled";
+import { Gender } from "@/constants/base-constant";
+import { Education } from "./educationType";
 
 export type Lecturer = {
     id: string;

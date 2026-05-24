@@ -11,5 +11,4 @@ export const ROLE_HOME: Record<Role, string> = {
     [Role.ADMIN]: "/admin",
     [Role.LECTURER]: "/lecturer",
     [Role.MANAGER]: "/manager",
-    [Role.VERIFIED]: "/",
 };

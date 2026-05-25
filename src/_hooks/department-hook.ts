@@ -1,9 +1,9 @@
-import { getByIdDepartmentsApi, getDepartmentsListApi, getListDisciplineApi, getListMemberApi } from "@/services/department-service";
+import { getByIdDepartmentsApi, getDepartmentsListApi, getListDisciplineApi, getListMemberApi } from "@/_services/department-service";
 import { notify } from '@/components/utils/Notify'
-import { defaultPagination } from "@/types/base-type/pagination-typeConfig";
+import { defaultPagination } from "@/_types/base-type/pagination-typeConfig";
 import { storeDepartment } from "@/stores/store-list/department-store";
 import { toSearchParams } from "@/lib/query-options-toUrl-helper";
-import { DepartmentDetail, DisciplineList, MemberList } from "@/types/department-type";
+import { DepartmentDetail, DisciplineList, MemberList } from "@/_types/department-type";
 
 
 export { getDepartmentsListAction, getDepartmentsDetailAction, getListDisciplineAction ,getListMemberAction}

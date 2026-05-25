@@ -1,6 +1,6 @@
 import { StateCreator } from "zustand";
-import { ListQuery, FieldFilters, SortOption } from "@/types/base-type/query-types";
-import { defaultPagination, Pagination } from "@/types/base-type/pagination-typeConfig";
+import { ListQuery, FieldFilters, SortOption } from "@/_types/base-type/query-types";
+import { defaultPagination, Pagination } from "@/_types/base-type/pagination-typeConfig";
 
 export type QuerySlice<TFilter, TSortField extends string> = {
     query: ListQuery<TFilter, TSortField>;

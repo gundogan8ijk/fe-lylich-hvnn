@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
-import { DisciplineList } from '@/types/department-type';
+import { DisciplineList } from '@/_types/department-type';
 import Loading from '@/components/utils/Loading';
-import { ListQuery, SortDirection } from '@/types/base-type/query-types';
+import { ListQuery, SortDirection } from '@/_types/base-type/query-types';
 import { toSearchParams } from '@/lib/query-options-toUrl-helper';
-import { getListDisciplineAction } from '@/hooks/department-hook';
+import { getListDisciplineAction } from '@/_hooks/department-hook';
 import { getPages } from '@/lib/getPages -Button-helper';
 
 const PerPage = 20;

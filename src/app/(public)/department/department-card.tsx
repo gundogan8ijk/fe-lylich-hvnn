@@ -3,7 +3,7 @@
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import Image from 'next/image'
-import { Departments } from '@/types/department-type'
+import { Departments } from '@/_types/department-type'
 import { Button } from '@/components/ui/button'
 import { GraduationCap, Users, ArrowRight } from 'lucide-react'
 import { useRouter } from "next/navigation";

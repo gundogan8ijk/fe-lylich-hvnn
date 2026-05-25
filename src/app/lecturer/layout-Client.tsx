@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 import { SidebarLecturer } from "../../components/layouts/sidebar"
-import { lecturerMenu } from "@/types/base-type/layout-Sidebar-type"
+import { lecturerMenu } from "@/_types/base-type/layout-Sidebar-type"
 import { NavbarProtected, notifications } from "@/components/layouts/navbar-ptotected"
-import { lecturerNavbarConfig } from "@/types/base-type/layout-navbar"
+import { lecturerNavbarConfig } from "@/_types/base-type/layout-navbar"
 
 export default function LayoutClient({ children, }: { children: React.ReactNode }) {
 

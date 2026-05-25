@@ -1,5 +1,5 @@
 import { hasRequiredRolesAsync } from "@/lib/auth-helper";
-import { Role } from "@/types/base-type/auth-type";
+import { Role } from "@/_types/base-type/auth-type";
 import { redirect } from "next/navigation"
 import NotFound from "../not-found";
 

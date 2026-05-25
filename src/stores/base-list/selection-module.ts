@@ -1,4 +1,4 @@
-import { SelectionOption } from "@/types/base-type/query-types";
+import { SelectionOption } from "@/_types/base-type/query-types";
 import { StateCreator } from "zustand";
 
 export type SelectionSlice<T extends string> = {

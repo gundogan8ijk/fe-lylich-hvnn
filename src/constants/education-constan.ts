@@ -1,9 +1,9 @@
-import { ApplicationStatus } from "./base-constant"
+import { ConfirmedStatus } from "./base-constant"
 
 export type DegreeName = | 'Cử nhân' | 'Thạc sĩ' | 'Tiến sĩ' | 'Phó giáo sư' | 'Giáo sư'
 
 
-export const STATUS_VARIANTS: Record<ApplicationStatus, 'default' | 'secondary' | 'destructive' | 'outline'> = {
+export const STATUS_VARIANTS: Record<ConfirmedStatus, 'default' | 'secondary' | 'destructive' | 'outline'> = {
     Pending: 'secondary',
     Verified: 'default',
     Cancelled: 'destructive',

@@ -10,7 +10,7 @@ export const lecturerMenu: SidebarItem[] = [
     { icon: BookOpen, label: 'Lớp học', href: '/lecturer/classes' },
     { icon: Users, label: 'Sinh viên', href: '/lecturer/students' },
     { icon: UserRoundCog, label: 'Hồ Sơ', href: '/lecturer/profile' },
-    { icon: FileText, label: 'Bài giảng', href: '/lecturer/lectures' },
+    { icon: FileText, label: 'Đề tài', href: '/lecturer/research-projects' },
     { icon: BarChart3, label: 'Đánh giá', href: '/lecturer/grades' },
     { icon: Settings, label: 'Cài đặt lớp', href: '/lecturer/settings' },
     { icon: HelpCircle, label: 'Trợ giúp', href: '/lecturer/help' },

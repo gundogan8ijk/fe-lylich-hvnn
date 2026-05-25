@@ -21,6 +21,7 @@ export type BaseActions<T> = {
         updater: Partial<T> | ((item: T) => T),
     ) => void;
     removeItem: (predicate: (item: T) => boolean) => void;
+    removeById: (id: string | number) => void;
 
     setSelectedItem: (item: T | null) => void;
     setSelectedItems: (items: T[]) => void;
@@ -38,71 +39,8 @@ export type BaseActions<T> = {
 export type BaseSlice<T> = BaseState<T> & BaseActions<T>;
 
 export const createBaseSlice =
-<T>(): StateCreator<BaseSlice<T>, [], [], BaseSlice<T>> =>
-(set, get) => ({
-    data: [],
-    selectedItem: null,
-    selectedItems: [],
-    loading: false,
-    submitting: false,
-    deleting: false,
-    error: null,
-
-    setData: (value) => set({ data: value }),
-
-    appendData: (value) =>
-        set((s) => ({ data: [...s.data, ...value] })),
-
-    prependData: (value) =>
-        set((s) => ({ data: [...value, ...s.data] })),
-
-    addItem: (item) =>
-        set((s) => ({ data: [item, ...s.data] })),
-
-    updateItem: (predicate, updater) =>
-        set((s) => ({
-            data: s.data.map((item) =>
-                predicate(item)
-                    ? typeof updater === "function"
-                        ? updater(item)
-                        : { ...item, ...updater }
-                    : item
-            ),
-        })),
-
-    removeItem: (predicate) =>
-        set((s) => ({
-            data: s.data.filter((item) => !predicate(item)),
-        })),
-
-    setSelectedItem: (item) => set({ selectedItem: item }),
-    setSelectedItems: (items) => set({ selectedItems: items }),
-
-    toggleSelectItem: (item, key) =>
-        set((s) => {
-            const exists = s.selectedItems.some(
-                (i) => i[key] === item[key]
-            );
-
-            return {
-                selectedItems: exists
-                    ? s.selectedItems.filter((i) => i[key] !== item[key])
-                    : [...s.selectedItems, item],
-            };
-        }),
-
-    clearSelection: () =>
-        set({ selectedItem: null, selectedItems: [] }),
-
-    setLoading: (v) => set({ loading: v }),
-    setSubmitting: (v) => set({ submitting: v }),
-    setDeleting: (v) => set({ deleting: v }),
-    setError: (v) => set({ error: v }),
-
-    reset: () => {
-        const state = get();
-        set({
-            ...state,
+    <T>(): StateCreator<BaseSlice<T>, [], [], BaseSlice<T>> =>
+        (set, get) => ({
             data: [],
             selectedItem: null,
             selectedItems: [],
@@ -110,6 +48,76 @@ export const createBaseSlice =
             submitting: false,
             deleting: false,
             error: null,
+
+            setData: (value) => set({ data: value }),
+
+            appendData: (value) =>
+                set((s) => ({ data: [...s.data, ...value] })),
+
+            prependData: (value) =>
+                set((s) => ({ data: [...value, ...s.data] })),
+
+            addItem: (item) =>
+                set((s) => ({ data: [item, ...s.data] })),
+
+            updateItem: (predicate, updater) =>
+                set((s) => ({
+                    data: s.data.map((item) =>
+                        predicate(item)
+                            ? typeof updater === "function"
+                                ? updater(item)
+                                : { ...item, ...updater }
+                            : item
+                    ),
+                })),
+
+            removeItem: (predicate) =>
+                set((s) => ({
+                    data: s.data.filter((item) => !predicate(item)),
+                })),
+
+            removeById: (id: string | number) =>
+                set((s) => ({
+                    data: s.data.filter(
+                        (item) => (item as Record<string, unknown>)['id'] !== id
+                    ),
+                })),
+
+            setSelectedItem: (item) => set({ selectedItem: item }),
+            setSelectedItems: (items) => set({ selectedItems: items }),
+
+            toggleSelectItem: (item, key) =>
+                set((s) => {
+                    const exists = s.selectedItems.some(
+                        (i) => i[key] === item[key]
+                    );
+
+                    return {
+                        selectedItems: exists
+                            ? s.selectedItems.filter((i) => i[key] !== item[key])
+                            : [...s.selectedItems, item],
+                    };
+                }),
+
+            clearSelection: () =>
+                set({ selectedItem: null, selectedItems: [] }),
+
+            setLoading: (v) => set({ loading: v }),
+            setSubmitting: (v) => set({ submitting: v }),
+            setDeleting: (v) => set({ deleting: v }),
+            setError: (v) => set({ error: v }),
+
+            reset: () => {
+                const state = get();
+                set({
+                    ...state,
+                    data: [],
+                    selectedItem: null,
+                    selectedItems: [],
+                    loading: false,
+                    submitting: false,
+                    deleting: false,
+                    error: null,
+                });
+            },
         });
-    },
-});

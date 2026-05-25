@@ -1,5 +1,5 @@
 import { success } from "@/lib/response-helper";
-import { ApiResponse } from "@/types/base-type/result-typeConfig";
+import { ApiResponse } from "@/_types/base-type/result-typeConfig";
 import { fail } from "assert";
 import axios from "axios";
 import { api } from "./axios-service-config";

@@ -26,16 +26,16 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Label } from '@/components/ui/label'
 
-import { ApplicationStatus } from '@/constants/base-constant'
-import { Education } from '@/types/educationType'
+import { Education } from '@/_types/educationType'
 import { DEGREE_OPTIONS } from '@/constants/education-constan'
 import { SearchInput } from '@/components/custom/search-Input'
-import { StatusFilterSelect } from '@/components/custom/StatusFilter-Select'
+import { ConfirmedStatusFilterSelect } from '@/components/custom/StatusFilter-Select'
 import { EmptyState } from '@/components/custom/Empty-state'
 import { EducationCard } from './EducationCard'
-import { RegisterEducationForm } from '@/services/education-ser'
-import { deleteEducationAction, registerEducationAction, updateEducationAction } from '@/hooks/education-hook'
+import { RegisterEducationForm } from '@/_services/education-ser'
+import { deleteEducationAction, registerEducationAction, updateEducationAction } from '@/_hooks/education-hook'
 import { SearchSelectProps } from '@/components/custom/selection-Props'
+import { ConfirmedStatus } from '@/constants/base-constant'
 
 const EMPTY_FORM: RegisterEducationForm = {
     trainingName: '',
@@ -50,7 +50,7 @@ interface EducationSectionProps {
 
 export function EducationSection({ educations }: EducationSectionProps) {
     const [search, setSearch] = useState('')
-    const [filterStatus, setFilterStatus] = useState<ApplicationStatus | 'all'>('all')
+    const [filterStatus, setFilterStatus] = useState<ConfirmedStatus | 'all'>('all')
 
     // Dialog state
     const [dialogOpen, setDialogOpen] = useState(false)
@@ -168,7 +168,7 @@ export function EducationSection({ educations }: EducationSectionProps) {
                             onChange={setSearch}
                             placeholder="Tìm trường, ngành học..."
                         />
-                        <StatusFilterSelect value={filterStatus} onChange={setFilterStatus} />
+                        <ConfirmedStatusFilterSelect value={filterStatus} onChange={setFilterStatus} />
                     </div>
                 </CardHeader>
 

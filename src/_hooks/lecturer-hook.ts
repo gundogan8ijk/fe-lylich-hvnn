@@ -1,9 +1,10 @@
 // lecturer-action.ts
 import { notify } from '@/components/utils/Notify'
 import { getErrorMessage } from '@/lib/response-helper';
-import { deleteLecturerApi, getLecturerMeApi, putLecturerApi } from "@/services/lecturer-service";
+import { deleteLecturerApi, getLecturerMeApi, putLecturerApi } from "@/_services/lecturer-service";
 import { storeLecturer } from "@/stores/store-item/lecturer-store";
-import { Gender, Lecturer } from '@/types/lecurer-type';
+import { Lecturer } from '@/_types/lecurer-type';
+import { Gender } from '@/constants/base-constant';
 
 export {
     getAcLecturer,

@@ -1,6 +1,6 @@
 import { notify } from "@/components/utils/Notify";
 import { getErrorMessage } from "@/lib/response-helper";
-import { deleteEducationApi, registerEducationApi, RegisterEducationForm, updateEducationApi, UpdateEducationForm } from "@/services/education-ser";
+import { deleteEducationApi, registerEducationApi, RegisterEducationForm, updateEducationApi, UpdateEducationForm } from "@/_services/education-ser";
 import { storeLecturer } from "@/stores/store-item/lecturer-store";
 
 export {

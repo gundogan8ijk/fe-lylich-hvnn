@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { getRolesFromTokenSync } from "@/lib/auth-helper";
 import { redirect } from "next/navigation";
-import { Role } from "@/types/base-type/auth-type";
+import { Role } from "@/_types/base-type/auth-type";
 
 const ACCESS_TOKEN_COOKIE_NAME = process.env.NEXT_PUBLIC_NAME_ACCESS_TOKEN ?? "";
 

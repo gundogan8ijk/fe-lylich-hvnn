@@ -1,10 +1,10 @@
-import { ApplicationStatus } from "@/constants/base-constant";
+import { ConfirmedStatus } from "@/constants/base-constant";
 import { DegreeName } from "@/constants/education-constan";
 
 export type Education = {
     id:string;
     graduatedAt: string;
-    status: ApplicationStatus;
+    status: ConfirmedStatus;
     trainingName: string;
     majorName: string;
     degreeValue: number;

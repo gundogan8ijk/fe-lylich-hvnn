@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input"
-import { UpdatePhoneRequest } from "@/hooks/lecturer-hook"
+import { UpdatePhoneRequest } from "@/_hooks/lecturer-hook"
 
 interface FormPhoneNumberProps {
     editValue: UpdatePhoneRequest

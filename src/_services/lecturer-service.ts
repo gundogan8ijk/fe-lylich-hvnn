@@ -1,9 +1,9 @@
 // lecturer-service.ts
-import { ApiResponse } from "@/types/base-type/result-typeConfig";
+import { ApiResponse } from "@/_types/base-type/result-typeConfig";
 import { success, fail } from "@/lib/response-helper";
 import axios from "axios";
 import { api } from "./base-ser/axios-service-config";
-import { Lecturer } from "@/types/lecurer-type";
+import { Lecturer } from "@/_types/lecurer-type";
 
 export { getLecturerMeApi, putLecturerApi, deleteLecturerApi }
 

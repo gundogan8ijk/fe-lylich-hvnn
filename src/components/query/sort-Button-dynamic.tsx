@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import { QuerySlice } from "@/stores/base-list/query-module";
-import { SortDirection } from "@/types/base-type/query-types";
+import { SortDirection } from "@/_types/base-type/query-types";
 
 type QueryStore<TFilter, TSortField extends string> =
     UseBoundStore<StoreApi<QuerySlice<TFilter, TSortField>>>;

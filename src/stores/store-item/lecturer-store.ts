@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { Lecturer } from "@/types/lecurer-type";
+import { Lecturer } from "@/_types/lecurer-type";
 import { BaseStore, createBaseStore } from "../base-state/base-store";
-import { Education } from "@/types/educationType";
+import { Education } from "@/_types/educationType";
 
 type LecturerExtra = {
     addEducation: (edu: Education) => void;

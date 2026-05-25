@@ -1,5 +1,5 @@
-import { ApiResponse } from "@/types/base-type/result-typeConfig";
-import { Education } from "@/types/educationType";
+import { ApiResponse } from "@/_types/base-type/result-typeConfig";
+import { Education } from "@/_types/educationType";
 import { api } from "./base-ser/axios-service-config";
 import { fail, success } from "@/lib/response-helper";
 import axios from "axios";

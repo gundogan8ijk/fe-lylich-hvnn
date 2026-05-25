@@ -1,3 +1,5 @@
+import { error } from "console";
+
 export type ResponseCode = 1 | -1;
 
 export type ApiSuccess<T> = {
@@ -10,9 +12,11 @@ export type ApiSuccess<T> = {
 export type ApiError = {
     code: ResponseCode;
     message: string;
-    errors?: Record<string, string[]>;
+    errors?: ErrorsResult;
     data: null;
 };
+
+export type ErrorsResult = { [key: string]: string[]; };
 
 export type ApiResponse<T> = ApiSuccess<T> | ApiError;
 

@@ -58,7 +58,11 @@ export const notify = {
   success: (message) =>
     toast.success(message, { ...defaultConfig, ...toastStyles.success }),
   error: (message) =>
-    toast.error(message, { ...defaultConfig, ...toastStyles.error }),
+    toast.error(
+      <div style={{ whiteSpace: "pre-line" }} >
+        {message}
+      </div>,
+      { ...defaultConfig, ...toastStyles.error }),
   info: (message) =>
     toast.info(message, { ...defaultConfig, ...toastStyles.info }),
   warning: (message) =>

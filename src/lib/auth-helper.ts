@@ -1,4 +1,4 @@
-import { Role } from "@/types/base-type/auth-type";
+import { Role } from "@/_types/base-type/auth-type";
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 

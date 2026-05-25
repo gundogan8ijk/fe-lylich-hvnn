@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, Search, BookOpen, Award, Calendar } from 'lucide-react';
-import { MemberList } from '@/types/department-type';
-import { ListQuery, SortDirection } from '@/types/base-type/query-types';
+import { MemberList } from '@/_types/department-type';
+import { ListQuery, SortDirection } from '@/_types/base-type/query-types';
 import Loading from '@/components/utils/Loading';
 import { getPages } from '@/lib/getPages -Button-helper';
 import { toSearchParams } from '@/lib/query-options-toUrl-helper';
 import { getInitials, getYear } from '@/lib/display-variable-helper';
 import Image from 'next/image';
-import { getListMemberAction } from '@/hooks/department-hook';
+import { getListMemberAction } from '@/_hooks/department-hook';
 
 const PerPage = 20;
 

@@ -1,5 +1,5 @@
-import { ApiResponse } from "@/types/base-type/result-typeConfig";
-import { DepartmentDetail, DepartmentList, DisciplineList, MemberList } from "@/types/department-type";
+import { ApiResponse } from "@/_types/base-type/result-typeConfig";
+import { DepartmentDetail, DepartmentList, DisciplineList, MemberList } from "@/_types/department-type";
 import { success, fail } from "@/lib/response-helper";
 import axios from "axios";
 import { api } from "./base-ser/axios-service-config";

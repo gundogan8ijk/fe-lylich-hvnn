@@ -1,9 +1,9 @@
 // department.store.ts
 import { create } from "zustand";
-import { Departments, DepartmentSearchField, DepartmentSearchOptions, DepartmentSortField } from "@/types/department-type";
+import { Departments, DepartmentSearchField, DepartmentSearchOptions, DepartmentSortField } from "@/_types/department-type";
 import { createQuerySlice, QuerySlice } from "../base-list/query-module";
 import { BaseSlice, createBaseSlice } from "../base-list/base-module";
-import { NoFilter } from "@/types/base-type/query-types";
+import { NoFilter } from "@/_types/base-type/query-types";
 
 
 type DepartmentExtra = {

@@ -1,8 +1,8 @@
 import { GraduationCap, CalendarDays, BookOpen, Pencil, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Education } from '@/types/educationType'
-import { formatDate, getDateOnly } from '@/lib/display-variable-helper'
+import { Education } from '@/_types/educationType'
+import { getDateOnly } from '@/lib/display-variable-helper'
 import { STATUS_VARIANTS } from '@/constants/education-constan'
 import { STATUS_LABELS } from '@/constants/base-constant'
 
@@ -57,7 +57,7 @@ export function EducationCard({ education: edu, onEdit, onDelete }: EducationCar
                     {edu.graduatedAt && (
                         <span className="flex items-center gap-1 text-muted-foreground/80">
                             <CalendarDays size={13} className="text-muted-foreground/60" />
-                            {formatDate(edu.graduatedAt)}
+                            {getDateOnly(edu.graduatedAt)}
                         </span>
                     )}
                 </div>

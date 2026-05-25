@@ -6,7 +6,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { SelectionOption } from "@/types/base-type/query-types";
+import { SelectionOption } from "@/_types/base-type/query-types";
 import { StoreApi, UseBoundStore } from "zustand";
 
 type QueryStore<TFilter, TSortField extends string> = {

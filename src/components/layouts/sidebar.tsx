@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { SidebarItem } from '@/types/base-type/layout-Sidebar-type'
+import { SidebarItem } from '@/_types/base-type/layout-Sidebar-type'
 
 interface SidebarProps {
     items: SidebarItem[],

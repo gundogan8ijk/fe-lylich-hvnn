@@ -1,11 +1,11 @@
 'use client';
 
 import { Filter } from 'lucide-react';
-import { DepartmentSearchOptions, DepartmentSortOptions, } from '@/types/department-type';
+import { DepartmentSearchOptions, DepartmentSortOptions, } from '@/_types/department-type';
 import { storeDepartment } from '@/stores/store-list/department-store';
 import { SortButtonDynamic } from '@/components/query/sort-Button-dynamic';
 import React from 'react';
-import { getDepartmentsListAction } from '@/hooks/department-hook';
+import { getDepartmentsListAction } from '@/_hooks/department-hook';
 import { SearchBoxWithField } from '@/components/query/SearchBoxWithField';
 
 

@@ -1,8 +1,8 @@
-import { ApiResponse } from "@/types/base-type/result-typeConfig";
+import { ApiResponse } from "@/_types/base-type/result-typeConfig";
 import { fail, success } from "@/lib/response-helper";
 import axios from "axios";
 import { api } from "./axios-service-config";
-import { TimeToken } from "@/types/base-type/auth-type";
+import { TimeToken } from "@/_types/base-type/auth-type";
 
 const loginUrl = "/authentication/login/";
 const refreshTokenUrl = "/authentication/refresh";

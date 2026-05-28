@@ -1,0 +1,42 @@
+'use client'
+import Loading from '@/components/utils/Loading'
+import { storeProjectManger } from '@/stores/store-list/projects-manger-store';
+import MangerResearchProjectCard from './projectManger-card';
+import { useState } from 'react';
+import DeleteConfirmDialog from '@/components/custom/DeleteConfirmDialog';
+import { deleteMangerProjectAction } from '@/_hooks/research-projects-hook';
+
+export default function MangerProjectGrid() {
+    const isLoading = storeProjectManger((s) => s.loading);
+    const items = storeProjectManger((s) => s.data);
+
+    const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null)
+    const [deleting, setDeleting] = useState(false)
+
+    const handleClick = async () => {
+
+    }
+
+    const handleDeleteConfirm = async () => {
+        if (!deleteTargetId) return
+        setDeleting(true)
+        await deleteMangerProjectAction(deleteTargetId)
+        setDeleting(false)
+        setDeleteTargetId(null)
+    }
+
+    if (isLoading)
+        return <Loading></Loading>;
+
+    return (
+        <div className="flex flex-col gap-y-3">
+            {items?.map((project, index) => (
+                <MangerResearchProjectCard key={index} item={project} onViewDetail={handleClick} onDelete={(id) => setDeleteTargetId(id)} />
+            ))}
+            <DeleteConfirmDialog open={!!deleteTargetId}
+                deleting={deleting}
+                onConfirm={handleDeleteConfirm}
+                onCancel={() => setDeleteTargetId(null)} />
+        </div>
+    )
+}

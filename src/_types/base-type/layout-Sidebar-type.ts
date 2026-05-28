@@ -15,3 +15,13 @@ export const lecturerMenu: SidebarItem[] = [
     { icon: Settings, label: 'Cài đặt lớp', href: '/lecturer/settings' },
     { icon: HelpCircle, label: 'Trợ giúp', href: '/lecturer/help' },
 ]
+
+export const  managerMenu: SidebarItem[] = [
+    { icon: BookOpen, label: 'Lớp học', href: '/manager/classes' },
+    { icon: Users, label: 'Sinh viên', href: '/manager/students' },
+    { icon: UserRoundCog, label: 'Hồ Sơ', href: '/manager/profile' },
+    { icon: FileText, label: 'Đề tài', href: '/manager/research-projects' },
+    { icon: BarChart3, label: 'Đánh giá', href: '/manager/grades' },
+    { icon: Settings, label: 'Cài đặt lớp', href: '/manager/settings' },
+    { icon: HelpCircle, label: 'Trợ giúp', href: '/manager/help' },
+]

@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { lecturerMenu } from "@/_types/base-type/layout-Sidebar-type"
+import { SidebarConfig } from "../../components/layouts/sidebar"
+import { managerMenu } from "@/_types/base-type/layout-Sidebar-type"
 import { NavbarProtected, notifications } from "@/components/layouts/navbar-ptotected"
-import { lecturerNavbarConfig } from "@/_types/base-type/layout-navbar"
-import { SidebarConfig } from "@/components/layouts/sidebar"
+import { managerNavbarConfig } from "@/_types/base-type/layout-navbar"
 
 export default function LayoutClient({ children, }: { children: React.ReactNode }) {
 
@@ -12,12 +12,12 @@ export default function LayoutClient({ children, }: { children: React.ReactNode 
 
     return (
         <div className="flex flex-col h-screen bg-background">
-            <NavbarProtected config={lecturerNavbarConfig} notifications={notifications}
+            <NavbarProtected config={managerNavbarConfig} notifications={notifications}
                 sidebarOpen={sidebarOpen} onSidebarToggle={() => setSidebarOpen(!sidebarOpen)} />
             <div className="flex flex-1 overflow-hidden">
                 {/* Sidebar - ẩn trên mobile, hiển thị từ md trở lên */}
                 <div className="hidden md:block md:w-64 lg:w-72">
-                    <SidebarConfig items={lecturerMenu} />
+                    <SidebarConfig items={managerMenu} />
                 </div>
 
                 {/* Mobile Sidebar - Overlay */}
@@ -29,12 +29,12 @@ export default function LayoutClient({ children, }: { children: React.ReactNode 
                 )}
                 <div className={`fixed left-0 top-16 bottom-0 w-64 z-50 transform transition-transform md:hidden ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
                     }`}>
-                    <SidebarConfig items={lecturerMenu} onClose={() => setSidebarOpen(false)} />
+                    <SidebarConfig items={managerMenu} onClose={() => setSidebarOpen(false)} />
                 </div>
 
                 {/* Main Content */}
                 <main className="flex-1 overflow-y-auto w-full md:w-auto">
-                    <div className="p-4 sm:p-6 lg:p-8">
+                    <div className="p-4 sm:p-6 lg:p-8 h-full flex flex-col"> 
                         {children}
                     </div>
                 </main>
@@ -42,3 +42,8 @@ export default function LayoutClient({ children, }: { children: React.ReactNode 
         </div>
     )
 }
+
+
+// /*<main className="flex-1 overflow-y-auto w-full md:w-auto flex flex-col">
+//     {children}
+// </main>*/

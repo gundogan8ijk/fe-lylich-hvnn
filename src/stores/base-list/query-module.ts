@@ -7,7 +7,7 @@ export type QuerySlice<TFilter, TSortField extends string> = {
     loadingMore: boolean;
     totalCount: number;
     totalPages: number;
-    isSearch:boolean;
+    isSearch: boolean;
 
     setQuery: (q: Partial<ListQuery<TFilter, TSortField>>) => void;
 
@@ -15,10 +15,13 @@ export type QuerySlice<TFilter, TSortField extends string> = {
 
     setFilters: (filters?: TFilter) => void;
     mergeFilters: (partial: TFilter) => void;
+
     setFieldFilter: <K extends keyof TFilter>(
         field: K,
         condition?: TFilter[K]
     ) => void;
+
+    resetFilters: () =>void;
 
     setSort: (sort: SortOption<TSortField> | null) => void;
     toggleSort: (field: TSortField) => void;
@@ -51,7 +54,7 @@ export const createQuerySlice =
             loadingMore: false,
             totalCount: defaultPagination.totalCount,
             totalPages: defaultPagination.totalPages,
-            isSearch:false,
+            isSearch: false,
 
             setQuery: (q) =>
                 set((s) => ({
@@ -63,10 +66,10 @@ export const createQuerySlice =
                 })),
 
             setSearch: (search) =>
-                set((s) => ({ query: { ...s.query, search, page: defaultPagination.page }, isSearch: !s.isSearch,})),
+                set((s) => ({ query: { ...s.query, search, page: defaultPagination.page }, isSearch: !s.isSearch, })),
 
             setFilters: (filters) =>
-                set((s) => ({ query: { ...s.query, filters, page:  defaultPagination.page }, })),
+                set((s) => ({ query: { ...s.query, filters, page: defaultPagination.page }, })),
 
             mergeFilters: (partial) =>
                 set((s) => ({
@@ -157,4 +160,8 @@ export const createQuerySlice =
                 })),
 
             setLoadingMore: (v) => set({ loadingMore: v }),
+
+            resetFilters: () =>
+                set((s) => ({ query: { ...s.query, filters: undefined, page: 1 } })),
+            
         });

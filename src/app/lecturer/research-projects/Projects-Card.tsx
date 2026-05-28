@@ -3,7 +3,7 @@
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Eye, Trash2, Calendar, FlaskConical } from 'lucide-react'
+import { Eye, Calendar, FlaskConical } from 'lucide-react'
 import {
     ProjectStatusName,
     ProjectStatus_OPTIONS,
@@ -17,16 +17,13 @@ import { ResearchProjectItems } from '@/_types/research-projects-type'
 type ResearchProjectCardProps = {
     item: ResearchProjectItems
     onViewDetail: (id: string) => void
-    onDelete?: (id: string) => void
 }
 
 
 export default function ResearchProjectCard({
     item,
     onViewDetail,
-    onDelete,
 }: ResearchProjectCardProps) {
-    const canDelete = item.confirmedStatus !== 'Verified'
 
     const statusStyle = projectStatusStyle[item.projectStatus] ?? projectStatusStyle.Pending
     const confirmedInfo = confirmedStyle[item.confirmedStatus] ?? confirmedStyle.Pending
@@ -94,34 +91,22 @@ export default function ResearchProjectCard({
                 {/* Divider */}
                 <div className="mb-4 h-px bg-slate-200 dark:bg-slate-800" />
 
-                {/* Bỏ divider + actions riêng, gộp vào 1 hàng footer */}
-                <div className="mb-0 flex items-center justify-between">
-                    {/* Date range */}
-                    {(startFmt || endFmt) ? (
-                        <div className="flex items-center gap-1.5 text-xs text-slate-500">
-                            <Calendar className="h-3.5 w-3.5" />
-                            <span>...</span>
-                        </div>
-                    ) : <Calendar className="h-3.5 w-3.5" />}
-
-                    {/* Actions */}
-                    <div className="flex items-center gap-x-3">
-                        {canDelete && onDelete && (
-                            <Button variant="ghost" size="sm"
-                                className="h-7 w-7 p-0 text-slate-400 hover:border hover:border-red-200 hover:bg-red-50 hover:text-red-500"
-                                onClick={() => onDelete(item.id)}
-                            >
-                                <Trash2 className="h-3.5 w-3.5" />
-                            </Button>
-                        )}
-
-                        <Button variant="ghost" size="sm"
-                            className="h-7 gap-1.5 px-2.5 text-xs text-slate-500"
-                            onClick={() => onViewDetail(item.id)}
-                        >
-                            <Eye className="h-3.5 w-3.5" /> Xem
-                        </Button>
+                {/* Date range */}
+                {(startFmt || endFmt) && (
+                    <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                        <Calendar className="h-3.5 w-3.5" />
+                        <span>...</span>
                     </div>
+                ) }
+
+                {/* Actions */}
+                <div className="flex items-center gap-x-3">
+                    <Button variant="ghost" size="sm"
+                        className="h-7 gap-1.5 px-2.5 text-xs text-slate-500"
+                        onClick={() => onViewDetail(item.id)}
+                    >
+                        <Eye className="h-3.5 w-3.5" /> Xem
+                    </Button>
                 </div>
             </div>
         </Card>

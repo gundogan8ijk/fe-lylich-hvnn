@@ -5,6 +5,10 @@ export type SortOption<TField extends string = string> = {
     direction: SortDirection;
 };
 
+export type FilterOperator =
+    | "eq" | "neq" | "gt" | "gte" | "lt" | "lte" | "contains" | "startsWith" | "endsWith"
+    | "in" | "nin" | "between" | "isNull" | "isNotNull";
+
 export type FilterCondition =
     | { operator: "eq" | "neq" | "gt" | "gte" | "lt" | "lte" | "contains" | "startsWith" | "endsWith"; value: string | number | boolean }
     | { operator: "in" | "nin"; value: (string | number)[] }

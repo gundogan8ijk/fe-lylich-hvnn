@@ -10,7 +10,7 @@ interface SidebarProps {
     onClose?: () => void
 }
 
-export function SidebarLecturer({items, onClose }: SidebarProps) {
+export function SidebarConfig({items, onClose }: SidebarProps) {
     const pathname = usePathname()
 
     return (

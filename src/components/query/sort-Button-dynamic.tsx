@@ -21,7 +21,6 @@ type SortButtonProps<
     label: string;
     store: QueryStore<TFilter, TSortField>;
 
-    // 👇 nhận luôn state mới để dùng bên ngoài
     onClick?: (field: TSortField, sort?: SortState<TSortField>) => void;
 };
 

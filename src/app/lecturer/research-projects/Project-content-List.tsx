@@ -14,9 +14,7 @@ import { ConfirmedStatusFilterSelect } from '@/components/custom/StatusFilter-Se
 import { SelectionOption, SortDirection } from '@/_types/base-type/query-types'
 import { SearchSelectProps } from '@/components/custom/selection-Props'
 import RegisterProjectDialog from './Register-Project-Dialog'
-import { deleteProjectAction, registerProjectAction } from '@/_hooks/research-projects-hook'
-import { useDeleteConfirm } from '@/_hooks/useDeleteConfirm-hook'
-import { DeleteConfirmDialog } from '@/components/custom/DeleteConfirmDialog'
+import { registerProjectAction } from '@/_hooks/research-projects-hook'
 
 const SORT_OPTIONS: readonly SelectionOption<SortDirection>[] = [
     { value: 'desc', label: 'Mới nhất' },
@@ -58,7 +56,6 @@ export default function ContentProjectsList() {
             })
     }, [data, search, filterStatus, filterConfirmed, sortOrder])
 
-    const { deleteId, deleting, setDeleteId, handleDelete } = useDeleteConfirm(deleteProjectAction)
 
 
     const handleViewDetail = (id: string) => {
@@ -144,7 +141,6 @@ export default function ContentProjectsList() {
                             <ResearchProjectCard
                                 key={item.id}
                                 item={item}
-                                onDelete={() => setDeleteId(item.id)}
                                 onViewDetail={handleViewDetail}
                             />
                         ))
@@ -156,13 +152,6 @@ export default function ContentProjectsList() {
                 onOpenChange={setDialogOpen}
                 onSubmit={registerProjectAction} />
 
-            <DeleteConfirmDialog
-                open={!!deleteId}
-                deleting={deleting}
-                onConfirm={handleDelete}
-                onCancel={() => setDeleteId(null)}
-                description="Xóa đề tài này sẽ không thể hoàn tác."
-            />
         </div>
     )
 }

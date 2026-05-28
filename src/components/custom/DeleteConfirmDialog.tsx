@@ -12,7 +12,7 @@ interface Props {
     onCancel: () => void
 }
 
-export function DeleteConfirmDialog({ open, deleting, description, onConfirm, onCancel }: Props) {
+export default function DeleteConfirmDialog({ open, deleting, description, onConfirm, onCancel }: Props) {
     return (
         <AlertDialog open={open} onOpenChange={(open) => !open && onCancel()}>
             <AlertDialogContent className="rounded-xl">

@@ -8,9 +8,9 @@ export const lecturerNavbarConfig: NavbarConfig = {
     avatarText: 'GV',
 }
 
-export const studentNavbarConfig: NavbarConfig = {
-    title: 'Sinh Viên',
-    avatarText: 'SV',
+export const managerNavbarConfig: NavbarConfig = {
+    title: 'Quản lý',
+    avatarText: 'QL',
 }
 
 export interface Notifications {

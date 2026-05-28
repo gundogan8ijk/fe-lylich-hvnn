@@ -19,3 +19,9 @@ export type Lecturer = {
     website: string;
     avatarUrl: string;
 };
+
+export type LecturersNameItems = {
+    id: string;
+    code: string;
+    name:string;
+};

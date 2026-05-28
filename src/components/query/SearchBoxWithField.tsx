@@ -6,22 +6,34 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { SelectionOption } from "@/_types/base-type/query-types";
+import { ListQuery, SelectionOption } from "@/_types/base-type/query-types";
 import { StoreApi, UseBoundStore } from "zustand";
+import { useDebounce } from "./search-Box-state";
 
-type QueryStore<TFilter, TSortField extends string> = {
-    query: { search: string };
-    setSearch: (value: string) => void;
-};
+// ─── Types ────────────────────────────────────────────────────────────────────
 
-type Props<TFilter, TSortField extends string, TField extends string> = {
-    store: UseBoundStore<StoreApi<QueryStore<TFilter, TSortField>>>;
+type QueryStore<TFilter, TSortField extends string> = UseBoundStore<
+    StoreApi<{
+        query: ListQuery<TFilter, TSortField>;
+        setSearch: (value: string) => void;
+    }>
+>;
+
+type SearchBoxWithFieldProps<
+    TFilter,
+    TSortField extends string,
+    TField extends string,
+> = {
+    store: QueryStore<TFilter, TSortField>;
     fieldOptions: SelectionOption<TField>[] | readonly SelectionOption<TField>[];
     field: TField;
     onFieldChange: (value: TField) => void;
     placeholder?: (field: TField) => string;
     showButton?: boolean;
+    debounceMs?: number;
 };
+
+// ─── Component ────────────────────────────────────────────────────────────────
 
 export function SearchBoxWithField<
     TFilter,
@@ -34,51 +46,61 @@ export function SearchBoxWithField<
     onFieldChange,
     placeholder,
     showButton = false,
-}: Props<TFilter, TSortField, TField>) {
+    debounceMs = 300,
+}: SearchBoxWithFieldProps<TFilter, TSortField, TField>) {
     const storeSearch = store((s) => s.query.search);
     const setSearch = store((s) => s.setSearch);
 
     const [localValue, setLocalValue] = useState(storeSearch);
-    const isEditing = useRef(false);
+    const debounced = useDebounce(localValue, debounceMs);
+    const isEditingRef = useRef(false);
 
+    // Sync store → local khi store reset từ bên ngoài
     useEffect(() => {
-        if (!isEditing.current) {
+        if (!isEditingRef.current) {
             setLocalValue(storeSearch);
         }
     }, [storeSearch]);
 
-    const handleFieldChange = (value: TField) => {
-    isEditing.current = false;
-    setLocalValue("");
-    //setSearch("");
-    onFieldChange(value);
-};
+    // Auto-commit debounced
+    useEffect(() => {
+        if (isEditingRef.current) {
+            setSearch(debounced);
+        }
+    }, [debounced]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const commit = () => {
-        isEditing.current = false;
+        isEditingRef.current = false;
         setSearch(localValue);
+    };
+
+    const handleFieldChange = (value: TField) => {
+        // Reset cả local state lẫn store khi đổi field
+        isEditingRef.current = false;
+        setLocalValue("");
+        setSearch("");           // ← fix: store phải được clear
+        onFieldChange(value);
     };
 
     return (
         <div className="flex flex-1 items-center gap-3">
             <div className="flex items-center gap-2">
                 <input
+                    aria-label={placeholder?.(field) ?? "Search"}
                     value={localValue}
                     placeholder={placeholder?.(field) ?? "Search..."}
                     onChange={(e) => {
-                        isEditing.current = true;
+                        isEditingRef.current = true;
                         setLocalValue(e.target.value);
                     }}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") commit();
                         if (e.key === "Escape") {
-                            isEditing.current = false;
+                            isEditingRef.current = false;
                             setLocalValue(storeSearch);
                         }
                     }}
-                    onBlur={() => {
-                        isEditing.current = false;
-                    }}
+                    onBlur={() => { isEditingRef.current = false; }}
                     className="h-9 w-[220px] px-3 rounded-lg border border-border/60 bg-muted/50"
                 />
 

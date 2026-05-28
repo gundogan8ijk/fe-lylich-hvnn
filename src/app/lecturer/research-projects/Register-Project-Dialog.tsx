@@ -18,12 +18,12 @@ type Props = {
     onSubmit: (data: RegisterProjectForm) => Promise<boolean>
 }
 
+const MAX_DISCIPLINES = 4
 const defaultForm: RegisterProjectForm = { Title: '', Describe: '', DisciplineIds: [] }
 
 export default function RegisterProjectDialog({ open, onOpenChange, onSubmit }: Props) {
 
     const [form, setForm] = useState<RegisterProjectForm>(defaultForm)
-
     const [selectedDiscs, setSelectedDiscs] = useState<DisciplinesNameItems[]>([])
     const [discQuery, setDiscQuery] = useState('')
     const [discResults, setDiscResults] = useState<DisciplinesNameItems[]>([])
@@ -40,6 +40,13 @@ export default function RegisterProjectDialog({ open, onOpenChange, onSubmit }: 
         document.addEventListener('mousedown', handleClick)
         return () => document.removeEventListener('mousedown', handleClick)
     }, [])
+
+    const resetForm = () => {
+        setForm(defaultForm)
+        setSelectedDiscs([])
+        setDiscQuery('')
+        setDiscResults([])
+    }
 
     const searchDisciplines = async (q: string) => {
         setDiscLoading(true)
@@ -61,6 +68,7 @@ export default function RegisterProjectDialog({ open, onOpenChange, onSubmit }: 
     }
 
     const addDisc = (d: DisciplinesNameItems) => {
+        if (selectedDiscs.length >= MAX_DISCIPLINES) return
         const next = [...selectedDiscs, d]
         setSelectedDiscs(next)
         setForm(f => ({ ...f, DisciplineIds: next.map(x => x.id) }))
@@ -79,15 +87,16 @@ export default function RegisterProjectDialog({ open, onOpenChange, onSubmit }: 
         try {
             const res = await onSubmit(form)
             if (res) {
-                setForm(defaultForm)
+                resetForm()
                 onOpenChange(false)
             }
+        } finally {
+            setSubmitting(false)
         }
-        finally { setSubmitting(false) }
     }
 
-    const handleCancel = async () => {
-        setForm(defaultForm)
+    const handleCancel = () => {
+        resetForm()
         onOpenChange(false)
     }
 
@@ -95,7 +104,8 @@ export default function RegisterProjectDialog({ open, onOpenChange, onSubmit }: 
         (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
             setForm(f => ({ ...f, [key]: e.target.value }))
 
-    const canSubmit = form.Title && form.DisciplineIds.length > 0 
+    const isMaxReached = selectedDiscs.length >= MAX_DISCIPLINES
+    const canSubmit = form.Title && form.DisciplineIds.length > 0
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
@@ -104,13 +114,14 @@ export default function RegisterProjectDialog({ open, onOpenChange, onSubmit }: 
                     <DialogTitle className="flex items-center gap-2 text-base">
                         <FlaskConical className="h-4 w-4" /> Đăng ký đề tài nghiên cứu
                     </DialogTitle>
-                    <DialogDescription>
-                    </DialogDescription>
+                    <DialogDescription />
                 </DialogHeader>
 
                 <div className="space-y-4 py-1">
                     <div className="space-y-1.5">
-                        <Label className="text-xs">Tên đề tài <span className="text-red-500">*</span></Label>
+                        <Label className="text-xs">
+                            Tên đề tài <span className="text-red-500">*</span>
+                        </Label>
                         <Input placeholder="Nhập tên đề tài..." value={form.Title} onChange={set('Title')} />
                     </div>
 
@@ -121,15 +132,24 @@ export default function RegisterProjectDialog({ open, onOpenChange, onSubmit }: 
 
                     {/* Discipline multi-select */}
                     <div className="space-y-1.5" ref={wrapRef}>
-                        <Label className="text-xs">Lĩnh vực nghiên cứu <span className="text-red-500">*</span></Label>
+                        <div className="flex items-center justify-between">
+                            <Label className="text-xs">
+                                Lĩnh vực nghiên cứu <span className="text-red-500">*</span>
+                            </Label>
+                            <span className={`text-xs ${isMaxReached ? 'text-red-500' : 'text-muted-foreground'}`}>
+                                {selectedDiscs.length}/{MAX_DISCIPLINES}
+                            </span>
+                        </div>
+
                         <div className="relative">
                             <div className="flex min-h-9 flex-wrap items-center gap-1.5 rounded-md border border-input px-3 py-1.5 focus-within:ring-1 focus-within:ring-ring">
                                 <div className="flex flex-1 items-center gap-1.5">
                                     <Search className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
                                     <input
-                                        className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-                                        placeholder="Tìm theo mã hoặc tên lĩnh vực..."
+                                        className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                                        placeholder={isMaxReached ? `Tối đa ${MAX_DISCIPLINES} lĩnh vực` : 'Tìm theo mã hoặc tên lĩnh vực...'}
                                         value={discQuery}
+                                        disabled={isMaxReached}
                                         onChange={e => handleDiscInput(e.target.value)}
                                         onFocus={() => { setDdOpen(true); searchDisciplines(discQuery) }}
                                         onKeyDown={e => {
@@ -139,10 +159,9 @@ export default function RegisterProjectDialog({ open, onOpenChange, onSubmit }: 
                                         }}
                                     />
                                 </div>
-
                             </div>
 
-                            {ddOpen && (
+                            {ddOpen && !isMaxReached && (
                                 <div className="absolute z-50 mt-1 max-h-60 w-full overflow-y-auto overflow-x-hidden rounded-md border bg-popover shadow-sm">
                                     {discLoading ? (
                                         <div className="flex items-center gap-2 px-3 py-2.5 text-xs text-muted-foreground">
@@ -163,9 +182,7 @@ export default function RegisterProjectDialog({ open, onOpenChange, onSubmit }: 
                                                 <span className="font-mono text-xs text-muted-foreground">
                                                     {d.code}
                                                 </span>
-
                                                 <span className="text-muted-foreground/40">·</span>
-
                                                 <span>{d.name}</span>
                                             </button>
                                         ))
@@ -173,24 +190,29 @@ export default function RegisterProjectDialog({ open, onOpenChange, onSubmit }: 
                                 </div>
                             )}
                         </div>
-                        {selectedDiscs.map(d => (
 
-                            <Badge key={d.id} variant="secondary" className="gap-1 text-xs font-normal mr-3">
-                                {d.name}
-                                <button
-                                    onClick={() => removeDisc(d.id)}
-                                    className="ml-0.5 rounded hover:text-red-500"
-                                >
-                                    <X className="h-3 w-3" />
-                                </button>
-                            </Badge>
-                        ))}
+                        {selectedDiscs.length > 0 && (
+                            <div className="flex flex-wrap gap-1.5 pt-0.5">
+                                {selectedDiscs.map(d => (
+                                    <Badge key={d.id} variant="secondary" className="gap-1 text-xs font-normal">
+                                        {d.name}
+                                        <button
+                                            onClick={() => removeDisc(d.id)}
+                                            className="ml-0.5 rounded hover:text-red-500"
+                                        >
+                                            <X className="h-3 w-3" />
+                                        </button>
+                                    </Badge>
+                                ))}
+                            </div>
+                        )}
                     </div>
-
                 </div>
 
                 <DialogFooter>
-                    <Button variant="outline" size="sm" onClick={handleCancel}>Hủy</Button>
+                    <Button variant="outline" size="sm" onClick={handleCancel} disabled={submitting}>
+                        Hủy
+                    </Button>
                     <Button size="sm" disabled={!canSubmit || submitting} onClick={handleSubmit}>
                         {submitting && <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />}
                         Đăng ký
@@ -200,15 +222,3 @@ export default function RegisterProjectDialog({ open, onOpenChange, onSubmit }: 
         </Dialog>
     )
 }
-
-// <Badge key={d.id} variant="secondary" className="gap-1 text-xs font-normal">
-//     <span className="font-mono text-muted-foreground">{d.code}</span>
-//     <span className="mx-0.5 text-muted-foreground/50">·</span>
-//     {d.name}
-//     <button
-//         onClick={() => removeDisc(d.id)}
-//         className="ml-0.5 rounded hover:text-red-500"
-//     >
-//         <X className="h-3 w-3" />
-//     </button>
-// </Badge>

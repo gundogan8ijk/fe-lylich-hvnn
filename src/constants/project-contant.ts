@@ -1,11 +1,11 @@
 import { FieldFilters } from "@/_types/base-type/query-types";
 
 export type ProjectStatusName = 'Pending' | 'InProgress' | 'UnderReview' | 'Completed' | 'Cancelled'
-export type ProjectStatusDisplay = 'Chờ' | 'tiến hành' | 'xem xét' | 'hoàn thành' | 'đã hủy'
+export type ProjectStatusDisplay = 'chưa bắt đầu' | 'tiến hành' | 'xem xét' | 'hoàn thành' | 'đã hủy'
 
 
 export const ProjectStatus_OPTIONS: { value: ProjectStatusName; label: ProjectStatusDisplay }[] = [
-    { value: 'Pending', label: 'Chờ' },
+    { value: 'Pending', label: 'chưa bắt đầu' },
     { value: 'InProgress', label: 'tiến hành' },
     { value: 'UnderReview', label: 'xem xét' },
     { value: 'Completed', label: 'hoàn thành' },

@@ -12,10 +12,11 @@ import {
 } from "@/constants/project-contant";
 import FilterPanel, { ActiveFilterTags, FilterFieldConfig } from "@/components/query/filter-panel-state";
 import { ProjectManagerFilters } from "@/constants/project-contant";
-import { createProjectAction, deleteMangerProjectAction, getMangerProjectListAction } from "@/_hooks/research-projects-hook";
+import { createProjectAction, getMangerProjectListAction } from "@/_hooks/research-projects-hook";
 import { ConfirmedStatus, STATUS_LABELS } from "@/constants/base-constant";
 import { Button } from "@/components/ui/button";
 import CreateProjectDialog from "./create-project-dialog";
+import { gradientBg } from "@/components/utils/background";
 
 export default function ProjectMangerHeader() {
     const page = storeProjectManger((s) => s.query.page);
@@ -32,7 +33,7 @@ export default function ProjectMangerHeader() {
         <div className="mb-12 space-y-8">
             {/* Title */}
             <div className="relative flex justify-between flex flex-col md:flex-row">
-                <h1 className="text-3xl pb-1 md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 bg-clip-text text-transparent text-transparent">
+                <h1 className={`text-3xl pb-1 md:text-5xl font-extrabold tracking-tight ${gradientBg} bg-clip-text text-transparent text-transparent`}>
                     Danh sách đề tài
                 </h1>
                 <Button onClick={() => setDialogOpen(true)} className="w-full sm:w-auto">tạo đề tài</Button>

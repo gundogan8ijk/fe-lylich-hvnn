@@ -203,7 +203,7 @@ export default function CreateProjectDialog({ open, onOpenChange, onSubmit }: Pr
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-lg max-h-[90vh] ">
+            <DialogContent className="max-w-lg max-h-[90vh] flex flex-col">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2 text-base">
                         <FlaskConical className="h-4 w-4" />

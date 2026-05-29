@@ -5,16 +5,19 @@ import MangerResearchProjectCard from './projectManger-card';
 import { useState } from 'react';
 import DeleteConfirmDialog from '@/components/custom/DeleteConfirmDialog';
 import { deleteMangerProjectAction } from '@/_hooks/research-projects-hook';
+import { useRouter } from "next/navigation";
 
 export default function MangerProjectGrid() {
     const isLoading = storeProjectManger((s) => s.loading);
     const items = storeProjectManger((s) => s.data);
 
+    const router = useRouter();
+
     const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null)
     const [deleting, setDeleting] = useState(false)
 
-    const handleClick = async () => {
-
+    const handleClick = async (id: string) => {
+        router.push(`/manager/research-projects/${id}`);
     }
 
     const handleDeleteConfirm = async () => {

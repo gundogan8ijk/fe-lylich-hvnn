@@ -3,10 +3,12 @@ import { MangerProjectItems, MangerProjectItemsList, ResearchProjectItems } from
 import { api } from "./base-ser/axios-service-config";
 import { fail, success } from "@/lib/response-helper";
 import axios from "axios";
+import { ProjectManagerDetailRecord } from "@/_types/project-detail-manger";
 
 export {
     getListProjectMeApi, registerProjectApi, deleteResearchProjectApi, getMangerProjectListApi,
-    createProjectApi,deleteManagerProjectApi
+    createProjectApi,deleteManagerProjectApi,
+    getProjectManagerDetailApi
 }
 
 const getListProjectMeApi = async (): Promise<ApiResponse<ResearchProjectItems[]>> => {
@@ -116,6 +118,30 @@ const deleteManagerProjectApi = async (
             const data = error.response?.data;
             return fail(data?.message || data?.detail, data?.errors);
         }
+        return fail();
+    }
+};
+
+
+const getProjectManagerDetailApi = async (
+    id: string
+): Promise<ApiResponse<ProjectManagerDetailRecord>> => {
+    try {
+        const response = await api.get(
+            `/research-projects/${id}/manager`
+        );
+
+        return success(response.data);
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const data = error.response?.data;
+
+            return fail(
+                data?.message || data?.detail,
+                data?.errors
+            );
+        }
+
         return fail();
     }
 };

@@ -17,7 +17,7 @@ const getLecturerMeApi = async (): Promise<ApiResponse<Lecturer>> => {
     } catch (error) {
         if (axios.isAxiosError(error)) {
             const data = error.response?.data;
-            return fail(data?.message || data?.detail || "Đã có lỗi xảy ra");
+            return fail(data?.message || data?.detail, data?.errors);
         }
         return fail();
     }
@@ -63,7 +63,7 @@ const getListLecturersNameApi = async (search: string): Promise<ApiResponse<Lect
     } catch (error) {
         if (axios.isAxiosError(error)) {
             const data = error.response?.data;
-            return fail(data?.message || data?.detail || "Đã có lỗi xảy ra");
+            return fail(data?.message || data?.detail, data?.errors);
         }
         return fail();
     }

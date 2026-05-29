@@ -1,14 +1,19 @@
-import { createProjectApi, CreateProjectForm, deleteManagerProjectApi, deleteResearchProjectApi, getListProjectMeApi, getMangerProjectListApi, registerProjectApi, RegisterProjectForm } from "@/_services/research-projects-ser";
+import { createProjectApi, CreateProjectForm, deleteManagerProjectApi, deleteResearchProjectApi, getListProjectMeApi, getMangerProjectListApi, getProjectManagerDetailApi, registerProjectApi, RegisterProjectForm } from "@/_services/research-projects-ser";
 import { defaultPagination } from "@/_types/base-type/pagination-typeConfig";
 import { notify } from "@/components/utils/Notify";
 import { toSearchParams } from "@/lib/query-options-toUrl-helper";
 import { getAllErrorMessage, getErrorMessage } from "@/lib/response-helper";
+import { storeProjectManagerDetail } from "@/stores/store-item/project-DetailManger-store";
 import { storeProjectManger } from "@/stores/store-list/projects-manger-store";
 import { storeResearchProjectListMe } from "@/stores/store-list/research-projects-store";
 
 export {
+    //trang chu lectuer
     getListProjectMeAction, registerProjectAction, deleteProjectAction,
-    getMangerProjectListAction, createProjectAction, deleteMangerProjectAction
+    //trang chu manger
+    getMangerProjectListAction, createProjectAction, deleteMangerProjectAction,
+    //chi tiet manger
+    getProjectManagerDetailAction
 }
 
 async function getListProjectMeAction() {
@@ -114,4 +119,17 @@ async function deleteMangerProjectAction(id: string) {
         removeItemById(id);
         notify.success("Xóa đề tài thành công");
     }
+}
+
+async function getProjectManagerDetailAction(id: string) {
+    const { setLoading, setData, setNull } = storeProjectManagerDetail.getState();
+
+    setLoading(true);
+
+    const res = await getProjectManagerDetailApi(id);
+
+    if (res.code === 1 && res.data) setData(res.data);
+    else setNull();
+
+    setLoading(false);
 }

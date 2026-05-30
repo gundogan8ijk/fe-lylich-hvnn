@@ -18,6 +18,7 @@ interface InlineEditShellProps<T> {
     onOpenEdit?: () => T
     isEqual?: (current: T) => boolean
     renderInput: (editValue: T, setEditValue: (val: T) => void) => React.ReactNode
+    readOnly?: boolean
 }
 
 export function InlineEditShell<T>({
@@ -30,6 +31,7 @@ export function InlineEditShell<T>({
     onOpenEdit,
     isEqual,
     renderInput,
+    readOnly,
 }: InlineEditShellProps<T>) {
     const [isEditOpen, setIsEditOpen] = useState(false)
     const [isDeleteOpen, setIsDeleteOpen] = useState(false)
@@ -57,35 +59,50 @@ export function InlineEditShell<T>({
     }
 
     const saveDisabled = isEqual ? isEqual(editValue) : false
+    const isUrl = value ? /^https?:\/\//i.test(value) : false
 
     return (
         <>
             {/* DISPLAY */}
             <div className="flex items-center justify-between py-2 mx-3">
-                <div className="flex items-center gap-2">
-                    {icon && <span className="text-muted-foreground">{icon}</span>}
-                    <div className="flex flex-col">
+                <div className="flex items-center gap-2 min-w-0">
+                    {icon && <span className="text-muted-foreground shrink-0">{icon}</span>}
+                    <div className="flex flex-col min-w-0">
                         <span className="text-sm font-medium text-muted-foreground">{label}</span>
-                        <span className="text-foreground">{value || '-'}</span>
+                        {isUrl ? (
+                            <a
+                                href={value!}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-500 hover:underline break-all text-sm"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {value}
+                            </a>
+                        ) : (
+                            <span className="text-foreground">{value || '-'}</span>
+                        )}
                     </div>
                 </div>
 
-                <div className="flex items-center gap-2 ml-2">
-                    {onDelete && value && (
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-red-500 hover:text-red-600"
-                            onClick={() => setIsDeleteOpen(true)}
-                            title="Xóa"
-                        >
-                            <Trash2 className="h-4 w-4" />
+                {!readOnly && (
+                    <div className="flex items-center gap-2 ml-2 shrink-0">
+                        {onDelete && value && (
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className="text-red-500 hover:text-red-600"
+                                onClick={() => setIsDeleteOpen(true)}
+                                title="Xóa"
+                            >
+                                <Trash2 className="h-4 w-4" />
+                            </Button>
+                        )}
+                        <Button variant="ghost" size="sm" onClick={openEdit}>
+                            <Edit2 size={16} />
                         </Button>
-                    )}
-                    <Button variant="ghost" size="sm" onClick={openEdit}>
-                        <Edit2 size={16} />
-                    </Button>
-                </div>
+                    </div>
+                )}
             </div>
 
             {/* EDIT MODAL */}

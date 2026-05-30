@@ -5,16 +5,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
-import { storeResearchProjectListMe } from '@/stores/store-list/research-projects-store'
 import Loading from '@/components/utils/Loading'
 import ResearchProjectCard from './Projects-Card'
-import { ProjectStatus_OPTIONS, ProjectStatusName } from '@/constants/project-contant'
+import { ProjectStatus_OPTIONS, ProjectStatusName } from '@/constants/project-constant'
 import { ConfirmedStatus } from '@/constants/base-constant'
 import { ConfirmedStatusFilterSelect } from '@/components/custom/StatusFilter-Select'
-import { SelectionOption, SortDirection } from '@/_types/base-type/query-types'
 import { SearchSelectProps } from '@/components/custom/selection-Props'
 import RegisterProjectDialog from './Register-Project-Dialog'
-import { registerProjectAction } from '@/_hooks/research-projects-hook'
+import { SelectionOption, SortDirection } from '@/_types/query-types'
+import { storeProjectLecturerList } from '@/Project-Lecturer-List/projects-lecturer-list-store'
+import { registerListProjectLecturerAction } from '@/Project-Lecturer-List/projects-lecturer-list-hook'
 
 const SORT_OPTIONS: readonly SelectionOption<SortDirection>[] = [
     { value: 'desc', label: 'Mới nhất' },
@@ -27,7 +27,7 @@ const PROJECT_STATUS_OPTIONS: readonly SelectionOption<ProjectStatusName | 'all'
 ]
 
 export default function ContentProjectsList() {
-    const { data, loading } = storeResearchProjectListMe()
+    const { data, loading } = storeProjectLecturerList()
 
     const [dialogOpen, setDialogOpen] = useState(false)
     const [search, setSearch] = useState('')
@@ -147,10 +147,11 @@ export default function ContentProjectsList() {
                     )}
                 </div>
             )}
+
             <RegisterProjectDialog
                 open={dialogOpen}
                 onOpenChange={setDialogOpen}
-                onSubmit={registerProjectAction} />
+                onSubmit={registerListProjectLecturerAction} />
 
         </div>
     )

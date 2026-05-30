@@ -3,13 +3,13 @@
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import Image from 'next/image'
-import { Departments } from '@/_types/department-type'
 import { Button } from '@/components/ui/button'
 import { GraduationCap, Users, ArrowRight } from 'lucide-react'
 import { useRouter } from "next/navigation";
+import { DepartmentPublicItems } from '@/department-Public/department-public-type'
 
 
-export default function DepartmentCard({ department }: { department: Departments }) {
+export default function DepartmentCard({ department }: { department: DepartmentPublicItems }) {
     const getInitials = (name: string) =>
         name.split(' ').map((w) => w[0]).join('').toUpperCase().slice(0, 2)
     const router = useRouter();

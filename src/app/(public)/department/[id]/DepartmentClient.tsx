@@ -4,14 +4,14 @@ import Image from 'next/image'
 import { Card } from '@/components/ui/card'
 import { Calendar, MapPin, Users, BookOpen } from 'lucide-react'
 import React, { useEffect } from 'react'
-import { DepartmentDetail } from '@/_types/department-type'
-import { getDepartmentsDetailAction } from '@/_hooks/department-hook'
 import NotFound from '@/app/not-found'
 import Loading from '@/components/utils/Loading'
 import ImageUndefine from '@/components/utils/ImageUndefine'
+import { DepartmentPublicDetail } from '@/department-Public/department-public-type'
+import { getDepartmentsDetailPublicAction } from '@/department-Public/department-public-hook'
 
 export function DepartmentDetailClient({ id }: { id: string }) {
-    const [department, setDepartment] = React.useState<DepartmentDetail | null>(null);
+    const [department, setDepartment] = React.useState<DepartmentPublicDetail | null>(null);
     const [isLoading, setLoading] = React.useState(true);
     const [notFound, setNotFound] = React.useState(false);
 
@@ -19,7 +19,7 @@ export function DepartmentDetailClient({ id }: { id: string }) {
         async function fetchDepartment() {
             setLoading(true);
 
-            const res = await getDepartmentsDetailAction(id);
+            const res = await getDepartmentsDetailPublicAction(id);
 
             if (res) setDepartment(res);
             else setNotFound(true);

@@ -1,7 +1,8 @@
 import { cookies } from "next/headers";
-import { getRolesFromTokenSync } from "@/lib/auth-helper";
+//import { getRolesFromTokenSync } from "@/lib/auth-helper";
 import { redirect } from "next/navigation";
-import { Role } from "@/_types/base-type/auth-type";
+import { Role } from "@/Authen/auth-type";
+import { getRolesFromToken } from "@/Authen/auth-helper";
 
 const ACCESS_TOKEN_COOKIE_NAME = process.env.NEXT_PUBLIC_NAME_ACCESS_TOKEN ?? "";
 
@@ -9,7 +10,8 @@ export default async function Dashboard() {
     const cookieStore = await cookies();
     const accessToken = cookieStore.get(ACCESS_TOKEN_COOKIE_NAME)?.value ?? "";
 
-    const roles = accessToken ? await getRolesFromTokenSync(accessToken) : [];
+    //const roles = accessToken ? await getRolesFromTokenSync(accessToken) : [];
+    const roles = accessToken ?  getRolesFromToken(accessToken) : [];
 
     //chua login
     if (roles === -1) redirect("/login");

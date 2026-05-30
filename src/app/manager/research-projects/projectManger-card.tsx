@@ -8,10 +8,10 @@ import {
     ProjectStatusName,
     ProjectStatus_OPTIONS,
     level_PROJECT_OPTIONS,
-} from '@/constants/project-contant'
+} from '@/constants/project-constant'
 import { ConfirmedStatus, STATUS_LABELS } from '@/constants/base-constant'
-import { getDateOnly, getLabel } from '@/lib/display-variable-helper'
-import { MangerProjectItems } from '@/_types/research-projects-type'
+import { getDateOnly, getLabel } from '@/_lib/display-variable-helper'
+import { MangerProjectItems } from '@/ProjectManger/type-list-projects-manger'
 
 type ResearchProjectCardProps = {
     item: MangerProjectItems

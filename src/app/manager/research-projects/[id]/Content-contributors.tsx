@@ -3,9 +3,9 @@
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { storeProjectManagerDetail } from "@/stores/store-item/project-DetailManger-store"
-import { getDateOnly } from "@/lib/display-variable-helper"
+import { getDateOnly } from "@/_lib/display-variable-helper"
 import { UserPlus, Crown, Users, Trash2, ShieldCheck } from "lucide-react"
+import { storeProjectManagerDetail } from "@/ProjectManger/store-detail-project-manger"
 
 export default function ContentContributorsManger() {
     const data = storeProjectManagerDetail((s) => s.data)

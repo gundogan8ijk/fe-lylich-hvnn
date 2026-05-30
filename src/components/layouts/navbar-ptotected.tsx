@@ -14,7 +14,7 @@ import {
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Badge } from '@/components/ui/badge'
-import { NavbarConfig, Notifications } from '@/_types/base-type/layout-navbar'
+import { NavbarConfig, Notifications } from '@/_types/layout-navbar'
 
 interface NavbarProps {
     config: NavbarConfig,

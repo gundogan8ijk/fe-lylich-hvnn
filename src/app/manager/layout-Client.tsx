@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 import { SidebarConfig } from "../../components/layouts/sidebar"
-import { managerMenu } from "@/_types/base-type/layout-Sidebar-type"
+import { managerMenu } from "@/_types/layout-Sidebar-type"
 import { NavbarProtected, notifications } from "@/components/layouts/navbar-ptotected"
-import { managerNavbarConfig } from "@/_types/base-type/layout-navbar"
+import { managerNavbarConfig } from "@/_types/layout-navbar"
 
 export default function LayoutClient({ children, }: { children: React.ReactNode }) {
 

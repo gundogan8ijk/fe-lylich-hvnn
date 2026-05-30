@@ -26,18 +26,18 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Label } from '@/components/ui/label'
 
-import { Education } from '@/_types/educationType'
-import { DEGREE_OPTIONS } from '@/constants/education-constan'
+import { DEGREE_OPTIONS } from '@/constants/education-constant'
 import { SearchInput } from '@/components/custom/search-Input'
 import { ConfirmedStatusFilterSelect } from '@/components/custom/StatusFilter-Select'
 import { EmptyState } from '@/components/custom/Empty-state'
 import { EducationCard } from './EducationCard'
-import { RegisterEducationForm } from '@/_services/education-ser'
-import { deleteEducationAction, registerEducationAction, updateEducationAction } from '@/_hooks/education-hook'
+import { deleteEducationByLecturerAction, registerEducationByLecturerAction, updateEducationAction } from '@/Educaion-Lecturer/Education-Lecturer-hook'
 import { SearchSelectProps } from '@/components/custom/selection-Props'
 import { ConfirmedStatus } from '@/constants/base-constant'
+import { RegisterEducationByLecturerForm } from '@/Educaion-Lecturer/Education-Lecturer-ser'
+import { EducationLecturer } from '@/Educaion-Lecturer/Eduction-Lecturer-type'
 
-const EMPTY_FORM: RegisterEducationForm = {
+const EMPTY_FORM: RegisterEducationByLecturerForm = {
     trainingName: '',
     majorName: '',
     degree: 2,
@@ -45,7 +45,7 @@ const EMPTY_FORM: RegisterEducationForm = {
 }
 
 interface EducationSectionProps {
-    educations: Education[]
+    educations: EducationLecturer[]
 }
 
 export function EducationSection({ educations }: EducationSectionProps) {
@@ -55,7 +55,7 @@ export function EducationSection({ educations }: EducationSectionProps) {
     // Dialog state
     const [dialogOpen, setDialogOpen] = useState(false)
     const [editingId, setEditingId] = useState<string | null>(null)
-    const [form, setForm] = useState<RegisterEducationForm>(EMPTY_FORM)
+    const [form, setForm] = useState<RegisterEducationByLecturerForm>(EMPTY_FORM)
     const [saving, setSaving] = useState(false)
 
     // Delete confirm state
@@ -82,7 +82,7 @@ export function EducationSection({ educations }: EducationSectionProps) {
         setDialogOpen(true)
     }
 
-    function openEdit(edu: Education) {
+    function openEdit(edu: EducationLecturer) {
         setEditingId(edu.id)
         setForm({
             trainingName: edu.trainingName,
@@ -98,7 +98,7 @@ export function EducationSection({ educations }: EducationSectionProps) {
         setEditingId(null)
     }
 
-    function setField<K extends keyof RegisterEducationForm>(key: K, value: RegisterEducationForm[K]) {
+    function setField<K extends keyof RegisterEducationByLecturerForm>(key: K, value: RegisterEducationByLecturerForm[K]) {
         setForm((prev) => ({ ...prev, [key]: value }))
     }
 
@@ -119,7 +119,7 @@ export function EducationSection({ educations }: EducationSectionProps) {
             if (editingId) {
                 await updateEducationAction({ ...payload, educationId: editingId })
             } else {
-                await registerEducationAction(payload)
+                await registerEducationByLecturerAction(payload)
             }
             closeDialog()
         } finally {
@@ -131,7 +131,7 @@ export function EducationSection({ educations }: EducationSectionProps) {
         if (!deleteId) return
         setDeleting(true)
         try {
-            await deleteEducationAction(deleteId)
+            await deleteEducationByLecturerAction(deleteId)
         } finally {
             setDeleting(false)
             setDeleteId(null)

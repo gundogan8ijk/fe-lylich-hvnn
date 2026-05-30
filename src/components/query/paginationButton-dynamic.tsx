@@ -3,9 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { UseBoundStore, StoreApi } from "zustand";
-import { cn } from "@/lib/utils";
-import { Pagination } from "@/_types/base-type/pagination-typeConfig";
-import { QuerySlice } from "@/stores/base-list/query-module";
+import { cn } from "@/_lib/utils";
+import { Pagination } from "@/_types/pagination-typeConfig";
+import { QuerySlice } from "@/_stores/base-list/query-module";
 
 type QueryStore<TFilter, TSortField extends string> =
     UseBoundStore<StoreApi<QuerySlice<TFilter, TSortField>>>;

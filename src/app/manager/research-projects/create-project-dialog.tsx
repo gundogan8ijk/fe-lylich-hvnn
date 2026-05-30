@@ -15,11 +15,12 @@ import {
     SelectTrigger, SelectValue
 } from '@/components/ui/select'
 import { FlaskConical, X, Search, Loader2, UserSearch } from 'lucide-react'
-import { DisciplinesNameItems } from '@/_types/disciplines-type'
-import { getListDisciplinesNameApi } from '@/_services/disciplines-ser'
-import { CreateProjectForm } from '@/_services/research-projects-ser'
-import { LecturersNameItems } from '@/_types/lecurer-type'
-import { getListLecturersNameApi } from '@/_services/lecturer-service'
+import { DisciplinesNameItems } from '@/Discipline-Public/disciplines-type'
+import { getListDisciplinesNameApi } from '@/Discipline-Public/disciplines-Public-ser'
+import { LecturersNameItems } from '@/profile-Lecturer/Profile-lecurer-type'
+import { CreateProjectForm } from '@/ProjectManger/ser-projects-manger'
+import { getListLecturersNameApi } from '@/profile-Lecturer/Lecturer-Profile-ser'
+import { level_PROJECT_OPTIONS } from '@/constants/project-constant'
 
 
 type Props = {
@@ -29,12 +30,6 @@ type Props = {
 }
 
 const MAX_DISCIPLINES = 4
-
-const PROJECT_LEVELS = [
-    { value: 'Institutional', label: 'Cấp cơ sở' },
-    { value: 'Ministerial', label: 'Cấp bộ' },
-    { value: 'National', label: 'Cấp nhà nước' },
-]
 
 const defaultForm: CreateProjectForm = {
     Title: '',
@@ -252,7 +247,7 @@ export default function CreateProjectDialog({ open, onOpenChange, onSubmit }: Pr
                                 <SelectValue placeholder="Chọn cấp độ..." />
                             </SelectTrigger>
                             <SelectContent>
-                                {PROJECT_LEVELS.map(l => (
+                                {level_PROJECT_OPTIONS.map(l => (
                                     <SelectItem key={l.value} value={l.value}>
                                         {l.label}
                                     </SelectItem>

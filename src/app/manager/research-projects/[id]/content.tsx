@@ -1,12 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { storeProjectManagerDetail } from "@/stores/store-item/project-DetailManger-store"
 import ContentProjectInfoManger from "./content-ProjectInfo"
 import Loading from "@/components/utils/Loading"
 import ContentHeaderProjectManger from "./content-header"
 import { FileText, Handshake, LayoutDashboard, Users, Wallet } from "lucide-react"
 import ContentContributorsManger from "./Content-contributors"
+import ContentProjectResultManger from "./content-ProjectResult"
+import { storeProjectManagerDetail } from "@/ProjectManger/store-detail-project-manger"
 
 const TABS = [
     { id: 'overview', label: 'Tổng quan', icon: <LayoutDashboard className="w-4 h-4" /> },
@@ -58,7 +59,11 @@ export default function ProjectMangerDetailContent() {
             {/* 4. NỘI DUNG HIỂN THỊ THEO TAB */}
             <div className="transition-all duration-200">
                 {activeTab === 'overview' && (
-                    <ContentProjectInfoManger />
+                    <>
+                        <ContentProjectInfoManger />
+                        <ContentProjectResultManger />
+                    </>
+
                 )}
 
                 {activeTab === 'members' && (

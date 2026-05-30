@@ -7,23 +7,23 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { FlaskConical, X, Search, Loader2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
-import { RegisterProjectForm } from '@/_services/research-projects-ser'
 import { Input } from '@/components/ui/input'
-import { DisciplinesNameItems } from '@/_types/disciplines-type'
-import { getListDisciplinesNameApi } from '@/_services/disciplines-ser'
+import { DisciplinesNameItems } from '@/Discipline-Public/disciplines-type'
+import { getListDisciplinesNameApi } from '@/Discipline-Public/disciplines-Public-ser'
+import { RegisterProjectLecturerForm } from '@/Project-Lecturer-List/projects-lecturer-list-ser'
 
 type Props = {
     open: boolean
     onOpenChange: (v: boolean) => void
-    onSubmit: (data: RegisterProjectForm) => Promise<boolean>
+    onSubmit: (data: RegisterProjectLecturerForm) => Promise<boolean>
 }
 
 const MAX_DISCIPLINES = 4
-const defaultForm: RegisterProjectForm = { Title: '', Describe: '', DisciplineIds: [] }
+const defaultForm: RegisterProjectLecturerForm = { Title: '', Describe: '', DisciplineIds: [] }
 
 export default function RegisterProjectDialog({ open, onOpenChange, onSubmit }: Props) {
 
-    const [form, setForm] = useState<RegisterProjectForm>(defaultForm)
+    const [form, setForm] = useState<RegisterProjectLecturerForm>(defaultForm)
     const [selectedDiscs, setSelectedDiscs] = useState<DisciplinesNameItems[]>([])
     const [discQuery, setDiscQuery] = useState('')
     const [discResults, setDiscResults] = useState<DisciplinesNameItems[]>([])
@@ -100,7 +100,7 @@ export default function RegisterProjectDialog({ open, onOpenChange, onSubmit }: 
         onOpenChange(false)
     }
 
-    const set = (key: keyof RegisterProjectForm) =>
+    const set = (key: keyof RegisterProjectLecturerForm) =>
         (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
             setForm(f => ({ ...f, [key]: e.target.value }))
 

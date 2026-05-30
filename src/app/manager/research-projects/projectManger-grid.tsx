@@ -1,15 +1,15 @@
 'use client'
 import Loading from '@/components/utils/Loading'
-import { storeProjectManger } from '@/stores/store-list/projects-manger-store';
 import MangerResearchProjectCard from './projectManger-card';
 import { useState } from 'react';
 import DeleteConfirmDialog from '@/components/custom/DeleteConfirmDialog';
-import { deleteMangerProjectAction } from '@/_hooks/research-projects-hook';
 import { useRouter } from "next/navigation";
+import { storeProjectMangerList } from '@/ProjectManger/store-list-projects-manger';
+import { deleteMangerProjectListAction } from '@/ProjectManger/hook-projects-manger';
 
 export default function MangerProjectGrid() {
-    const isLoading = storeProjectManger((s) => s.loading);
-    const items = storeProjectManger((s) => s.data);
+    const isLoading = storeProjectMangerList((s) => s.loading);
+    const items = storeProjectMangerList((s) => s.data);
 
     const router = useRouter();
 
@@ -23,7 +23,7 @@ export default function MangerProjectGrid() {
     const handleDeleteConfirm = async () => {
         if (!deleteTargetId) return
         setDeleting(true)
-        await deleteMangerProjectAction(deleteTargetId)
+        await deleteMangerProjectListAction(deleteTargetId)
         setDeleting(false)
         setDeleteTargetId(null)
     }

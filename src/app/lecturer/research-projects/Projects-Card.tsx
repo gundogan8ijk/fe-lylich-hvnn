@@ -9,13 +9,13 @@ import {
     ProjectStatus_OPTIONS,
     EvaluationResultName,
     EvaluationResult_OPTIONS,
-} from '@/constants/project-contant'
+} from '@/constants/project-constant'
 import { ConfirmedStatus, STATUS_LABELS } from '@/constants/base-constant'
-import { getDateOnly, getLabel } from '@/lib/display-variable-helper'
-import { ResearchProjectItems } from '@/_types/research-projects-type'
+import { getDateOnly, getLabel } from '@/_lib/display-variable-helper'
+import { ProjectLecturerItems } from '@/Project-Lecturer-List/projects-lecturer-list-type'
 
 type ResearchProjectCardProps = {
-    item: ResearchProjectItems
+    item: ProjectLecturerItems
     onViewDetail: (id: string) => void
 }
 

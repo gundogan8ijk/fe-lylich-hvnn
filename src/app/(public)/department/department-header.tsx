@@ -1,23 +1,23 @@
 'use client';
 
 import { Filter } from 'lucide-react';
-import { DepartmentSearchOptions, DepartmentSortOptions, } from '@/_types/department-type';
-import { storeDepartment } from '@/stores/store-list/department-store';
 import { SortButtonDynamic } from '@/components/query/sort-Button-dynamic';
 import React from 'react';
-import { getDepartmentsListAction } from '@/_hooks/department-hook';
 import { SearchBoxWithField } from '@/components/query/SearchBoxWithField';
+import { DepartmentSearchOptions, DepartmentSortOptions } from '@/constants/department-constant';
+import { storeDepartmentListPublic } from '@/department-Public/department-public-store';
+import { getDepartmentsListPublicAction } from '@/department-Public/department-public-hook';
 
 
 export default function DepartmentHeader() {
-    const page = storeDepartment((s) => s.query.page);
-    const sort = storeDepartment((s) => s.query.sort);
-    const field = storeDepartment((s) => s.searchField);
-    const isSearch = storeDepartment((s) => s.isSearch);
-    const setField = storeDepartment((s) => s.setSearchField);
+    const page = storeDepartmentListPublic((s) => s.query.page);
+    const sort = storeDepartmentListPublic((s) => s.query.sort);
+    const field = storeDepartmentListPublic((s) => s.searchField);
+    const isSearch = storeDepartmentListPublic((s) => s.isSearch);
+    const setField = storeDepartmentListPublic((s) => s.setSearchField);
 
     React.useEffect(() => {
-        getDepartmentsListAction();
+        getDepartmentsListPublicAction();
     }, [page, sort, isSearch]);
 
     return (
@@ -31,7 +31,7 @@ export default function DepartmentHeader() {
             <div className="p-4 rounded-2xl border bg-card/50 backdrop-blur-sm shadow-sm flex flex-col lg:flex-row gap-6 lg:items-center">
 
                 <SearchBoxWithField
-                    store={storeDepartment}
+                    store={storeDepartmentListPublic}
                     fieldOptions={DepartmentSearchOptions}
                     field={field}
                     onFieldChange={setField}
@@ -51,7 +51,7 @@ export default function DepartmentHeader() {
                                 key={item.value}
                                 field={item.value}
                                 label={item.label}
-                                store={storeDepartment}
+                                store={storeDepartmentListPublic}
                             />
                         ))}
                     </div>

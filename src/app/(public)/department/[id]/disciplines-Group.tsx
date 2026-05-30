@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
-import { DisciplineList } from '@/_types/department-type';
 import Loading from '@/components/utils/Loading';
-import { ListQuery, SortDirection } from '@/_types/base-type/query-types';
-import { toSearchParams } from '@/lib/query-options-toUrl-helper';
-import { getListDisciplineAction } from '@/_hooks/department-hook';
-import { getPages } from '@/lib/getPages -Button-helper';
+import { toSearchParams } from '@/_lib/query-options-toUrl-helper';
+import { getPages } from '@/_lib/getPages -Button-helper';
+import { ListQuery, SortDirection } from '@/_types/query-types';
+import { DisciplineOfDepartmentPublicList } from '@/department-Public/department-public-type';
+import { getListDisciplineByDepartmentIdPublicAction } from '@/department-Public/department-public-hook';
 
 const PerPage = 20;
 
@@ -17,7 +17,7 @@ export function DisciplinesGroup({ id }: { id: string }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [isSearch, setIsSearch] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [disciplineList, setDisciplineList] = useState<DisciplineList | null>(null);
+    const [disciplineList, setDisciplineList] = useState<DisciplineOfDepartmentPublicList | null>(null);
     const [isLoading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export function DisciplinesGroup({ id }: { id: string }) {
 
             const queryParam = toSearchParams(query);
 
-            const res = await getListDisciplineAction(id, queryParam);
+            const res = await getListDisciplineByDepartmentIdPublicAction(id, queryParam);
             if (res) setDisciplineList(res);
 
             setLoading(false);

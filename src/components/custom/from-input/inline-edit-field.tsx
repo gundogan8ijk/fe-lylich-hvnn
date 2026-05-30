@@ -1,7 +1,7 @@
 // inline-edit-field.tsx
 'use client'
 import { Input } from '@/components/ui/input'
-import { formatDateForInput } from '@/lib/display-variable-helper'
+import { formatDateForInput } from '@/_lib/display-variable-helper.js'
 import { InlineEditShell } from '../inline-edit-shell.tsx'
 
 interface InlineEditFieldProps {
@@ -11,9 +11,10 @@ interface InlineEditFieldProps {
     onDelete?: () => void
     icon?: React.ReactNode
     type?: string
+    readOnly?: boolean
 }
 
-export function InlineEditField({ label, value, onSave, onDelete, icon, type = 'text' }: InlineEditFieldProps) {
+export function InlineEditField({ label, value, onSave, onDelete, icon, type = 'text', readOnly }: InlineEditFieldProps) {
     const displayValue = type === 'date' ? formatDateForInput(value ?? '') : value
 
     return (
@@ -28,6 +29,7 @@ export function InlineEditField({ label, value, onSave, onDelete, icon, type = '
                 !current.trim() ||
                 current.trim() === (value ?? '').trim()
             }
+            readOnly={readOnly}
             renderInput={(editValue, setEditValue) => (
                 <div className="grid gap-4">
                     <div className="grid gap-2">

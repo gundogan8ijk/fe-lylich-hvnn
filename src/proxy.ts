@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { verifyToken } from './lib/auth-helper';
+import { verifyToken } from './Authen/auth-helper';
 
 // 1. Specify protected and public routes
 const PROTECTED_PREFIXES = ['/dashboard', '/admin', '/lecturer', '/manager']
@@ -15,7 +15,8 @@ export default async function proxy(req: NextRequest) {
 
     //lấy token sau đó xác thực
     const accessToken = req.cookies.get(ACCESS_TOKEN_COOKIE_NAME)?.value ?? "";
-    const isAuthenticated = await verifyToken(accessToken)
+    //const isAuthenticated = await verifyToken(accessToken)
+    const isAuthenticated = verifyToken(accessToken)
 
     if (isProtectedRoute && !isAuthenticated)
         return NextResponse.redirect(new URL('/login', req.nextUrl))

@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, Search, BookOpen, Award, Calendar } from 'lucide-react';
-import { MemberList } from '@/_types/department-type';
-import { ListQuery, SortDirection } from '@/_types/base-type/query-types';
 import Loading from '@/components/utils/Loading';
-import { getPages } from '@/lib/getPages -Button-helper';
-import { toSearchParams } from '@/lib/query-options-toUrl-helper';
-import { getInitials, getYear } from '@/lib/display-variable-helper';
+import { getPages } from '@/_lib/getPages -Button-helper';
+import { toSearchParams } from '@/_lib/query-options-toUrl-helper';
+import { getInitials, getYear } from '@/_lib/display-variable-helper';
 import Image from 'next/image';
-import { getListMemberAction } from '@/_hooks/department-hook';
+import { DepartmentMembersListPublic } from '@/department-Public/department-public-type';
+import { ListQuery, SortDirection } from '@/_types/query-types';
+import { getListMemberDepartmentPublicAction } from '@/department-Public/department-public-hook';
 
 const PerPage = 20;
 
@@ -19,7 +19,7 @@ export function MembersGroup({ id }: { id: string }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [isSearch, setIsSearch] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [memberList, setMemberList] = useState<MemberList | null>(null);
+    const [memberList, setMemberList] = useState<DepartmentMembersListPublic | null>(null);
     const [isLoading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -36,7 +36,7 @@ export function MembersGroup({ id }: { id: string }) {
 
             const queryParam = toSearchParams(query);
 
-            const res = await getListMemberAction(id, queryParam);
+            const res = await getListMemberDepartmentPublicAction(id, queryParam);
             if (res) setMemberList(res);
 
             setLoading(false);

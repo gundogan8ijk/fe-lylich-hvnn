@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { AddressRequest } from "@/_hooks/lecturer-hook"
+import { AddressRequest } from "@/profile-Lecturer/Lecturer-Profile-hook"
 import { useEffect, useReducer } from "react"
 
 interface FormAddressProps {

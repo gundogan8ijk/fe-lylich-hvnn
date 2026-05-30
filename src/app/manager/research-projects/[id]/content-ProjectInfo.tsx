@@ -3,12 +3,12 @@
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { storeProjectManagerDetail } from "@/stores/store-item/project-DetailManger-store"
-import { getDateOnly, getLabel } from "@/lib/display-variable-helper"
+import { getDateOnly, getLabel } from "@/_lib/display-variable-helper"
 import {
     FlaskConical, Calendar, CheckCircle2, User, Layers, Plus
 } from 'lucide-react'
-import { level_PROJECT_OPTIONS, ProjectStatus_OPTIONS } from '@/constants/project-contant'
+import { level_PROJECT_OPTIONS, ProjectStatus_OPTIONS } from '@/constants/project-constant'
+import { storeProjectManagerDetail } from "@/ProjectManger/store-detail-project-manger"
 
 export default function ContentProjectInfoManger() {
     const data = storeProjectManagerDetail((s) => s.data)

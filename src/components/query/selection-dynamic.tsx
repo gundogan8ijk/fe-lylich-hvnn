@@ -5,7 +5,7 @@ import {
     SelectContent,
     SelectItem,
 } from "@/components/ui/select";
-import { SelectionSlice } from "@/stores/base-list/selection-module";
+import { SelectionSlice } from "@/_stores/base-list/selection-module";
 import { StoreApi, UseBoundStore } from "zustand";
 
 type SearchSelectProps<T extends string> = {

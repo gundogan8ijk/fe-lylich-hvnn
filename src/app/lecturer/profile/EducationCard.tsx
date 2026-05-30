@@ -1,14 +1,14 @@
 import { GraduationCap, CalendarDays, BookOpen, Pencil, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Education } from '@/_types/educationType'
-import { getDateOnly } from '@/lib/display-variable-helper'
-import { STATUS_VARIANTS } from '@/constants/education-constan'
+import { getDateOnly } from '@/_lib/display-variable-helper'
+import { STATUS_VARIANTS } from '@/constants/education-constant'
 import { STATUS_LABELS } from '@/constants/base-constant'
+import { EducationLecturer } from '@/Educaion-Lecturer/Eduction-Lecturer-type'
 
 interface EducationCardProps {
-    education: Education
-    onEdit: (edu: Education) => void
+    education: EducationLecturer
+    onEdit: (edu: EducationLecturer) => void
     onDelete: (id: string) => void
 }
 

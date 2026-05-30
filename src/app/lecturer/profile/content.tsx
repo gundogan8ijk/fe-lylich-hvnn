@@ -10,10 +10,9 @@ import {
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { storeLecturer } from '@/stores/store-item/lecturer-store'
 import Loading from '@/components/utils/Loading'
-import { getDateOnly } from '@/lib/display-variable-helper'
-import { AddressRequest, addressUpdateAction, avatarUpdateAction, birthDateUpdateAction, cCCDUpdateAction, deleteAddressAction, deleteAvatarAction, deleteEmailAction, deletePhoneAction, deleteWebsiteAction, emailUpdateAction, firstNameUpdateAction, genderUpdateAction, lastNameUpdateAction, phoneUpdateAction, UpdatePhoneRequest, websiteUpdateAction } from '@/_hooks/lecturer-hook'
+import { getDateOnly } from '@/_lib/display-variable-helper'
+import { AddressRequest, addressUpdateAction, avatarUpdateAction, birthDateUpdateAction, cCCDUpdateAction, deleteAddressAction, deleteAvatarAction, deleteEmailAction, deletePhoneAction, deleteWebsiteAction, emailUpdateAction, firstNameUpdateAction, genderUpdateAction, lastNameUpdateAction, phoneUpdateAction, UpdatePhoneRequest, websiteUpdateAction } from '@/profile-Lecturer/Lecturer-Profile-hook'
 import FormPhoneNumber from '@/components/custom/from-input/from-phone-number'
 import FormAddress from '@/components/custom/from-input/from-addres'
 import { InlineEditField } from '@/components/custom/from-input/inline-edit-field'
@@ -22,11 +21,12 @@ import { InlineEditCitizenIdField } from '@/components/custom/from-input/inline-
 import { InlineEditShell } from '@/components/custom/inline-edit-shell.tsx'
 import { AvatarEdit } from '@/components/custom/AvatarEdit'
 import { EducationSection } from './EducationSection'
+import { storeLecturerProfile } from '@/profile-Lecturer/Lecturer-profile-store'
 
 export default function ContentProfile() {
 
-  const lecturerData = storeLecturer((e) => e.data);
-  const isLoading = storeLecturer((e) => e.isLoading);
+  const lecturerData = storeLecturerProfile((e) => e.data);
+  const isLoading = storeLecturerProfile((e) => e.isLoading);
 
 
   if (isLoading) return <Loading></Loading>

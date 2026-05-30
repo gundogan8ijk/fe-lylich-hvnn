@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { cn } from '@/lib/utils'
-import { SidebarItem } from '@/_types/base-type/layout-Sidebar-type'
+import { cn } from '@/_lib/utils'
+import { SidebarItem } from '@/_types/layout-Sidebar-type'
 
 interface SidebarProps {
     items: SidebarItem[],

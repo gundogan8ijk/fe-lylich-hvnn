@@ -2,27 +2,27 @@
 
 import { useEffect, useState } from "react";
 import { Filter } from "lucide-react";
-import { storeProjectManger } from "@/stores/store-list/projects-manger-store";
 import { SearchBoxState } from "@/components/query/search-Box-state";
 import { SortButtonDynamic } from "@/components/query/sort-Button-dynamic";
 import {
     ProjectMangerSortOptions,
     ProjectStatus_OPTIONS,
     level_PROJECT_OPTIONS,
-} from "@/constants/project-contant";
+} from "@/constants/project-constant";
 import FilterPanel, { ActiveFilterTags, FilterFieldConfig } from "@/components/query/filter-panel-state";
-import { ProjectManagerFilters } from "@/constants/project-contant";
-import { createProjectAction, getMangerProjectListAction } from "@/_hooks/research-projects-hook";
+import { ProjectManagerFilters } from "@/constants/project-constant";
 import { ConfirmedStatus, STATUS_LABELS } from "@/constants/base-constant";
 import { Button } from "@/components/ui/button";
 import CreateProjectDialog from "./create-project-dialog";
 import { gradientBg } from "@/components/utils/background";
+import { storeProjectMangerList } from "@/ProjectManger/store-list-projects-manger";
+import { createProjectListAction, getMangerProjectListAction } from "@/ProjectManger/hook-projects-manger";
 
 export default function ProjectMangerHeader() {
-    const page = storeProjectManger((s) => s.query.page);
-    const sort = storeProjectManger((s) => s.query.sort);
-    const filters = storeProjectManger((s) => s.query.filters);
-    const search = storeProjectManger((s) => s.query.search);
+    const page = storeProjectMangerList((s) => s.query.page);
+    const sort = storeProjectMangerList((s) => s.query.sort);
+    const filters = storeProjectMangerList((s) => s.query.filters);
+    const search = storeProjectMangerList((s) => s.query.search);
     //const isSearch = storeProjectManger((s) => s.isSearch);
 
     const [dialogOpen, setDialogOpen] = useState(false)
@@ -43,7 +43,7 @@ export default function ProjectMangerHeader() {
             <div className="p-4 rounded-2xl border bg-card/50 backdrop-blur-sm shadow-sm flex flex-col gap-4">
                 {/* Row 1: search + sort + filter trigger */}
                 <div className="flex flex-col lg:flex-row gap-4 lg:items-center">
-                    <SearchBoxState store={storeProjectManger} />
+                    <SearchBoxState store={storeProjectMangerList} />
 
                     <div className="hidden lg:block w-px h-8 bg-border" />
 
@@ -58,7 +58,7 @@ export default function ProjectMangerHeader() {
                                     key={item.value}
                                     field={item.value}
                                     label={item.label}
-                                    store={storeProjectManger}
+                                    store={storeProjectMangerList}
                                 />
                             ))}
                         </div>
@@ -68,21 +68,21 @@ export default function ProjectMangerHeader() {
 
                     {/* Filter trigger */}
                     <FilterPanel
-                        store={storeProjectManger}
+                        store={storeProjectMangerList}
                         fields={PROJECT_FILTER_FIELDS}
                     />
                 </div>
 
                 {/* Row 2: active filter tags */}
                 <ActiveFilterTags
-                    store={storeProjectManger}
+                    store={storeProjectMangerList}
                     fields={PROJECT_FILTER_FIELDS}
                 />
             </div>
             <CreateProjectDialog
                 open={dialogOpen}
                 onOpenChange={setDialogOpen}
-                onSubmit={createProjectAction} />
+                onSubmit={createProjectListAction} />
         </div>
     );
 }

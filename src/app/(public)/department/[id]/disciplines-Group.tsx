@@ -1,13 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { Input } from '@/_components/ui/input';
+import { Button } from '@/_components/ui/button';
 import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
-import Loading from '@/components/utils/Loading';
+import Loading from '@/_components/utils/Loading';
 import { toSearchParams } from '@/_lib/query-options-toUrl-helper';
 import { getPages } from '@/_lib/getPages -Button-helper';
-import { ListQuery, SortDirection } from '@/_types/query-types';
+import { ListQuery, SortDirection } from '@/_Common/_types/query-types';
 import { DisciplineOfDepartmentPublicList } from '@/department-Public/department-public-type';
 import { getListDisciplineByDepartmentIdPublicAction } from '@/department-Public/department-public-hook';
 

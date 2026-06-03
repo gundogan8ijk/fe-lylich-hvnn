@@ -1,4 +1,4 @@
-import { Pagination, PaginationMeta } from "@/_types/pagination-typeConfig";
+import { Pagination, PaginationMeta } from "@/_Common/_types/pagination-typeConfig";
 
 export const getPages = (current: number, total: number) => {
     const pages: (number | string)[] = [];

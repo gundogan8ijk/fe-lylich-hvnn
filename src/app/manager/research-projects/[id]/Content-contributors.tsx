@@ -1,8 +1,8 @@
 "use client"
 
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { Card } from "@/_components/ui/card"
+import { Button } from "@/_components/ui/button"
+import { Badge } from "@/_components/ui/badge"
 import { getDateOnly } from "@/_lib/display-variable-helper"
 import { UserPlus, Crown, Users, Trash2, ShieldCheck } from "lucide-react"
 import { storeProjectManagerDetail } from "@/ProjectManger/store-detail-project-manger"

@@ -1,10 +1,10 @@
-import { notify } from "@/components/utils/Notify";
+import { notify } from "@/_components/utils/Notify";
 import { getErrorMessage } from "@/_lib/response-helper";
-import { deleteEducationByLecturerApi, registerEducationByLecturerApi, RegisterEducationByLecturerForm, updateEducationByLecturerApi, UpdateEducationByLecturerForm } from "./Education-Lecturer-ser";
+import { deleteEducationByLecturerApi, registerEducationByLecturerApi, RegisterEducationByLecturerForm, submitEducationByLecturerApi, updateEducationByLecturerApi, UpdateEducationByLecturerForm } from "./Education-Lecturer-ser";
 import { storeLecturerProfile } from "@/profile-Lecturer/Lecturer-profile-store";
 
 export {
-    registerEducationByLecturerAction, deleteEducationByLecturerAction,updateEducationAction
+    registerEducationByLecturerAction, deleteEducationByLecturerAction,updateEducationAction,submitEducationAction
 }
 
 async function registerEducationByLecturerAction(educationForm: RegisterEducationByLecturerForm) {
@@ -46,5 +46,21 @@ async function updateEducationAction(payload: UpdateEducationByLecturerForm) {
     if (res.data !== null) {
         updateEducation(res.data);
         notify.success("Cập nhật bằng cấp thành công");
+    }
+}
+
+async function submitEducationAction(id: string) {
+    const { updateEducation } = storeLecturerProfile.getState();
+
+    const res = await submitEducationByLecturerApi(id);
+
+    if (res.code === -1) {
+        notify.error(getErrorMessage(res.message, res.errors));
+        return;
+    }
+
+    if (res.data) {
+        updateEducation(res.data);
+        notify.success("Đã gửi duyệt học vấn");
     }
 }

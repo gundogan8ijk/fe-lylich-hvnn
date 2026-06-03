@@ -1,8 +1,8 @@
 import { success } from "@/_lib/response-helper";
-import { api } from "../_services/axios-service-config";
+import { api } from "../_Common/_services/axios-service-config";
 import axios from "axios";
 import { fail } from "assert";
-import { ApiResponse } from "@/_types/result-typeConfig";
+import { ApiResponse } from "@/_Common/_types/result-typeConfig";
 import { DisciplinesNameItems } from "@/Discipline-Public/disciplines-type";
 
 export {

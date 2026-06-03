@@ -1,7 +1,7 @@
-import { ApiResponse } from "@/_types/result-typeConfig";
+import { ApiResponse } from "@/_Common/_types/result-typeConfig";
 import { success, fail } from "@/_lib/response-helper";
 import axios from "axios";
-import { api } from "../_services/axios-service-config";
+import { api } from "../_Common/_services/axios-service-config";
 import {  DepartmentMembersListPublic, DepartmentPublicDetail, DepartmentPublicList, DisciplineOfDepartmentPublicList } from "./department-public-type";
 
 export {

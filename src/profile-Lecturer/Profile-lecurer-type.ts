@@ -1,4 +1,5 @@
-import { Gender } from "@/constants/base-constant";
+import { Gender } from "@/_constants/base-constant";
+import { AwardLecturer } from "@/Award-Lecturer/Award-Lecturer-type";
 import { EducationLecturer } from "@/Educaion-Lecturer/Eduction-Lecturer-type";
 
 export type LecturerProfile = {
@@ -12,6 +13,7 @@ export type LecturerProfile = {
     cccd: string;
 
     educations: EducationLecturer[];
+    awards: AwardLecturer[];
 
     phoneNumber: string;
     address: string;

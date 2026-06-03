@@ -1,6 +1,6 @@
-import { Pagination } from "@/_types/pagination-typeConfig";
-import { ConfirmedStatus } from "@/constants/base-constant";
-import { LevelProjectName, ProjectStatusName } from "@/constants/project-constant";
+import { Pagination } from "@/_Common/_types/pagination-typeConfig";
+import { ConfirmedStatus } from "@/_constants/base-constant";
+import { LevelProjectName, ProjectStatusName } from "@/_constants/project-constant";
 
 export type MangerProjectItems = {
     id: string,

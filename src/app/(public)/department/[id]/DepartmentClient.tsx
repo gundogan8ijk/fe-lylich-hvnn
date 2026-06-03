@@ -1,12 +1,12 @@
 'use client'
 
 import Image from 'next/image'
-import { Card } from '@/components/ui/card'
+import { Card } from '@/_components/ui/card'
 import { Calendar, MapPin, Users, BookOpen } from 'lucide-react'
 import React, { useEffect } from 'react'
 import NotFound from '@/app/not-found'
-import Loading from '@/components/utils/Loading'
-import ImageUndefine from '@/components/utils/ImageUndefine'
+import Loading from '@/_components/utils/Loading'
+import ImageUndefine from '@/_components/utils/ImageUndefine'
 import { DepartmentPublicDetail } from '@/department-Public/department-public-type'
 import { getDepartmentsDetailPublicAction } from '@/department-Public/department-public-hook'
 

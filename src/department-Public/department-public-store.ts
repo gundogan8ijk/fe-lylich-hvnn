@@ -1,10 +1,10 @@
 // department.store.ts
 import { create } from "zustand";
-import { createQuerySlice, QuerySlice } from "../_stores/base-list/query-module";
-import { BaseSlice, createBaseSlice } from "../_stores/base-list/base-module";
-import { DepartmentSearchField, DepartmentSearchOptions, DepartmentSortField } from "@/constants/department-constant";
+import { createQuerySlice, QuerySlice } from "../_Common/_stores/base-list/query-module";
+import { BaseSlice, createBaseSlice } from "../_Common/_stores/base-list/base-module";
+import { DepartmentSearchField, DepartmentSearchOptions, DepartmentSortField } from "@/_constants/department-constant";
 import { DepartmentPublicItems } from "./department-public-type";
-import { NoFilter } from "@/_types/query-types";
+import { NoFilter } from "@/_Common/_types/query-types";
 
 
 type DepartmentExtra = {

@@ -1,5 +1,5 @@
-import { ApiResponse } from "@/_types/result-typeConfig";
-import { api } from "../_services/axios-service-config";
+import { ApiResponse } from "@/_Common/_types/result-typeConfig";
+import { api } from "../_Common/_services/axios-service-config";
 import { fail, success } from "@/_lib/response-helper";
 import axios from "axios";
 import { ProjectLecturerItems } from "./projects-lecturer-list-type";

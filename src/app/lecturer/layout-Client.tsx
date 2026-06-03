@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { lecturerMenu } from "@/_types/layout-Sidebar-type"
-import { NavbarProtected, notifications } from "@/components/layouts/navbar-ptotected"
-import { lecturerNavbarConfig } from "@/_types/layout-navbar"
-import { SidebarConfig } from "@/components/layouts/sidebar"
+import { lecturerMenu } from "@/_Common/_types/layout-Sidebar-type"
+import { NavbarProtected, notifications } from "@/_components/layouts/navbar-ptotected"
+import { lecturerNavbarConfig } from "@/_Common/_types/layout-navbar"
+import { SidebarConfig } from "@/_components/layouts/sidebar"
 
 export default function LayoutClient({ children, }: { children: React.ReactNode }) {
 

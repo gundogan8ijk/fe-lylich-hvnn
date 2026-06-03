@@ -1,16 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { Input } from '@/_components/ui/input';
+import { Button } from '@/_components/ui/button';
 import { ChevronLeft, ChevronRight, Search, BookOpen, Award, Calendar } from 'lucide-react';
-import Loading from '@/components/utils/Loading';
+import Loading from '@/_components/utils/Loading';
 import { getPages } from '@/_lib/getPages -Button-helper';
 import { toSearchParams } from '@/_lib/query-options-toUrl-helper';
 import { getInitials, getYear } from '@/_lib/display-variable-helper';
 import Image from 'next/image';
 import { DepartmentMembersListPublic } from '@/department-Public/department-public-type';
-import { ListQuery, SortDirection } from '@/_types/query-types';
+import { ListQuery, SortDirection } from '@/_Common/_types/query-types';
 import { getListMemberDepartmentPublicAction } from '@/department-Public/department-public-hook';
 
 const PerPage = 20;

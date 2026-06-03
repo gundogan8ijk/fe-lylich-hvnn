@@ -1,5 +1,5 @@
-import { ConfirmedStatus } from "@/constants/base-constant"
-import { EvaluationResultName, ProjectStatusName } from "@/constants/project-constant"
+import { ConfirmedStatus } from "@/_constants/base-constant"
+import { EvaluationResultName, ProjectStatusName } from "@/_constants/project-constant"
 
 export type ProjectLecturerItems = {
     id: string

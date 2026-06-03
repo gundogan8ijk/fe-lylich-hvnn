@@ -1,4 +1,4 @@
-import { BaseSlice, createBaseSlice } from "../_stores/base-list/base-module";
+import { BaseSlice, createBaseSlice } from "../_Common/_stores/base-list/base-module";
 import { create } from "zustand";
 import { ProjectLecturerItems } from "./projects-lecturer-list-type";
 

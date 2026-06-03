@@ -1,18 +1,32 @@
-import { GraduationCap, CalendarDays, BookOpen, Pencil, Trash2 } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { getDateOnly } from '@/_lib/display-variable-helper'
-import { STATUS_VARIANTS } from '@/constants/education-constant'
-import { STATUS_LABELS } from '@/constants/base-constant'
+import { GraduationCap, CalendarDays, BookOpen, Pencil, Trash2, Send, ImageIcon } from 'lucide-react'
+import { Badge } from '@/_components/ui/badge'
+import { Button } from '@/_components/ui/button'
+import { getDateOnly, getLabel } from '@/_lib/display-variable-helper'
+import { DEGREE_OPTIONS, STATUS_VARIANTS } from '@/_constants/education-constant'
+import { STATUS_LABELS } from '@/_constants/base-constant'
 import { EducationLecturer } from '@/Educaion-Lecturer/Eduction-Lecturer-type'
+import { useState } from 'react'
+import SubmitConfirmDialog from '@/_components/custom/SubmitConfirmDialog'
+import { submitEducationAction } from '@/Educaion-Lecturer/Education-Lecturer-hook'
 
 interface EducationCardProps {
     education: EducationLecturer
     onEdit: (edu: EducationLecturer) => void
     onDelete: (id: string) => void
+    onViewProof?: (url: string) => void
 }
 
-export function EducationCard({ education: edu, onEdit, onDelete }: EducationCardProps) {
+export function EducationCard({ education: edu, onEdit, onDelete, onViewProof }: EducationCardProps) {
+    const [submitting, setSubmitting] = useState(false)
+    const [isSubmitOpen, setIsSubmitOpen] = useState(false)
+
+    async function handleConfirmSubmit() {
+        setSubmitting(true)
+        await submitEducationAction(edu.id)
+        setIsSubmitOpen(false)
+        setSubmitting(false)
+    }
+
     return (
         <div className="flex items-start gap-4 rounded-xl border border-muted-foreground/10 p-4 bg-card/50 hover:bg-muted/30 hover:border-muted-foreground/20 transition-all duration-200 shadow-sm">
             {/* Icon */}
@@ -31,10 +45,10 @@ export function EducationCard({ education: edu, onEdit, onDelete }: EducationCar
                             {getDateOnly(edu.lastModify)}
                         </span>
                         <Badge
-                            variant={STATUS_VARIANTS[edu.status]}
+                            variant={STATUS_VARIANTS[edu.confirmedStatus]}
                             className="text-[11px] font-medium px-2 py-0.5 rounded-md"
                         >
-                            {STATUS_LABELS[edu.status]}
+                            {STATUS_LABELS[edu.confirmedStatus]}
                         </Badge>
                     </div>
                 </div>
@@ -42,7 +56,7 @@ export function EducationCard({ education: edu, onEdit, onDelete }: EducationCar
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground font-medium">
                     {/* Bằng cấp */}
                     <span className="bg-muted px-2 py-0.5 rounded text-muted-foreground/90 font-semibold">
-                        {edu.degreeName}
+                        {getLabel(DEGREE_OPTIONS, edu.degreeName)}
                     </span>
 
                     {/* Ngành học */}
@@ -65,24 +79,61 @@ export function EducationCard({ education: edu, onEdit, onDelete }: EducationCar
 
             {/* Actions */}
             <div className="flex shrink-0 gap-0.5 self-center sm:self-start">
+                {/* Nút xem minh chứng — chỉ hiện khi proofUrl có giá trị thực */}
+                {edu.proofUrl?.trim() && onViewProof && (
+                    <Button
+                        size="sm"
+                        variant="ghost"
+                        className="gap-1.5 text-xs"
+                        onClick={() => onViewProof(edu.proofUrl!)}
+                    >
+                        <ImageIcon size={14} />
+                        Xem minh chứng
+                    </Button>
+                )}
+
+                {edu.confirmedStatus === 'Draft' && (
+                    <Button
+                        size="icon"
+                        variant="ghost"
+                        className="h-8 w-8 rounded-lg text-blue-600 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-colors"
+                        onClick={() => setIsSubmitOpen(true)}
+                        disabled={submitting}
+                        title="Gửi phê duyệt"
+                    >
+                        <Send size={14} className={submitting ? 'animate-pulse' : ''} />
+                    </Button>
+                )}
+
                 <Button
                     size="icon"
                     variant="ghost"
                     className="h-8 w-8 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                     onClick={() => onEdit(edu)}
-                    disabled={edu.status === "Verified"}
+                    disabled={edu.confirmedStatus !== 'Draft' || submitting}
                 >
                     <Pencil size={14} />
                 </Button>
+
                 <Button
                     size="icon"
                     variant="ghost"
                     className="h-8 w-8 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
                     onClick={() => onDelete(edu.id)}
+                    disabled={submitting}
                 >
                     <Trash2 size={14} />
                 </Button>
             </div>
+
+            <SubmitConfirmDialog
+                open={isSubmitOpen}
+                submitting={submitting}
+                title="Xác nhận nộp bằng cấp?"
+                description={`Bạn có chắc chắn muốn nộp phê duyệt thông tin học vấn từ "${edu.trainingName}" không?`}
+                onConfirm={handleConfirmSubmit}
+                onCancel={() => setIsSubmitOpen(false)}
+            />
         </div>
     )
 }

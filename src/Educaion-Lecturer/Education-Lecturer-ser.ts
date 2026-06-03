@@ -1,18 +1,19 @@
-import { ApiResponse } from "@/_types/result-typeConfig";
+import { ApiResponse } from "@/_Common/_types/result-typeConfig";
 import { fail, success } from "@/_lib/response-helper";
 import axios from "axios";
-import { api } from "@/_services/axios-service-config";
+import { api } from "@/_Common/_services/axios-service-config";
 import { EducationLecturer } from "./Eduction-Lecturer-type";
 
 export {
-    registerEducationByLecturerApi,deleteEducationByLecturerApi,updateEducationByLecturerApi
+    registerEducationByLecturerApi, deleteEducationByLecturerApi, updateEducationByLecturerApi, submitEducationByLecturerApi
 }
 
 export type RegisterEducationByLecturerForm = {
     trainingName: string
     majorName: string
-    degree: number
+    degree: string
     graduatedAt: string
+    proofUrl: string;
 }
 
 const registerEducationByLecturerApi = async (education: RegisterEducationByLecturerForm): Promise<ApiResponse<EducationLecturer>> => {
@@ -29,7 +30,7 @@ const registerEducationByLecturerApi = async (education: RegisterEducationByLect
     }
 };
 
-const deleteEducationByLecturerApi = async (id : string): Promise<ApiResponse<null>> => {
+const deleteEducationByLecturerApi = async (id: string): Promise<ApiResponse<null>> => {
     try {
         const detailUrl = `/educations/${id}`;
         await api.delete(detailUrl);
@@ -48,8 +49,9 @@ export type UpdateEducationByLecturerForm = {
     educationId: string
     trainingName: string
     majorName: string
-    degree: number
+    degree: string
     graduatedAt: string
+    proofUrl: string ;
 }
 
 const updateEducationByLecturerApi = async (payload: UpdateEducationByLecturerForm): Promise<ApiResponse<EducationLecturer>> => {
@@ -59,6 +61,7 @@ const updateEducationByLecturerApi = async (payload: UpdateEducationByLecturerFo
             majorName: payload.majorName,
             degree: payload.degree,
             graduatedAt: payload.graduatedAt,
+            proofUrl: payload.proofUrl || null
         });
         return success(response.data);
     } catch (error) {
@@ -66,6 +69,24 @@ const updateEducationByLecturerApi = async (payload: UpdateEducationByLecturerFo
             const data = error.response?.data;
             return fail(data?.message || data?.detail, data?.errors);
         }
+        return fail();
+    }
+};
+
+
+const submitEducationByLecturerApi = async (
+    id: string
+): Promise<ApiResponse<EducationLecturer>> => {
+    try {
+        const response = await api.put(`/educations/${id}/submit`, {});
+
+        return success(response.data);
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const data = error.response?.data;
+            return fail(data?.message || data?.detail, data?.errors);
+        }
+
         return fail();
     }
 };

@@ -1,4 +1,4 @@
-import { ApiError, ApiSuccess, ErrorsResult } from "@/_types/result-typeConfig";
+import { ApiError, ApiSuccess, ErrorsResult } from "@/_Common/_types/result-typeConfig";
 
 export const success = <T>(data: T, message = "Success"): ApiSuccess<T> => {
     return {

@@ -1,6 +1,6 @@
-import MangerProjectGrid from "./projectManger-grid";
-import ProjectMangerHeader from "./projectManger-header";
-import MangerProjectPagination from "./projectManger-pagin";
+import MangerProjectGrid from "./(list)/projectManger-grid";
+import ProjectMangerHeader from "./(list)/projectManger-header";
+import MangerProjectPagination from "./(list)/projectManger-pagin";
 
 export default function ProjectMangerPage() {
     return (

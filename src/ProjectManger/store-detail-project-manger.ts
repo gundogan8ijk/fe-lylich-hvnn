@@ -7,7 +7,7 @@ import {
     ProjectParticipantRecord,
     ProjectDisciplineRecord,
 } from "@/ProjectManger/type-detail-projects-manger"
-import { BaseStore, createBaseStore } from "@/_stores/base-store";
+import { BaseStore, createBaseStore } from "@/_Common/_stores/base-store";
 
 type ProjectManagerExtra = {
     addFunding: (funding: ProjectFundingItemRecord) => void;

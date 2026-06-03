@@ -1,4 +1,4 @@
-import { Pagination } from "@/_types/pagination-typeConfig"
+import { Pagination } from "@/_Common/_types/pagination-typeConfig"
 
 export interface DepartmentPublicDetail {
     id: string

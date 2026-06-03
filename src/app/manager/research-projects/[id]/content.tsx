@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import ContentProjectInfoManger from "./content-ProjectInfo"
-import Loading from "@/components/utils/Loading"
+import ContentProjectInfoManger from "./(conten-projectinfo)/content-ProjectInfo"
+import Loading from "@/_components/utils/Loading"
 import ContentHeaderProjectManger from "./content-header"
 import { FileText, Handshake, LayoutDashboard, Users, Wallet } from "lucide-react"
 import ContentContributorsManger from "./Content-contributors"

@@ -1,16 +1,16 @@
 'use client'
 
-import { Card } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { Card } from '@/_components/ui/card'
+import { Badge } from '@/_components/ui/badge'
+import { Button } from '@/_components/ui/button'
 import { Eye, Calendar, FlaskConical } from 'lucide-react'
 import {
     ProjectStatusName,
     ProjectStatus_OPTIONS,
     EvaluationResultName,
     EvaluationResult_OPTIONS,
-} from '@/constants/project-constant'
-import { ConfirmedStatus, STATUS_LABELS } from '@/constants/base-constant'
+} from '@/_constants/project-constant'
+import { ConfirmedStatus, STATUS_LABELS } from '@/_constants/base-constant'
 import { getDateOnly, getLabel } from '@/_lib/display-variable-helper'
 import { ProjectLecturerItems } from '@/Project-Lecturer-List/projects-lecturer-list-type'
 

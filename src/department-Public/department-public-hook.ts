@@ -1,5 +1,5 @@
-import { notify } from '@/components/utils/Notify'
-import { defaultPagination } from "@/_types/pagination-typeConfig";
+import { notify } from '@/_components/utils/Notify'
+import { defaultPagination } from "@/_Common/_types/pagination-typeConfig";
 import { toSearchParams } from "@/_lib/query-options-toUrl-helper";
 import { storeDepartmentListPublic } from './department-public-store';
 import { getByIdDepartmentPublicApi, getDepartmentsListPublicApi, getListDisciplineByDepartmentIdApiPublic, getListMemberByDepartmentIdApiPublic } from './department-public-service';

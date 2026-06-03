@@ -1,8 +1,8 @@
 import { create } from "zustand";
-import { ProjectManagerFilters, ProjectMangerSortField } from "@/constants/project-constant";
-import { createQuerySlice, QuerySlice } from "@/_stores/base-list/query-module";
+import { ProjectManagerFilters, ProjectMangerSortField } from "@/_constants/project-constant";
+import { createQuerySlice, QuerySlice } from "@/_Common/_stores/base-list/query-module";
 import { MangerProjectItems } from "./type-list-projects-manger";
-import { BaseSlice, createBaseSlice } from "@/_stores/base-list/base-module";
+import { BaseSlice, createBaseSlice } from "@/_Common/_stores/base-list/base-module";
 
 type ProjectMangerExtra = {
     removeItemById: (id: string) => void

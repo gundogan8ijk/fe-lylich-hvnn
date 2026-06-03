@@ -1,9 +1,9 @@
 'use client'
 
-import { Card } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { Card } from '@/_components/ui/card'
+import { Badge } from '@/_components/ui/badge'
 import Image from 'next/image'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/_components/ui/button'
 import { GraduationCap, Users, ArrowRight } from 'lucide-react'
 import { useRouter } from "next/navigation";
 import { DepartmentPublicItems } from '@/department-Public/department-public-type'

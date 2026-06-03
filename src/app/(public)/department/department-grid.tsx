@@ -1,7 +1,7 @@
 'use client'
 import { storeDepartmentListPublic } from '@/department-Public/department-public-store';
 import DepartmentCard from './department-card'
-import Loading from'@/components/utils/Loading'
+import Loading from'@/_components/utils/Loading'
 
 export default function DepartmentGrid() {
     const isLoading = storeDepartmentListPublic((s) => s.loading);

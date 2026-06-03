@@ -1,7 +1,7 @@
 // lecturer-action.ts
-import { notify } from '@/components/utils/Notify'
+import { notify } from '@/_components/utils/Notify'
 import { getErrorMessage } from '@/_lib/response-helper';
-import { Gender } from '@/constants/base-constant';
+import { Gender } from '@/_constants/base-constant';
 import { storeLecturerProfile } from './Lecturer-profile-store';
 import { deleteLecturerProfileApi, getLecturerProfileMeApi, putLecturerProfileApi } from './Lecturer-Profile-ser';
 import { LecturerProfile } from './Profile-lecurer-type';

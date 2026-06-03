@@ -1,13 +1,13 @@
-import { ConfirmedStatus } from "@/constants/base-constant";
-import { DegreeName } from "@/constants/education-constant";
+import { ConfirmedStatus } from "@/_constants/base-constant";
+import { DegreeName } from "@/_constants/education-constant";
 
 export type EducationLecturer = {
-    id:string;
-    graduatedAt: string;
-    status: ConfirmedStatus;
+    id: string;
     trainingName: string;
-    majorName: string;
-    degreeValue: number;
     degreeName: DegreeName;
-    lastModify:Date
+    majorName: string;
+    confirmedStatus: ConfirmedStatus;
+    graduatedAt: string;
+    lastModify: string;
+    proofUrl: string;
 };

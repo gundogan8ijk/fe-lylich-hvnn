@@ -1,11 +1,11 @@
 'use client'
 
-import { Card } from "@/components/ui/card"
+import { Card } from "@/_components/ui/card"
 import { FileText } from 'lucide-react'
-import { InlineEditField } from "@/components/custom/from-input/inline-edit-field"
-import { EvaluationResult_OPTIONS, EvaluationResultName, ProjectStatus_OPTIONS, ProjectStatusName } from "@/constants/project-constant"
-import { InlineEditShell } from "@/components/custom/inline-edit-shell.tsx"
-import { Button } from "@/components/ui/button"
+import { InlineEditField } from "@/_components/custom/from-input/inline-edit-field"
+import { EvaluationResult_OPTIONS, EvaluationResultName, ProjectStatus_OPTIONS, ProjectStatusName } from "@/_constants/project-constant"
+import { InlineEditShell } from "@/_components/custom/inline-edit-shell.tsx"
+import { Button } from "@/_components/ui/button"
 import { storeProjectManagerDetail } from "@/ProjectManger/store-detail-project-manger"
 
 

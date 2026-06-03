@@ -1,4 +1,4 @@
-import { notify } from "@/components/utils/Notify";
+import { notify } from "@/_components/utils/Notify";
 import { getAllErrorMessage, getErrorMessage } from "@/_lib/response-helper";
 import { storeProjectLecturerList } from "./projects-lecturer-list-store";
 import { deleteListProjectLecturerApi, getListProjectLecturerApi, registerListProjectLecturerApi, RegisterProjectLecturerForm } from "./projects-lecturer-list-ser";

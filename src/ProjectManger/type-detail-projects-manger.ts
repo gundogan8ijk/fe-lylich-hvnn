@@ -1,5 +1,5 @@
-import { ConfirmedStatus } from "@/constants/base-constant";
-import { EvaluationResultName, ProjectStatusName } from "@/constants/project-constant";
+import { ConfirmedStatus } from "@/_constants/base-constant";
+import { EvaluationResultName, LevelProjectName, ProjectStatusName } from "@/_constants/project-constant";
 
 export type ProjectManagerDetailRecord = {
     id: string;
@@ -8,11 +8,11 @@ export type ProjectManagerDetailRecord = {
     confirmed: ConfirmedStatus;
     status: ProjectStatusName;
     creator: string;
-    level: string;
+    level: LevelProjectName;
     lastModify: string;
     evaluation: EvaluationResultName;
     permissions: ProjectManagerPermissionsRecord;
-    fundings: ProjectFundingItemRecord[];
+    funding: ProjectFundingItemRecord[];
     contributors: ProjectContributorRecord[];
     participants: ProjectParticipantRecord[];
     certificateUrl?: string | null;
@@ -67,10 +67,10 @@ export type ProjectManagerPermissionsRecord = {
     canUpdateEvaluation: boolean;
     canUpdateCertificateUrl: boolean;
     canUpdateDetailUrl: boolean;
-    canUpdateFundings: boolean;
+    canUpdateFunding: boolean;
     canUpdateContributors: boolean;
     canDeleteProject: boolean;
-    maxFundings: number;
+    maxFunding: number;
     maxContributors: number;
     maxParticipants: number;
     maxDisciplines: number;

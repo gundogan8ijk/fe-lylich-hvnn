@@ -8,7 +8,7 @@ export interface SidebarItem {
 
 export const lecturerMenu: SidebarItem[] = [
     { icon: BookOpen, label: 'Lớp học', href: '/lecturer/classes' },
-    { icon: Users, label: 'Sinh viên', href: '/lecturer/students' },
+    { icon: Users, label: 'Bài báo', href: '/lecturer/article' },
     { icon: UserRoundCog, label: 'Hồ Sơ', href: '/lecturer/profile' },
     { icon: FileText, label: 'Đề tài', href: '/lecturer/research-projects' },
     { icon: BarChart3, label: 'Đánh giá', href: '/lecturer/grades' },

@@ -3,7 +3,6 @@ import { fail, success } from "@/_lib/response-helper";
 import axios from "axios";
 import { api } from "@/_Common/_services/axios-service-config";
 import { AwardLecturer } from "./Award-Lecturer-type";
-import { AwardLevelName } from "@/_constants/award-constant";
 
 export {
     registerAwardByLecturerApi,
@@ -11,14 +10,15 @@ export {
     updateAwardByLecturerApi,
     submitAwardByLecturerApi
 };
-
 export type RegisterAwardByLecturerForm = {
-    name: string;
-    awardDate: string;
-    level: AwardLevelName;
-    description: string;
-    proofUrl: string;
-};
+    title: string
+    publishedAt: string
+    proofUrl: string
+    articleRole: string
+    journalName?: string
+    doi?: string
+    detailUrl?: string
+}
 
 const registerAwardByLecturerApi = async (award: RegisterAwardByLecturerForm): Promise<ApiResponse<AwardLecturer>> => {
     try {

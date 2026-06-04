@@ -1,4 +1,4 @@
-import { SelectionOption } from "@/_types/base-type/query-types";
+import { SelectionOption } from "@/_Common/_types/query-types";
 
 export const DepartmentSearchOptions = [
     { value: "name", label: "Tên" },

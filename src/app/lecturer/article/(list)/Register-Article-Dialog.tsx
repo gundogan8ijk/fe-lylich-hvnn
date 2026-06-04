@@ -10,16 +10,9 @@ import { SearchSelectProps } from '@/_components/custom/selection-Props'
 import { notify } from '@/_components/utils/Notify'
 import { uploadToPdfCloudinary } from '@/_Common/_services/pdf-config'
 import { ArticleContributorRole_OPTIONS } from '@/_constants/article-constant'
+import { RegisterArticleForm } from '@/Article-Lecturer-List/Article-Lecturer-ser'
 
-export type RegisterArticleForm = {
-    Title: string
-    PublishedAt: string
-    ProofUrl: string
-    ArticleRole: string // Hoặc ArticleContributorRoleName nếu API của bạn nhận dạng enum string trực tiếp
-    JournalName?: string
-    DOI?: string
-    DetailUrl?: string
-}
+
 
 type Props = {
     open: boolean
@@ -29,6 +22,7 @@ type Props = {
 
 const defaultForm: RegisterArticleForm = {
     Title: '',
+    Describe: '', 
     PublishedAt: '',
     ProofUrl: '',
     ArticleRole: '',
@@ -83,6 +77,7 @@ export default function RegisterArticleDialog({ open, onOpenChange, onSubmit }: 
         (e: React.ChangeEvent<HTMLInputElement>) =>
             setForm(f => ({ ...f, [key]: e.target.value }))
 
+    // Nếu "Describe" bắt buộc, bạn có thể thêm form.Describe vào đây
     const canSubmit = form.Title && form.PublishedAt && form.ArticleRole && pdfFile
 
     return (
@@ -96,6 +91,7 @@ export default function RegisterArticleDialog({ open, onOpenChange, onSubmit }: 
                 </DialogHeader>
 
                 <div className="space-y-4 py-1">
+                    {/* Tiêu đề */}
                     <div className="space-y-1.5">
                         <Label className="text-xs">
                             Tiêu đề bài báo <span className="text-red-500">*</span>
@@ -103,6 +99,13 @@ export default function RegisterArticleDialog({ open, onOpenChange, onSubmit }: 
                         <Input placeholder="Nhập tiêu đề bài báo..." value={form.Title} onChange={set('Title')} disabled={submitting} />
                     </div>
 
+                    {/* 🔥 BỔ SUNG: Ô nhập Mô tả bài báo */}
+                    <div className="space-y-1.5">
+                        <Label className="text-xs">Mô tả bài báo</Label>
+                        <Input placeholder="Nhập mô tả tóm tắt về bài báo..." value={form.Describe} onChange={set('Describe')} disabled={submitting} />
+                    </div>
+
+                    {/* Ngày xuất bản & Vai trò */}
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-1.5">
                             <Label className="text-xs">
@@ -111,7 +114,6 @@ export default function RegisterArticleDialog({ open, onOpenChange, onSubmit }: 
                             <Input type="date" value={form.PublishedAt} onChange={set('PublishedAt')} disabled={submitting} />
                         </div>
                         
-                        {/* THAY ĐỔI: Sử dụng bộ chọn Select cho Vai trò đóng góp thay vì Input Text */}
                         <div className="space-y-1.5 flex flex-col justify-end">
                             <Label className="text-xs mb-1">
                                 Vai trò <span className="text-red-500">*</span>
@@ -125,16 +127,19 @@ export default function RegisterArticleDialog({ open, onOpenChange, onSubmit }: 
                         </div>
                     </div>
 
+                    {/* Tên tạp chí */}
                     <div className="space-y-1.5">
                         <Label className="text-xs">Tên tạp chí / Hội nghị</Label>
                         <Input placeholder="Nhập tên tạp chí danh tiếng, hội nghị..." value={form.JournalName} onChange={set('JournalName')} disabled={submitting} />
                     </div>
 
+                    {/* DOI */}
                     <div className="space-y-1.5">
                         <Label className="text-xs">Mã định danh (DOI)</Label>
                         <Input placeholder="Ví dụ: 10.1145/3613904..." value={form.DOI} onChange={set('DOI')} disabled={submitting} />
                     </div>
 
+                    {/* File đính kèm */}
                     <div className="space-y-1.5">
                         <Label className="text-xs">
                             File tài liệu minh chứng (PDF) <span className="text-red-500">*</span>
@@ -154,6 +159,7 @@ export default function RegisterArticleDialog({ open, onOpenChange, onSubmit }: 
                         </div>
                     </div>
 
+                    {/* URL chi tiết */}
                     <div className="space-y-1.5">
                         <Label className="text-xs">Link chi tiết bài báo (URL nếu có)</Label>
                         <Input placeholder="https://sciencedirect.com/article-path..." value={form.DetailUrl} onChange={set('DetailUrl')} disabled={submitting} />

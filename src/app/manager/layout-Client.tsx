@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { SidebarConfig } from "../../components/layouts/sidebar"
+import { SidebarConfig } from "@/_components/layouts/sidebar"
 import { managerMenu } from "@/_Common/_types/layout-Sidebar-type"
 import { NavbarProtected, notifications } from "@/_components/layouts/navbar-ptotected"
 import { managerNavbarConfig } from "@/_Common/_types/layout-navbar"

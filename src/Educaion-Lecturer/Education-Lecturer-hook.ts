@@ -4,7 +4,7 @@ import { deleteEducationByLecturerApi, registerEducationByLecturerApi, RegisterE
 import { storeLecturerProfile } from "@/profile-Lecturer/Lecturer-profile-store";
 
 export {
-    registerEducationByLecturerAction, deleteEducationByLecturerAction,updateEducationAction,submitEducationAction
+    registerEducationByLecturerAction, deleteEducationByLecturerAction, updateEducationAction, submitEducationAction
 }
 
 async function registerEducationByLecturerAction(educationForm: RegisterEducationByLecturerForm) {

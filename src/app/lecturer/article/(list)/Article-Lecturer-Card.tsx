@@ -3,18 +3,11 @@
 import { Card } from '@/_components/ui/card'
 import { Badge } from '@/_components/ui/badge'
 import { Button } from '@/_components/ui/button'
-import { Eye, Calendar, FileText, ExternalLink, UserCheck } from 'lucide-react'
-import { ConfirmedStatus, STATUS_LABELS } from '@/_constants/base-constant'
+import { Eye, Calendar, FileText, ExternalLink, UserCheck, Globe, Lock } from 'lucide-react'
+import { confirmedStyle, STATUS_LABELS } from '@/_constants/base-constant'
 import { getDateOnly } from '@/_lib/display-variable-helper'
+import { ArticleLecturerItem } from '@/Article-Lecturer-List/Article-Lecturer-type'
 
-export type ArticleLecturerItem = {
-    id: string
-    title: string
-    confirmedStatus: ConfirmedStatus
-    lastModify: string
-    proofDocumentUrl: string
-    isMyCreate: boolean
-}
 
 type ArticleLecturerCardProps = {
     item: ArticleLecturerItem
@@ -37,18 +30,31 @@ export default function ArticleLecturerCard({
                 {/* Header */}
                 <div className="mb-3 flex flex-col gap-y-2">
                     <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-x-2">
+                        <div className="flex flex-wrap items-center gap-2">
                             <FileText className="h-4 w-4 flex-shrink-0 text-blue-500" />
+                            
+                            {/* Khởi tạo bởi tôi */}
                             {item.isMyCreate && (
                                 <Badge variant="secondary" className="gap-1 text-xs font-normal bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border-0">
                                     <UserCheck className="h-3 w-3" /> Tôi tạo
                                 </Badge>
                             )}
+
+                            {/* Trạng thái công khai / riêng tư */}
+                            {item.isPublic ? (
+                                <Badge variant="secondary" className="gap-1 text-xs font-normal bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border-0">
+                                    <Globe className="h-3 w-3" /> Công khai
+                                </Badge>
+                            ) : (
+                                <Badge variant="secondary" className="gap-1 text-xs font-normal bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 border-0">
+                                    <Lock className="h-3 w-3" /> Riêng tư
+                                </Badge>
+                            )}
                         </div>
 
                         {/* Xác thực trạng thái phê duyệt */}
-                        <div className="flex items-center gap-2">
-                            <span className="text-xs text-slate-500 dark:text-slate-400">Xác thực:</span>
+                        <div className="flex items-center gap-2 flex-shrink-0">
+                            <span className="text-xs text-slate-500 dark:text-slate-400 hidden sm:inline">Xác thực:</span>
                             <Badge className={`${confirmedInfo.bg} ${confirmedInfo.text} border-0 text-xs font-medium`}>
                                 {STATUS_LABELS[item.confirmedStatus]}
                             </Badge>
@@ -58,6 +64,13 @@ export default function ArticleLecturerCard({
                     <h3 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-50 text-balance mt-1 leading-snug">
                         {item.title}
                     </h3>
+
+                    {/* Hiển thị mô tả ngắn (Tối đa 2 dòng) */}
+                    {item.describe && (
+                        <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 text-balance mt-0.5">
+                            {item.describe}
+                        </p>
+                    )}
                 </div>
 
                 {/* Divider */}
@@ -94,9 +107,3 @@ export default function ArticleLecturerCard({
 
 // ─── Config maps trạng thái duyệt bài báo ───────────────────────────────────────
 
-const confirmedStyle: Record<ConfirmedStatus, { bg: string; text: string }> = {
-    Draft: { bg: 'bg-slate-100 dark:bg-slate-800', text: 'text-slate-600 dark:text-slate-300' },
-    Pending: { bg: 'bg-amber-50 dark:bg-amber-950/30', text: 'text-amber-700 dark:text-amber-300' },
-    Verified: { bg: 'bg-emerald-100 dark:bg-emerald-900/30', text: 'text-emerald-700 dark:text-emerald-300' },
-    Cancelled: { bg: 'bg-red-100 dark:bg-red-900/30', text: 'text-red-600 dark:text-red-300' },
-}

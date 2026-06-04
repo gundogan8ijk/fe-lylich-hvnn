@@ -1,4 +1,4 @@
-import { SelectionOption } from '@/_types/base-type/query-types'
+import { SelectionOption } from '@/_Common/_types/query-types'
 import { SearchSelectProps } from './selection-Props'
 import { ConfirmedStatus, STATUS_LABELS } from '@/_constants/base-constant'
 

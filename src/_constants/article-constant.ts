@@ -13,3 +13,8 @@ export const MODAL_Article_KEYS = {
     UPDATE: "article.update",
     DELETE: "article.delete",
 } as const
+
+export const ROLE_AWARD_OPTIONS = [
+    { value: 'MainAuthor' as ArticleContributorRoleName, label: 'Tác giả chính' },
+    { value: 'CoAuthor' as ArticleContributorRoleName, label: 'Đồng tác giả' },
+];

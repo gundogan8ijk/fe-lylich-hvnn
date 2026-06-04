@@ -24,12 +24,12 @@ const getListArticleLecturerApi = async (): Promise<ApiResponse<ArticleLecturerI
     }
 };
 
-// ── Register ───────────────────────────────────────────────────────────────
 export type RegisterArticleForm = {
     Title: string
+    Describe: string 
     PublishedAt: string
     ProofUrl: string
-    ArticleRole: string
+    ArticleRole: string 
     JournalName?: string
     DOI?: string
     DetailUrl?: string

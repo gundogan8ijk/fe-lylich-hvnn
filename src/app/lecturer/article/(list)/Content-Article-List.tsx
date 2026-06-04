@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/_components/ui/card'
 import { Button } from '@/_components/ui/button'
 import { Input } from '@/_components/ui/input'
@@ -11,9 +12,9 @@ import { ConfirmedStatusFilterSelect } from '@/_components/custom/StatusFilter-S
 import { SearchSelectProps } from '@/_components/custom/selection-Props'
 import { SelectionOption, SortDirection } from '@/_Common/_types/query-types'
 import { storeArticleLecturerList } from '@/Article-Lecturer-List/Article-Lecturer-store'
+import { registerArticleLecturerAction } from '@/Article-Lecturer-List/Article-Lecturer-hook'
 import ArticleLecturerCard from './Article-Lecturer-Card'
 import RegisterArticleDialog from './Register-Article-Dialog'
-import { registerArticleLecturerAction } from '@/Article-Lecturer-List/Article-Lecturer-hook'
 
 const SORT_OPTIONS: readonly SelectionOption<SortDirection>[] = [
     { value: 'desc', label: 'Mới nhất' },
@@ -21,6 +22,7 @@ const SORT_OPTIONS: readonly SelectionOption<SortDirection>[] = [
 ]
 
 export default function ContentArticlesList() {
+    const router = useRouter()
     const { data, loading } = storeArticleLecturerList()
 
     const [dialogOpen, setDialogOpen] = useState(false)
@@ -43,7 +45,7 @@ export default function ContentArticlesList() {
     }, [data, search, filterConfirmed, sortOrder])
 
     const handleViewDetail = (id: string) => {
-        console.log('view detail article', id)
+        router.push(`/lecturer/article/${id}`)
     }
 
     return (

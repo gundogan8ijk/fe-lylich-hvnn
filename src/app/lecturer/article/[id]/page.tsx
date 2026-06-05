@@ -1,5 +1,5 @@
 import ArticleDetailContent from "./(content)/content";
-import ArticleDetailSetupData from "./setup-dataArticle-list";
+import ArticleDetailSetupData from "./ArticleDetailSetupData";
 
 export default async function ArticleDetailPage({
     params

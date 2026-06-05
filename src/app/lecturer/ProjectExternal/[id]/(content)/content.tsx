@@ -1,14 +1,14 @@
 'use client';
 
 import Loading from '@/_components/utils/Loading';
-import ActionButtons from './ActionButtons';
-import { storeArticleDetail } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-store';
 import { STATUS_LABELS } from '@/_constants/base-constant';
-import InternalContributorsSum from '../(internal-contributor)/InternalContributorsSum';
-import ExternalContributorsSum from '../(external-contributor)/ExternalContributorsSum';
-import ArticleInfoSection from './ArticleInfoSection';
-import { BookOpen, FileText } from 'lucide-react';
+import { storeProjectExternalDetail } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-store';
+import { Briefcase, FileText } from 'lucide-react';
+import ActionButtons from './ActionButtons';
+import ProjectInfoSection from './ProjectInfoSection';
 import DisciplinesSum from '../(discipline)/DisciplinesSum';
+import ExternalParticipantsSum from '../(external-contributor)/ExternalParticipantsSum';
+import InternalContributorsSum from '../(internal-contributor)/InternalContributorsSum';
 
 const STATUS_BADGE_MAP = {
     Draft: 'bg-amber-50 text-amber-700 border border-amber-200',
@@ -23,18 +23,18 @@ function getStatusBadgeClass(status: string): string {
     return STATUS_BADGE_MAP[status as StatusKey] ?? 'bg-slate-50 text-slate-700 border border-slate-200';
 }
 
-export default function ArticleDetailContent() {
-    const article = storeArticleDetail((s) => s.data);
-    const loading = storeArticleDetail((s) => s.isLoading);
+export default function ProjectExternalDetailContent() {
+    const project = storeProjectExternalDetail((s) => s.data);
+    const loading = storeProjectExternalDetail((s) => s.isLoading);
 
     if (loading) return <Loading />;
 
-    if (!article) {
+    if (!project) {
         return (
             <div className="flex items-center justify-center min-h-screen">
                 <div className="text-center space-y-3">
                     <div className="text-6xl font-light text-slate-200">∅</div>
-                    <p className="text-slate-400 text-sm">Không tìm thấy bài báo</p>
+                    <p className="text-slate-400 text-sm">Không tìm thấy đề tài</p>
                 </div>
             </div>
         );
@@ -43,33 +43,37 @@ export default function ArticleDetailContent() {
     return (
         <div className="min-h-screen bg-slate-50/50">
             <div className="container mx-auto px-4 py-10 md:py-16 max-w-5xl">
-
                 {/* ── Header ── */}
                 <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-8 py-8 mb-6">
                     <div className="flex flex-col md:flex-row md:items-start gap-5">
-
-                        {/* Icon + Title block */}
-                        <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
-                            <BookOpen className="w-5 h-5 text-blue-600" />
+                        <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-indigo-50 flex items-center justify-center">
+                            <Briefcase className="w-5 h-5 text-indigo-600" />
                         </div>
 
                         <div className="flex-1 min-w-0">
                             <div className="flex flex-wrap items-center gap-2 mb-2">
                                 <span
-                                    className={`inline-flex items-center px-3 py-0.5 rounded-full text-xs font-medium ${getStatusBadgeClass(article.confirmedStatus)}`}
+                                    className={`inline-flex items-center px-3 py-0.5 rounded-full text-xs font-medium ${getStatusBadgeClass(project.confirmedStatus)}`}
                                 >
-                                    {STATUS_LABELS[article.confirmedStatus]}
+                                    {STATUS_LABELS[project.confirmedStatus]}
                                 </span>
                             </div>
 
                             <h1 className="text-2xl md:text-3xl font-semibold text-slate-900 leading-snug text-balance">
-                                {article.title}
+                                {project.title}
                             </h1>
 
-                            {/* Mô tả */}
-                            {article.describe && (
+                            <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-sm text-slate-500">
+                                <span>Mã: <strong>{project.code}</strong></span>
+                                <span>Cấp độ: <strong>{project.level}</strong></span>
+                                {project.evaluation !== 'NotSet' && (
+                                    <span>Đánh giá: <strong>{project.evaluation}</strong></span>
+                                )}
+                            </div>
+
+                            {project.describe && (
                                 <p className="mt-3 text-slate-500 text-sm leading-relaxed line-clamp-3">
-                                    {article.describe}
+                                    {project.describe}
                                 </p>
                             )}
                         </div>
@@ -81,19 +85,19 @@ export default function ArticleDetailContent() {
                     <div className="flex items-center gap-2 mb-4">
                         <FileText className="w-4 h-4 text-slate-400" />
                         <h2 className="text-sm font-medium text-slate-600 uppercase tracking-wide">
-                            Thông tin bài báo
+                            Thông tin đề tài
                         </h2>
                     </div>
-                    <ArticleInfoSection />
+                    <ProjectInfoSection />
                 </div>
 
-                {/* ── Contributors ── */}
+                {/* ── Contributors / Participants ── */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-6">
                     <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-6 py-5">
                         <InternalContributorsSum />
                     </div>
                     <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-6 py-5">
-                        <ExternalContributorsSum />
+                        <ExternalParticipantsSum />
                     </div>
                 </div>
 
@@ -101,9 +105,8 @@ export default function ArticleDetailContent() {
 
                 {/* ── Actions ── */}
                 <div className="bg-white rounded-2xl border border-slate-100 shadow-sm mt-5 p-3">
-                    <ActionButtons/>
+                    <ActionButtons />
                 </div>
-
             </div>
         </div>
     );

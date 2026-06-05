@@ -7,6 +7,7 @@ export type ArticleContributorRoleName = 'MainAuthor' | 'CoAuthor'
 export type ArticleDetailItem = {
     id: string
     createdById: string
+    createdByName:string
     title: string
     describe: string   
     publishedAt: string

@@ -38,12 +38,15 @@ export default function ArticleInfoSection() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Các trường thông tin khác giữ nguyên như cũ, chỉ cần dùng biến {article} */}
                 <div className="space-y-2">
                     <label className="text-sm font-medium text-muted-foreground uppercase tracking-wide">Ngày công bố</label>
                     <p className="text-base text-foreground font-medium">{article.publishedAt}</p>
                 </div>
-                {/* ... (Các phần còn lại của grid giữ nguyên) */}
+
+                <div className="space-y-2">
+                    <label className="text-sm font-medium text-muted-foreground uppercase tracking-wide">Người đăng kí</label>
+                    <p className="text-base text-foreground font-medium">{article.createdByName}</p>
+                </div>
             </div>
 
             {/* ── Update Dialog ───────────────────────────────────────────── */}

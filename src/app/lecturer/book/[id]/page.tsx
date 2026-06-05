@@ -1,3 +1,5 @@
+import BookDetailSetupData from "./(content)/BookDetailSetupData";
+import BookDetailContent from "./(content)/content";
 
 export default async function BookDetailPage({
   params,

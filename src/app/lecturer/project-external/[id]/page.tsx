@@ -1,5 +1,5 @@
 import ProjectExternalDetailContent from "./(content)/content";
-import ProjectExternalDetailSetupData from "./ProjectExternalDetailSetupData";
+import ProjectExternalDetailSetupData from "./(content)/ProjectExternalDetailSetupData";
 
 export default async function ProjectExternalDetailPage({
     params,

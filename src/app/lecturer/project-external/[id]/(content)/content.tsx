@@ -7,8 +7,8 @@ import { Briefcase, FileText } from 'lucide-react';
 import ActionButtons from './ActionButtons';
 import ProjectInfoSection from './ProjectInfoSection';
 import DisciplinesSum from '../(discipline)/DisciplinesSum';
-import ExternalParticipantsSum from '../(external-contributor)/ExternalParticipantsSum';
 import InternalContributorsSum from '../(internal-contributor)/InternalContributorsSum';
+import ExternalParticipantsSum from '../(external-contributor)/ExternalParticipantsSum';
 
 const STATUS_BADGE_MAP = {
     Draft: 'bg-amber-50 text-amber-700 border border-amber-200',

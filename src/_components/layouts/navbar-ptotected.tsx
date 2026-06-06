@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Bell, LogOut, Settings, User, Menu, X } from 'lucide-react'
+import { Bell, LogOut, User, Menu, X, Lock, Loader2, CheckCircle2 } from 'lucide-react'
 import { Button } from '@/_components/ui/button'
 import {
     DropdownMenu,
@@ -11,10 +11,12 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/_components/ui/dropdown-menu'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/_components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from '@/_components/ui/dialog'
 import { ScrollArea } from '@/_components/ui/scroll-area'
 import { Badge } from '@/_components/ui/badge'
 import { NavbarConfig, Notifications } from '@/_Common/_types/layout-navbar'
+import { logoutActionHook, changePasswordActionHook } from '@/Authen/authen-hook'
+import { Input } from '@/_components/ui/input'
 
 interface NavbarProps {
     config: NavbarConfig,
@@ -23,9 +25,53 @@ interface NavbarProps {
     onSidebarToggle?: () => void
 }
 
-export function NavbarProtected({config, notifications,  sidebarOpen = false, onSidebarToggle }: NavbarProps) {
+export function NavbarProtected({ config, notifications, sidebarOpen = false, onSidebarToggle }: NavbarProps) {
     const [notificationOpen, setNotificationOpen] = useState(false)
+    const [changePassOpen, setChangePassOpen] = useState(false)
+    const [changePassForm, setChangePassForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' })
+    const [changePassLoading, setChangePassLoading] = useState(false)
+    const [changePassError, setChangePassError] = useState('')
+    const [changePassSuccess, setChangePassSuccess] = useState(false)
+
     const unreadCount = notifications.filter((n) => !n.read).length
+
+    const handleChangePassSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setChangePassError('');
+        setChangePassSuccess(false);
+
+        if (changePassForm.newPassword.length < 8) {
+            setChangePassError('Mật khẩu mới phải từ 8 ký tự trở lên.');
+            return;
+        }
+
+        if (changePassForm.newPassword !== changePassForm.confirmPassword) {
+            setChangePassError('Xác nhận mật khẩu mới không khớp.');
+            return;
+        }
+
+        setChangePassLoading(true);
+        try {
+            const err = await changePasswordActionHook({
+                currentPassword: changePassForm.currentPassword,
+                newPassword: changePassForm.newPassword
+            });
+            if (err) {
+                setChangePassError(err);
+            } else {
+                setChangePassSuccess(true);
+                setChangePassForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+                setTimeout(() => {
+                    setChangePassOpen(false);
+                    setChangePassSuccess(false);
+                }, 1500);
+            }
+        } catch (e) {
+            setChangePassError('Có lỗi xảy ra, vui lòng thử lại.');
+        } finally {
+            setChangePassLoading(false);
+        }
+    };
 
     return (
         <>
@@ -78,12 +124,17 @@ export function NavbarProtected({config, notifications,  sidebarOpen = false, on
                                 <User size={16} />
                                 <span>Hồ sơ cá nhân</span>
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="gap-2 cursor-pointer">
-                                <Settings size={16} />
-                                <span>Cài đặt</span>
+                            <DropdownMenuItem className="gap-2 cursor-pointer" onClick={() => {
+                                setChangePassError('');
+                                setChangePassSuccess(false);
+                                setChangePassForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+                                setChangePassOpen(true);
+                            }}>
+                                <Lock size={16} />
+                                <span>Đổi mật khẩu</span>
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem className="gap-2 cursor-pointer text-red-500">
+                            <DropdownMenuItem className="gap-2 cursor-pointer text-red-500" onClick={() => logoutActionHook()}>
                                 <LogOut size={16} />
                                 <span>Đăng xuất</span>
                             </DropdownMenuItem>
@@ -91,6 +142,86 @@ export function NavbarProtected({config, notifications,  sidebarOpen = false, on
                     </DropdownMenu>
                 </div>
             </nav>
+
+            {/* Change Password Dialog */}
+            <Dialog open={changePassOpen} onOpenChange={(open) => {
+                if (!changePassLoading) setChangePassOpen(open);
+            }}>
+                <DialogContent className="max-w-md mx-4 sm:mx-0">
+                    <DialogHeader>
+                        <DialogTitle>Đổi mật khẩu</DialogTitle>
+                        <DialogDescription>
+                            Vui lòng nhập mật khẩu hiện tại và mật khẩu mới của bạn.
+                        </DialogDescription>
+                    </DialogHeader>
+
+                    {changePassError && (
+                        <div className="p-3 bg-rose-50 dark:bg-rose-950/30 border border-rose-200/50 dark:border-rose-900/40 rounded-xl text-xs font-semibold text-rose-600 dark:text-rose-400 text-center animate-in fade-in duration-200">
+                            {changePassError}
+                        </div>
+                    )}
+
+                    {changePassSuccess && (
+                        <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200/50 dark:border-emerald-900/40 rounded-xl text-xs font-semibold text-emerald-600 dark:text-emerald-400 text-center flex items-center justify-center gap-1.5 animate-in fade-in duration-200">
+                            <CheckCircle2 className="w-4 h-4" /> Đổi mật khẩu thành công!
+                        </div>
+                    )}
+
+                    <form onSubmit={handleChangePassSubmit} className="space-y-4 pt-2">
+                        <div className="space-y-1.5">
+                            <label className="text-xs font-bold uppercase tracking-wider text-slate-400">Mật khẩu hiện tại</label>
+                            <Input
+                                required
+                                type="password"
+                                value={changePassForm.currentPassword}
+                                onChange={(e) => setChangePassForm(p => ({ ...p, currentPassword: e.target.value }))}
+                                disabled={changePassLoading || changePassSuccess}
+                            />
+                        </div>
+                        <div className="space-y-1.5">
+                            <label className="text-xs font-bold uppercase tracking-wider text-slate-400">Mật khẩu mới</label>
+                            <Input
+                                required
+                                type="password"
+                                value={changePassForm.newPassword}
+                                onChange={(e) => setChangePassForm(p => ({ ...p, newPassword: e.target.value }))}
+                                disabled={changePassLoading || changePassSuccess}
+                            />
+                        </div>
+                        <div className="space-y-1.5">
+                            <label className="text-xs font-bold uppercase tracking-wider text-slate-400">Xác nhận mật khẩu mới</label>
+                            <Input
+                                required
+                                type="password"
+                                value={changePassForm.confirmPassword}
+                                onChange={(e) => setChangePassForm(p => ({ ...p, confirmPassword: e.target.value }))}
+                                disabled={changePassLoading || changePassSuccess}
+                            />
+                        </div>
+
+                        <DialogFooter className="pt-4 mt-6">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                onClick={() => setChangePassOpen(false)}
+                                disabled={changePassLoading}
+                            >
+                                Hủy
+                            </Button>
+                            <Button
+                                type="submit"
+                                disabled={changePassLoading || changePassSuccess}
+                            >
+                                {changePassLoading ? (
+                                    <span className="flex items-center gap-1.5">
+                                        <Loader2 className="w-4 h-4 animate-spin" /> Đang cập nhật...
+                                    </span>
+                                ) : 'Cập nhật'}
+                            </Button>
+                        </DialogFooter>
+                    </form>
+                </DialogContent>
+            </Dialog>
 
             {/* Notification Dialog */}
             <Dialog open={notificationOpen} onOpenChange={setNotificationOpen}>
@@ -172,4 +303,3 @@ export const notifications = [
         read: true,
     },
 ]
-

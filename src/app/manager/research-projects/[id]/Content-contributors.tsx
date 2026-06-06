@@ -123,7 +123,7 @@ function ContributorRow({ contributor, canUpdate }: {
             </div>
 
             {/* Action */}
-            {canUpdate  && (
+            {canUpdate && (
                 <Button
                     variant="ghost"
                     size="icon"

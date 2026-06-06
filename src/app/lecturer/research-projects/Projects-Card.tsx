@@ -97,7 +97,7 @@ export default function ResearchProjectCard({
                         <Calendar className="h-3.5 w-3.5" />
                         <span>...</span>
                     </div>
-                ) }
+                )}
 
                 {/* Actions */}
                 <div className="flex items-center gap-x-3">

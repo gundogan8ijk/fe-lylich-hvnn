@@ -13,7 +13,7 @@ export {
     createProjectApi, getMangerProjectListApi,
     //detail
     getProjectManagerDetailApi, updateConfirmedProjectDetailApi, updateBaseInfoProjectMangerApi,
-    addDisciplinesByMangerApi,deleteDisciplineByManagerApi,updateTimeEndProjectMangerApi
+    addDisciplinesByMangerApi, deleteDisciplineByManagerApi, updateTimeEndProjectMangerApi
 }
 
 export type CreateProjectForm = {

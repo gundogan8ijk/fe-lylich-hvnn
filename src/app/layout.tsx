@@ -3,10 +3,11 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import NotifyProvider from "@/_components/utils/Notify";
+import AuthRefresher from "@/Authen/AuthRefresher";
 
 const sansFont = Plus_Jakarta_Sans({
   variable: "--font-sans",
-  subsets: ["latin", "vietnamese"], 
+  subsets: ["latin", "vietnamese"],
   display: "swap",
 });
 
@@ -34,6 +35,7 @@ export default function RootLayout({
       <body suppressHydrationWarning className="min-h-full flex flex-col font-sans">
         {children}
         <NotifyProvider />
+        <AuthRefresher />
       </body>
     </html>
   );

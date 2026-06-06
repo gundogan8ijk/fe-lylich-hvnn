@@ -12,7 +12,7 @@ export {
     getMangerProjectListAction, createProjectListAction, deleteMangerProjectListAction,
     //chi tiet manger
     getProjectManagerDetailAction, deleteMangerProjectDetailAction, updateConfirmedProjectDetailAction,
-    updateBaseInfoProjectMangerAction, addDisciplinesByMangerAction,deleteDisciplineByManagerAction,
+    updateBaseInfoProjectMangerAction, addDisciplinesByMangerAction, deleteDisciplineByManagerAction,
     updateTimeEndProjectMangerAction
 }
 

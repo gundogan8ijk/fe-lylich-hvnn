@@ -10,7 +10,7 @@ export {
 
 const getListProjectLecturerApi = async (): Promise<ApiResponse<ProjectLecturerItems[]>> => {
     try {
-        const detailUrl = "/research-projects/me"
+        const detailUrl = "/projects/my"
         const res = await api.get(detailUrl);
         return success(res.data);
     } catch (error) {

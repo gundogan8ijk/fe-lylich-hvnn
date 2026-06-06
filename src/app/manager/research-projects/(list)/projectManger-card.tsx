@@ -16,13 +16,13 @@ import { MangerProjectItems } from '@/ProjectManger/type-list-projects-manger'
 type ResearchProjectCardProps = {
     item: MangerProjectItems
     onViewDetail: (id: string) => void
-    onDelete?: (id: string) => void 
+    onDelete?: (id: string) => void
 }
 
 export default function MangerResearchProjectCard({
     item,
     onViewDetail,
-    onDelete, 
+    onDelete,
 }: ResearchProjectCardProps) {
     const statusStyle = projectStatusStyle[item.status] ?? projectStatusStyle.Pending
     const confirmedInfo = confirmedStyle[item.confirmed] ?? confirmedStyle.Pending

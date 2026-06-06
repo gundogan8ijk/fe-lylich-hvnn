@@ -1,4 +1,4 @@
-import { BarChart3, BookOpen, FileText, HelpCircle, LucideIcon, Settings, UserRoundCog, Users } from "lucide-react"
+import { BarChart3, BookOpen, Briefcase, Building2, FileText, FlaskConical, HelpCircle, LucideIcon, Settings, UserRoundCog, Users } from "lucide-react"
 
 export interface SidebarItem {
     icon: LucideIcon
@@ -8,15 +8,16 @@ export interface SidebarItem {
 
 export const lecturerMenu: SidebarItem[] = [
     { icon: BookOpen, label: 'Sách', href: '/lecturer/book' },
-    { icon: Users, label: 'Bài báo', href: '/lecturer/article' },
+    { icon: FileText, label: 'Bài báo', href: '/lecturer/article' },
     { icon: UserRoundCog, label: 'Hồ Sơ', href: '/lecturer/profile' },
-    { icon: FileText, label: 'Đề tài', href: '/lecturer/research-projects' },
-    { icon: BarChart3, label: 'Đề tài bên ngoài', href: '/lecturer/project-external' },
-    { icon: Settings, label: 'Cài đặt lớp', href: '/lecturer/settings' },
+    { icon: FlaskConical, label: 'Đề tài', href: '/lecturer/research-projects' },
+    { icon: Briefcase, label: 'Đề tài bên ngoài', href: '/lecturer/project-external' },
+    { icon: Building2, label: 'khoa và giảng dạy', href: '/lecturer/teaching' },
+    { icon: Settings, label: 'Cài đặt', href: '/lecturer/settings' },
     { icon: HelpCircle, label: 'Trợ giúp', href: '/lecturer/help' },
 ]
 
-export const  managerMenu: SidebarItem[] = [
+export const managerMenu: SidebarItem[] = [
     { icon: BookOpen, label: 'Lớp học', href: '/manager/classes' },
     { icon: Users, label: 'Sinh viên', href: '/manager/students' },
     { icon: UserRoundCog, label: 'Hồ Sơ', href: '/manager/profile' },

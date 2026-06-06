@@ -44,7 +44,7 @@ export const storeProjectManagerDetail = create<ProjectManagerState>(
                 return {
                     data: {
                         ...state.data,
-                        fundings: [...state.data.funding, funding],
+                        funding: [...state.data.funding, funding],
                     },
                 };
             }),
@@ -56,7 +56,7 @@ export const storeProjectManagerDetail = create<ProjectManagerState>(
                 return {
                     data: {
                         ...state.data,
-                        fundings: state.data.funding.map((x, i) =>
+                        funding: state.data.funding.map((x, i) =>
                             i === index ? funding : x
                         ),
                     },
@@ -70,7 +70,7 @@ export const storeProjectManagerDetail = create<ProjectManagerState>(
                 return {
                     data: {
                         ...state.data,
-                        fundings: state.data.funding.filter(
+                        funding: state.data.funding.filter(
                             (_, i) => i !== index
                         ),
                     },

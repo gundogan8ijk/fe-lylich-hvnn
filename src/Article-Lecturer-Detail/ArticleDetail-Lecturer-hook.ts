@@ -12,6 +12,7 @@ import {
     updateArticleByLecturerApi,
     removeDisciplineApi,
     addDisciplinesApi,
+    backToDraftArticleApi,
 } from "./ArticleDetail-Lecturer-ser";
 import { storeArticleDetail } from "./ArticleDetail-Lecturer-store";
 import {
@@ -27,6 +28,7 @@ export {
     removeInternalContributorAction, addInternalContributorAction,
     addExternalContributorAction, removeExternalContributorAction, updateExternalContributorAction,
     submitArticleAction,
+    backToDraftArticleAction,
     deleteArticleAction, updateArticleByLecturerAction,
     removeDisciplineAction, addDisciplinesAction,
     storeArticleDetail,
@@ -171,6 +173,20 @@ async function submitArticleAction(): Promise<void> {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success('Gửi bài báo chờ duyệt thành công');
+        await getArticleDetailAction(data.id);
+    }
+}
+
+async function backToDraftArticleAction(): Promise<void> {
+    const { data } = storeArticleDetail.getState();
+    if (!data) return;
+
+    const res = await backToDraftArticleApi(data.id);
+
+    if (res.code === -1) {
+        notify.error(getAllErrorMessage(res.message, res.errors));
+    } else if (res.code === 1) {
+        notify.success('Chuyển bài báo về nháp thành công');
         await getArticleDetailAction(data.id);
     }
 }

@@ -1,6 +1,6 @@
 // utils/query-params.ts
 import { defaultPagination } from "@/_Common/_types/pagination-typeConfig";
-import { ListQuery } from "@/_types/base-type/query-types";
+import { ListQuery } from "@/_Common/_types/query-types";
 
 export function toSearchParams<TFilter, TField extends string>(
     q: ListQuery<TFilter, TField>, searchField?: string

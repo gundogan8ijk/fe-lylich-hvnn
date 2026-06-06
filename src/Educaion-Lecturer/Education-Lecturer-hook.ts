@@ -1,10 +1,10 @@
 import { notify } from "@/_components/utils/Notify";
 import { getErrorMessage } from "@/_lib/response-helper";
-import { deleteEducationByLecturerApi, registerEducationByLecturerApi, RegisterEducationByLecturerForm, submitEducationByLecturerApi, updateEducationByLecturerApi, UpdateEducationByLecturerForm } from "./Education-Lecturer-ser";
+import { backToDraftEducationApi, deleteEducationByLecturerApi, registerEducationByLecturerApi, RegisterEducationByLecturerForm, submitEducationByLecturerApi, updateEducationByLecturerApi, UpdateEducationByLecturerForm } from "./Education-Lecturer-ser";
 import { storeLecturerProfile } from "@/profile-Lecturer/Lecturer-profile-store";
 
 export {
-    registerEducationByLecturerAction, deleteEducationByLecturerAction, updateEducationAction, submitEducationAction
+    registerEducationByLecturerAction, deleteEducationByLecturerAction, updateEducationAction, submitEducationAction, backToDraftEducationAction
 }
 
 async function registerEducationByLecturerAction(educationForm: RegisterEducationByLecturerForm) {
@@ -62,5 +62,21 @@ async function submitEducationAction(id: string) {
     if (res.data) {
         updateEducation(res.data);
         notify.success("Đã gửi duyệt học vấn");
+    }
+}
+
+async function backToDraftEducationAction(id: string) {
+    const { updateEducation } = storeLecturerProfile.getState();
+
+    const res = await backToDraftEducationApi(id);
+
+    if (res.code === -1) {
+        notify.error(getErrorMessage(res.message, res.errors));
+        return;
+    }
+
+    if (res.data) {
+        updateEducation(res.data);
+        notify.success("Chuyển về trạng thái nháp thành công");
     }
 }

@@ -1,5 +1,5 @@
-import ContentProjectsList from "./Project-content-List";
-import SetupDataProjectList from "./setup-dataProject-list";
+import ContentProjectsList from "./(list)/Project-content-List";
+import SetupDataProjectList from "./(list)/setup-dataProject-list";
 
 export default function ProfilePage() {
     return (

@@ -8,16 +8,15 @@ export {
     registerAwardByLecturerApi,
     deleteAwardByLecturerApi,
     updateAwardByLecturerApi,
-    submitAwardByLecturerApi
+    submitAwardByLecturerApi,
+    backToDraftAwardApi
 };
 export type RegisterAwardByLecturerForm = {
-    title: string
-    publishedAt: string
+    name: string
+    awardDate: string
+    level: string
+    description: string
     proofUrl: string
-    articleRole: string
-    journalName?: string
-    doi?: string
-    detailUrl?: string
 }
 
 const registerAwardByLecturerApi = async (award: RegisterAwardByLecturerForm): Promise<ApiResponse<AwardLecturer>> => {
@@ -91,6 +90,21 @@ const submitAwardByLecturerApi = async (
             return fail(data?.message || data?.detail, data?.errors);
         }
 
+        return fail();
+    }
+};
+
+const backToDraftAwardApi = async (
+    id: string
+): Promise<ApiResponse<AwardLecturer>> => {
+    try {
+        const response = await api.put(`/awards/${id}/back-to-draft`, {});
+        return success(response.data);
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const data = error.response?.data;
+            return fail(data?.message || data?.detail, data?.errors);
+        }
         return fail();
     }
 };

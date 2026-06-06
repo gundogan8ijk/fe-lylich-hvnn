@@ -1,13 +1,14 @@
 'use client';
 
 import { InternalContributor } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-type';
-import { Trash2, ShieldCheck } from 'lucide-react';
+import { Trash2, ShieldCheck, Pencil } from 'lucide-react';
 
 interface InternalContributorItemProps {
     contributor: InternalContributor;
     isCreator: boolean;
     disabled: boolean;
     roleLabel: string;
+    onEditClick: (id: string) => void;
     onRemoveClick: (id: string, name: string) => void;
 }
 
@@ -16,6 +17,7 @@ export default function InternalContributorItem({
     isCreator,
     disabled,
     roleLabel,
+    onEditClick,
     onRemoveClick,
 }: InternalContributorItemProps) {
     const getInitials = (name: string) => {
@@ -44,14 +46,25 @@ export default function InternalContributorItem({
                     <p className="text-xs text-muted-foreground">{roleLabel}</p>
                 </div>
             </div>
-            {!disabled && !isCreator && (
-                <button
-                    type="button"
-                    onClick={() => onRemoveClick(contributor.id, contributor.fullName)}
-                    className="opacity-0 group-hover:opacity-100 p-2 text-muted-foreground hover:text-destructive rounded-lg hover:bg-destructive/10 transition-all duration-200"
-                >
-                    <Trash2 className="h-4 w-4" />
-                </button>
+            {!disabled && (
+                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-200">
+                    <button
+                        type="button"
+                        onClick={() => onEditClick(contributor.id)}
+                        className="p-2 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition-all duration-200"
+                    >
+                        <Pencil className="h-4 w-4" />
+                    </button>
+                    {!isCreator && (
+                        <button
+                            type="button"
+                            onClick={() => onRemoveClick(contributor.id, contributor.fullName)}
+                            className="p-2 text-muted-foreground hover:text-destructive rounded-lg hover:bg-destructive/10 transition-all duration-200"
+                        >
+                            <Trash2 className="h-4 w-4" />
+                        </button>
+                    )}
+                </div>
             )}
         </div>
     );

@@ -13,6 +13,7 @@ import {
     removeDisciplineApi,
     addDisciplinesApi,
     updateInternalContributorApi,
+    backToDraftProjectExternalApi,
 } from "./ProjectExternal-Detail-ser";
 import { storeProjectExternalDetail } from "./ProjectExternal-Detail-store";
 import {
@@ -31,6 +32,7 @@ export {
     removeExternalParticipantAction,
     updateExternalParticipantAction,
     submitProjectExternalAction,
+    backToDraftProjectExternalAction,
     deleteProjectExternalAction,
     updateProjectExternalAction,
     removeDisciplineAction,
@@ -146,6 +148,18 @@ async function submitProjectExternalAction() {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Gửi đề tài chờ duyệt thành công");
+        await getProjectExternalDetailAction(data.id);
+    }
+}
+
+async function backToDraftProjectExternalAction() {
+    const { data } = storeProjectExternalDetail.getState();
+    if (!data) return;
+    const res = await backToDraftProjectExternalApi(data.id);
+    if (res.code === -1) {
+        notify.error(getAllErrorMessage(res.message, res.errors));
+    } else if (res.code === 1) {
+        notify.success("Chuyển về trạng thái nháp thành công");
         await getProjectExternalDetailAction(data.id);
     }
 }

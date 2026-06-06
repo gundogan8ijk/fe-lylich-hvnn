@@ -1,4 +1,4 @@
-import ProjectMangerDetailContent from "./content";
+import ProjectMangerDetailContent from "./(content)/content";
 import SetupDataProjectMangerDetail from "./setup-data";
 
 export default async function ProjectMangerDetail({ params }: {

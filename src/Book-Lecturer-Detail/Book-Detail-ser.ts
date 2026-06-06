@@ -22,6 +22,7 @@ export {
     updateBookApi,
     addDisciplinesApi,
     removeDisciplineApi,
+    backToDraftBookApi,
 };
 
 // Get detail
@@ -136,6 +137,19 @@ const updateExternalContributorApi = async (
 const submitBookApi = async (bookId: string): Promise<ApiResponse<void>> => {
     try {
         await api.put(`/books/${bookId}/submit`, {});
+        return success(void 0);
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const data = error.response?.data;
+            return fail(data?.message || data?.detail, data?.errors);
+        }
+        return fail();
+    }
+};
+
+const backToDraftBookApi = async (bookId: string): Promise<ApiResponse<void>> => {
+    try {
+        await api.put(`/books/${bookId}/back-to-draft`, {});
         return success(void 0);
     } catch (error) {
         if (axios.isAxiosError(error)) {

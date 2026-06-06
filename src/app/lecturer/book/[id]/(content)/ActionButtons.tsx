@@ -3,12 +3,12 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { Trash2, Send, ArrowLeft, Loader2, X } from 'lucide-react';
+import { Trash2, Send, ArrowLeft, Loader2, X, RotateCcw } from 'lucide-react';
 import { Button } from '@/_components/ui/button';
 import { storeBookDetail } from '@/Book-Lecturer-Detail/Book-Detail-store';
-import { deleteBookAction, submitBookAction } from '@/Book-Lecturer-Detail/Book-Detail-hook';
+import { deleteBookAction, submitBookAction, backToDraftBookAction } from '@/Book-Lecturer-Detail/Book-Detail-hook';
 
-type DialogType = 'submit' | 'delete' | null;
+type DialogType = 'submit' | 'delete' | 'back_to_draft' | null;
 
 const DIALOG_CONFIG = {
     submit: {
@@ -19,6 +19,15 @@ const DIALOG_CONFIG = {
         confirmLabel: 'Gửi duyệt',
         loadingLabel: 'Đang gửi...',
         confirmCls: 'bg-emerald-600 hover:bg-emerald-700 text-white',
+    },
+    back_to_draft: {
+        icon: <RotateCcw className="w-5 h-5 text-amber-600" />,
+        iconBg: 'bg-amber-50',
+        title: 'Hủy gửi sách?',
+        description: 'Sách sẽ được chuyển từ trạng thái Chờ duyệt về trạng thái Nháp để tiếp tục chỉnh sửa.',
+        confirmLabel: 'Chuyển về Nháp',
+        loadingLabel: 'Đang xử lý...',
+        confirmCls: 'bg-amber-600 hover:bg-amber-700 text-white',
     },
     delete: {
         icon: <Trash2 className="w-5 h-5 text-rose-600" />,
@@ -94,6 +103,7 @@ export default function ActionButtons() {
     if (!book) return null;
 
     const canSubmit = book.confirmedStatus === 'Draft' && book.isMyCreate;
+    const canBackToDraft = book.confirmedStatus === 'Pending' && book.isMyCreate;
     const canDelete =
         (book.confirmedStatus === 'Draft' || book.confirmedStatus === 'Cancelled') &&
         book.isMyCreate;
@@ -103,6 +113,7 @@ export default function ActionButtons() {
         try {
             if (dialog === 'submit') await submitBookAction();
             if (dialog === 'delete') await deleteBookAction();
+            if (dialog === 'back_to_draft') await backToDraftBookAction();
             setDialog(null);
         } finally {
             setLoading(false);
@@ -138,6 +149,18 @@ export default function ActionButtons() {
                         >
                             <Trash2 className="w-3.5 h-3.5" />
                             Xóa sách
+                        </Button>
+                    )}
+                    {canBackToDraft && (
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            className="gap-1.5 text-amber-600 border-amber-200 hover:bg-amber-50 hover:border-amber-300"
+                            onClick={() => setDialog('back_to_draft')}
+                            disabled={loading}
+                        >
+                            <RotateCcw className="w-3.5 h-3.5" />
+                            Hủy chờ duyệt (Về nháp)
                         </Button>
                     )}
                     {canSubmit && (

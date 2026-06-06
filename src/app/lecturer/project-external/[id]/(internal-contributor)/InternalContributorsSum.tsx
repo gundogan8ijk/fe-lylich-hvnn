@@ -1,25 +1,28 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, Users } from 'lucide-react';
+import { Plus, UsersRound } from 'lucide-react';
 import { storeProjectExternalDetail } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-store';
 import { PROJECT_EXTERNAL_MEMBER_ROLE_OPTIONS, ProjectExternalMemberRoleName } from '@/_constants/ProjectExternal-constant';
 import InternalContributorItem from './InternalContributorItem';
 import AddInternalContributorDialog from './AddInternalContributorDialog';
 import DeleteInternalContributorDialog from './DeleteInternalContributorDialog';
+import UpdateInternalContributorDialog from './UpdateInternalContributorDialog';
 
 export default function InternalContributorsSum() {
     const { data: project } = storeProjectExternalDetail();
 
     const [isAddOpen, setIsAddOpen] = useState(false);
-    const [deleteId, setDeleteId] = useState<string | null>(null);
+    const [editId, setEditId] = useState<string | null>(null);
+    const [deleteData, setDeleteData] = useState<{ id: string; name: string } | null>(null);
 
     const contributors = project?.internalContributors ?? [];
     const isDisabled = project?.confirmedStatus !== 'Draft' || !project?.isMyCreate;
 
-    const totalContributors = contributors.length + (project?.externalParticipants?.length ?? 0);
-    const maxContributor = project?.maxContributor ?? 10;
-    const isFull = totalContributors >= maxContributor;
+    const totalParticipants =
+        contributors.length + (project?.externalParticipants?.length || 0);
+    const maxParticipant = project?.maxParticipant ?? 10;
+    const isFull = totalParticipants >= maxParticipant;
 
     const getRoleLabel = (role: ProjectExternalMemberRoleName) =>
         PROJECT_EXTERNAL_MEMBER_ROLE_OPTIONS.find((opt) => opt.value === role)?.label ?? role;
@@ -30,7 +33,7 @@ export default function InternalContributorsSum() {
                 <div>
                     <h2 className="text-lg font-bold text-foreground tracking-tight">Thành viên nội bộ</h2>
                     <p className="text-xs text-muted-foreground mt-0.5">
-                        Các giảng viên trong trường tham gia đề tài
+                        Thành viên trong trường tham gia thực hiện đề tài
                     </p>
                 </div>
                 {!isDisabled && !isFull && (
@@ -46,7 +49,7 @@ export default function InternalContributorsSum() {
 
             {contributors.length === 0 ? (
                 <div className="text-center py-10 border border-dashed border-border rounded-xl bg-muted/10">
-                    <Users className="w-8 h-8 text-muted-foreground/40 mx-auto mb-2" />
+                    <UsersRound className="w-8 h-8 text-muted-foreground/40 mx-auto mb-2" />
                     <p className="text-muted-foreground text-xs font-medium">Chưa có thành viên nội bộ nào</p>
                 </div>
             ) : (
@@ -55,17 +58,23 @@ export default function InternalContributorsSum() {
                         <InternalContributorItem
                             key={item.id}
                             contributor={item}
-                            isCreator={project?.lecturerCreateId ? item.lecturerId === project.lecturerCreateId : false}
+                            isCreator={item.lecturerId === project?.lecturerCreateId}
                             disabled={isDisabled}
                             roleLabel={getRoleLabel(item.role)}
-                            onRemoveClick={setDeleteId}
+                            onEditClick={setEditId}
+                            onRemoveClick={(id, name) => setDeleteData({ id, name })}
                         />
                     ))}
                 </div>
             )}
 
             <AddInternalContributorDialog isOpen={isAddOpen} onClose={() => setIsAddOpen(false)} />
-            <DeleteInternalContributorDialog contributorId={deleteId} onClose={() => setDeleteId(null)} />
+            <UpdateInternalContributorDialog contributorId={editId} onClose={() => setEditId(null)} />
+            <DeleteInternalContributorDialog
+                contributorId={deleteData?.id ?? null}
+                contributorName={deleteData?.name ?? ''}
+                onClose={() => setDeleteData(null)}
+            />
         </div>
     );
 }

@@ -12,6 +12,7 @@ import {
     updateBookApi,
     addDisciplinesApi,
     removeDisciplineApi,
+    backToDraftBookApi,
 } from "./Book-Detail-ser";
 import { storeBookDetail } from "./Book-Detail-store";
 import {
@@ -30,6 +31,7 @@ export {
     removeExternalContributorAction,
     updateExternalContributorAction,
     submitBookAction,
+    backToDraftBookAction,
     deleteBookAction,
     updateBookAction,
     addDisciplinesAction,
@@ -135,6 +137,18 @@ async function submitBookAction() {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Gửi sách chờ duyệt thành công");
+        await getBookDetailAction(data.id);
+    }
+}
+
+async function backToDraftBookAction() {
+    const { data } = storeBookDetail.getState();
+    if (!data) return;
+    const res = await backToDraftBookApi(data.id);
+    if (res.code === -1) {
+        notify.error(getAllErrorMessage(res.message, res.errors));
+    } else if (res.code === 1) {
+        notify.success("Chuyển về trạng thái nháp thành công");
         await getBookDetailAction(data.id);
     }
 }

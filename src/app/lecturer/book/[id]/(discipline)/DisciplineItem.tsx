@@ -1,7 +1,7 @@
 'use client';
 
 import { Trash2, BookOpen } from 'lucide-react';
-import { BookDiscipline } from '@/Book-Detail/Book-Detail-type';
+import { BookDiscipline } from '@/Book-Lecturer-Detail/Book-Detail-type';
 
 interface DisciplineItemProps {
   discipline: BookDiscipline;

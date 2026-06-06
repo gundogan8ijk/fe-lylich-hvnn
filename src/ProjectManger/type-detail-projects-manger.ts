@@ -17,6 +17,7 @@ export type ProjectManagerDetailRecord = {
     participants: ProjectParticipantRecord[];
     certificateUrl?: string | null;
     detailUrl?: string | null;
+    isPublic: boolean;
 };
 
 export type ProjectBasicInfoRecord = {
@@ -61,6 +62,8 @@ export type ProjectParticipantRecord = {
 
 export type ProjectManagerPermissionsRecord = {
     canUpdateBase: boolean;
+    canTogglePublic: boolean;
+    canUpdateTimeAndLevel: boolean;
     canUpdateConfirmed: boolean;
     canUpdateStatus: boolean;
     canUpdateTimeEnd: boolean;

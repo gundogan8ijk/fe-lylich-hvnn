@@ -5,7 +5,7 @@ import { api } from "@/_Common/_services/axios-service-config";
 import { EducationLecturer } from "./Eduction-Lecturer-type";
 
 export {
-    registerEducationByLecturerApi, deleteEducationByLecturerApi, updateEducationByLecturerApi, submitEducationByLecturerApi
+    registerEducationByLecturerApi, deleteEducationByLecturerApi, updateEducationByLecturerApi, submitEducationByLecturerApi, backToDraftEducationApi
 }
 
 export type RegisterEducationByLecturerForm = {
@@ -87,6 +87,21 @@ const submitEducationByLecturerApi = async (
             return fail(data?.message || data?.detail, data?.errors);
         }
 
+        return fail();
+    }
+};
+
+const backToDraftEducationApi = async (
+    id: string
+): Promise<ApiResponse<EducationLecturer>> => {
+    try {
+        const response = await api.put(`/educations/${id}/back-to-draft`, {});
+        return success(response.data);
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const data = error.response?.data;
+            return fail(data?.message || data?.detail, data?.errors);
+        }
         return fail();
     }
 };

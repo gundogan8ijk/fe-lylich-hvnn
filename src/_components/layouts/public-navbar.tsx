@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X, Search, LogIn } from 'lucide-react';
 import Image from 'next/image';
@@ -20,7 +20,17 @@ const navItems = [
 export function PublicNavbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const pathname = usePathname();
+
+    useEffect(() => {
+        const expiresAt = localStorage.getItem('auth_expires_at');
+        if (expiresAt && Number(expiresAt) > Date.now()) {
+            setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
+        }
+    }, [pathname]); // re-check mỗi khi pathname thay đổi
 
     return (
         <nav className="sticky top-0 z-50 w-full">
@@ -55,13 +65,22 @@ export function PublicNavbar() {
                                 </div>
                             </Link>
 
-                            <Link
-                                className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors rounded-md px-4 py-2"
-                                href="/login" // Don't forget your destination!
-                            >
-                                <LogIn className="w-4 h-4 mr-2 shrink-0" />
-                                <span>Log in</span>
-                            </Link>
+                            {isLoggedIn ? (
+                                <Link
+                                    className="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-medium transition-colors rounded-md px-4 py-2"
+                                    href="/dashboard"
+                                >
+                                    <span>Vào hệ thống</span>
+                                </Link>
+                            ) : (
+                                <Link
+                                    className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors rounded-md px-4 py-2"
+                                    href="/login"
+                                >
+                                    <LogIn className="w-4 h-4 mr-2 shrink-0" />
+                                    <span>Log in</span>
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -180,14 +199,25 @@ export function PublicNavbar() {
                                 </div>
 
                                 <div className="mt-4">
-                                    <Button
-                                        className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                                        size="lg"
-                                        onClick={() => setIsOpen(false)}
-                                    >
-                                        <LogIn className="w-4 h-4" />
-                                        <Link href="/login">Đăng nhập</Link>
-                                    </Button>
+                                    {isLoggedIn ? (
+                                        <Button
+                                            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
+                                            size="lg"
+                                            onClick={() => setIsOpen(false)}
+                                            asChild
+                                        >
+                                            <Link href="/dashboard">Vào hệ thống</Link>
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                                            size="lg"
+                                            onClick={() => setIsOpen(false)}
+                                            asChild
+                                        >
+                                            <Link href="/login">Đăng nhập</Link>
+                                        </Button>
+                                    )}
                                 </div>
                             </div>
                         </div>

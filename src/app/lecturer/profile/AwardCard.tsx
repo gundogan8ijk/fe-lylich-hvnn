@@ -1,4 +1,4 @@
-import { Trophy, CalendarDays, FileText, Pencil, Trash2, Send, ImageIcon } from 'lucide-react'
+import { Trophy, CalendarDays, FileText, Pencil, Trash2, Send, ImageIcon, RotateCcw } from 'lucide-react'
 import { Badge } from '@/_components/ui/badge'
 import { Button } from '@/_components/ui/button'
 import { getDateOnly, getLabel } from '@/_lib/display-variable-helper'
@@ -6,7 +6,7 @@ import { AWARD_LEVEL_OPTIONS } from '@/_constants/award-constant'
 import { STATUS_VARIANTS } from '@/_constants/education-constant'
 import { STATUS_LABELS } from '@/_constants/base-constant'
 import { AwardLecturer } from '@/Award-Lecturer/Award-Lecturer-type'
-import { submitAwardAction } from '@/Award-Lecturer/Award-Lecturer-hook'
+import { submitAwardAction, backToDraftAwardAction } from '@/Award-Lecturer/Award-Lecturer-hook'
 import { useState } from 'react'
 import SubmitConfirmDialog from '@/_components/custom/SubmitConfirmDialog'
 
@@ -20,11 +20,19 @@ interface AwardCardProps {
 export function AwardCard({ award, onEdit, onDelete, onViewProof }: AwardCardProps) {
     const [submitting, setSubmitting] = useState(false)
     const [isSubmitOpen, setIsSubmitOpen] = useState(false)
+    const [isBackToDraftOpen, setIsBackToDraftOpen] = useState(false)
 
     async function handleConfirmSubmit() {
         setSubmitting(true)
         await submitAwardAction(award.id)
         setIsSubmitOpen(false)
+        setSubmitting(false)
+    }
+
+    async function handleConfirmBackToDraft() {
+        setSubmitting(true)
+        await backToDraftAwardAction(award.id)
+        setIsBackToDraftOpen(false)
         setSubmitting(false)
     }
 
@@ -106,23 +114,40 @@ export function AwardCard({ award, onEdit, onDelete, onViewProof }: AwardCardPro
                     </Button>
                 )}
 
-                <Button
-                    size="icon"
-                    variant="ghost"
-                    className="h-8 w-8 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                    onClick={() => onEdit(award)}
-                    disabled={award.confirmedStatus !== 'Draft'}
-                >
-                    <Pencil size={14} />
-                </Button>
-                <Button
-                    size="icon"
-                    variant="ghost"
-                    className="h-8 w-8 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
-                    onClick={() => onDelete(award.id)}
-                >
-                    <Trash2 size={14} />
-                </Button>
+                {award.confirmedStatus === 'Pending' && (
+                    <Button
+                        size="icon"
+                        variant="ghost"
+                        className="h-8 w-8 rounded-lg text-amber-600 hover:text-amber-700 hover:bg-amber-50 dark:hover:bg-amber-950/30 transition-colors"
+                        onClick={() => setIsBackToDraftOpen(true)}
+                        disabled={submitting}
+                        title="Hủy chờ duyệt (Về nháp)"
+                    >
+                        <RotateCcw size={14} className={submitting ? 'animate-spin' : ''} />
+                    </Button>
+                )}
+
+                {award.confirmedStatus !== 'Pending' && (
+                    <>
+                        <Button
+                            size="icon"
+                            variant="ghost"
+                            className="h-8 w-8 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                            onClick={() => onEdit(award)}
+                            disabled={award.confirmedStatus !== 'Draft'}
+                        >
+                            <Pencil size={14} />
+                        </Button>
+                        <Button
+                            size="icon"
+                            variant="ghost"
+                            className="h-8 w-8 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+                            onClick={() => onDelete(award.id)}
+                        >
+                            <Trash2 size={14} />
+                        </Button>
+                    </>
+                )}
             </div>
 
             <SubmitConfirmDialog
@@ -132,6 +157,15 @@ export function AwardCard({ award, onEdit, onDelete, onViewProof }: AwardCardPro
                 description={`Bạn có chắc chắn muốn nộp phê duyệt thông tin giải thưởng từ "${award.name}" không?`}
                 onConfirm={handleConfirmSubmit}
                 onCancel={() => setIsSubmitOpen(false)}
+            />
+
+            <SubmitConfirmDialog
+                open={isBackToDraftOpen}
+                submitting={submitting}
+                title="Xác nhận hủy gửi phê duyệt?"
+                description={`Bạn có chắc chắn muốn chuyển thông tin giải thưởng từ "${award.name}" về trạng thái nháp không?`}
+                onConfirm={handleConfirmBackToDraft}
+                onCancel={() => setIsBackToDraftOpen(false)}
             />
         </div>
     )

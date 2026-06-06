@@ -6,15 +6,17 @@ import {
     RegisterAwardByLecturerForm, 
     submitAwardByLecturerApi, 
     updateAwardByLecturerApi, 
-    UpdateAwardByLecturerForm 
-} from "./Award-Lecturer-ser"; // Thay đổi đường dẫn đến file service Award của bạn
+    UpdateAwardByLecturerForm,
+    backToDraftAwardApi
+} from "./Award-Lecturer-ser"; 
 import { storeLecturerProfile } from "@/profile-Lecturer/Lecturer-profile-store";
 
 export {
     registerAwardByLecturerAction, 
     deleteAwardByLecturerAction, 
-    updateAwardAction,submitAwardAction
-    
+    updateAwardAction,
+    submitAwardAction,
+    backToDraftAwardAction
 };
 
 async function registerAwardByLecturerAction(awardForm: RegisterAwardByLecturerForm) {
@@ -72,6 +74,22 @@ async function submitAwardAction(id: string) {
 
     if (res.data) {
         updateAward(res.data);
-        notify.success("Đã gửi duyệt giải thưởng"); // Đổi câu thông báo
+        notify.success("Đã gửi duyệt giải thưởng"); 
+    }
+}
+
+async function backToDraftAwardAction(id: string) {
+    const { updateAward } = storeLecturerProfile.getState(); 
+
+    const res = await backToDraftAwardApi(id);
+
+    if (res.code === -1) {
+        notify.error(getErrorMessage(res.message, res.errors));
+        return;
+    }
+
+    if (res.data) {
+        updateAward(res.data);
+        notify.success("Chuyển về trạng thái nháp thành công"); 
     }
 }

@@ -1,4 +1,4 @@
-import { GraduationCap, CalendarDays, BookOpen, Pencil, Trash2, Send, ImageIcon } from 'lucide-react'
+import { GraduationCap, CalendarDays, BookOpen, Pencil, Trash2, Send, ImageIcon, RotateCcw } from 'lucide-react'
 import { Badge } from '@/_components/ui/badge'
 import { Button } from '@/_components/ui/button'
 import { getDateOnly, getLabel } from '@/_lib/display-variable-helper'
@@ -7,7 +7,7 @@ import { STATUS_LABELS } from '@/_constants/base-constant'
 import { EducationLecturer } from '@/Educaion-Lecturer/Eduction-Lecturer-type'
 import { useState } from 'react'
 import SubmitConfirmDialog from '@/_components/custom/SubmitConfirmDialog'
-import { submitEducationAction } from '@/Educaion-Lecturer/Education-Lecturer-hook'
+import { submitEducationAction, backToDraftEducationAction } from '@/Educaion-Lecturer/Education-Lecturer-hook'
 
 interface EducationCardProps {
     education: EducationLecturer
@@ -19,11 +19,19 @@ interface EducationCardProps {
 export function EducationCard({ education: edu, onEdit, onDelete, onViewProof }: EducationCardProps) {
     const [submitting, setSubmitting] = useState(false)
     const [isSubmitOpen, setIsSubmitOpen] = useState(false)
+    const [isBackToDraftOpen, setIsBackToDraftOpen] = useState(false)
 
     async function handleConfirmSubmit() {
         setSubmitting(true)
         await submitEducationAction(edu.id)
         setIsSubmitOpen(false)
+        setSubmitting(false)
+    }
+
+    async function handleConfirmBackToDraft() {
+        setSubmitting(true)
+        await backToDraftEducationAction(edu.id)
+        setIsBackToDraftOpen(false)
         setSubmitting(false)
     }
 
@@ -105,25 +113,42 @@ export function EducationCard({ education: edu, onEdit, onDelete, onViewProof }:
                     </Button>
                 )}
 
-                <Button
-                    size="icon"
-                    variant="ghost"
-                    className="h-8 w-8 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                    onClick={() => onEdit(edu)}
-                    disabled={edu.confirmedStatus !== 'Draft' || submitting}
-                >
-                    <Pencil size={14} />
-                </Button>
+                {edu.confirmedStatus === 'Pending' && (
+                    <Button
+                        size="icon"
+                        variant="ghost"
+                        className="h-8 w-8 rounded-lg text-amber-600 hover:text-amber-700 hover:bg-amber-50 dark:hover:bg-amber-950/30 transition-colors"
+                        onClick={() => setIsBackToDraftOpen(true)}
+                        disabled={submitting}
+                        title="Hủy chờ duyệt (Về nháp)"
+                    >
+                        <RotateCcw size={14} className={submitting ? 'animate-spin' : ''} />
+                    </Button>
+                )}
 
-                <Button
-                    size="icon"
-                    variant="ghost"
-                    className="h-8 w-8 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
-                    onClick={() => onDelete(edu.id)}
-                    disabled={submitting}
-                >
-                    <Trash2 size={14} />
-                </Button>
+                {edu.confirmedStatus !== 'Pending' && (
+                    <>
+                        <Button
+                            size="icon"
+                            variant="ghost"
+                            className="h-8 w-8 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                            onClick={() => onEdit(edu)}
+                            disabled={edu.confirmedStatus !== 'Draft' || submitting}
+                        >
+                            <Pencil size={14} />
+                        </Button>
+
+                        <Button
+                            size="icon"
+                            variant="ghost"
+                            className="h-8 w-8 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+                            onClick={() => onDelete(edu.id)}
+                            disabled={submitting}
+                        >
+                            <Trash2 size={14} />
+                        </Button>
+                    </>
+                )}
             </div>
 
             <SubmitConfirmDialog
@@ -133,6 +158,15 @@ export function EducationCard({ education: edu, onEdit, onDelete, onViewProof }:
                 description={`Bạn có chắc chắn muốn nộp phê duyệt thông tin học vấn từ "${edu.trainingName}" không?`}
                 onConfirm={handleConfirmSubmit}
                 onCancel={() => setIsSubmitOpen(false)}
+            />
+
+            <SubmitConfirmDialog
+                open={isBackToDraftOpen}
+                submitting={submitting}
+                title="Xác nhận hủy gửi phê duyệt?"
+                description={`Bạn có chắc chắn muốn chuyển thông tin học vấn từ "${edu.trainingName}" về trạng thái nháp không?`}
+                onConfirm={handleConfirmBackToDraft}
+                onCancel={() => setIsBackToDraftOpen(false)}
             />
         </div>
     )

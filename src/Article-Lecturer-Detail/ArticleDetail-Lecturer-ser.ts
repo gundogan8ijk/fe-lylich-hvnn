@@ -15,6 +15,7 @@ export {
     addInternalContributorApi,removeInternalContributorApi,
     addExternalContributorApi,  removeExternalContributorApi,updateExternalContributorApi,
     submitArticleApi,
+    backToDraftArticleApi,
     deleteArticleByLecturerApi,updateArticleByLecturerApi,
     removeDisciplineApi,addDisciplinesApi
 }
@@ -134,6 +135,19 @@ const updateExternalContributorApi = async (
 const submitArticleApi = async (articleId: string): Promise<ApiResponse<void>> => {
     try {
         await api.put(`/articles/${articleId}/submit`,{});
+        return success(void 0);
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const data = error.response?.data;
+            return fail(data?.message || data?.detail, data?.errors);
+        }
+        return fail();
+    }
+};
+
+const backToDraftArticleApi = async (articleId: string): Promise<ApiResponse<void>> => {
+    try {
+        await api.put(`/articles/${articleId}/back-to-draft`, {});
         return success(void 0);
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {

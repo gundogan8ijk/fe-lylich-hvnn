@@ -6,26 +6,36 @@ import { HelpCircle, Mail, MessageCircle } from 'lucide-react'
 
 const faqs = [
     {
-        question: 'Làm cách nào để tạo một lớp học mới?',
+        question: 'Làm cách nào để cập nhật thông tin cá nhân?',
         answer:
-            'Truy cập phần "Lớp học" và nhấp vào nút "Tạo lớp học mới". Điền các thông tin cần thiết như tên lớp, mã lớp, phòng học và lịch biểu.',
+            'Truy cập mục "Lý lịch cá nhân", chọn "Chỉnh sửa" và cập nhật các thông tin như họ tên, ngày sinh, địa chỉ, số điện thoại và email.',
     },
     {
-        question: 'Tôi có thể thêm sinh viên vào lớp như thế nào?',
+        question: 'Làm thế nào để cập nhật trình độ học vấn và học hàm, học vị?',
         answer:
-            'Bạn có thể thêm sinh viên bằng cách vào trang "Sinh viên", nhấp "Thêm sinh viên" và nhập thông tin của họ. Hoặc bạn có thể chia sẻ mã lớp để sinh viên tự đăng ký.',
+            'Trong phần "Quá trình đào tạo", bạn có thể thêm hoặc chỉnh sửa thông tin về bằng cấp, chuyên ngành, cơ sở đào tạo, học vị và học hàm.',
     },
     {
-        question: 'Làm cách nào để tạo và tải bài giảng?',
+        question: 'Tôi có thể khai báo quá trình công tác như thế nào?',
         answer:
-            'Truy cập phần "Bài giảng" và nhấp vào "Tạo bài giảng mới". Bạn có thể tải lên tài liệu, video hoặc tạo nội dung trực tiếp trong hệ thống.',
+            'Truy cập mục "Quá trình công tác", chọn "Thêm mới" và nhập thông tin về đơn vị công tác, chức vụ, thời gian bắt đầu và kết thúc.',
     },
     {
-        question: 'Làm cách nào để đánh giá bài tập của sinh viên?',
+        question: 'Làm cách nào để cập nhật các công trình nghiên cứu khoa học?',
         answer:
-            'Vào trang "Đánh giá", chọn bài tập cần chấm và nhấp "Chấm điểm". Bạn có thể nhập điểm và thêm ghi chú cho mỗi sinh viên.',
+            'Trong mục "Nghiên cứu khoa học", bạn có thể thêm các đề tài, bài báo, sách, giáo trình và các công bố khoa học liên quan.',
     },
-]
+    {
+        question: 'Tôi có thể tải lên ảnh đại diện và các tệp đính kèm không?',
+        answer:
+            'Có. Trong phần hồ sơ cá nhân, bạn có thể tải lên ảnh đại diện cũng như các tài liệu minh chứng như bằng cấp, chứng chỉ hoặc quyết định bổ nhiệm.',
+    },
+    {
+        question: 'Làm thế nào để xem và in hồ sơ lý lịch?',
+        answer:
+            'Truy cập trang hồ sơ cá nhân và chọn chức năng "Xuất hồ sơ" để tải xuống hoặc in theo mẫu quy định.',
+    },
+];
 
 export default function HelpPage() {
     return (

@@ -1,7 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { Bell, LogOut, User, Menu, X, Lock, Loader2, CheckCircle2 } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { Bell, LogOut, User, Menu, X, Lock, Loader2, CheckCircle2, Home } from 'lucide-react'
 import { Button } from '@/_components/ui/button'
 import {
     DropdownMenu,
@@ -17,15 +19,25 @@ import { Badge } from '@/_components/ui/badge'
 import { NavbarConfig, Notifications } from '@/_Common/_types/layout-navbar'
 import { logoutActionHook, changePasswordActionHook } from '@/Authen/authen-hook'
 import { Input } from '@/_components/ui/input'
+import { Role } from '@/Authen/auth-type'
+import { ROLE_HOME } from '@/_constants/route-constant'
+
+const roleNameMap: Partial<Record<Role, string>> = {
+    [Role.LECTURER]: 'Giảng viên',
+    [Role.MANAGER]: 'Quản lý',
+    [Role.ADMIN]: 'Quản trị viên',
+}
 
 interface NavbarProps {
     config: NavbarConfig,
     notifications: Notifications[],
     sidebarOpen?: boolean
     onSidebarToggle?: () => void
+    userRoles?: Role[]
 }
 
-export function NavbarProtected({ config, notifications, sidebarOpen = false, onSidebarToggle }: NavbarProps) {
+export function NavbarProtected({ config, notifications, sidebarOpen = false, onSidebarToggle, userRoles = [] }: NavbarProps) {
+    const pathname = usePathname()
     const [notificationOpen, setNotificationOpen] = useState(false)
     const [changePassOpen, setChangePassOpen] = useState(false)
     const [changePassForm, setChangePassForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' })
@@ -120,10 +132,6 @@ export function NavbarProtected({ config, notifications, sidebarOpen = false, on
                         <DropdownMenuContent align="end" className="w-56">
                             <DropdownMenuLabel>Tài khoản của tôi</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem className="gap-2 cursor-pointer">
-                                <User size={16} />
-                                <span>Hồ sơ cá nhân</span>
-                            </DropdownMenuItem>
                             <DropdownMenuItem className="gap-2 cursor-pointer" onClick={() => {
                                 setChangePassError('');
                                 setChangePassSuccess(false);
@@ -134,6 +142,32 @@ export function NavbarProtected({ config, notifications, sidebarOpen = false, on
                                 <span>Đổi mật khẩu</span>
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
+                            
+                            <>
+                                <DropdownMenuLabel>Quyền truy cập</DropdownMenuLabel>
+                                <DropdownMenuItem asChild>
+                                    <Link href="/" className="w-full flex items-center justify-between cursor-pointer gap-2">
+                                        <div className="flex items-center gap-2">
+                                            <Home size={16} />
+                                            <span>Trang chủ</span>
+                                        </div>
+                                    </Link>
+                                </DropdownMenuItem>
+                                {userRoles.map(r => {
+                                    const path = ROLE_HOME[r] || '/';
+                                    const isActive = pathname.startsWith(path);
+                                    return (
+                                        <DropdownMenuItem key={r} asChild>
+                                            <Link href={path} className={`w-full flex items-center justify-between cursor-pointer ${isActive ? 'bg-accent text-primary font-bold' : ''}`}>
+                                                <span>{roleNameMap[r] || r}</span>
+                                                {isActive && <CheckCircle2 className="w-4 h-4 text-primary" />}
+                                            </Link>
+                                        </DropdownMenuItem>
+                                    )
+                                })}
+                                <DropdownMenuSeparator />
+                            </>
+
                             <DropdownMenuItem className="gap-2 cursor-pointer text-red-500" onClick={() => logoutActionHook()}>
                                 <LogOut size={16} />
                                 <span>Đăng xuất</span>

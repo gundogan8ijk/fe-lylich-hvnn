@@ -81,7 +81,7 @@ export default function ProjectInfoSection() {
 
                     {detail.certificateUrl && (
                         <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
-                            <a href={detail.certificateUrl} target="_blank" rel="noopener noreferrer"
+                            <a href={detail.detailUrl ?? undefined} target="_blank" rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 text-sm text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors">
                                 <ShieldCheck className="w-4 h-4" /> Xem chứng chỉ hoàn thành
                                 <ExternalLink className="w-3 h-3" />
@@ -92,7 +92,7 @@ export default function ProjectInfoSection() {
                     {(detail.detailUrl || canUpdateLink) && (
                         <div className={`mt-2 flex items-center justify-between ${!detail.certificateUrl ? 'pt-4 border-t border-slate-100 dark:border-slate-800' : ''}`}>
                             {detail.detailUrl ? (
-                                <a href={detail.detailUrl} target="_blank" rel="noopener noreferrer"
+                                <a href={detail.certificateUrl ?? undefined} target="_blank" rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors">
                                     <FileText className="w-4 h-4" /> Đường dẫn tài liệu chi tiết
                                     <ExternalLink className="w-3 h-3" />

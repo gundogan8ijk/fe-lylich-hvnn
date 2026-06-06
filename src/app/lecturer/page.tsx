@@ -5,5 +5,5 @@ import NotFound from "../not-found";
 
 export default function LecturerHome() {
     if (!hasRequiredRolesAsync([Role.LECTURER])) return <NotFound></NotFound>
-    redirect("/lecturer/classes")
+    redirect("/lecturer/background")
 }

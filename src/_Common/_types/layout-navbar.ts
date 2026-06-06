@@ -13,6 +13,11 @@ export const managerNavbarConfig: NavbarConfig = {
     avatarText: 'QL',
 }
 
+export const adminNavbarConfig: NavbarConfig = {
+    title: 'Quản trị viên',
+    avatarText: 'AD',
+}
+
 export interface Notifications {
     id: number
     title: string

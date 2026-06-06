@@ -10,9 +10,9 @@ export default function SettingsPage() {
     return (
         <div className="space-y-8 max-w-3xl">
             <div>
-                <h1 className="text-3xl font-bold text-foreground">Cài đặt lớp</h1>
+                <h1 className="text-3xl font-bold text-foreground">Cài đặt</h1>
                 <p className="text-muted-foreground mt-2">
-                    Quản lý cài đặt cho các lớp học của bạn
+                    Quản lý cài đặt 
                 </p>
             </div>
 
@@ -27,27 +27,27 @@ export default function SettingsPage() {
                 <CardContent className="space-y-4">
                     <div className="flex items-center justify-between">
                         <div>
-                            <Label className="text-sm font-medium">Thông báo bài tập mới</Label>
+                            <Label className="text-sm font-medium">Thông báo hệ thống</Label>
                             <p className="text-xs text-muted-foreground mt-1">
-                                Nhận thông báo khi sinh viên nộp bài tập
+                                Nhận thông báo hệ thống
                             </p>
                         </div>
                         <Switch defaultChecked />
                     </div>
                     <div className="flex items-center justify-between">
                         <div>
-                            <Label className="text-sm font-medium">Thông báo câu hỏi</Label>
+                            <Label className="text-sm font-medium">Thông báo từ phía ban quản lí</Label>
                             <p className="text-xs text-muted-foreground mt-1">
-                                Nhận thông báo khi sinh viên đặt câu hỏi
+                                Nhận thông báo khi khi có kết quả từ ban quản lí
                             </p>
                         </div>
                         <Switch defaultChecked />
                     </div>
                     <div className="flex items-center justify-between">
                         <div>
-                            <Label className="text-sm font-medium">Nhắc nhở lớp học</Label>
+                            <Label className="text-sm font-medium">thông báo từ đồng nghiệp</Label>
                             <p className="text-xs text-muted-foreground mt-1">
-                                Nhận nhắc nhở trước khi lớp bắt đầu
+                                thông báo khi có hợp tác chung
                             </p>
                         </div>
                         <Switch />
@@ -85,36 +85,6 @@ export default function SettingsPage() {
                             className="mt-2"
                         />
                         <Button className="mt-4">Cập nhật mật khẩu</Button>
-                    </div>
-                </CardContent>
-            </Card>
-
-            {/* Class Settings */}
-            <Card>
-                <CardHeader>
-                    <CardTitle>Cài đặt lớp học</CardTitle>
-                    <CardDescription>
-                        Cấu hình các tùy chọn cho các lớp học của bạn
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <Label className="text-sm font-medium">Cho phép sinh viên tự đăng ký</Label>
-                            <p className="text-xs text-muted-foreground mt-1">
-                                Sinh viên có thể tự thêm vào lớp học
-                            </p>
-                        </div>
-                        <Switch />
-                    </div>
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <Label className="text-sm font-medium">Hiển thị bảng xếp hạng</Label>
-                            <p className="text-xs text-muted-foreground mt-1">
-                                Hiển thị điểm số công khai cho sinh viên
-                            </p>
-                        </div>
-                        <Switch defaultChecked />
                     </div>
                 </CardContent>
             </Card>

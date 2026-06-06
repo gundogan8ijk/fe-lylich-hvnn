@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 import { SidebarConfig } from "@/_components/layouts/sidebar"
-import { managerMenu } from "@/_Common/_types/layout-Sidebar-type"
+import { adminMenu } from "@/_Common/_types/layout-Sidebar-type"
 import { NavbarProtected, notifications } from "@/_components/layouts/navbar-ptotected"
-import { managerNavbarConfig } from "@/_Common/_types/layout-navbar"
+import { adminNavbarConfig } from "@/_Common/_types/layout-navbar"
 import { Role } from "@/Authen/auth-type"
 
 export default function LayoutClient({ children, userRoles = [] }: { children: React.ReactNode, userRoles?: Role[] }) {
@@ -13,12 +13,12 @@ export default function LayoutClient({ children, userRoles = [] }: { children: R
 
     return (
         <div className="flex flex-col h-screen bg-background">
-            <NavbarProtected config={managerNavbarConfig} notifications={notifications}
+            <NavbarProtected config={adminNavbarConfig} notifications={notifications}
                 sidebarOpen={sidebarOpen} onSidebarToggle={() => setSidebarOpen(!sidebarOpen)} userRoles={userRoles} />
             <div className="flex flex-1 overflow-hidden">
                 {/* Sidebar - ẩn trên mobile, hiển thị từ md trở lên */}
                 <div className="hidden md:block md:w-64 lg:w-72">
-                    <SidebarConfig items={managerMenu} />
+                    <SidebarConfig items={adminMenu} />
                 </div>
 
                 {/* Mobile Sidebar - Overlay */}
@@ -30,7 +30,7 @@ export default function LayoutClient({ children, userRoles = [] }: { children: R
                 )}
                 <div className={`fixed left-0 top-16 bottom-0 w-64 z-50 transform transition-transform md:hidden ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
                     }`}>
-                    <SidebarConfig items={managerMenu} onClose={() => setSidebarOpen(false)} />
+                    <SidebarConfig items={adminMenu} onClose={() => setSidebarOpen(false)} />
                 </div>
 
                 {/* Main Content */}
@@ -43,8 +43,3 @@ export default function LayoutClient({ children, userRoles = [] }: { children: R
         </div>
     )
 }
-
-
-// /*<main className="flex-1 overflow-y-auto w-full md:w-auto flex flex-col">
-//     {children}
-// </main>*/

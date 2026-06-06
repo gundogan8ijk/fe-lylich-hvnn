@@ -5,15 +5,16 @@ import { lecturerMenu } from "@/_Common/_types/layout-Sidebar-type"
 import { NavbarProtected, notifications } from "@/_components/layouts/navbar-ptotected"
 import { lecturerNavbarConfig } from "@/_Common/_types/layout-navbar"
 import { SidebarConfig } from "@/_components/layouts/sidebar"
+import { Role } from "@/Authen/auth-type"
 
-export default function LayoutClient({ children, }: { children: React.ReactNode }) {
+export default function LayoutClient({ children, userRoles = [] }: { children: React.ReactNode, userRoles?: Role[] }) {
 
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
     return (
         <div className="flex flex-col h-screen bg-background">
             <NavbarProtected config={lecturerNavbarConfig} notifications={notifications}
-                sidebarOpen={sidebarOpen} onSidebarToggle={() => setSidebarOpen(!sidebarOpen)} />
+                sidebarOpen={sidebarOpen} onSidebarToggle={() => setSidebarOpen(!sidebarOpen)} userRoles={userRoles} />
             <div className="flex flex-1 overflow-hidden">
                 {/* Sidebar - ẩn trên mobile, hiển thị từ md trở lên */}
                 <div className="hidden md:block md:w-64 lg:w-72">

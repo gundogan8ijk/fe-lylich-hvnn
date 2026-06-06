@@ -6,8 +6,19 @@ import { Menu, X, Search, LogIn } from 'lucide-react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/_components/ui/button';
+import { Role } from '@/Authen/auth-type';
+import { ROLE_HOME } from '@/_constants/route-constant';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/_components/ui/dropdown-menu';
+import { LogOut } from 'lucide-react';
+import { logoutActionHook } from '@/Authen/authen-hook';
 import logo from '#/images/logoHVNN.png';
 import backgroundImage from '#/images/backgroundImage.jpg';
+
+const roleNameMap: Partial<Record<Role, string>> = {
+    [Role.LECTURER]: 'Giảng viên',
+    [Role.MANAGER]: 'Quản lý',
+    [Role.ADMIN]: 'Quản trị viên',
+};
 
 const navItems = [
     { label: 'Trang chủ', href: '/' },
@@ -17,7 +28,7 @@ const navItems = [
     { label: 'Liên hệ', href: '/contact' },
 ];
 
-export function PublicNavbar() {
+export function PublicNavbar({ userRoles = [] }: { userRoles?: Role[] }) {
     const [isOpen, setIsOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -66,13 +77,32 @@ export function PublicNavbar() {
                             </Link>
 
                             {isLoggedIn ? (
-                                <Link
-                                    className="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-medium transition-colors rounded-md px-4 py-2"
-                                    href="/dashboard"
-                                >
-                                    <span>Vào hệ thống</span>
-                                </Link>
-                            ) : (
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-md px-4 py-2">
+                                            Vào hệ thống
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end" className="w-56">
+                                        <DropdownMenuLabel>Quyền truy cập</DropdownMenuLabel>
+                                        {userRoles.map(r => {
+                                            const path = ROLE_HOME[r] || '/';
+                                            return (
+                                                <DropdownMenuItem key={r} asChild>
+                                                    <Link href={path} className="w-full cursor-pointer font-medium">
+                                                        {roleNameMap[r] || r}
+                                                    </Link>
+                                                </DropdownMenuItem>
+                                            )
+                                        })}
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem className="gap-2 cursor-pointer text-red-500" onClick={() => logoutActionHook()}>
+                                            <LogOut size={16} />
+                                            <span>Đăng xuất</span>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            ) : pathname !== '/login' ? (
                                 <Link
                                     className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors rounded-md px-4 py-2"
                                     href="/login"
@@ -80,7 +110,7 @@ export function PublicNavbar() {
                                     <LogIn className="w-4 h-4 mr-2 shrink-0" />
                                     <span>Log in</span>
                                 </Link>
-                            )}
+                            ) : null}
                         </div>
                     </div>
                 </div>
@@ -200,15 +230,21 @@ export function PublicNavbar() {
 
                                 <div className="mt-4">
                                     {isLoggedIn ? (
-                                        <Button
-                                            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
-                                            size="lg"
-                                            onClick={() => setIsOpen(false)}
-                                            asChild
-                                        >
-                                            <Link href="/dashboard">Vào hệ thống</Link>
-                                        </Button>
-                                    ) : (
+                                        <div className="flex flex-col gap-2">
+                                            <div className="text-sm font-semibold text-slate-500 uppercase px-2 mb-1">Vào hệ thống</div>
+                                            {userRoles.map(r => {
+                                                const path = ROLE_HOME[r] || '/';
+                                                return (
+                                                    <Button key={r} className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" size="lg" onClick={() => setIsOpen(false)} asChild>
+                                                        <Link href={path}>{roleNameMap[r] || r}</Link>
+                                                    </Button>
+                                                );
+                                            })}
+                                            <Button variant="outline" className="w-full text-red-500 mt-2" size="lg" onClick={() => logoutActionHook()}>
+                                                <LogOut className="w-4 h-4 mr-2" /> Đăng xuất
+                                            </Button>
+                                        </div>
+                                    ) : pathname !== '/login' ? (
                                         <Button
                                             className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                                             size="lg"
@@ -217,7 +253,7 @@ export function PublicNavbar() {
                                         >
                                             <Link href="/login">Đăng nhập</Link>
                                         </Button>
-                                    )}
+                                    ) : null}
                                 </div>
                             </div>
                         </div>

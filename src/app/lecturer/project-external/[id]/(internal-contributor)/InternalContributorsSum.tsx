@@ -72,7 +72,6 @@ export default function InternalContributorsSum() {
             <UpdateInternalContributorDialog contributorId={editId} onClose={() => setEditId(null)} />
             <DeleteInternalContributorDialog
                 contributorId={deleteData?.id ?? null}
-                contributorName={deleteData?.name ?? ''}
                 onClose={() => setDeleteData(null)}
             />
         </div>

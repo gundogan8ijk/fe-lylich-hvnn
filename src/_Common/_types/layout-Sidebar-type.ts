@@ -19,7 +19,7 @@ export const lecturerMenu: SidebarItem[] = [
 ]
 
 export const managerMenu: SidebarItem[] = [
-    { icon: BookOpen, label: 'Lớp học', href: '/manager/classes' },
+    { icon: BookOpen, label: 'Khoa', href: '/manager/department' },
     { icon: Users, label: 'Sinh viên', href: '/manager/students' },
     { icon: UserRoundCog, label: 'Hồ Sơ', href: '/manager/profile' },
     { icon: FileText, label: 'Đề tài', href: '/manager/research-projects' },

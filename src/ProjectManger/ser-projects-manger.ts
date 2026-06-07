@@ -102,27 +102,27 @@ const getProjectManagerDetailApi = async (
                     start: dto.timeStart,
                     end: dto.timeEnd
                 } : null,
-                disciplines: (dto.disciplines || []).map((d: any) => ({
+                disciplines: (dto.disciplines || []).map((d: { id: string; code: string; name: string }) => ({
                     id: d.id,
                     code: d.code,
                     name: d.name
                 }))
             },
-            contributors: (dto.contributors || []).map((c: any) => ({
+            contributors: (dto.contributors || []).map((c: { id: string; code: string; fullName: string; status: string; joinedAt: string }) => ({
                 id: c.id,
                 code: c.code,
                 name: c.fullName,
                 status: c.status,
                 joinedAt: c.joinedAt
             })),
-            participants: (dto.participants || []).map((p: any) => ({
+            participants: (dto.participants || []).map((p: { id: string; fullName: string; joinedAt: string; role: string; email: string }) => ({
                 id: p.id,
                 name: p.fullName,
                 joinedAt: p.joinedAt,
                 role: p.role,
                 email: p.email
             })),
-            funding: (dto.fundings || []).map((f: any) => ({
+            funding: (dto.fundings || []).map((f: { source: string; description: string; amount: number }) => ({
                 source: f.source,
                 description: f.description,
                 amount: f.amount

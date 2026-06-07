@@ -178,7 +178,7 @@ export default function AddContributorDialog({ open, onOpenChange, projectId }: 
                         <Label className="text-xs font-bold uppercase tracking-wider text-slate-400">
                             Vai trò trong ban nghiên cứu <span className="text-red-500">*</span>
                         </Label>
-                        <Select value={status} onValueChange={(val: any) => setStatus(val)}>
+                        <Select value={status} onValueChange={(val: 'Leader' | 'CoreTeam') => setStatus(val)}>
                             <SelectTrigger className="bg-slate-50 border-slate-200 dark:bg-slate-950 dark:border-slate-800 text-sm">
                                 <SelectValue placeholder="Chọn vai trò" />
                             </SelectTrigger>

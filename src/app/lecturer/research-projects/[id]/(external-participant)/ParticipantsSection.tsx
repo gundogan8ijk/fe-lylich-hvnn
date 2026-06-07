@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { storeProjectDetail } from '@/Project-Lecturer-Detail/Project-Detail-store'
+import { ProjectParticipant } from '@/Project-Lecturer-Detail/Project-Detail-type'
 import { Users, Plus } from 'lucide-react'
 import { removeParticipantAction } from '@/Project-Lecturer-Detail/Project-Detail-hook'
 import AddParticipantDialog from './AddParticipantDialog'
@@ -11,7 +12,7 @@ import ParticipantItem from './ParticipantItem'
 export default function ParticipantsSection() {
     const { data: detail } = storeProjectDetail()
     const [addOpen, setAddOpen] = useState(false)
-    const [editTarget, setEditTarget] = useState<any | null>(null)
+    const [editTarget, setEditTarget] = useState<ProjectParticipant | null>(null)
     const [removeTarget, setRemoveTarget] = useState<{ id: string; name: string } | null>(null)
     const [loading, setLoading] = useState(false)
 

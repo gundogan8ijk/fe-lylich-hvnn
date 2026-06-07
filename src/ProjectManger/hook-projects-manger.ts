@@ -179,7 +179,7 @@ async function updateBaseInfoProjectMangerAction(form: UpdateBaseInfoProjectMang
 
     let hasError = false;
     let errorMsg = "Có lỗi xảy ra khi cập nhật";
-    let errorDetails: any = undefined;
+    let errorDetails: Record<string, string[]> | undefined = undefined;
 
     if (data.permissions.canUpdateBase) {
         const baseRes = await updateBaseInfoProjectMangerApi(data.id, { Title: form.Title, Describe: form.Describe });

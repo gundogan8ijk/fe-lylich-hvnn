@@ -7,6 +7,7 @@ import { Badge } from "@/_components/ui/badge"
 import { getDateOnly } from "@/_lib/display-variable-helper"
 import { UserPlus, Users, Trash2, ShieldCheck, Edit, Mail } from "lucide-react"
 import { storeProjectManagerDetail } from "@/ProjectManger/store-detail-project-manger"
+import { ProjectParticipantRecord } from "@/ProjectManger/type-detail-projects-manger"
 import AddParticipantDialog from './AddParticipantDialog'
 import DeleteConfirmDialog from '@/_components/custom/DeleteConfirmDialog'
 import { deleteParticipantByManagerAction } from '@/ProjectManger/hook-projects-manger'
@@ -16,7 +17,7 @@ export default function ContentParticipantsManger() {
     const isDeleting = storeProjectManagerDetail((s) => s.isDeleting)
     
     const [selectedParticipant, setSelectedParticipant] = useState<{ id: string; name: string } | null>(null)
-    const [editTarget, setEditTarget] = useState<any | null>(null)
+    const [editTarget, setEditTarget] = useState<ProjectParticipantRecord | null>(null)
     const [isAddOpen, setIsAddOpen] = useState(false)
     const [isDeleteOpen, setIsDeleteOpen] = useState(false)
 

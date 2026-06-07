@@ -1,4 +1,5 @@
 import { loginApi, refreshTokenApi, logoutApi, changePasswordApi, forgotPasswordApi, resetPasswordApi, registerLecturerApi } from "@/Authen/auth-service";
+import { ChangePasswordForm, RegisterLecturerForm, ResetPasswordForm } from "./auth-type";
 
 export {
     loginActionHook,
@@ -90,7 +91,7 @@ async function logoutActionHook() {
 }
 
 // --- Change Password ---
-async function changePasswordActionHook(form: any): Promise<string | null> {
+async function changePasswordActionHook(form: ChangePasswordForm): Promise<string | null> {
     const res = await changePasswordApi(form);
     if (res.code !== 1) return res.message;
     return null;
@@ -104,14 +105,14 @@ async function forgotPasswordActionHook(email: string): Promise<string | null> {
 }
 
 // --- Reset Password ---
-async function resetPasswordActionHook(form: any): Promise<string | null> {
+async function resetPasswordActionHook(form: ResetPasswordForm): Promise<string | null> {
     const res = await resetPasswordApi(form);
     if (res.code !== 1) return res.message;
     return null;
 }
 
 // --- Register Lecturer ---
-async function registerLecturerActionHook(form: any): Promise<{ success: boolean; message?: string; errors?: any }> {
+async function registerLecturerActionHook(form: RegisterLecturerForm): Promise<{ success: boolean; message?: string; errors?: Record<string, string[]> }> {
     const res = await registerLecturerApi(form);
     if (res.code !== 1) {
         return { success: false, message: res.message, errors: res.errors };

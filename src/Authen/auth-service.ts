@@ -1,7 +1,7 @@
 import { ApiResponse } from "@/_Common/_types/result-typeConfig";
 import { fail, success } from "@/_lib/response-helper";
 import axios from "axios";
-import { TimeToken } from "@/Authen/auth-type";
+import { ChangePasswordForm, RegisterLecturerForm, ResetPasswordForm, TimeToken } from "@/Authen/auth-type";
 import { api } from "@/_Common/_services/axios-service-config";
 
 const loginUrl = "/authentication/login/";
@@ -71,7 +71,7 @@ const logoutApi = async (): Promise<ApiResponse<null>> => {
     }
 };
 
-const changePasswordApi = async (form: any): Promise<ApiResponse<null>> => {
+const changePasswordApi = async (form: ChangePasswordForm): Promise<ApiResponse<null>> => {
     try {
         const res = await api.put(changePasswordUrl, form);
         return success(res.data);
@@ -97,7 +97,7 @@ const forgotPasswordApi = async (email: string): Promise<ApiResponse<null>> => {
     }
 };
 
-const resetPasswordApi = async (form: any): Promise<ApiResponse<null>> => {
+const resetPasswordApi = async (form: ResetPasswordForm): Promise<ApiResponse<null>> => {
     try {
         const res = await api.post(resetPasswordUrl, form);
         return success(res.data);
@@ -110,7 +110,7 @@ const resetPasswordApi = async (form: any): Promise<ApiResponse<null>> => {
     }
 };
 
-const registerLecturerApi = async (form: any): Promise<ApiResponse<any>> => {
+const registerLecturerApi = async (form: RegisterLecturerForm): Promise<ApiResponse<Record<string, unknown>>> => {
     try {
         const res = await api.post(registerLecturerUrl, form);
         return success(res.data);

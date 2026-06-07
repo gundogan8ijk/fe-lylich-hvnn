@@ -40,6 +40,7 @@ import { ConfirmedStatus } from '@/_constants/base-constant'
 import { RegisterEducationByLecturerForm } from '@/Educaion-Lecturer/Education-Lecturer-ser'
 import { EducationLecturer } from '@/Educaion-Lecturer/Eduction-Lecturer-type'
 import { uploadToCloudinary } from '@/_Common/_services/Image-config'
+import Image from 'next/image'
 
 const EMPTY_FORM: RegisterEducationByLecturerForm = {
     trainingName: '',
@@ -150,7 +151,7 @@ export function EducationSection({ educations }: EducationSectionProps) {
                 degree: form.degree,
                 majorName: form.majorName.trim(),
                 graduatedAt: form.graduatedAt,
-                proofUrl: form.proofUrl?.trim() ,
+                proofUrl: form.proofUrl?.trim(),
             }
 
             if (editingId) {
@@ -319,12 +320,14 @@ export function EducationSection({ educations }: EducationSectionProps) {
                             </div>
 
                             {form.proofUrl?.trim() ? (
-                                <div className="relative w-full rounded-lg overflow-hidden border border-muted group">
-                                    <img
+                                <div className="relative w-full rounded-lg overflow-hidden border border-muted group" style={{ minHeight: '160px' }}>
+                                    <Image
                                         src={form.proofUrl}
                                         alt="Minh chứng"
-                                        className="w-full max-h-40 object-contain bg-muted/20 cursor-zoom-in"
+                                        fill
+                                        className="object-contain bg-muted/20 cursor-zoom-in"
                                         onClick={() => setLightboxUrl(form.proofUrl!)}
+                                        sizes="(max-width: 768px) 100vw, 448px"
                                     />
                                     <div className="absolute inset-0 bg-black/40 transition-opacity flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100">
                                         <Button
@@ -434,12 +437,16 @@ export function EducationSection({ educations }: EducationSectionProps) {
                     >
                         <X size={18} />
                     </button>
-                    <img
-                        src={lightboxUrl}
-                        alt="Minh chứng"
-                        className="max-w-[90vw] max-h-[85vh] rounded-xl object-contain shadow-2xl"
-                        onClick={(e) => e.stopPropagation()}
-                    />
+                    <div className="relative w-[90vw] h-[85vh]">
+                        <Image
+                            src={lightboxUrl}
+                            alt="Minh chứng"
+                            fill
+                            className="object-contain rounded-xl shadow-2xl"
+                            onClick={(e) => e.stopPropagation()}
+                            sizes="90vw"
+                        />
+                    </div>
                 </div>
             )}
         </>

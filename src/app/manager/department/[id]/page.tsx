@@ -1,5 +1,5 @@
 import { DepartmentDetailInfo } from "./(info-detail)/DepartmentInfo";
-import { DisciplinesGroup } from "./(disciplines)/disciplines-Group";
+import { DisciplinesGroup } from "./(disciplines-external)/disciplines-Group";
 import { MembersGroup } from "./(member)/members-Group";
 
 export default async function DepartmentDetail({ params }: {

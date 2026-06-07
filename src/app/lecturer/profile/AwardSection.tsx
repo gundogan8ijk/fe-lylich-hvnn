@@ -321,12 +321,14 @@ export function AwardSection({ awards = [] }: AwardSectionProps) {
 
                             {form.proofUrl?.trim() ? (
                                 /* Preview ảnh đã upload hoặc ảnh cũ có sẵn */
-                                <div className="relative w-full rounded-lg overflow-hidden border border-muted group">
-                                    <img
+                                <div className="relative w-full rounded-lg overflow-hidden border border-muted group" style={{ minHeight: '160px' }}>
+                                    <Image
                                         src={form.proofUrl}
                                         alt="Minh chứng"
-                                        className="w-full max-h-40 object-contain bg-muted/20 cursor-zoom-in"
+                                        fill
+                                        className="object-contain bg-muted/20 cursor-zoom-in"
                                         onClick={() => setLightboxUrl(form.proofUrl!)}
+                                        sizes="(max-width: 768px) 100vw, 448px"
                                     />
                                     {/* Overlay tác vụ khi hover */}
                                     <div className="absolute inset-0 bg-black/40 transition-opacity flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100">

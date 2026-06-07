@@ -14,7 +14,7 @@ type Props = {
     projectId: string
     editTarget?: {
         id: string
-        name: string
+        fullName: string
         email: string | null
         role: string
     } | null
@@ -34,7 +34,7 @@ export default function AddParticipantDialog({ open, onOpenChange, projectId, ed
     useEffect(() => {
         if (open) {
             if (editTarget) {
-                setFullName(editTarget.name)
+                setFullName(editTarget.fullName)
                 setEmail(editTarget.email || '')
                 setRole(editTarget.role)
             } else {

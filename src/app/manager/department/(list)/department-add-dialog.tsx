@@ -15,6 +15,7 @@ import { Label } from '@/_components/ui/label'
 import { Textarea } from '@/_components/ui/textarea'
 import { addDepartmentPublicAction } from '@/department-Manager/department-manger-hook'
 import { uploadToCloudinary } from '@/_Common/_services/Image-config'
+import Image from 'next/image'
 
 export default function DepartmentAddDialog() {
     const [open, setOpen] = useState(false)
@@ -121,12 +122,14 @@ export default function DepartmentAddDialog() {
                         <div className="grid gap-2">
                             <Label>Ảnh đại diện (Logo)</Label>
                             {formData.avatarUrl?.trim() ? (
-                                <div className="relative w-full rounded-lg overflow-hidden border border-muted group mt-1">
-                                    <img
+                                <div className="relative w-full rounded-lg overflow-hidden border border-muted group mt-1" style={{ minHeight: '160px' }}>
+                                    <Image
                                         src={formData.avatarUrl}
                                         alt="Avatar"
-                                        className="w-full max-h-40 object-contain bg-muted/20 cursor-zoom-in"
+                                        fill
+                                        className="object-contain bg-muted/20 cursor-zoom-in"
                                         onClick={() => setLightboxUrl(formData.avatarUrl)}
+                                        sizes="(max-width: 768px) 100vw, 425px"
                                     />
                                     <div className="absolute inset-0 bg-black/40 transition-opacity flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100">
                                         <Button
@@ -205,12 +208,16 @@ export default function DepartmentAddDialog() {
                     >
                         <X size={18} />
                     </button>
-                    <img
-                        src={lightboxUrl}
-                        alt="Preview"
-                        className="max-w-[90vw] max-h-[85vh] rounded-xl object-contain shadow-2xl"
-                        onClick={(e) => e.stopPropagation()}
-                    />
+                    <div className="relative w-[90vw] h-[85vh]">
+                        <Image
+                            src={lightboxUrl}
+                            alt="Preview"
+                            fill
+                            className="object-contain rounded-xl shadow-2xl"
+                            onClick={(e) => e.stopPropagation()}
+                            sizes="90vw"
+                        />
+                    </div>
                 </div>
             )}
         </>

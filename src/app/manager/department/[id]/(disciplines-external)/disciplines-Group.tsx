@@ -11,6 +11,7 @@ import { ListQuery, SortDirection } from '@/_Common/_types/query-types';
 import { DisciplineOfDepartmentPublicList } from '@/department-Manager/department-manger-type';
 import { getListDisciplineByDepartmentIdPublicAction } from '@/department-Manager/department-manger-hook';
 import DisciplineAddDialog from './discipline-add-dialog';
+import Link from 'next/link';
 
 const PerPage = 20;
 
@@ -91,12 +92,13 @@ export function DisciplinesGroup({ id }: { id: string }) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
                 {items.length > 0 ? (
                     items.map((item) => (
-                        <div
+                        <Link
+                            href={`/manager/department/${id}/${item.id}`}
                             key={item.id}
-                            className="p-4 border rounded-lg hover:shadow-md"
+                            className="p-4 border rounded-lg hover:shadow-md hover:border-primary transition-all duration-200 block cursor-pointer"
                         >
-                            {item.name}
-                        </div>
+                            <h3 className="font-semibold text-gray-900">{item.name}</h3>
+                        </Link>
                     ))
                 ) : (
                     <div className="p-8 text-center border rounded-lg col-span-full">

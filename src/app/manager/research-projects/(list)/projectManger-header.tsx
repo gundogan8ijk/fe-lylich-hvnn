@@ -13,7 +13,6 @@ import FilterPanel, { ActiveFilterTags, FilterFieldConfig } from "@/_components/
 import { ProjectManagerFilters } from "@/_constants/project-constant";
 import { ConfirmedStatus, STATUS_LABELS } from "@/_constants/base-constant";
 import { Button } from "@/_components/ui/button";
-import { gradientBg } from "@/_components/utils/background";
 import { storeProjectMangerList } from "@/working-manager/project-list/project-list-store";
 import { createProjectListAction, getMangerProjectListAction } from "@/working-manager/project-detail/project-detail-hook";
 import CreateProjectDialog from "./create-project-dialog";

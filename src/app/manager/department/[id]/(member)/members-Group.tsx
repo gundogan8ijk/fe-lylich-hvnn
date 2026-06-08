@@ -10,6 +10,7 @@ import { toSearchParams } from '@/_lib/query-options-toUrl-helper';
 import { getInitials, getYear } from '@/_lib/display-variable-helper';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ACADEMIC_POSITION_LABELS, AcademicPositionName } from '@/_constants/department-constant';
 import { DepartmentMembersListPublic } from '@/working-manager/department/infor/department-manger-type';
 import { ListQuery, SortDirection } from '@/_Common/_types/query-types';
 import { getListMemberDepartmentPublicAction, removeMemberDepartmentAction } from '@/working-manager/department/infor/department-manger-hook';
@@ -26,7 +27,7 @@ export function MembersGroup({ id }: { id: string }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [isSearch, setIsSearch] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const LocalPerPage = 10;
+    const LocalPerPage = 12;
     const [memberList, setMemberList] = useState<DepartmentMembersListPublic | null>(null);
     const [isLoading, setLoading] = useState(false);
     const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -38,11 +39,6 @@ export function MembersGroup({ id }: { id: string }) {
                 // eslint-disable-next-line react-hooks/set-state-in-effect
         setCurrentPage(1);
     }, [positionFilter, disciplineFilter, sortJoinedAt, searchQuery]);
-
-    const getPositionDisplayName = (name: string) => {
-        const pos = AcademicPositions.find(p => p.name === name);
-        return pos ? pos.displayName : name;
-    }
 
     useEffect(() => {
         async function fetchData() {
@@ -186,7 +182,7 @@ export function MembersGroup({ id }: { id: string }) {
 
                                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                             <Award className="w-4 h-4 flex-shrink-0 text-primary/60" />
-                                            <span>{getPositionDisplayName(item.position)}</span>
+                                            <span>{ACADEMIC_POSITION_LABELS[item.position as AcademicPositionName] || item.position}</span>
                                         </div>
 
                                         <div className="flex items-center gap-2 text-sm text-muted-foreground">

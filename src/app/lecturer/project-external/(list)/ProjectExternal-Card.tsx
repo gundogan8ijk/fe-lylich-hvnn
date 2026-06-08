@@ -5,6 +5,7 @@ import { Badge } from '@/_components/ui/badge';
 import { Button } from '@/_components/ui/button';
 import { Eye, Calendar, FileText, ExternalLink, UserCheck, Globe, Lock } from 'lucide-react';
 import { confirmedStyle, STATUS_LABELS } from '@/_constants/base-constant';
+import { PROJECT_EXTERNAL_LEVEL_LABELS, EVALUATION_PROJECT_EXTERNAL_LABELS, ProjectLevelName, EvaluationProjectExternalName } from '@/_constants/ProjectExternal-constant';
 import { getDateOnly } from '@/_lib/display-variable-helper';
 import { ProjectExternalItem } from '@/working-Lecturer/ProjectExternal-List/ProjectExternal-List-type';
 
@@ -59,8 +60,8 @@ export default function ProjectExternalCard({ item, onViewDetail }: ProjectExter
                     {/* Mã đề tài và cấp độ */}
                     <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
                         <span>Mã: <strong>{item.code}</strong></span>
-                        <span>Cấp độ: <strong>{item.level}</strong></span>
-                        {item.evaluation !== 'NotSet' && <span>Đánh giá: <strong>{item.evaluation}</strong></span>}
+                        <span>Cấp độ: <strong>{PROJECT_EXTERNAL_LEVEL_LABELS[item.level as ProjectLevelName] || item.level}</strong></span>
+                        {item.evaluation !== 'NotSet' && <span>Đánh giá: <strong>{EVALUATION_PROJECT_EXTERNAL_LABELS[item.evaluation as EvaluationProjectExternalName] || item.evaluation}</strong></span>}
                     </div>
 
                     {item.describe && (

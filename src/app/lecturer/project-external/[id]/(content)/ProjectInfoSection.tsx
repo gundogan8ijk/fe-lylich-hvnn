@@ -1,6 +1,7 @@
 'use client';
 
 import { storeProjectExternalDetail } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-store';
+import { PROJECT_EXTERNAL_LEVEL_LABELS, EVALUATION_PROJECT_EXTERNAL_LABELS, ProjectLevelName, EvaluationProjectExternalName } from '@/_constants/ProjectExternal-constant';
 import { useState } from 'react';
 import UpdateProjectDialog from './UpdateProjectDialog';
 
@@ -50,11 +51,11 @@ export default function ProjectInfoSection() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
                 <div className="space-y-2">
                     <label className="text-sm font-medium text-muted-foreground uppercase tracking-wide">Cấp độ</label>
-                    <p className="text-base text-foreground font-medium">{project.level}</p>
+                    <p className="text-base text-foreground font-medium">{PROJECT_EXTERNAL_LEVEL_LABELS[project.level as ProjectLevelName] || project.level}</p>
                 </div>
                 <div className="space-y-2">
                     <label className="text-sm font-medium text-muted-foreground uppercase tracking-wide">Đánh giá</label>
-                    <p className="text-base text-foreground font-medium">{project.evaluation}</p>
+                    <p className="text-base text-foreground font-medium">{EVALUATION_PROJECT_EXTERNAL_LABELS[project.evaluation as EvaluationProjectExternalName] || project.evaluation}</p>
                 </div>
             </div>
 

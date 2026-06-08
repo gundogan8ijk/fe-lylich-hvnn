@@ -6,6 +6,9 @@ import { useRef, useState } from 'react';
 import { ImageOff, Download } from "lucide-react";
 import { useReactToPrint } from 'react-to-print';
 import { useBackgroundStore } from '../../../working-Lecturer/background/Background-store';
+import { AWARD_LEVEL_LABELS, AwardLevelName } from '@/_constants/award-constant';
+import { PROJECT_LEVEL_LABELS, ProjectLevelName } from '@/_constants/project-constant';
+import { PROJECT_EXTERNAL_LEVEL_LABELS } from '@/_constants/ProjectExternal-constant';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -122,7 +125,7 @@ export default function ContentBackground() {
                                 <li key={award.awardId} className="bg-white p-3.5 rounded-lg border border-slate-200 hover:shadow-sm transition-shadow">
                                     <p className="font-semibold text-slate-800 text-base">{award.awardsName}</p>
                                     <div className="mt-1 flex items-center gap-3 text-sm">
-                                        <p className="text-slate-600"><span className="font-medium text-slate-500">Cấp:</span> <span className="bg-yellow-50 text-yellow-700 border border-yellow-200 px-2 py-0.5 rounded text-xs">{award.level}</span></p>
+                                        <p className="text-slate-600"><span className="font-medium text-slate-500">Cấp:</span> <span className="bg-yellow-50 text-yellow-700 border border-yellow-200 px-2 py-0.5 rounded text-xs">{AWARD_LEVEL_LABELS[award.level as AwardLevelName] || award.level}</span></p>
                                         <p className="text-slate-600"><span className="font-medium text-slate-500">Ngày nhận:</span> {award.awardDate}</p>
                                     </div>
                                 </li>
@@ -213,7 +216,7 @@ export default function ContentBackground() {
                                             <p className="font-semibold text-slate-800 group-hover:text-green-600 transition-colors">{proj.title}</p>
                                             <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-xs">
                                                 <span className="bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded border border-slate-200 font-medium">{proj.code}</span>
-                                                <span className="text-slate-500 flex items-center">Cấp: {proj.level}</span>
+                                                <span className="text-slate-500 flex items-center">Cấp: {PROJECT_LEVEL_LABELS[proj.level as ProjectLevelName] || proj.level}</span>
                                                 <span className="text-slate-500 flex items-center">HT: {proj.completionAt}</span>
                                             </div>
                                         </Link>
@@ -230,7 +233,7 @@ export default function ContentBackground() {
                                             <p className="font-semibold text-slate-800 group-hover:text-green-600 transition-colors">{proj.title}</p>
                                             <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-xs">
                                                 <span className="bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded border border-slate-200 font-medium">{proj.code}</span>
-                                                <span className="text-slate-500 flex items-center">Cấp: {proj.level}</span>
+                                                <span className="text-slate-500 flex items-center">Cấp: {PROJECT_EXTERNAL_LEVEL_LABELS[proj.level as ProjectLevelName] || proj.level}</span>
                                                 <span className="text-slate-500 flex items-center">HT: {proj.completionAt}</span>
                                             </div>
                                         </Link>

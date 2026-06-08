@@ -3,6 +3,8 @@
 import Loading from '@/_components/utils/Loading';
 import { storeProjectExternalDetailManager } from '@/working-manager/project-external/project-external-manager-store';
 import { STATUS_LABELS } from '@/_constants/base-constant';
+import { PROJECT_EXTERNAL_LEVEL_LABELS, EVALUATION_PROJECT_EXTERNAL_LABELS } from '@/_constants/ProjectExternal-constant';
+import { ProjectLevelName, EvaluationProjectExternalName } from '@/_constants/ProjectExternal-constant';
 import { Briefcase, FileText, CheckCircle, XCircle, Globe, Lock, ArrowLeft } from 'lucide-react';
 import { Button } from '@/_components/ui/button';
 import { useRouter } from 'next/navigation';
@@ -115,12 +117,12 @@ export default function ContentProjectExternalDetail() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 text-sm">
                         <div className="space-y-1">
                             <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Cấp đề tài</label>
-                            <p className="text-foreground font-medium">{project.level}</p>
+                            <p className="text-foreground font-medium">{PROJECT_EXTERNAL_LEVEL_LABELS[project.level as ProjectLevelName] || project.level}</p>
                         </div>
                         
                         <div className="space-y-1">
                             <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Kết quả đánh giá</label>
-                            <p className="text-foreground font-medium">{project.evaluation}</p>
+                            <p className="text-foreground font-medium">{EVALUATION_PROJECT_EXTERNAL_LABELS[project.evaluation as EvaluationProjectExternalName] || project.evaluation}</p>
                         </div>
 
                         <div className="space-y-1">

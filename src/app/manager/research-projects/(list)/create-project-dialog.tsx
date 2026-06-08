@@ -15,12 +15,11 @@ import {
     SelectTrigger, SelectValue
 } from '@/_components/ui/select'
 import { FlaskConical, X, Search, Loader2, UserSearch } from 'lucide-react'
-import { DisciplinesNameItems } from '@/working-public/Discipline-Public/disciplines-type'
 import { getListDisciplinesNameApi } from '@/working-public/Discipline-Public/disciplines-Public-ser'
-import { LecturersNameItems } from '@/working-Lecturer/profile/infor/Profile-lecurer-type'
 import { CreateProjectForm } from '@/working-manager/project-detail/project-detail-service'
 import { getListLecturersNameApi } from '@/working-Lecturer/profile/infor/Lecturer-Profile-ser'
 import { level_PROJECT_OPTIONS } from '@/_constants/project-constant'
+import { DisciplinesNameItems, LecturersNameItems } from '@/_Common/_types/getListName-type'
 
 
 type Props = {

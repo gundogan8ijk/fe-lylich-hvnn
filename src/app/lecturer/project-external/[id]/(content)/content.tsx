@@ -2,6 +2,7 @@
 
 import Loading from '@/_components/utils/Loading';
 import { STATUS_LABELS } from '@/_constants/base-constant';
+import { PROJECT_EXTERNAL_LEVEL_LABELS, EVALUATION_PROJECT_EXTERNAL_LABELS, ProjectLevelName, EvaluationProjectExternalName } from '@/_constants/ProjectExternal-constant';
 import { storeProjectExternalDetail } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-store';
 import { Briefcase, FileText } from 'lucide-react';
 import ActionButtons from './ActionButtons';
@@ -65,9 +66,9 @@ export default function ProjectExternalDetailContent() {
 
                             <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-sm text-slate-500">
                                 <span>Mã: <strong>{project.code}</strong></span>
-                                <span>Cấp độ: <strong>{project.level}</strong></span>
+                                <span>Cấp độ: <strong>{PROJECT_EXTERNAL_LEVEL_LABELS[project.level as ProjectLevelName] || project.level}</strong></span>
                                 {project.evaluation !== 'NotSet' && (
-                                    <span>Đánh giá: <strong>{project.evaluation}</strong></span>
+                                    <span>Đánh giá: <strong>{EVALUATION_PROJECT_EXTERNAL_LABELS[project.evaluation as EvaluationProjectExternalName] || project.evaluation}</strong></span>
                                 )}
                             </div>
 

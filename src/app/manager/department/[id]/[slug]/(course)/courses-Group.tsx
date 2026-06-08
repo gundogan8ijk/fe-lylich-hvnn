@@ -18,7 +18,7 @@ export function CoursesGroup({ id, disciplineId }: { id: string, disciplineId: s
     const [searchQuery, setSearchQuery] = useState('');
     const [isSearch, setIsSearch] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const LocalPerPage = 10;
+    const LocalPerPage = 12;
     const [courseList, setCourseList] = useState<CourseListResponse | null>(null);
     const [isLoading, setLoading] = useState(false);
     const [refreshTrigger, setRefreshTrigger] = useState(0);

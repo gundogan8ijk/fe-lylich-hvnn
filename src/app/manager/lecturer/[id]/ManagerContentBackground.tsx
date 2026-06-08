@@ -25,6 +25,9 @@ import {
 } from '@/working-manager/lecturer/lecturer-manger-service';
 import { BackgroundByManagerResponse } from '@/working-manager/lecturer/lecturer-manger-type';
 import { ConfirmedStatus, STATUS_LABELS, confirmedStyle } from '@/_constants/base-constant';
+import { AWARD_LEVEL_LABELS, AwardLevelName } from '@/_constants/award-constant';
+import { PROJECT_LEVEL_LABELS, ProjectLevelName } from '@/_constants/project-constant';
+import { PROJECT_EXTERNAL_LEVEL_LABELS } from '@/_constants/ProjectExternal-constant';
 
 export default function ManagerContentBackground({ id }: { id: string }) {
     const router = useRouter();
@@ -226,7 +229,7 @@ export default function ManagerContentBackground({ id }: { id: string }) {
                                     <p className="font-semibold text-slate-800 text-base">{award.awardsName}</p>
                                     <div className="mt-1 flex items-center justify-between text-sm">
                                         <div className="flex items-center gap-3">
-                                            <p className="text-slate-600"><span className="font-medium text-slate-500">Cấp:</span> <span className="bg-yellow-50 text-yellow-700 border border-yellow-200 px-2 py-0.5 rounded text-xs">{award.level}</span></p>
+                                            <p className="text-slate-600"><span className="font-medium text-slate-500">Cấp:</span> <span className="bg-yellow-50 text-yellow-700 border border-yellow-200 px-2 py-0.5 rounded text-xs">{AWARD_LEVEL_LABELS[award.level as AwardLevelName] || award.level}</span></p>
                                             <p className="text-slate-600"><span className="font-medium text-slate-500">Ngày nhận:</span> {award.awardDate}</p>
                                         </div>
                                         {renderStatus(award.confirmedStatus)}
@@ -321,7 +324,7 @@ export default function ManagerContentBackground({ id }: { id: string }) {
                                             <p className="font-semibold text-slate-800">{proj.title}</p>
                                             <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs">
                                                 <span className="bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded border border-slate-200 font-medium">{proj.code}</span>
-                                                <span className="text-slate-500 flex items-center">Cấp: {proj.level}</span>
+                                                <span className="text-slate-500 flex items-center">Cấp: {PROJECT_LEVEL_LABELS[proj.level as ProjectLevelName] || proj.level}</span>
                                                 <span className="text-slate-500 flex items-center mr-1">HT: {proj.completionAt}</span>
                                                 {renderStatus(proj.confirmedStatus)}
                                                 {renderProjectStatus(proj.status)}
@@ -340,7 +343,7 @@ export default function ManagerContentBackground({ id }: { id: string }) {
                                             <p className="font-semibold text-slate-800">{proj.title}</p>
                                             <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs">
                                                 <span className="bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded border border-slate-200 font-medium">{proj.code}</span>
-                                                <span className="text-slate-500 flex items-center">Cấp: {proj.level}</span>
+                                                <span className="text-slate-500 flex items-center">Cấp: {PROJECT_EXTERNAL_LEVEL_LABELS[proj.level as ProjectLevelName] || proj.level}</span>
                                                 <span className="text-slate-500 flex items-center mr-1">HT: {proj.completionAt}</span>
                                                 {renderStatus(proj.confirmedStatus)}
                                             </div>

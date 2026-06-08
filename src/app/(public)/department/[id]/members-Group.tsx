@@ -12,6 +12,7 @@ import Image from 'next/image';
 import { DepartmentMembersListPublic } from '@/working-public/department-Public/department-public-type';
 import { ListQuery, SortDirection } from '@/_Common/_types/query-types';
 import { getListMemberDepartmentPublicAction } from '@/working-public/department-Public/department-public-hook';
+import { ACADEMIC_POSITION_LABELS, AcademicPositionName } from '@/_constants/department-constant';
 
 const PerPage = 20;
 
@@ -126,7 +127,7 @@ export function MembersGroup({ id }: { id: string }) {
 
                                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                             <Award className="w-4 h-4 flex-shrink-0 text-primary/60" />
-                                            <span>{item.position}</span>
+                                            <span>{ACADEMIC_POSITION_LABELS[item.position as AcademicPositionName] || item.position}</span>
                                         </div>
 
                                         <div className="flex items-center gap-2 text-sm text-muted-foreground">

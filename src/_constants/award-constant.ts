@@ -1,5 +1,3 @@
-import { ArticleContributorRoleName } from "./article-constant";
-
 export type AwardLevelDisplayName = 'Cấp Trường' | 'Cấp Tỉnh' | 'Cấp Quốc gia' | 'Cấp Quốc tế';
 export type AwardLevelName = 'School' | 'Provincial' | 'National' | 'International';
 
@@ -9,4 +7,11 @@ export const AWARD_LEVEL_OPTIONS: { value: AwardLevelName; label: AwardLevelDisp
     { value: 'National', label: 'Cấp Quốc gia' },
     { value: 'International', label: 'Cấp Quốc tế' },
 ];
+
+export const AWARD_LEVEL_LABELS: Record<AwardLevelName, AwardLevelDisplayName> = {
+    School: 'Cấp Trường',
+    Provincial: 'Cấp Tỉnh',
+    National: 'Cấp Quốc gia',
+    International: 'Cấp Quốc tế',
+};
 

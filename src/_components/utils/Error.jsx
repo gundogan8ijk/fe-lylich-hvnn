@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
-export default function Error({ 
-  title = "Oops! Có lỗi xảy ra", 
-  message = "Đã xảy ra lỗi không mong muốn." 
+export default function Error({
+  title = "Oops! Có lỗi xảy ra",
+  message = "Đã xảy ra lỗi không mong muốn."
 }) {
   const navigate = useNavigate();
 

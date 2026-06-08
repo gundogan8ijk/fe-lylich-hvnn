@@ -31,7 +31,7 @@ export const managerMenu: SidebarItem[] = [
 
 export const adminMenu: SidebarItem[] = [
     { icon: Users, label: 'Tài khoản', href: '/admin/accounts' },
-    { icon: Building2, label: 'Khoa - Bộ môn', href: '/admin/departments' },
+    { icon: Building2, label: 'giảng viên', href: '/admin/lecturer' },
     { icon: UserRoundCog, label: 'Hồ Sơ', href: '/admin/profile' },
     { icon: Settings, label: 'Hệ thống', href: '/admin/settings' },
     { icon: HelpCircle, label: 'Trợ giúp', href: '/admin/help' },

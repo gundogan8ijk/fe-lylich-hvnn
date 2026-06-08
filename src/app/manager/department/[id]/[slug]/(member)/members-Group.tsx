@@ -9,6 +9,7 @@ import { getPages } from '@/_lib/getPages -Button-helper';
 import { toSearchParams } from '@/_lib/query-options-toUrl-helper';
 import { getInitials, getYear } from '@/_lib/display-variable-helper';
 import Image from 'next/image';
+import { ACADEMIC_POSITION_LABELS, AcademicPositionName } from '@/_constants/department-constant';
 import { MemberListResponse } from '@/working-manager/department/discipline/discipline-manger-type';
 import { ListQuery, SortDirection } from '@/_Common/_types/query-types';
 import { getListMemberByDisciplineAction } from '@/working-manager/department/discipline/discipline-manger-hook';
@@ -32,18 +33,12 @@ export function MembersGroup({ id, disciplineId }: { id: string, disciplineId: s
     const [searchQuery, setSearchQuery] = useState('');
     const [isSearch, setIsSearch] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const LocalPerPage = 10;
+    const LocalPerPage = 12;
     const [memberList, setMemberList] = useState<MemberListResponse | null>(null);
     const [isLoading, setLoading] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const [refreshTrigger, setRefreshTrigger] = useState(0);
     const [positionFilter, setPositionFilter] = useState('all');
-
-
-    const getPositionDisplayName = (name: string) => {
-        const pos = AcademicPositions.find(p => p.name === name);
-        return pos ? pos.displayName : name;
-    }
 
     useEffect(() => {
         async function fetchData() {
@@ -189,7 +184,7 @@ export function MembersGroup({ id, disciplineId }: { id: string, disciplineId: s
 
                                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                             <Award className="w-4 h-4 flex-shrink-0 text-primary/60" />
-                                            <span>{getPositionDisplayName(item.position)}</span>
+                                            <span className="font-semibold">{ACADEMIC_POSITION_LABELS[item.position as AcademicPositionName] || item.position}</span>
                                         </div>
 
                                         <div className="flex items-center gap-2 text-sm text-muted-foreground">

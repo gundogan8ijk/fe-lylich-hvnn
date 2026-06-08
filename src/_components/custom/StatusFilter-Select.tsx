@@ -12,14 +12,17 @@ const STATUS_OPTIONS: readonly SelectionOption<ConfirmedStatus | 'all'>[] = [
 interface ConfirmedStatusFilterSelectProps {
     value: ConfirmedStatus | 'all'
     onChange: (value: ConfirmedStatus | 'all') => void
+    excludeDraft?: boolean
 }
 
-export function ConfirmedStatusFilterSelect({ value, onChange }: ConfirmedStatusFilterSelectProps) {
+export function ConfirmedStatusFilterSelect({ value, onChange, excludeDraft = false }: ConfirmedStatusFilterSelectProps) {
+    const options = excludeDraft ? STATUS_OPTIONS.filter(o => o.value !== 'Draft') : STATUS_OPTIONS;
+
     return (
         <SearchSelectProps
             value={value}
             onChange={onChange}
-            options={STATUS_OPTIONS}
+            options={options}
         />
     )
 }

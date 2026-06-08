@@ -67,6 +67,7 @@ export interface EducationRecord {
     graduatedAt: string;
     trainingName: string;
     majorName: string;
+    confirmedStatus: string;
 }
 
 export interface AwardRecord {
@@ -74,6 +75,7 @@ export interface AwardRecord {
     awardsName: string;
     awardDate: string;
     level: string;
+    confirmedStatus: string;
 }
 
 export interface TeachingSubjectRecord {
@@ -90,12 +92,14 @@ export interface BookRecord {
     bookId: string;
     title: string;
     publishYear: string;
+    confirmedStatus: string;
 }
 
 export interface ArticleRecord {
     articleId: string;
     title: string;
     publishedAt: string;
+    confirmedStatus: string;
 }
 
 export interface ProjectExternalRecord {
@@ -105,6 +109,7 @@ export interface ProjectExternalRecord {
     level: string;
     completionAt: string;
     evaluation: string;
+    confirmedStatus: string;
 }
 
 export interface ProjectRecord {
@@ -114,4 +119,6 @@ export interface ProjectRecord {
     level: string;
     completionAt: string;
     evaluation: string;
+    confirmedStatus: string;
+    status: string;
 }

@@ -7,7 +7,7 @@ export interface SidebarItem {
 }
 
 export const lecturerMenu: SidebarItem[] = [
-    { icon: User, label: 'Thông tin', href: '/lecturer/background' },
+    { icon: User, label: 'Lý lịch', href: '/lecturer/background' },
     { icon: UserRoundCog, label: 'Hồ Sơ', href: '/lecturer/profile' },
     { icon: BookOpen, label: 'Sách', href: '/lecturer/book' },
     { icon: FileText, label: 'Bài báo', href: '/lecturer/article' },
@@ -21,9 +21,10 @@ export const lecturerMenu: SidebarItem[] = [
 export const managerMenu: SidebarItem[] = [
     { icon: Users, label: 'giảng viên', href: '/manager/lecturer' },
     { icon: BookOpen, label: 'Khoa', href: '/manager/department' },
-    { icon: UserRoundCog, label: 'Hồ Sơ', href: '/manager/profile' },
     { icon: FileText, label: 'Đề tài', href: '/manager/research-projects' },
-    { icon: BarChart3, label: 'Đánh giá', href: '/manager/grades' },
+    { icon: FileText, label: 'Đề tài bên ngoài', href: '/manager/project-external'},
+    { icon: UserRoundCog, label: 'bài báo', href: '/manager/article' },
+    { icon: BarChart3, label: 'sách', href: '/manager/book' },
     { icon: Settings, label: 'Cài đặt lớp', href: '/manager/settings' },
     { icon: HelpCircle, label: 'Trợ giúp', href: '/manager/help' },
 ]

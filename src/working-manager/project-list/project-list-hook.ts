@@ -141,7 +141,7 @@ async function deleteMangerProjectDetailAction() {
 
     if (res.code === -1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
-        setDeleting(false); // ← đang thiếu cái này
+        setDeleting(false);
     }
     else if (res.code === 1) {
         notify.success("Xóa đề tài thành công");

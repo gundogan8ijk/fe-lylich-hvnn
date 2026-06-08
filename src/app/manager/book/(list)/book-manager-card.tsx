@@ -3,52 +3,46 @@
 import { Card } from '@/_components/ui/card'
 import { Badge } from '@/_components/ui/badge'
 import { Button } from '@/_components/ui/button'
-import { Eye, Calendar, FileText, ExternalLink, UserCheck, Globe, Lock } from 'lucide-react'
+import { Eye, Calendar, FileText, ExternalLink, Globe, Lock, User, Book } from 'lucide-react'
 import { confirmedStyle, STATUS_LABELS } from '@/_constants/base-constant'
 import { getDateOnly } from '@/_lib/display-variable-helper'
-import { ArticleLecturerItem } from '@/working-Lecturer/Article-List/Article-Lecturer-type'
+import { BookMangerItemResponse } from '@/working-manager/book/book-manager-type'
+import { ConfirmedStatus } from '@/_constants/base-constant'
 
-
-type ArticleLecturerCardProps = {
-    item: ArticleLecturerItem
+type BookManagerCardProps = {
+    item: BookMangerItemResponse
     onViewDetail: (id: string) => void
 }
 
-export default function ArticleLecturerCard({
+export default function BookManagerCard({
     item,
     onViewDetail,
-}: ArticleLecturerCardProps) {
+}: BookManagerCardProps) {
 
-    const confirmedInfo = confirmedStyle[item.confirmedStatus] ?? confirmedStyle.Pending
+    const confirmedInfo = confirmedStyle[item.confirmedStatus as ConfirmedStatus] ?? confirmedStyle.Pending
 
-    const statusGradient: Record<string, string> = {
+    const statusGradient: Record<ConfirmedStatus, string> = {
         Draft: "from-slate-400 to-slate-500",
         Pending: "from-amber-400 to-amber-500",
         Verified: "from-emerald-400 to-emerald-500",
         Cancelled: "from-red-400 to-red-500",
     }
-    const gradient = statusGradient[item.confirmedStatus] ?? "from-blue-500 to-cyan-500"
+    const gradient = statusGradient[item.confirmedStatus as ConfirmedStatus] ?? "from-blue-500 to-cyan-500"
 
     return (
         <Card className="group relative overflow-hidden border border-slate-200 bg-white transition-all duration-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950">
-            {/* Thanh màu sắc trang trí trên đỉnh Card */}
             <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${gradient}`} />
 
             <div className="p-4">
-                {/* Header */}
                 <div className="mb-3 flex flex-col gap-y-2">
                     <div className="flex items-center justify-between gap-2">
                         <div className="flex flex-wrap items-center gap-2">
-                            <FileText className="h-4 w-4 flex-shrink-0 text-blue-500" />
+                            <Book className="h-4 w-4 flex-shrink-0 text-blue-500" />
                             
-                            {/* Khởi tạo bởi tôi */}
-                            {item.isMyCreate && (
-                                <Badge variant="secondary" className="gap-1 text-xs font-normal bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border-0">
-                                    <UserCheck className="h-3 w-3" /> Tôi tạo
-                                </Badge>
-                            )}
+                            <Badge variant="secondary" className="gap-1 text-xs font-normal bg-indigo-50 text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-300 border-0">
+                                <User className="h-3 w-3" /> {item.fullName} ({item.lecturerCode})
+                            </Badge>
 
-                            {/* Trạng thái công khai / riêng tư */}
                             {item.isPublic ? (
                                 <Badge variant="secondary" className="gap-1 text-xs font-normal bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border-0">
                                     <Globe className="h-3 w-3" /> Công khai
@@ -60,11 +54,10 @@ export default function ArticleLecturerCard({
                             )}
                         </div>
 
-                        {/* Xác thực trạng thái phê duyệt */}
                         <div className="flex items-center gap-2 flex-shrink-0">
                             <span className="text-xs text-slate-500 dark:text-slate-400 hidden sm:inline">Xác thực:</span>
                             <Badge className={`${confirmedInfo.bg} ${confirmedInfo.text} border-0 text-xs font-medium`}>
-                                {STATUS_LABELS[item.confirmedStatus]}
+                                {STATUS_LABELS[item.confirmedStatus as ConfirmedStatus] || item.confirmedStatus}
                             </Badge>
                         </div>
                     </div>
@@ -73,7 +66,6 @@ export default function ArticleLecturerCard({
                         {item.title}
                     </h3>
 
-                    {/* Hiển thị mô tả ngắn (Tối đa 2 dòng) */}
                     {item.describe && (
                         <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 text-balance mt-0.5">
                             {item.describe}
@@ -81,17 +73,14 @@ export default function ArticleLecturerCard({
                     )}
                 </div>
 
-                {/* Divider */}
                 <div className="my-3 h-px bg-slate-200 dark:bg-slate-800" />
 
-                {/* Footer thông tin & Actions */}
                 <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
                     <div className="flex items-center gap-x-2">
                         <Calendar className="h-3.5 w-3.5" />
-                        <span>Cập nhật mới nhất: <strong>{getDateOnly(item.lastModify)}</strong></span>
+                        <span>Cập nhật: <strong>{getDateOnly(item.lastModify)}</strong></span>
                     </div>
 
-                    {/* Nhóm nút hành động */}
                     <div className="flex items-center gap-x-2">
                         {item.proofDocumentUrl && (
                             <Button asChild variant="outline" size="sm" className="h-7 gap-1 px-2.5 text-xs">
@@ -112,6 +101,3 @@ export default function ArticleLecturerCard({
         </Card>
     )
 }
-
-// ─── Config maps trạng thái duyệt bài báo ───────────────────────────────────────
-

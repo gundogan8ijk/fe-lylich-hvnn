@@ -19,6 +19,7 @@ import { notify } from '@/_components/utils/Notify';
 import Loading from '@/_components/utils/Loading';
 import { useLecturerDetailManagerStore } from '@/working-manager/lecturer/lecturer-detail-manager-store';
 import { deleteLecturerManagerApi, getLecturerBackgroundManagerApi, toggleLecturerVisibilityManagerApi } from '@/working-manager/lecturer/lecturer-manger-service';
+import { ConfirmedStatus, STATUS_LABELS, confirmedStyle } from '@/_constants/base-constant';
 
 export default function ContentLecturerDetail() {
     const router = useRouter();
@@ -62,6 +63,33 @@ export default function ContentLecturerDetail() {
     if (!background) return null;
 
     const hasAvatar = background.avatarUrl && background.avatarUrl.trim() !== '' && background.avatarUrl !== 'null';
+
+    const renderStatus = (statusStr: string) => {
+        const s = statusStr as ConfirmedStatus;
+        const style = confirmedStyle[s] || confirmedStyle.Draft;
+        const label = STATUS_LABELS[s] || statusStr;
+        return <span className={`px-2 py-0.5 rounded text-xs font-medium border border-slate-100 ${style.bg} ${style.text}`}>{label}</span>;
+    };
+
+    const PROJECT_STATUS_LABELS: Record<string, string> = {
+        Pending: 'Chờ xử lý',
+        InProgress: 'Đang thực hiện',
+        UnderReview: 'Đang đánh giá',
+        Completed: 'Hoàn thành',
+        Cancelled: 'Đã hủy',
+    };
+
+    const renderProjectStatus = (statusStr: string) => {
+        const label = PROJECT_STATUS_LABELS[statusStr] || statusStr;
+        let bg = 'bg-slate-100 text-slate-600';
+        if (statusStr === 'InProgress') bg = 'bg-blue-100 text-blue-700';
+        else if (statusStr === 'Completed') bg = 'bg-emerald-100 text-emerald-700';
+        else if (statusStr === 'UnderReview') bg = 'bg-purple-100 text-purple-700';
+        else if (statusStr === 'Cancelled') bg = 'bg-red-100 text-red-600';
+        else if (statusStr === 'Pending') bg = 'bg-amber-100 text-amber-700';
+        
+        return <span className={`px-2 py-0.5 rounded text-xs font-medium border border-slate-100 ${bg}`}>{label}</span>;
+    };
 
     return (
         <>
@@ -148,7 +176,10 @@ export default function ContentLecturerDetail() {
                                     <p className="font-semibold text-slate-800 text-base">{edu.trainingName}</p>
                                     <div className="mt-1 flex flex-col gap-0.5">
                                         <p className="text-sm text-slate-600"><span className="font-medium text-slate-500">Chuyên ngành:</span> {edu.majorName}</p>
-                                        <p className="text-sm text-slate-600"><span className="font-medium text-slate-500">Tốt nghiệp:</span> {edu.graduatedAt}</p>
+                                        <div className="text-sm text-slate-600 flex items-center justify-between mt-1">
+                                            <span><span className="font-medium text-slate-500">Tốt nghiệp:</span> {edu.graduatedAt}</span>
+                                            {renderStatus(edu.confirmedStatus)}
+                                        </div>
                                     </div>
                                 </li>
                             ))}
@@ -167,9 +198,12 @@ export default function ContentLecturerDetail() {
                             {background.awards.map((award) => (
                                 <li key={award.awardId} className="bg-white p-3.5 rounded-lg border border-slate-200 hover:shadow-sm transition-shadow">
                                     <p className="font-semibold text-slate-800 text-base">{award.awardsName}</p>
-                                    <div className="mt-1 flex items-center gap-3 text-sm">
-                                        <p className="text-slate-600"><span className="font-medium text-slate-500">Cấp:</span> <span className="bg-yellow-50 text-yellow-700 border border-yellow-200 px-2 py-0.5 rounded text-xs">{award.level}</span></p>
-                                        <p className="text-slate-600"><span className="font-medium text-slate-500">Ngày nhận:</span> {award.awardDate}</p>
+                                    <div className="mt-1 flex items-center justify-between text-sm">
+                                        <div className="flex items-center gap-3">
+                                            <p className="text-slate-600"><span className="font-medium text-slate-500">Cấp:</span> <span className="bg-yellow-50 text-yellow-700 border border-yellow-200 px-2 py-0.5 rounded text-xs">{award.level}</span></p>
+                                            <p className="text-slate-600"><span className="font-medium text-slate-500">Ngày nhận:</span> {award.awardDate}</p>
+                                        </div>
+                                        {renderStatus(award.confirmedStatus)}
                                     </div>
                                 </li>
                             ))}
@@ -221,7 +255,8 @@ export default function ContentLecturerDetail() {
                                     {background.articles.map(article => (
                                         <div key={article.articleId} className="inline-flex items-center text-sm bg-white px-3 py-2 rounded-md border border-slate-200">
                                             <span className="font-medium text-slate-800 line-clamp-1 max-w-sm" title={article.title}>{article.title}</span>
-                                            <span className="text-slate-400 ml-1.5 whitespace-nowrap">({article.publishedAt})</span>
+                                            <span className="text-slate-400 ml-1.5 mr-2 whitespace-nowrap">({article.publishedAt})</span>
+                                            {renderStatus(article.confirmedStatus)}
                                         </div>
                                     ))}
                                 </div>
@@ -234,7 +269,8 @@ export default function ContentLecturerDetail() {
                                     {background.books.map(book => (
                                         <div key={book.bookId} className="inline-flex items-center text-sm bg-white px-3 py-2 rounded-md border border-slate-200">
                                             <span className="font-medium text-slate-800 line-clamp-1 max-w-sm" title={book.title}>{book.title}</span>
-                                            <span className="text-slate-400 ml-1.5 whitespace-nowrap">({book.publishYear})</span>
+                                            <span className="text-slate-400 ml-1.5 mr-2 whitespace-nowrap">({book.publishYear})</span>
+                                            {renderStatus(book.confirmedStatus)}
                                         </div>
                                     ))}
                                 </div>
@@ -257,10 +293,12 @@ export default function ContentLecturerDetail() {
                                     {background.projects.map(proj => (
                                         <div key={proj.projectId} className="block bg-white p-3 rounded-lg border border-slate-200">
                                             <p className="font-semibold text-slate-800">{proj.title}</p>
-                                            <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-xs">
+                                            <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs">
                                                 <span className="bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded border border-slate-200 font-medium">{proj.code}</span>
-                                                <span className="text-slate-500">Cấp: {proj.level}</span>
-                                                <span className="text-slate-500">HT: {proj.completionAt}</span>
+                                                <span className="text-slate-500 flex items-center">Cấp: {proj.level}</span>
+                                                <span className="text-slate-500 flex items-center mr-1">HT: {proj.completionAt}</span>
+                                                {renderStatus(proj.confirmedStatus)}
+                                                {renderProjectStatus(proj.status)}
                                             </div>
                                         </div>
                                     ))}
@@ -274,10 +312,11 @@ export default function ContentLecturerDetail() {
                                     {background.projectExternals.map(proj => (
                                         <div key={proj.projectId} className="block bg-white p-3 rounded-lg border border-slate-200">
                                             <p className="font-semibold text-slate-800">{proj.title}</p>
-                                            <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-xs">
+                                            <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs">
                                                 <span className="bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded border border-slate-200 font-medium">{proj.code}</span>
-                                                <span className="text-slate-500">Cấp: {proj.level}</span>
-                                                <span className="text-slate-500">HT: {proj.completionAt}</span>
+                                                <span className="text-slate-500 flex items-center">Cấp: {proj.level}</span>
+                                                <span className="text-slate-500 flex items-center mr-1">HT: {proj.completionAt}</span>
+                                                {renderStatus(proj.confirmedStatus)}
                                             </div>
                                         </div>
                                     ))}

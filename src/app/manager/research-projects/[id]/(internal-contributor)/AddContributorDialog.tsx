@@ -7,9 +7,9 @@ import { Label } from '@/_components/ui/label'
 import { Input } from '@/_components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/_components/ui/select'
 import { Loader2, Search, X, UserCheck } from 'lucide-react'
-import { getListLecturersNameApi } from '@/profile-Lecturer/Lecturer-Profile-ser'
-import { LecturersNameItems } from '@/profile-Lecturer/Profile-lecurer-type'
-import { addContributorByManagerAction } from '@/ProjectManger/hook-projects-manger'
+import { getListLecturersNameApi } from '@/working-Lecturer/profile/infor/Lecturer-Profile-ser'
+import { LecturersNameItems } from '@/working-Lecturer/profile/infor/Profile-lecurer-type'
+import { addContributorByManagerAction } from '@/working-manager/ProjectManger/hook-projects-manger'
 
 type Props = {
     open: boolean

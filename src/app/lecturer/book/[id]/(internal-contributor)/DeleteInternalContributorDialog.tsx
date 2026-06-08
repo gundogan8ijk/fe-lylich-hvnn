@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { AlertTriangle, Loader2 } from 'lucide-react';
-import { storeBookDetail } from '@/Book-Lecturer-Detail/Book-Detail-store';
-import { removeInternalContributorAction } from '@/Book-Lecturer-Detail/Book-Detail-hook';
+import { storeBookDetail } from '@/working-Lecturer/Book-Detail/Book-Detail-store';
+import { removeInternalContributorAction } from '@/working-Lecturer/Book-Detail/Book-Detail-hook';
 
 interface Props {
     contributorId: string | null;

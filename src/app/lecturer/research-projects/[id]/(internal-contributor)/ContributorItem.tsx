@@ -2,7 +2,7 @@
 
 import { Trash2 } from 'lucide-react'
 import { getDateOnly } from '@/_lib/display-variable-helper'
-import { ProjectContributor } from '@/Project-Lecturer-Detail/Project-Detail-type'
+import { ProjectContributor } from '@/working-Lecturer/Project-Detail/Project-Detail-type'
 
 type Props = {
     contributor: ProjectContributor

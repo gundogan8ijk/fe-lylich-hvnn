@@ -5,8 +5,8 @@ import { SortButtonDynamic } from '@/_components/query/sort-Button-dynamic';
 import React from 'react';
 import { SearchBoxWithField } from '@/_components/query/SearchBoxWithField';
 import { DepartmentSearchOptions, DepartmentSortOptions } from '@/_constants/department-constant';
-import { storeDepartmentListPublic } from '@/department-Public/department-public-store';
-import { getDepartmentsListPublicAction } from '@/department-Public/department-public-hook';
+import { storeDepartmentListPublic } from '@/working-public/department-Public/department-public-store';
+import { getDepartmentsListPublicAction } from '@/working-public/department-Public/department-public-hook';
 
 
 export default function DepartmentHeader() {

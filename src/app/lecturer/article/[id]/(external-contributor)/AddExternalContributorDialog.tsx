@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { Loader2, X } from 'lucide-react';
-import { storeArticleDetail } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-store';
-import { ArticleContributorRoleName } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-type';
+import { storeArticleDetail } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-store';
+import { ArticleContributorRoleName } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-type';
 import { ROLE_AWARD_OPTIONS } from '@/_constants/article-constant';
-import { addExternalContributorAction } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-hook';
+import { addExternalContributorAction } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-hook';
 
 interface Props {
     isOpen: boolean;

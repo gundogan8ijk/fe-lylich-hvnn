@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { Loader2, X } from 'lucide-react';
-import { storeProjectExternalDetail } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-store';
-import { addExternalParticipantAction } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-hook';
+import { storeProjectExternalDetail } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-store';
+import { addExternalParticipantAction } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-hook';
 import { PROJECT_EXTERNAL_MEMBER_ROLE_OPTIONS, ProjectExternalMemberRoleName } from '@/_constants/ProjectExternal-constant';
 
 interface Props {

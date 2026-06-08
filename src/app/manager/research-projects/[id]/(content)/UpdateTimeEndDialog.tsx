@@ -10,8 +10,8 @@ import { Input } from '@/_components/ui/input'
 import { Label } from '@/_components/ui/label'
 import { CalendarClock, Loader2 } from 'lucide-react'
 import { MODAL_Manger_detail_PROJECT_KEYS } from '@/_constants/project-constant'
-import { storeProjectManagerDetail } from '@/ProjectManger/store-detail-project-manger'
-import { updateTimeEndProjectMangerAction } from '@/ProjectManger/hook-projects-manger'
+import { storeProjectManagerDetail } from '@/working-manager/ProjectManger/store-detail-project-manger'
+import { updateTimeEndProjectMangerAction } from '@/working-manager/ProjectManger/hook-projects-manger'
 
 export default function UpdateTimeEndDialog() {
     const data = storeProjectManagerDetail((s) => s.data)

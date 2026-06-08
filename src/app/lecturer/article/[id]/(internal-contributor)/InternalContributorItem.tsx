@@ -1,7 +1,7 @@
 'use client';
 
 import { Trash2, ShieldCheck } from 'lucide-react';
-import { InternalContributor } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-type';
+import { InternalContributor } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-type';
 
 interface InternalContributorItemProps {
     contributor: InternalContributor;

@@ -1,5 +1,5 @@
 "use client";
-import { useTeachingStore } from "@/Teaching-Lecturer/Teaching-Lecturer-store";
+import { useTeachingStore } from "@/working-Lecturer/Teaching/Teaching-Lecturer-store";
 import InternalSubjects from "../(internal-subject)/InternalSubjects";
 import ExternalSubjects from "../(external-subject)/ExternalSubjects";
 import { Card, CardContent, CardHeader, CardTitle } from "@/_components/ui/card";

@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Loader2, Search, X } from 'lucide-react';
-import { storeArticleDetail } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-store';
-import { DisciplinesNameItems } from '@/Discipline-Public/disciplines-type';
-import { addDisciplinesAction } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-hook';
-import { getListDisciplinesNameApi } from '@/Discipline-Public/disciplines-Public-ser';
+import { storeArticleDetail } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-store';
+import { DisciplinesNameItems } from '@/working-public/Discipline-Public/disciplines-type';
+import { addDisciplinesAction } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-hook';
+import { getListDisciplinesNameApi } from '@/working-public/Discipline-Public/disciplines-Public-ser';
 
 interface Props {
     isOpen: boolean;

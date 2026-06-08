@@ -34,11 +34,11 @@ import {
     deleteEducationByLecturerAction,
     registerEducationByLecturerAction,
     updateEducationAction,
-} from '@/Educaion-Lecturer/Education-Lecturer-hook'
+} from '@/working-Lecturer/profile/Educaion/Education-Lecturer-hook'
 import { SearchSelectProps } from '@/_components/custom/selection-Props'
 import { ConfirmedStatus } from '@/_constants/base-constant'
-import { RegisterEducationByLecturerForm } from '@/Educaion-Lecturer/Education-Lecturer-ser'
-import { EducationLecturer } from '@/Educaion-Lecturer/Eduction-Lecturer-type'
+import { RegisterEducationByLecturerForm } from '@/working-Lecturer/profile/Educaion/Education-Lecturer-ser'
+import { EducationLecturer } from '@/working-Lecturer/profile/Educaion/Eduction-Lecturer-type'
 import { uploadToCloudinary } from '@/_Common/_services/Image-config'
 import Image from 'next/image'
 

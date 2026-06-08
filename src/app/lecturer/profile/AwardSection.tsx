@@ -35,11 +35,11 @@ import {
     deleteAwardByLecturerAction,
     registerAwardByLecturerAction,
     updateAwardAction,
-} from '@/Award-Lecturer/Award-Lecturer-hook'
+} from '@/working-Lecturer/profile/Award/Award-Lecturer-hook'
 import { SearchSelectProps } from '@/_components/custom/selection-Props'
 import { ConfirmedStatus } from '@/_constants/base-constant'
-import { RegisterAwardByLecturerForm } from '@/Award-Lecturer/Award-Lecturer-ser'
-import { AwardLecturer } from '@/Award-Lecturer/Award-Lecturer-type'
+import { RegisterAwardByLecturerForm } from '@/working-Lecturer/profile/Award/Award-Lecturer-ser'
+import { AwardLecturer } from '@/working-Lecturer/profile/Award/Award-Lecturer-type'
 import { uploadToCloudinary } from '@/_Common/_services/Image-config'
 import Image from 'next/image'
 

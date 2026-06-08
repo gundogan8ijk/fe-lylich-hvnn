@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 
 import { Trash2, Send, ArrowLeft, Loader2, X, RotateCcw } from 'lucide-react';
 import { Button } from '@/_components/ui/button';
-import { storeProjectExternalDetail } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-store';
-import { deleteProjectExternalAction, submitProjectExternalAction, backToDraftProjectExternalAction } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-hook';
+import { storeProjectExternalDetail } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-store';
+import { deleteProjectExternalAction, submitProjectExternalAction, backToDraftProjectExternalAction } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-hook';
 
 type DialogType = 'submit' | 'delete' | 'back_to_draft' | null;
 

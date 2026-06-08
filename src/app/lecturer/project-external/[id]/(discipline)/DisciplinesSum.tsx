@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Plus, Layers } from 'lucide-react';
-import { storeProjectExternalDetail } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-store';
+import { storeProjectExternalDetail } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-store';
 import AddDisciplineDialog from './AddDisciplineDialog';
 import DeleteDisciplineDialog from './DeleteDisciplineDialog';
 import DisciplineItem from './DisciplineItem';

@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { AlertTriangle, Loader2 } from 'lucide-react';
-import { storeProjectExternalDetail } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-store';
-import { removeDisciplineAction } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-hook';
+import { storeProjectExternalDetail } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-store';
+import { removeDisciplineAction } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-hook';
 
 interface Props {
     disciplineId: string | null;

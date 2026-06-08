@@ -14,8 +14,8 @@ import { ProjectManagerFilters } from "@/_constants/project-constant";
 import { ConfirmedStatus, STATUS_LABELS } from "@/_constants/base-constant";
 import { Button } from "@/_components/ui/button";
 import { gradientBg } from "@/_components/utils/background";
-import { storeProjectMangerList } from "@/ProjectManger/store-list-projects-manger";
-import { createProjectListAction, getMangerProjectListAction } from "@/ProjectManger/hook-projects-manger";
+import { storeProjectMangerList } from "@/working-manager/ProjectManger/store-list-projects-manger";
+import { createProjectListAction, getMangerProjectListAction } from "@/working-manager/ProjectManger/hook-projects-manger";
 import CreateProjectDialog from "./create-project-dialog";
 
 export default function ProjectMangerHeader() {

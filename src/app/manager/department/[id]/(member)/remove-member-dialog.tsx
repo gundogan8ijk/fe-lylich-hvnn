@@ -12,7 +12,7 @@ import {
     DialogFooter,
     DialogDescription
 } from '@/_components/ui/dialog'
-import { removeMemberDepartmentAction } from '@/department-Manager/department-manger-hook'
+import { removeMemberDepartmentAction } from '@/working-manager/department/infor/department-manger-hook'
 
 interface Props {
     departmentId: string

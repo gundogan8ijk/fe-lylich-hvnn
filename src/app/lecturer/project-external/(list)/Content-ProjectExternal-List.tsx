@@ -13,8 +13,8 @@ import { SearchSelectProps } from '@/_components/custom/selection-Props';
 import { SelectionOption, SortDirection } from '@/_Common/_types/query-types';
 import ProjectExternalCard from './ProjectExternal-Card';
 import RegisterProjectExternalDialog from './Register-ProjectExternal-Dialog';
-import { storeProjectExternalList } from '@/ProjectExternal-Lecturer-List/ProjectExternal-List-store';
-import { registerProjectExternalAction } from '@/ProjectExternal-Lecturer-List/ProjectExternal-List-hook';
+import { storeProjectExternalList } from '@/working-Lecturer/ProjectExternal-List/ProjectExternal-List-store';
+import { registerProjectExternalAction } from '@/working-Lecturer/ProjectExternal-List/ProjectExternal-List-hook';
 
 const SORT_OPTIONS: readonly SelectionOption<SortDirection>[] = [
     { value: 'desc', label: 'Mới nhất' },

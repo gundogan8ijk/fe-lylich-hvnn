@@ -6,7 +6,7 @@ import { Button } from "@/_components/ui/button";
 import { Input } from "@/_components/ui/input";
 import { Label } from "@/_components/ui/label";
 import { notify } from "@/_components/utils/Notify";
-import { updateCourseCreditsAction } from "@/course-Manager/course-manger-hook";
+import { updateCourseCreditsAction } from '@/working-manager/department/course/course-manger-hook';
 
 interface UpdateCourseCreditsDialogProps {
     courseId: string;

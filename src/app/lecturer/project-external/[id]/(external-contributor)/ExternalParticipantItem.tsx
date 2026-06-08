@@ -1,6 +1,6 @@
 'use client';
 
-import { ExternalParticipant } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-type';
+import { ExternalParticipant } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-type';
 import { Trash2, Globe, Pencil } from 'lucide-react';
 
 interface ExternalParticipantItemProps {

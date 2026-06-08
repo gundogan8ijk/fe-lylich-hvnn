@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { Loader2, X } from 'lucide-react';
-import { storeProjectExternalDetail } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-store';
+import { storeProjectExternalDetail } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-store';
 import { PROJECT_EXTERNAL_MEMBER_ROLE_OPTIONS, ProjectExternalMemberRoleName } from '@/_constants/ProjectExternal-constant';
-import { updateInternalContributorAction } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-hook';
+import { updateInternalContributorAction } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-hook';
 
 interface Props {
     contributorId: string | null;

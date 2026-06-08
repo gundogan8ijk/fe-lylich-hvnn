@@ -13,7 +13,7 @@ import {
 import { Input } from '@/_components/ui/input'
 import { Label } from '@/_components/ui/label'
 import { Textarea } from '@/_components/ui/textarea'
-import { addDepartmentPublicAction } from '@/department-Manager/department-manger-hook'
+import { addDepartmentPublicAction } from '@/working-manager/department/infor/department-manger-hook'
 import { uploadToCloudinary } from '@/_Common/_services/Image-config'
 import Image from 'next/image'
 

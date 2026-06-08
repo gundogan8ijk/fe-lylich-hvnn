@@ -1,5 +1,5 @@
 'use client'
-import { getListArticleLecturerAction } from "@/Article-Lecturer-List/Article-Lecturer-hook";
+import { getListArticleLecturerAction } from '@/working-Lecturer/Article-List/Article-Lecturer-hook';
 import { useEffect } from "react"
 
 export default function SetupDataArticleList() {

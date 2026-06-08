@@ -11,7 +11,7 @@ import {
 } from '@/_constants/project-constant'
 import { ConfirmedStatus, STATUS_LABELS } from '@/_constants/base-constant'
 import { getDateOnly, getLabel } from '@/_lib/display-variable-helper'
-import { MangerProjectItems } from '@/ProjectManger/type-list-projects-manger'
+import { MangerProjectItems } from '@/working-manager/ProjectManger/type-list-projects-manger'
 
 type ResearchProjectCardProps = {
     item: MangerProjectItems

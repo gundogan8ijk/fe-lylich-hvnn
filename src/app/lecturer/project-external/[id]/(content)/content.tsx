@@ -2,7 +2,7 @@
 
 import Loading from '@/_components/utils/Loading';
 import { STATUS_LABELS } from '@/_constants/base-constant';
-import { storeProjectExternalDetail } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-store';
+import { storeProjectExternalDetail } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-store';
 import { Briefcase, FileText } from 'lucide-react';
 import ActionButtons from './ActionButtons';
 import ProjectInfoSection from './ProjectInfoSection';

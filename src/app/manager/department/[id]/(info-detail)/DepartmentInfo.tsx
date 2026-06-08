@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation"
 import NotFound from '@/app/not-found'
 import Loading from '@/_components/utils/Loading'
 import ImageUndefine from '@/_components/utils/ImageUndefine'
-import { DepartmentPublicDetail } from '@/department-Manager/department-manger-type'
-import { getDepartmentsDetailPublicAction, deleteDepartmentAction, toggleDepartmentVisibilityAction } from '@/department-Manager/department-manger-hook'
+import { DepartmentPublicDetail } from '@/working-manager/department/infor/department-manger-type'
+import { getDepartmentsDetailPublicAction, deleteDepartmentAction, toggleDepartmentVisibilityAction } from '@/working-manager/department/infor/department-manger-hook'
 import { Button } from '@/_components/ui/button'
 import {
   AlertDialog,

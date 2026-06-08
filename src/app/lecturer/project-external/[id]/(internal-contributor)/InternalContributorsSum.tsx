@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Plus, UsersRound } from 'lucide-react';
-import { storeProjectExternalDetail } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-store';
+import { storeProjectExternalDetail } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-store';
 import { PROJECT_EXTERNAL_MEMBER_ROLE_OPTIONS, ProjectExternalMemberRoleName } from '@/_constants/ProjectExternal-constant';
 import InternalContributorItem from './InternalContributorItem';
 import AddInternalContributorDialog from './AddInternalContributorDialog';

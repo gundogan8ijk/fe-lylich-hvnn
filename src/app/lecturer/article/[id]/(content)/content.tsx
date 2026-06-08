@@ -2,7 +2,7 @@
 
 import Loading from '@/_components/utils/Loading';
 import ActionButtons from './ActionButtons';
-import { storeArticleDetail } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-store';
+import { storeArticleDetail } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-store';
 import { STATUS_LABELS } from '@/_constants/base-constant';
 import InternalContributorsSum from '../(internal-contributor)/InternalContributorsSum';
 import ExternalContributorsSum from '../(external-contributor)/ExternalContributorsSum';

@@ -8,8 +8,8 @@ import { FileText, Loader2, UploadCloud } from 'lucide-react';
 import { Input } from '@/_components/ui/input';
 import { SearchSelectProps } from '@/_components/custom/selection-Props';
 import { uploadToPdfCloudinary } from '@/_Common/_services/pdf-config';
-import { ProjectExternalDetail, UpdateProjectExternalForm } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-type';
-import { updateProjectExternalAction } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-hook';
+import { ProjectExternalDetail, UpdateProjectExternalForm } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-type';
+import { updateProjectExternalAction } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-hook';
 import { EVALUATION_PROJECT_EXTERNAL_OPTIONS, PROJECT_LEVEL_OPTIONS } from '@/_constants/ProjectExternal-constant';
 
 

@@ -7,8 +7,8 @@ import { Label } from '@/_components/ui/label';
 import { FileText, Loader2, UploadCloud } from 'lucide-react';
 import { Input } from '@/_components/ui/input';
 import { uploadToPdfCloudinary } from '@/_Common/_services/pdf-config';
-import { ArticleDetailItem, UpdateArticleByLecturerForm } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-type';
-import { updateArticleByLecturerAction } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-hook';
+import { ArticleDetailItem, UpdateArticleByLecturerForm } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-type';
+import { updateArticleByLecturerAction } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-hook';
 
 type Props = {
     open: boolean;

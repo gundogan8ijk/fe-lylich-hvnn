@@ -1,6 +1,6 @@
 'use client';
 
-import { BookInternalContributor } from '@/Book-Lecturer-Detail/Book-Detail-type';
+import { BookInternalContributor } from '@/working-Lecturer/Book-Detail/Book-Detail-type';
 import { Trash2, ShieldCheck } from 'lucide-react';
 
 interface InternalContributorItemProps {

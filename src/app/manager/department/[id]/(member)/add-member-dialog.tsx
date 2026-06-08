@@ -15,10 +15,10 @@ import {
 import { Label } from '@/_components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/_components/ui/select'
 import { Input } from '@/_components/ui/input'
-import { addMemberDepartmentAction, getListDisciplineByDepartmentIdPublicAction } from '@/department-Manager/department-manger-hook'
-import { DisciplineOfDepartmentPublicItems } from '@/department-Manager/department-manger-type'
+import { addMemberDepartmentAction, getListDisciplineByDepartmentIdPublicAction } from '@/working-manager/department/infor/department-manger-hook'
+import { DisciplineOfDepartmentPublicItems } from '@/working-manager/department/infor/department-manger-type'
 import { getListNoDepartmentLecturersNameApi } from '@/_Common/_services/getListNameSer'
-import { LecturersNameItems } from '@/profile-Lecturer/Profile-lecurer-type'
+import { LecturersNameItems } from '@/working-Lecturer/profile/infor/Profile-lecurer-type'
 import { toSearchParams } from '@/_lib/query-options-toUrl-helper'
 import { AcademicPositions } from './edit-member-position-dialog'
 

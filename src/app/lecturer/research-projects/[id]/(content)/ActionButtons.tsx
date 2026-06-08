@@ -5,8 +5,8 @@ import { createPortal } from 'react-dom'
 import { useRouter } from 'next/navigation'
 import { Trash2, Send, ArrowLeft, Loader2, X, Edit } from 'lucide-react'
 import { Button } from '@/_components/ui/button'
-import { storeProjectDetail } from '@/Project-Lecturer-Detail/Project-Detail-store'
-import { submitProjectAction, cancelProjectAction, deleteProjectAction } from '@/Project-Lecturer-Detail/Project-Detail-hook'
+import { storeProjectDetail } from '@/working-Lecturer/Project-Detail/Project-Detail-store'
+import { submitProjectAction, cancelProjectAction, deleteProjectAction } from '@/working-Lecturer/Project-Detail/Project-Detail-hook'
 import UpdateProjectDialog from './UpdateProjectDialog'
 
 type DialogType = 'submit' | 'cancel' | 'delete' | null

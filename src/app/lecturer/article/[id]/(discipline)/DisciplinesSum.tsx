@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Plus, Layers } from 'lucide-react';
-import { storeArticleDetail } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-store';
+import { storeArticleDetail } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-store';
 import DisciplineItem from './DisciplineItem';
 import DeleteDisciplineDialog from './DeleteDisciplineDialog';
 import AddDisciplineDialog from './AddDisciplineDialog';

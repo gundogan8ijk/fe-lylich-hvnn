@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { Loader2, X } from 'lucide-react';
-import { storeBookDetail } from '@/Book-Lecturer-Detail/Book-Detail-store';
+import { storeBookDetail } from '@/working-Lecturer/Book-Detail/Book-Detail-store';
 import { BOOK_CONTRIBUTOR_ROLE_OPTIONS, BookContributorRoleName } from '@/_constants/Book-constant';
-import { updateExternalContributorAction } from '@/Book-Lecturer-Detail/Book-Detail-hook';
+import { updateExternalContributorAction } from '@/working-Lecturer/Book-Detail/Book-Detail-hook';
 
 interface Props {
     externalContributorId: string | null;

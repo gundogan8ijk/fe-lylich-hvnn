@@ -1,12 +1,12 @@
 "use client";
-import { useTeachingStore } from "@/Teaching-Lecturer/Teaching-Lecturer-store";
-import { useTeachingActions } from "@/Teaching-Lecturer/Teaching-Lecturer-hook";
+import { useTeachingStore } from "@/working-Lecturer/Teaching/Teaching-Lecturer-store";
+import { useTeachingActions } from "@/working-Lecturer/Teaching/Teaching-Lecturer-hook";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/_components/ui/dialog";
 import { Button } from "@/_components/ui/button";
 import { Label } from "@/_components/ui/label";
 import { useState, useEffect, useRef } from "react";
 import { Search, X, BookOpen, Loader2 } from "lucide-react";
-import { DisciplineCourseDto } from "@/Teaching-Lecturer/Teaching-Lecturer-type";
+import { DisciplineCourseDto } from "@/working-Lecturer/Teaching/Teaching-Lecturer-type";
 
 interface Props {
     isOpen: boolean;

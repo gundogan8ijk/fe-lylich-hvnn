@@ -7,8 +7,8 @@ import { Label } from '@/_components/ui/label';
 import { BookOpen, Loader2, UploadCloud } from 'lucide-react';
 import { Input } from '@/_components/ui/input';
 import { uploadToPdfCloudinary } from '@/_Common/_services/pdf-config';
-import { BookDetail, UpdateBookForm } from '@/Book-Lecturer-Detail/Book-Detail-type';
-import { updateBookAction } from '@/Book-Lecturer-Detail/Book-Detail-hook';
+import { BookDetail, UpdateBookForm } from '@/working-Lecturer/Book-Detail/Book-Detail-type';
+import { updateBookAction } from '@/working-Lecturer/Book-Detail/Book-Detail-hook';
 
 type Props = {
     open: boolean;

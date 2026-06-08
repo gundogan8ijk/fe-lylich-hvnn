@@ -1,6 +1,6 @@
 'use client';
 
-import { Discipline } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-type';
+import { Discipline } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-type';
 import { Trash2, BookOpen } from 'lucide-react';
 
 interface DisciplineItemProps {

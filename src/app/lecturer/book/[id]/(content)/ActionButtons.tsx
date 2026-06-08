@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 
 import { Trash2, Send, ArrowLeft, Loader2, X, RotateCcw } from 'lucide-react';
 import { Button } from '@/_components/ui/button';
-import { storeBookDetail } from '@/Book-Lecturer-Detail/Book-Detail-store';
-import { deleteBookAction, submitBookAction, backToDraftBookAction } from '@/Book-Lecturer-Detail/Book-Detail-hook';
+import { storeBookDetail } from '@/working-Lecturer/Book-Detail/Book-Detail-store';
+import { deleteBookAction, submitBookAction, backToDraftBookAction } from '@/working-Lecturer/Book-Detail/Book-Detail-hook';
 
 type DialogType = 'submit' | 'delete' | 'back_to_draft' | null;
 

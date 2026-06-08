@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/_components/ui/dialog";
 import { Button } from "@/_components/ui/button";
 import { notify } from "@/_components/utils/Notify";
-import { deleteCourseAction } from "@/course-Manager/course-manger-hook";
+import { deleteCourseAction } from '@/working-manager/department/course/course-manger-hook';
 
 interface DeleteCourseDialogProps {
     courseId: string;

@@ -6,9 +6,9 @@ import { Button } from '@/_components/ui/button'
 import { Label } from '@/_components/ui/label'
 import { Input } from '@/_components/ui/input'
 import { Loader2, Search, X, UserCheck } from 'lucide-react'
-import { getListLecturersNameApi } from '@/profile-Lecturer/Lecturer-Profile-ser'
-import { LecturersNameItems } from '@/profile-Lecturer/Profile-lecurer-type'
-import { addContributorAction } from '@/Project-Lecturer-Detail/Project-Detail-hook'
+import { getListLecturersNameApi } from '@/working-Lecturer/profile/infor/Lecturer-Profile-ser'
+import { LecturersNameItems } from '@/working-Lecturer/profile/infor/Profile-lecurer-type'
+import { addContributorAction } from '@/working-Lecturer/Project-Detail/Project-Detail-hook'
 
 type Props = {
     open: boolean

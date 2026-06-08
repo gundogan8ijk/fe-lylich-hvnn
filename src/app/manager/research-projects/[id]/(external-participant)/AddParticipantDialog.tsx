@@ -6,7 +6,7 @@ import { Button } from '@/_components/ui/button'
 import { Label } from '@/_components/ui/label'
 import { Input } from '@/_components/ui/input'
 import { Loader2, Users, Edit } from 'lucide-react'
-import { addParticipantByManagerAction, updateParticipantByManagerAction } from '@/ProjectManger/hook-projects-manger'
+import { addParticipantByManagerAction, updateParticipantByManagerAction } from '@/working-manager/ProjectManger/hook-projects-manger'
 
 type Props = {
     open: boolean

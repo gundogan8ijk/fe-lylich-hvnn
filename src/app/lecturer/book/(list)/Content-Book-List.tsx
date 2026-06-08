@@ -13,8 +13,8 @@ import { SearchSelectProps } from '@/_components/custom/selection-Props';
 import { SelectionOption, SortDirection } from '@/_Common/_types/query-types';
 import BookCard from './Book-Card';
 import RegisterBookDialog from './Register-Book-Dialog';
-import { storeBookList } from '@/Book-Lecturer-List/Book-List-store';
-import { registerBookAction } from '@/Book-Lecturer-List/Book-List-hook';
+import { storeBookList } from '@/working-Lecturer/Book-List/Book-List-store';
+import { registerBookAction } from '@/working-Lecturer/Book-List/Book-List-hook';
 
 const SORT_OPTIONS: readonly SelectionOption<SortDirection>[] = [
     { value: 'desc', label: 'Mới nhất' },

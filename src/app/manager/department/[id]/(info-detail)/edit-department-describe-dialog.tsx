@@ -13,7 +13,7 @@ import {
 } from '@/_components/ui/dialog'
 import { Textarea } from '@/_components/ui/textarea'
 import { Label } from '@/_components/ui/label'
-import { updateDescribeDepartmentAction } from '@/department-Manager/department-manger-hook'
+import { updateDescribeDepartmentAction } from '@/working-manager/department/infor/department-manger-hook'
 
 interface Props {
     departmentId: string

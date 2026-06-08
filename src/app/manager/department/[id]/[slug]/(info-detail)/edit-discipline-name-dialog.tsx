@@ -13,7 +13,7 @@ import {
 } from '@/_components/ui/dialog'
 import { Input } from '@/_components/ui/input'
 import { Label } from '@/_components/ui/label'
-import { renameDisciplineAction } from '@/discipline-Manager/discipline-manger-hook'
+import { renameDisciplineAction } from '@/working-manager/department/discipline/discipline-manger-hook'
 
 interface Props {
     departmentId: string

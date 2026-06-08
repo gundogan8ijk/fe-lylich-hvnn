@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { Button } from '@/_components/ui/button'
 import { GraduationCap, Users, ArrowRight, Globe, EyeOff } from 'lucide-react'
 import { useRouter } from "next/navigation";
-import { DepartmentPublicItems } from '@/department-Manager/department-manger-type'
+import { DepartmentPublicItems } from '@/working-manager/department/infor/department-manger-type'
 
 export default function DepartmentCard({ department }: { department: DepartmentPublicItems }) {
     const getInitials = (name: string) =>

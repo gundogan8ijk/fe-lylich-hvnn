@@ -6,7 +6,7 @@ import { Button } from '@/_components/ui/button'
 import { Eye, Calendar, FileText, ExternalLink, UserCheck, Globe, Lock } from 'lucide-react'
 import { confirmedStyle, STATUS_LABELS } from '@/_constants/base-constant'
 import { getDateOnly } from '@/_lib/display-variable-helper'
-import { ArticleLecturerItem } from '@/Article-Lecturer-List/Article-Lecturer-type'
+import { ArticleLecturerItem } from '@/working-Lecturer/Article-List/Article-Lecturer-type'
 
 
 type ArticleLecturerCardProps = {

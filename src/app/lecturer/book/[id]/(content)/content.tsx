@@ -4,7 +4,7 @@ import Loading from '@/_components/utils/Loading';
 import ActionButtons from './ActionButtons';
 import BookInfoSection from './BookInfoSection';
 import { BookOpen, FileText } from 'lucide-react';
-import { storeBookDetail } from '@/Book-Lecturer-Detail/Book-Detail-store';
+import { storeBookDetail } from '@/working-Lecturer/Book-Detail/Book-Detail-store';
 import { STATUS_LABELS } from '@/_constants/base-constant';
 import InternalContributorsSum from '../(internal-contributor)/InternalContributorsSum';
 import ExternalContributorsSum from '../(external-contributor)/ExternalContributorsSum';

@@ -13,7 +13,7 @@ import {
 } from '@/_components/ui/dialog'
 import { Input } from '@/_components/ui/input'
 import { Label } from '@/_components/ui/label'
-import { renameCodeDepartmentAction } from '@/department-Manager/department-manger-hook'
+import { renameCodeDepartmentAction } from '@/working-manager/department/infor/department-manger-hook'
 
 interface Props {
     departmentId: string

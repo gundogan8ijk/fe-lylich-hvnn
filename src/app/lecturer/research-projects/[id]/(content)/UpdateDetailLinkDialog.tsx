@@ -6,8 +6,8 @@ import { Button } from '@/_components/ui/button'
 import { Label } from '@/_components/ui/label'
 import { Input } from '@/_components/ui/input'
 import { Loader2, Link as LinkIcon } from 'lucide-react'
-import { updateProjectDetailLinkAction } from '@/Project-Lecturer-Detail/Project-Detail-hook'
-import { ProjectDetail } from '@/Project-Lecturer-Detail/Project-Detail-type'
+import { updateProjectDetailLinkAction } from '@/working-Lecturer/Project-Detail/Project-Detail-hook'
+import { ProjectDetail } from '@/working-Lecturer/Project-Detail/Project-Detail-type'
 
 type Props = {
     open: boolean

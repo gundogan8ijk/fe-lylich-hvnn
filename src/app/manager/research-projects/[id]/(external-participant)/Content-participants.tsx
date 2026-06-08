@@ -6,11 +6,11 @@ import { Button } from "@/_components/ui/button"
 import { Badge } from "@/_components/ui/badge"
 import { getDateOnly } from "@/_lib/display-variable-helper"
 import { UserPlus, Users, Trash2, ShieldCheck, Edit, Mail } from "lucide-react"
-import { storeProjectManagerDetail } from "@/ProjectManger/store-detail-project-manger"
-import { ProjectParticipantRecord } from "@/ProjectManger/type-detail-projects-manger"
+import { storeProjectManagerDetail } from "@/working-manager/ProjectManger/store-detail-project-manger"
+import { ProjectParticipantRecord } from "@/working-manager/ProjectManger/type-detail-projects-manger"
 import AddParticipantDialog from './AddParticipantDialog'
 import DeleteConfirmDialog from '@/_components/custom/DeleteConfirmDialog'
-import { deleteParticipantByManagerAction } from '@/ProjectManger/hook-projects-manger'
+import { deleteParticipantByManagerAction } from '@/working-manager/ProjectManger/hook-projects-manger'
 
 export default function ContentParticipantsManger() {
     const data = storeProjectManagerDetail((s) => s.data)

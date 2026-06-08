@@ -7,8 +7,8 @@ import React, { useEffect } from 'react'
 import NotFound from '@/app/not-found'
 import Loading from '@/_components/utils/Loading'
 import ImageUndefine from '@/_components/utils/ImageUndefine'
-import { DepartmentPublicDetail } from '@/department-Public/department-public-type'
-import { getDepartmentsDetailPublicAction } from '@/department-Public/department-public-hook'
+import { DepartmentPublicDetail } from '@/working-public/department-Public/department-public-type'
+import { getDepartmentsDetailPublicAction } from '@/working-public/department-Public/department-public-hook'
 
 export function DepartmentDetailClient({ id }: { id: string }) {
     const [department, setDepartment] = React.useState<DepartmentPublicDetail | null>(null);

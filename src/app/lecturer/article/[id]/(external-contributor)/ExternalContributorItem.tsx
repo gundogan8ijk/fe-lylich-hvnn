@@ -1,7 +1,7 @@
 'use client';
 
 import { Trash2, Globe, Pencil } from 'lucide-react';
-import { ExternalContributor } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-type';
+import { ExternalContributor } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-type';
 
 interface ExternalContributorItemProps {
     contributor: ExternalContributor;

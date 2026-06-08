@@ -8,9 +8,9 @@ import { Label } from '@/_components/ui/label'
 import { FlaskConical, X, Search, Loader2 } from 'lucide-react'
 import { Badge } from '@/_components/ui/badge'
 import { Input } from '@/_components/ui/input'
-import { DisciplinesNameItems } from '@/Discipline-Public/disciplines-type'
-import { getListDisciplinesNameApi } from '@/Discipline-Public/disciplines-Public-ser'
-import { RegisterProjectForm } from '@/Project-Lecturer-List/Project-List-ser'
+import { DisciplinesNameItems } from '@/working-public/Discipline-Public/disciplines-type'
+import { getListDisciplinesNameApi } from '@/working-public/Discipline-Public/disciplines-Public-ser'
+import { RegisterProjectForm } from '@/working-Lecturer/Project-List/Project-List-ser'
 
 type Props = {
     open: boolean

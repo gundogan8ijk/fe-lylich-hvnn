@@ -1,7 +1,7 @@
 'use client'
 
 import { Edit, Trash2 } from 'lucide-react'
-import { ProjectParticipant } from '@/Project-Lecturer-Detail/Project-Detail-type'
+import { ProjectParticipant } from '@/working-Lecturer/Project-Detail/Project-Detail-type'
 
 type Props = {
     participant: ProjectParticipant

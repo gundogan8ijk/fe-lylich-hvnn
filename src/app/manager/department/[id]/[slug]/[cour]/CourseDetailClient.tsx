@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import { getCourseDetailAction } from "@/course-Manager/course-manger-hook";
-import { CourseDetailPublic } from "@/course-Manager/course-manger-type";
+import { getCourseDetailAction } from '@/working-manager/department/course/course-manger-hook';
+import { CourseDetailPublic } from '@/working-manager/department/course/course-manger-type';
 import Loading from "@/_components/utils/Loading";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/_components/ui/card";
 import { Badge } from "@/_components/ui/badge";
@@ -10,7 +10,7 @@ import { ArrowLeft, BookOpen, Clock, Users, GraduationCap, Calendar, Edit2, Eye,
 import { Button } from "@/_components/ui/button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { toggleCourseVisibilityAction } from "@/course-Manager/course-manger-hook";
+import { toggleCourseVisibilityAction } from '@/working-manager/department/course/course-manger-hook';
 import { UpdateCourseNameDialog } from "./UpdateCourseNameDialog";
 import { UpdateCourseDescribeDialog } from "./UpdateCourseDescribeDialog";
 import { UpdateCourseCreditsDialog } from "./UpdateCourseCreditsDialog";

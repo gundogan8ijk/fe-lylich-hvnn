@@ -14,8 +14,8 @@ import { ConfirmedStatusFilterSelect } from '@/_components/custom/StatusFilter-S
 import { SearchSelectProps } from '@/_components/custom/selection-Props'
 import RegisterProjectDialog from './Register-Project-Dialog'
 import { SelectionOption, SortDirection } from '@/_Common/_types/query-types'
-import { storeProjectList } from '@/Project-Lecturer-List/Project-List-store'
-import { registerProjectAction } from '@/Project-Lecturer-List/Project-List-hook'
+import { storeProjectList } from '@/working-Lecturer/Project-List/Project-List-store'
+import { registerProjectAction } from '@/working-Lecturer/Project-List/Project-List-hook'
 
 const SORT_OPTIONS: readonly SelectionOption<SortDirection>[] = [
     { value: 'desc', label: 'Mới nhất' },

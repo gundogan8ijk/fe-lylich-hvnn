@@ -6,7 +6,7 @@ import { Button } from '@/_components/ui/button';
 import { Eye, Calendar, ExternalLink, UserCheck, Globe, Lock, BookOpen } from 'lucide-react';
 import { confirmedStyle, STATUS_LABELS } from '@/_constants/base-constant';
 import { getDateOnly } from '@/_lib/display-variable-helper';
-import { BookItem } from '@/Book-Lecturer-List/Book-List-type';
+import { BookItem } from '@/working-Lecturer/Book-List/Book-List-type';
 
 type BookCardProps = {
     item: BookItem;

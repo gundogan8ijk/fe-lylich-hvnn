@@ -8,9 +8,9 @@ import { ChevronLeft, ChevronRight, Search, BookOpen } from 'lucide-react';
 import Loading from '@/_components/utils/Loading';
 import { getPages } from '@/_lib/getPages -Button-helper';
 import { toSearchParams } from '@/_lib/query-options-toUrl-helper';
-import { CourseListResponse } from '@/discipline-Manager/discipline-manger-type';
+import { CourseListResponse } from '@/working-manager/department/discipline/discipline-manger-type';
 import { ListQuery, SortDirection } from '@/_Common/_types/query-types';
-import { getListCourseByDisciplineAction } from '@/discipline-Manager/discipline-manger-hook';
+import { getListCourseByDisciplineAction } from '@/working-manager/department/discipline/discipline-manger-hook';
 import AddDisciplineCourseDialog from './add-discipline-course-dialog';
 
 export function CoursesGroup({ id, disciplineId }: { id: string, disciplineId: string }) {

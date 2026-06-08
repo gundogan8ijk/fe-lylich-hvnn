@@ -7,7 +7,7 @@ import { Label } from '@/_components/ui/label'
 import { Input } from '@/_components/ui/input'
 import { Textarea } from '@/_components/ui/textarea'
 import { Loader2, Wallet } from 'lucide-react'
-import { addFundingByManagerAction } from '@/ProjectManger/hook-projects-manger'
+import { addFundingByManagerAction } from '@/working-manager/ProjectManger/hook-projects-manger'
 
 type Props = {
     open: boolean

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { storeProjectDetail } from '@/Project-Lecturer-Detail/Project-Detail-store'
+import { storeProjectDetail } from '@/working-Lecturer/Project-Detail/Project-Detail-store'
 import { ArrowLeft, Loader2, AlertCircle, FileText, UserCheck, Users, Tag, Wallet, Star } from 'lucide-react'
 import { getLabel } from '@/_lib/display-variable-helper'
 import { STATUS_LABELS } from '@/_constants/base-constant'

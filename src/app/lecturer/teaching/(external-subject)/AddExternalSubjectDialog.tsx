@@ -1,6 +1,6 @@
 "use client";
-import { useTeachingStore } from "@/Teaching-Lecturer/Teaching-Lecturer-store";
-import { useTeachingActions } from "@/Teaching-Lecturer/Teaching-Lecturer-hook";
+import { useTeachingStore } from "@/working-Lecturer/Teaching/Teaching-Lecturer-store";
+import { useTeachingActions } from "@/working-Lecturer/Teaching/Teaching-Lecturer-hook";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/_components/ui/dialog";
 import { Button } from "@/_components/ui/button";
 import { Input } from "@/_components/ui/input";

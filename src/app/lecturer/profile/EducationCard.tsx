@@ -4,10 +4,10 @@ import { Button } from '@/_components/ui/button'
 import { getDateOnly, getLabel } from '@/_lib/display-variable-helper'
 import { DEGREE_OPTIONS, STATUS_VARIANTS } from '@/_constants/education-constant'
 import { STATUS_LABELS } from '@/_constants/base-constant'
-import { EducationLecturer } from '@/Educaion-Lecturer/Eduction-Lecturer-type'
+import { EducationLecturer } from '@/working-Lecturer/profile/Educaion/Eduction-Lecturer-type'
 import { useState } from 'react'
 import SubmitConfirmDialog from '@/_components/custom/SubmitConfirmDialog'
-import { submitEducationAction, backToDraftEducationAction } from '@/Educaion-Lecturer/Education-Lecturer-hook'
+import { submitEducationAction, backToDraftEducationAction } from '@/working-Lecturer/profile/Educaion/Education-Lecturer-hook'
 
 interface EducationCardProps {
     education: EducationLecturer

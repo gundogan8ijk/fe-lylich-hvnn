@@ -11,7 +11,7 @@ import {
     DialogTrigger,
     DialogFooter
 } from '@/_components/ui/dialog'
-import { updateAvatarDepartmentAction, removeAvatarDepartmentAction } from '@/department-Manager/department-manger-hook'
+import { updateAvatarDepartmentAction, removeAvatarDepartmentAction } from '@/working-manager/department/infor/department-manger-hook'
 import { uploadToCloudinary } from '@/_Common/_services/Image-config'
 import Image from 'next/image'
 

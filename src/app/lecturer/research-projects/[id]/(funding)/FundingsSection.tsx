@@ -1,6 +1,6 @@
 'use client'
 
-import { storeProjectDetail } from '@/Project-Lecturer-Detail/Project-Detail-store'
+import { storeProjectDetail } from '@/working-Lecturer/Project-Detail/Project-Detail-store'
 import { Wallet } from 'lucide-react'
 
 function EmptyState({ icon: Icon, message }: { icon: React.ElementType; message: string }) {

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRef, useState } from 'react';
 import { ImageOff, Download } from "lucide-react";
 import { useReactToPrint } from 'react-to-print';
-import { useBackgroundStore } from '../../../background-common/Background-store';
+import { useBackgroundStore } from '../../../working-Lecturer/background/Background-store';
 import {
     AlertDialog,
     AlertDialogAction,

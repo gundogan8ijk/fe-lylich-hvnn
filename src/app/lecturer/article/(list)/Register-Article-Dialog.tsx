@@ -10,7 +10,7 @@ import { SearchSelectProps } from '@/_components/custom/selection-Props'
 import { notify } from '@/_components/utils/Notify'
 import { uploadToPdfCloudinary } from '@/_Common/_services/pdf-config'
 import { ArticleContributorRole_OPTIONS } from '@/_constants/article-constant'
-import { RegisterArticleForm } from '@/Article-Lecturer-List/Article-Lecturer-ser'
+import { RegisterArticleForm } from '@/working-Lecturer/Article-List/Article-Lecturer-ser'
 
 
 

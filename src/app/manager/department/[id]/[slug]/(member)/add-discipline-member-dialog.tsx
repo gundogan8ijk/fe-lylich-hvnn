@@ -15,9 +15,9 @@ import {
 import { Label } from '@/_components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/_components/ui/select'
 import { Input } from '@/_components/ui/input'
-import { addMemberDepartmentAction } from '@/department-Manager/department-manger-hook'
+import { addMemberDepartmentAction } from '@/working-manager/department/infor/department-manger-hook'
 import { getListNoDepartmentLecturersNameApi } from '@/_Common/_services/getListNameSer'
-import { LecturersNameItems } from '@/profile-Lecturer/Profile-lecurer-type'
+import { LecturersNameItems } from '@/working-Lecturer/profile/infor/Profile-lecurer-type'
 import { AcademicPositions } from '../../(member)/edit-member-position-dialog'
 
 interface Props {

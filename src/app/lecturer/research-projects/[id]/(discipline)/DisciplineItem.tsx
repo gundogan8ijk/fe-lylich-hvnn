@@ -1,7 +1,7 @@
 'use client'
 
 import { Trash2 } from 'lucide-react'
-import { ProjectDiscipline } from '@/Project-Lecturer-Detail/Project-Detail-type'
+import { ProjectDiscipline } from '@/working-Lecturer/Project-Detail/Project-Detail-type'
 
 type Props = {
     discipline: ProjectDiscipline

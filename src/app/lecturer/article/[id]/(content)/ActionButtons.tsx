@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { storeArticleDetail } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-store';
+import { storeArticleDetail } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-store';
 import {
     deleteArticleAction,
     submitArticleAction,
     backToDraftArticleAction,
-} from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-hook';
+} from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-hook';
 import { Trash2, Send, ArrowLeft, Loader2, X, RotateCcw } from 'lucide-react';
 import { Button } from '@/_components/ui/button';
 

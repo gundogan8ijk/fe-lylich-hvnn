@@ -6,7 +6,7 @@ import { Button } from '@/_components/ui/button';
 import { Eye, Calendar, FileText, ExternalLink, UserCheck, Globe, Lock } from 'lucide-react';
 import { confirmedStyle, STATUS_LABELS } from '@/_constants/base-constant';
 import { getDateOnly } from '@/_lib/display-variable-helper';
-import { ProjectExternalItem } from '@/ProjectExternal-Lecturer-List/ProjectExternal-List-type';
+import { ProjectExternalItem } from '@/working-Lecturer/ProjectExternal-List/ProjectExternal-List-type';
 
 type ProjectExternalCardProps = {
     item: ProjectExternalItem;

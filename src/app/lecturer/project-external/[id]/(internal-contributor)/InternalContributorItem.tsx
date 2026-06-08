@@ -1,6 +1,6 @@
 'use client';
 
-import { InternalContributor } from '@/ProjectExternal-Lecturer-Detail/ProjectExternal-Detail-type';
+import { InternalContributor } from '@/working-Lecturer/ProjectExternal-Detail/ProjectExternal-Detail-type';
 import { Trash2, ShieldCheck, Pencil } from 'lucide-react';
 
 interface InternalContributorItemProps {

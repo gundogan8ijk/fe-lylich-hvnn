@@ -9,9 +9,9 @@ import { getPages } from '@/_lib/getPages -Button-helper';
 import { toSearchParams } from '@/_lib/query-options-toUrl-helper';
 import { getInitials, getYear } from '@/_lib/display-variable-helper';
 import Image from 'next/image';
-import { DepartmentMembersListPublic } from '@/department-Public/department-public-type';
+import { DepartmentMembersListPublic } from '@/working-public/department-Public/department-public-type';
 import { ListQuery, SortDirection } from '@/_Common/_types/query-types';
-import { getListMemberDepartmentPublicAction } from '@/department-Public/department-public-hook';
+import { getListMemberDepartmentPublicAction } from '@/working-public/department-Public/department-public-hook';
 
 const PerPage = 20;
 

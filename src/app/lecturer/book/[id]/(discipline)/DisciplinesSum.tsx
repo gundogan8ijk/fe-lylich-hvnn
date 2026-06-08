@@ -5,7 +5,7 @@ import { Plus, Layers } from 'lucide-react';
 import DisciplineItem from './DisciplineItem';
 import DeleteDisciplineDialog from './DeleteDisciplineDialog';
 import AddDisciplineDialog from './AddDisciplineDialog';
-import { storeBookDetail } from '@/Book-Lecturer-Detail/Book-Detail-store';
+import { storeBookDetail } from '@/working-Lecturer/Book-Detail/Book-Detail-store';
 
 export default function DisciplinesSum() {
   const { data: book } = storeBookDetail();

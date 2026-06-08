@@ -1,6 +1,6 @@
 'use client';
 
-import { storeBookDetail } from '@/Book-Lecturer-Detail/Book-Detail-store';
+import { storeBookDetail } from '@/working-Lecturer/Book-Detail/Book-Detail-store';
 import { useState } from 'react';
 import UpdateBookDialog from './UpdateBookDialog';
 

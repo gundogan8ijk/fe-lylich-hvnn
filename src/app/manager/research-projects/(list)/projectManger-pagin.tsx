@@ -1,7 +1,7 @@
 "use client";
 
 import PaginationButtonStore from "@/_components/query/paginationButton-dynamic";
-import { storeProjectMangerList } from "@/ProjectManger/store-list-projects-manger";
+import { storeProjectMangerList } from "@/working-manager/ProjectManger/store-list-projects-manger";
 
 export default function MangerProjectPagination() {
 

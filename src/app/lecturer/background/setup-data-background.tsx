@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useBackgroundStore } from '../../../background-common/Background-store';
-import { getBackground } from '@/background-common/Background-ser';
+import { useBackgroundStore } from '../../../working-Lecturer/background/Background-store';
+import { getBackground } from '@/working-Lecturer/background/Background-ser';
 
 export default function SetupDataBackground() {
     const setBackground = useBackgroundStore((state) => state.setBackground);

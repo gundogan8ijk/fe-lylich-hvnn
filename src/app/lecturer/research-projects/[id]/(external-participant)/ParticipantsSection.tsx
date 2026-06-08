@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { storeProjectDetail } from '@/Project-Lecturer-Detail/Project-Detail-store'
-import { ProjectParticipant } from '@/Project-Lecturer-Detail/Project-Detail-type'
+import { storeProjectDetail } from '@/working-Lecturer/Project-Detail/Project-Detail-store'
+import { ProjectParticipant } from '@/working-Lecturer/Project-Detail/Project-Detail-type'
 import { Users, Plus } from 'lucide-react'
-import { removeParticipantAction } from '@/Project-Lecturer-Detail/Project-Detail-hook'
+import { removeParticipantAction } from '@/working-Lecturer/Project-Detail/Project-Detail-hook'
 import AddParticipantDialog from './AddParticipantDialog'
 import DeleteParticipantDialog from './DeleteParticipantDialog'
 import ParticipantItem from './ParticipantItem'

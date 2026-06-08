@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/_components/ui/select';
-import { getListDisciplineByDepartmentIdPublicAction } from '@/department-Manager/department-manger-hook';
-import { DisciplineOfDepartmentPublicItems } from '@/department-Manager/department-manger-type';
+import { getListDisciplineByDepartmentIdPublicAction } from '@/working-manager/department/infor/department-manger-hook';
+import { DisciplineOfDepartmentPublicItems } from '@/working-manager/department/infor/department-manger-type';
 import { toSearchParams } from '@/_lib/query-options-toUrl-helper';
 
 interface FilterDisciplineProps {

@@ -1,6 +1,6 @@
 'use client';
 
-import { getBookDetailAction } from "@/Book-Lecturer-Detail/Book-Detail-hook";
+import { getBookDetailAction } from "@/working-Lecturer/Book-Detail/Book-Detail-hook";
 import { useEffect } from "react";
 
 export default function BookDetailSetupData({ id }: { id: string }) {

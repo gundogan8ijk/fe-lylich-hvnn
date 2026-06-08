@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { storeProjectDetail } from '@/Project-Lecturer-Detail/Project-Detail-store'
+import { storeProjectDetail } from '@/working-Lecturer/Project-Detail/Project-Detail-store'
 import { Badge } from '@/_components/ui/badge'
 import { Calendar, ExternalLink, Award, ShieldCheck, FileText, UserCheck, Users, Tag, Wallet, CheckCircle2, XCircle, Edit3 } from 'lucide-react'
 import { getLabel, getDateOnly } from '@/_lib/display-variable-helper'

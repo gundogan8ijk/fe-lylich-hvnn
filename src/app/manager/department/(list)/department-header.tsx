@@ -5,8 +5,8 @@ import { SortButtonDynamic } from '@/_components/query/sort-Button-dynamic';
 import React from 'react';
 import { SearchBoxWithField } from '@/_components/query/SearchBoxWithField';
 import { DepartmentSearchOptions, DepartmentSortOptions } from '@/_constants/department-constant';
-import { storeDepartmentListPublic } from '@/department-Manager/department-manger-store';
-import { getDepartmentsListPublicAction } from '@/department-Manager/department-manger-hook';
+import { storeDepartmentListPublic } from '@/working-manager/department/infor/department-manger-store';
+import { getDepartmentsListPublicAction } from '@/working-manager/department/infor/department-manger-hook';
 import DepartmentAddDialog from './department-add-dialog';
 
 

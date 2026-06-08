@@ -9,7 +9,7 @@ import { Input } from '@/_components/ui/input';
 import { SearchSelectProps } from '@/_components/custom/selection-Props';
 import { notify } from '@/_components/utils/Notify';
 import { uploadToPdfCloudinary } from '@/_Common/_services/pdf-config';
-import { RegisterProjectExternalForm } from '@/ProjectExternal-Lecturer-List/ProjectExternal-List-ser';
+import { RegisterProjectExternalForm } from '@/working-Lecturer/ProjectExternal-List/ProjectExternal-List-ser';
 import { EVALUATION_PROJECT_EXTERNAL_OPTIONS, PROJECT_EXTERNAL_MEMBER_ROLE_OPTIONS, PROJECT_LEVEL_OPTIONS } from '@/_constants/ProjectExternal-constant';
 
 

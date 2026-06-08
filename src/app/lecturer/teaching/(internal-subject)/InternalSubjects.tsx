@@ -1,6 +1,6 @@
 "use client";
-import { useTeachingStore } from "@/Teaching-Lecturer/Teaching-Lecturer-store";
-import { useTeachingActions } from "@/Teaching-Lecturer/Teaching-Lecturer-hook";
+import { useTeachingStore } from "@/working-Lecturer/Teaching/Teaching-Lecturer-store";
+import { useTeachingActions } from "@/working-Lecturer/Teaching/Teaching-Lecturer-hook";
 import { Button } from "@/_components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/_components/ui/card";
 import { Plus, Trash2 } from "lucide-react";

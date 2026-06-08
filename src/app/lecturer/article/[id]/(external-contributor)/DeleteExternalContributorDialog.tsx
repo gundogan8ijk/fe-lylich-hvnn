@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { AlertTriangle, Loader2 } from 'lucide-react';
-import { storeArticleDetail } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-store';
-import { removeExternalContributorAction } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-hook';
+import { storeArticleDetail } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-store';
+import { removeExternalContributorAction } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-hook';
 
 interface Props {
     externalContributorId: string | null;

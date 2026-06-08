@@ -1,8 +1,8 @@
 import { api } from "@/_Common/_services/axios-service-config";
 import { ApiResponse } from "@/_Common/_types/result-typeConfig";
 import { fail, success } from "@/_lib/response-helper";
-import { DisciplinesNameItems } from "@/Discipline-Public/disciplines-type";
-import { LecturersNameItems } from "@/profile-Lecturer/Profile-lecurer-type";
+import { DisciplinesNameItems } from "@/working-public/Discipline-Public/disciplines-type";
+import { LecturersNameItems } from "@/working-Lecturer/profile/infor/Profile-lecurer-type";
 import axios from "axios";
 
 export{

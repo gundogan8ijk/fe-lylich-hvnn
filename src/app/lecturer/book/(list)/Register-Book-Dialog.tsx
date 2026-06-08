@@ -9,7 +9,7 @@ import { Input } from '@/_components/ui/input';
 import { SearchSelectProps } from '@/_components/custom/selection-Props';
 import { notify } from '@/_components/utils/Notify';
 import { uploadToPdfCloudinary } from '@/_Common/_services/pdf-config';
-import { RegisterBookForm } from '@/Book-Lecturer-List/Book-List-ser';
+import { RegisterBookForm } from '@/working-Lecturer/Book-List/Book-List-ser';
 import { BOOK_CONTRIBUTOR_ROLE_OPTIONS } from '@/_constants/Book-constant';
 
 type Props = {

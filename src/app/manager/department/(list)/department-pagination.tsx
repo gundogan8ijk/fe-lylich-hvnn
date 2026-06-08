@@ -1,7 +1,7 @@
 "use client";
 
 import PaginationButtonStore from "@/_components/query/paginationButton-dynamic";
-import { storeDepartmentListPublic } from "@/department-Manager/department-manger-store";
+import { storeDepartmentListPublic } from '@/working-manager/department/infor/department-manger-store';
 
 export default function DepartmentPagination() {
 

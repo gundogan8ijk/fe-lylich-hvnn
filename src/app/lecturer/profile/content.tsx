@@ -12,7 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/_components/ui/card'
 import { Badge } from '@/_components/ui/badge'
 import Loading from '@/_components/utils/Loading'
 import { getDateOnly } from '@/_lib/display-variable-helper'
-import { AddressRequest, addressUpdateAction, avatarUpdateAction, birthDateUpdateAction, cCCDUpdateAction, deleteAddressAction, deleteAvatarAction, deleteEmailAction, deletePhoneAction, deleteWebsiteAction, emailUpdateAction, firstNameUpdateAction, genderUpdateAction, lastNameUpdateAction, phoneUpdateAction, UpdatePhoneRequest, websiteUpdateAction } from '@/profile-Lecturer/Lecturer-Profile-hook'
+import { AddressRequest, addressUpdateAction, avatarUpdateAction, birthDateUpdateAction, cCCDUpdateAction, deleteAddressAction, deleteAvatarAction, deleteEmailAction, deletePhoneAction, deleteWebsiteAction, emailUpdateAction, firstNameUpdateAction, genderUpdateAction, lastNameUpdateAction, phoneUpdateAction, UpdatePhoneRequest, websiteUpdateAction } from '@/working-Lecturer/profile/infor/Lecturer-Profile-hook'
 import FormPhoneNumber from '@/_components/custom/from-input/from-phone-number'
 import FormAddress from '@/_components/custom/from-input/from-addres'
 import { InlineEditField } from '@/_components/custom/from-input/inline-edit-field'
@@ -21,7 +21,7 @@ import { InlineEditCitizenIdField } from '@/_components/custom/from-input/inline
 import { InlineEditShell } from '@/_components/custom/inline-edit-shell.tsx'
 import { AvatarEdit } from '@/_components/custom/AvatarEdit'
 import { EducationSection } from './EducationSection'
-import { storeLecturerProfile } from '@/profile-Lecturer/Lecturer-profile-store'
+import { storeLecturerProfile } from '@/working-Lecturer/profile/infor/Lecturer-profile-store'
 import { AwardSection } from './AwardSection'
 
 export default function ContentProfile() {

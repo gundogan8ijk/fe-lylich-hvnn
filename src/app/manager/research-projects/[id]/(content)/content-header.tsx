@@ -12,8 +12,8 @@ import {
     AlertDialogContent, AlertDialogDescription,
     AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
 } from '@/_components/ui/alert-dialog';
-import { deleteMangerProjectDetailAction, updateConfirmedProjectDetailAction, hideProjectMangerAction } from "@/ProjectManger/hook-projects-manger";
-import { storeProjectManagerDetail } from "@/ProjectManger/store-detail-project-manger";
+import { deleteMangerProjectDetailAction, updateConfirmedProjectDetailAction, hideProjectMangerAction } from "@/working-manager/ProjectManger/hook-projects-manger";
+import { storeProjectManagerDetail } from "@/working-manager/ProjectManger/store-detail-project-manger";
 
 export default function ContentHeaderProjectManger() {
     const data = storeProjectManagerDetail((s) => s.data);

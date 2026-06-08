@@ -14,8 +14,8 @@ import {
 import { Label } from '@/_components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/_components/ui/select'
 import { Input } from '@/_components/ui/input'
-import { updateMemberPositionDepartmentAction, getListDisciplineByDepartmentIdPublicAction } from '@/department-Manager/department-manger-hook'
-import { DisciplineOfDepartmentPublicItems } from '@/department-Manager/department-manger-type'
+import { updateMemberPositionDepartmentAction, getListDisciplineByDepartmentIdPublicAction } from '@/working-manager/department/infor/department-manger-hook'
+import { DisciplineOfDepartmentPublicItems } from '@/working-manager/department/infor/department-manger-type'
 import { toSearchParams } from '@/_lib/query-options-toUrl-helper'
 
 export const AcademicPositions = [

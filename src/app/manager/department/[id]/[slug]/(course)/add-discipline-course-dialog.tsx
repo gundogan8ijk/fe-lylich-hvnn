@@ -13,7 +13,7 @@ import {
 } from '@/_components/ui/dialog'
 import { Label } from '@/_components/ui/label'
 import { Input } from '@/_components/ui/input'
-import { addCourseDisciplineAction } from '@/discipline-Manager/discipline-manger-hook'
+import { addCourseDisciplineAction } from '@/working-manager/department/discipline/discipline-manger-hook'
 import { Textarea } from '@/_components/ui/textarea'
 
 interface Props {

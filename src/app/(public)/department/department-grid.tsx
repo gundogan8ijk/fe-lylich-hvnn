@@ -1,5 +1,5 @@
 'use client'
-import { storeDepartmentListPublic } from '@/department-Public/department-public-store';
+import { storeDepartmentListPublic } from '@/working-public/department-Public/department-public-store';
 import DepartmentCard from './department-card'
 import Loading from'@/_components/utils/Loading'
 

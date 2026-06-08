@@ -3,10 +3,10 @@
 import { Button } from "@/_components/ui/button"
 import { Plus, X } from 'lucide-react'
 import { MODAL_Manger_detail_PROJECT_KEYS } from '@/_constants/project-constant'
-import { storeProjectManagerDetail } from "@/ProjectManger/store-detail-project-manger"
+import { storeProjectManagerDetail } from "@/working-manager/ProjectManger/store-detail-project-manger"
 import AddDisciplineDialog from "./AddDisciplineDialog"
 import DeleteConfirmDialog from "@/_components/custom/DeleteConfirmDialog"
-import { deleteDisciplineByManagerAction } from "@/ProjectManger/hook-projects-manger"
+import { deleteDisciplineByManagerAction } from "@/working-manager/ProjectManger/hook-projects-manger"
 import { useState } from "react"
 
 export default function DisciplineSection() {

@@ -5,7 +5,7 @@ import { Plus, Users } from 'lucide-react';
 import InternalContributorItem from './InternalContributorItem';
 import DeleteInternalContributorDialog from './DeleteInternalContributorDialog';
 import AddInternalContributorDialog from './AddInternalContributorDialog';
-import { storeBookDetail } from '@/Book-Lecturer-Detail/Book-Detail-store';
+import { storeBookDetail } from '@/working-Lecturer/Book-Detail/Book-Detail-store';
 import { BOOK_CONTRIBUTOR_ROLE_OPTIONS, BookContributorRoleName } from '@/_constants/Book-constant';
 
 export default function InternalContributorsSum() {

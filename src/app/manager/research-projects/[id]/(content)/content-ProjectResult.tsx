@@ -7,7 +7,7 @@ import { InlineEditField } from "@/_components/custom/from-input/inline-edit-fie
 import { EvaluationResult_OPTIONS, EvaluationResultName, ProjectStatus_OPTIONS, ProjectStatusName } from "@/_constants/project-constant"
 import { InlineEditShell } from "@/_components/custom/inline-edit-shell.tsx"
 import { Button } from "@/_components/ui/button"
-import { storeProjectManagerDetail } from "@/ProjectManger/store-detail-project-manger"
+import { storeProjectManagerDetail } from "@/working-manager/ProjectManger/store-detail-project-manger"
 import { useState } from "react"
 import DeleteConfirmDialog from "@/_components/custom/DeleteConfirmDialog"
 import { 
@@ -17,7 +17,7 @@ import {
     deleteCertificateUrlAction, 
     updateDetailUrlAction, 
     deleteDetailUrlAction 
-} from "@/ProjectManger/hook-projects-manger"
+} from "@/working-manager/ProjectManger/hook-projects-manger"
 
 export default function ContentProjectResultManger() {
     const data = storeProjectManagerDetail((s) => s.data)

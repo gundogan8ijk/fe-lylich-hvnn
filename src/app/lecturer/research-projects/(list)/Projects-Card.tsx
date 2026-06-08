@@ -12,7 +12,7 @@ import {
 } from '@/_constants/project-constant'
 import { ConfirmedStatus, STATUS_LABELS } from '@/_constants/base-constant'
 import { getDateOnly, getLabel } from '@/_lib/display-variable-helper'
-import { ProjectItem } from '@/Project-Lecturer-List/Project-List-type'
+import { ProjectItem } from '@/working-Lecturer/Project-List/Project-List-type'
 
 type ResearchProjectCardProps = {
     item: ProjectItem

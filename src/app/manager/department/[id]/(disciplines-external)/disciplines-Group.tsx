@@ -8,8 +8,8 @@ import Loading from '@/_components/utils/Loading';
 import { toSearchParams } from '@/_lib/query-options-toUrl-helper';
 import { getPages } from '@/_lib/getPages -Button-helper';
 import { ListQuery, SortDirection } from '@/_Common/_types/query-types';
-import { DisciplineOfDepartmentPublicList } from '@/department-Manager/department-manger-type';
-import { getListDisciplineByDepartmentIdPublicAction } from '@/department-Manager/department-manger-hook';
+import { DisciplineOfDepartmentPublicList } from '@/working-manager/department/infor/department-manger-type';
+import { getListDisciplineByDepartmentIdPublicAction } from '@/working-manager/department/infor/department-manger-hook';
 import DisciplineAddDialog from './discipline-add-dialog';
 import Link from 'next/link';
 

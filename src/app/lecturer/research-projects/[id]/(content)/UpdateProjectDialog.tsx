@@ -7,8 +7,8 @@ import { Textarea } from '@/_components/ui/textarea'
 import { Label } from '@/_components/ui/label'
 import { Input } from '@/_components/ui/input'
 import { Loader2, Edit3 } from 'lucide-react'
-import { updateProjectAction } from '@/Project-Lecturer-Detail/Project-Detail-hook'
-import { ProjectDetail } from '@/Project-Lecturer-Detail/Project-Detail-type'
+import { updateProjectAction } from '@/working-Lecturer/Project-Detail/Project-Detail-hook'
+import { ProjectDetail } from '@/working-Lecturer/Project-Detail/Project-Detail-type'
 
 type Props = {
     open: boolean

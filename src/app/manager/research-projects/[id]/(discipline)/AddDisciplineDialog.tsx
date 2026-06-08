@@ -9,12 +9,12 @@ import { Button } from '@/_components/ui/button'
 import { Label } from '@/_components/ui/label'
 import { Badge } from '@/_components/ui/badge'
 import { Search, X, Loader2, BookOpen } from 'lucide-react'
-import { DisciplinesNameItems } from '@/Discipline-Public/disciplines-type'
-import { getListDisciplinesNameApi } from '@/Discipline-Public/disciplines-Public-ser'
+import { DisciplinesNameItems } from '@/working-public/Discipline-Public/disciplines-type'
+import { getListDisciplinesNameApi } from '@/working-public/Discipline-Public/disciplines-Public-ser'
 import { MODAL_Manger_detail_PROJECT_KEYS } from '@/_constants/project-constant'
-import { storeProjectManagerDetail } from '@/ProjectManger/store-detail-project-manger'
-import { ProjectManagerDetailRecord } from '@/ProjectManger/type-detail-projects-manger'
-import { addDisciplinesByMangerAction } from '@/ProjectManger/hook-projects-manger'
+import { storeProjectManagerDetail } from '@/working-manager/ProjectManger/store-detail-project-manger'
+import { ProjectManagerDetailRecord } from '@/working-manager/ProjectManger/type-detail-projects-manger'
+import { addDisciplinesByMangerAction } from '@/working-manager/ProjectManger/hook-projects-manger'
 
 export default function AddDisciplineDialog() {
     const data = storeProjectManagerDetail(s => s.data)

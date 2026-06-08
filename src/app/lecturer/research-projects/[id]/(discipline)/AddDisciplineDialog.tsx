@@ -5,9 +5,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogD
 import { Button } from '@/_components/ui/button'
 import { Label } from '@/_components/ui/label'
 import { Loader2, Search, X, BookOpen } from 'lucide-react'
-import { getListDisciplinesNameApi } from '@/Discipline-Public/disciplines-Public-ser'
-import { DisciplinesNameItems } from '@/Discipline-Public/disciplines-type'
-import { addDisciplinesAction } from '@/Project-Lecturer-Detail/Project-Detail-hook'
+import { getListDisciplinesNameApi } from '@/working-public/Discipline-Public/disciplines-Public-ser'
+import { DisciplinesNameItems } from '@/working-public/Discipline-Public/disciplines-type'
+import { addDisciplinesAction } from '@/working-Lecturer/Project-Detail/Project-Detail-hook'
 
 type Props = {
     open: boolean

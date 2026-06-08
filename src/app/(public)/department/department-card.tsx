@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { Button } from '@/_components/ui/button'
 import { GraduationCap, Users, ArrowRight } from 'lucide-react'
 import { useRouter } from "next/navigation";
-import { DepartmentPublicItems } from '@/department-Public/department-public-type'
+import { DepartmentPublicItems } from '@/working-public/department-Public/department-public-type'
 
 
 export default function DepartmentCard({ department }: { department: DepartmentPublicItems }) {

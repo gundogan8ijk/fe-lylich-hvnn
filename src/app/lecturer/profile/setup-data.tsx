@@ -1,5 +1,5 @@
 'use client'
-import { getAcLecturer } from "@/profile-Lecturer/Lecturer-Profile-hook";
+import { getAcLecturer } from '@/working-Lecturer/profile/infor/Lecturer-Profile-hook';
 import { useEffect } from "react"
 
 export default function SetupDataLecturer() {

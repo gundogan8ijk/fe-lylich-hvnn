@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Button } from "@/_components/ui/button";
 import { Input } from "@/_components/ui/input";
 import { notify } from "@/_components/utils/Notify";
-import { updateCourseNameAction } from "@/course-Manager/course-manger-hook";
+import { updateCourseNameAction } from '@/working-manager/department/course/course-manger-hook';
 
 interface UpdateCourseNameDialogProps {
     courseId: string;

@@ -6,7 +6,7 @@ import { Button } from '@/_components/ui/button'
 import { Label } from '@/_components/ui/label'
 import { Input } from '@/_components/ui/input'
 import { Loader2, Users, Edit } from 'lucide-react'
-import { addParticipantAction, updateParticipantAction } from '@/Project-Lecturer-Detail/Project-Detail-hook'
+import { addParticipantAction, updateParticipantAction } from '@/working-Lecturer/Project-Detail/Project-Detail-hook'
 
 type Props = {
     open: boolean

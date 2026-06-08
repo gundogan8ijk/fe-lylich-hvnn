@@ -6,7 +6,7 @@ import ExternalContributorItem from './ExternalContributorItem';
 import DeleteExternalContributorDialog from './DeleteExternalContributorDialog';
 import AddExternalContributorDialog from './AddExternalContributorDialog';
 import UpdateExternalContributorDialog from './UpdateExternalContributorDialog';
-import { storeBookDetail } from '@/Book-Lecturer-Detail/Book-Detail-store';
+import { storeBookDetail } from '@/working-Lecturer/Book-Detail/Book-Detail-store';
 import { BOOK_CONTRIBUTOR_ROLE_OPTIONS, BookContributorRoleName } from '@/_constants/Book-constant';
 
 export default function ExternalContributorsSum() {

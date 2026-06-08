@@ -1,6 +1,6 @@
 'use client';
 
-import { BookExternalContributor } from '@/Book-Lecturer-Detail/Book-Detail-type';
+import { BookExternalContributor } from '@/working-Lecturer/Book-Detail/Book-Detail-type';
 import { Trash2, Globe, Pencil } from 'lucide-react';
 
 interface ExternalContributorItemProps {

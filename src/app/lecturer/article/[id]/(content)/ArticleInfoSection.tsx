@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { storeArticleDetail } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-store';
+import { storeArticleDetail } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-store';
 import UpdateArticleDialog from './UpdateArticleDialog';
 
 export default function ArticleInfoSection() {

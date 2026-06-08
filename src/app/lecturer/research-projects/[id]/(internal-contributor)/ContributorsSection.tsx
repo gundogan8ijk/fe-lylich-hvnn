@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { storeProjectDetail } from '@/Project-Lecturer-Detail/Project-Detail-store'
+import { storeProjectDetail } from '@/working-Lecturer/Project-Detail/Project-Detail-store'
 import { UserCheck, Plus } from 'lucide-react'
-import { removeContributorAction } from '@/Project-Lecturer-Detail/Project-Detail-hook'
+import { removeContributorAction } from '@/working-Lecturer/Project-Detail/Project-Detail-hook'
 import AddContributorDialog from './AddContributorDialog'
 import DeleteContributorDialog from './DeleteContributorDialog'
 import ContributorItem from './ContributorItem'

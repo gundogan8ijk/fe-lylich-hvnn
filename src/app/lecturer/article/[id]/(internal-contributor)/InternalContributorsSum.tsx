@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { Plus, Users } from 'lucide-react';
-import { storeArticleDetail } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-store';
+import { storeArticleDetail } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-store';
 import { ROLE_AWARD_OPTIONS } from '@/_constants/article-constant';
-import { ArticleContributorRoleName } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-type';
+import { ArticleContributorRoleName } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-type';
 import InternalContributorItem from './InternalContributorItem';
 import DeleteContributorDialog from './DeleteContributorDialog';
 import AddInternalContributorDialog from './AddContributorDialog';

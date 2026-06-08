@@ -2,12 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Loader2, Search, X } from 'lucide-react';
-import { storeArticleDetail } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-store';
-import { getListLecturersNameApi } from '@/profile-Lecturer/Lecturer-Profile-ser';
-import { LecturersNameItems } from '@/profile-Lecturer/Profile-lecurer-type';
-import { ArticleContributorRoleName } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-type';
+import { storeArticleDetail } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-store';
+import { getListLecturersNameApi } from '@/working-Lecturer/profile/infor/Lecturer-Profile-ser';
+import { LecturersNameItems } from '@/working-Lecturer/profile/infor/Profile-lecurer-type';
+import { ArticleContributorRoleName } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-type';
 import { ROLE_AWARD_OPTIONS } from '@/_constants/article-constant';
-import { addInternalContributorAction } from '@/Article-Lecturer-Detail/ArticleDetail-Lecturer-hook';
+import { addInternalContributorAction } from '@/working-Lecturer/Article-Detail/ArticleDetail-Lecturer-hook';
 
 interface Props {
     isOpen: boolean;

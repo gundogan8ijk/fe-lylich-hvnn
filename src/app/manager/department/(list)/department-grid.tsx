@@ -1,5 +1,5 @@
 'use client'
-import { storeDepartmentListPublic } from '@/department-Manager/department-manger-store';
+import { storeDepartmentListPublic } from '@/working-manager/department/infor/department-manger-store';
 import DepartmentCard from './department-card'
 import Loading from '@/_components/utils/Loading'
 

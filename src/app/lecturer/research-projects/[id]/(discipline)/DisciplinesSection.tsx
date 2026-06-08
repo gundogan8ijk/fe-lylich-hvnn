@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { storeProjectDetail } from '@/Project-Lecturer-Detail/Project-Detail-store'
+import { storeProjectDetail } from '@/working-Lecturer/Project-Detail/Project-Detail-store'
 import { Tag, Plus } from 'lucide-react'
-import { removeDisciplineAction } from '@/Project-Lecturer-Detail/Project-Detail-hook'
+import { removeDisciplineAction } from '@/working-Lecturer/Project-Detail/Project-Detail-hook'
 import AddDisciplineDialog from './AddDisciplineDialog'
 import DeleteDisciplineDialog from './DeleteDisciplineDialog'
 import DisciplineItem from './DisciplineItem'

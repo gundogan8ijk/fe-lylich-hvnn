@@ -9,6 +9,7 @@ import { getPages } from '@/_lib/getPages -Button-helper';
 import { toSearchParams } from '@/_lib/query-options-toUrl-helper';
 import { getInitials, getYear } from '@/_lib/display-variable-helper';
 import Image from 'next/image';
+import Link from 'next/link';
 import { DepartmentMembersListPublic } from '@/working-manager/department/infor/department-manger-type';
 import { ListQuery, SortDirection } from '@/_Common/_types/query-types';
 import { getListMemberDepartmentPublicAction, removeMemberDepartmentAction } from '@/working-manager/department/infor/department-manger-hook';
@@ -104,8 +105,8 @@ export function MembersGroup({ id }: { id: string }) {
     const paginatedItems = filteredItems.slice((currentPage - 1) * LocalPerPage, currentPage * LocalPerPage);
 
     return (
-        <div className='bg-gradient-to-br from-sky-100 to-slate-100'>
-        <div className="w-full max-w-4xl mx-auto px-4 py-7">
+        <div className="w-full mt-8">
+            <div className="w-full max-w-7xl mx-auto">
             <div className="mb-8">
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-2xl font-bold text-foreground">Danh sách giảng viên</h2>
@@ -149,28 +150,29 @@ export function MembersGroup({ id }: { id: string }) {
                     paginatedItems.map((item) => (
                         <div
                             key={item.id}
-                            className="p-5 bg-white border border-border rounded-xl hover:border-primary hover:shadow-lg transition-all duration-200 cursor-pointer"
+                            className="p-5 bg-white border border-border rounded-xl hover:border-primary hover:shadow-lg transition-all duration-200"
                         >
-                            <div className="flex items-start gap-4">
-                                {item.avatarUrl ? (
-                                    <Image
-                                        src={item.avatarUrl}
-                                        alt={item.fullName}
-                                        width={48}
-                                        height={48}
-                                        className=" rounded-lg object-cover flex-shrink-0"
-                                    />
-                                ) : (
-                                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                                        <span className="text-sm font-semibold text-primary">{getInitials(item.fullName)}</span>
-                                    </div>
-                                )}
+                            <div className="flex items-start justify-between gap-4">
+                                <Link href={`/manager/lecturer/${item.id}`} className="flex items-start gap-4 flex-1 min-w-0 group">
+                                    {item.avatarUrl ? (
+                                        <Image
+                                            src={item.avatarUrl}
+                                            alt={item.fullName}
+                                            width={48}
+                                            height={48}
+                                            className=" rounded-lg object-cover flex-shrink-0"
+                                        />
+                                    ) : (
+                                        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                                            <span className="text-sm font-semibold text-primary">{getInitials(item.fullName)}</span>
+                                        </div>
+                                    )}
 
-                                <div className="flex-1 min-w-0">
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <h3 className="text-lg font-semibold text-foreground">
-                                            {item.fullName}
-                                        </h3>
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-center gap-2 mb-3">
+                                            <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                                                {item.fullName}
+                                            </h3>
                                         <span className="text-xs font-mono bg-primary/10 text-primary px-2 py-1 rounded">
                                             {item.lecturerCode}
                                         </span>
@@ -191,8 +193,9 @@ export function MembersGroup({ id }: { id: string }) {
                                             <Calendar className="w-4 h-4 flex-shrink-0 text-primary/60" />
                                             <span>Tham gia: {getYear(item.joinedAt)}</span>
                                         </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </Link>
 
                                 {/* ACTIONS */}
                                 <div className="flex items-center gap-2 flex-shrink-0">

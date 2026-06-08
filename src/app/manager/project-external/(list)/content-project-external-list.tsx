@@ -48,7 +48,7 @@ export default function ContentProjectExternalList() {
         <div className="space-y-8">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-bold text-foreground">
+                    <h1 className="text-3xl pb-1 md:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                         Quản lý Đề tài ngoài trường
                     </h1>
                     <p className="text-muted-foreground mt-2 text-sm sm:text-base">

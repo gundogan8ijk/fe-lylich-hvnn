@@ -3,8 +3,9 @@
 import Loading from '@/_components/utils/Loading';
 import { storeBookDetailManager } from '@/working-manager/book/book-manager-store';
 import { STATUS_LABELS } from '@/_constants/base-constant';
-import { Book, FileText, CheckCircle, XCircle, Globe, Lock } from 'lucide-react';
+import { Book, FileText, CheckCircle, XCircle, Globe, Lock, ArrowLeft } from 'lucide-react';
 import { Button } from '@/_components/ui/button';
+import { useRouter } from 'next/navigation';
 import { verifyBookManagerAction, rejectBookManagerAction, togglePublishBookManagerAction } from '@/working-manager/book/book-manager-hook';
 import {
     AlertDialog,
@@ -35,6 +36,7 @@ function getStatusBadgeClass(status: string): string {
 export default function ContentBookDetail() {
     const book = storeBookDetailManager((s) => s.data);
     const loading = storeBookDetailManager((s) => s.isLoading);
+    const router = useRouter();
 
     if (loading) return <Loading />;
 
@@ -52,8 +54,15 @@ export default function ContentBookDetail() {
     const isPending = book.confirmedStatus === 'Pending';
 
     return (
-        <div className="min-h-screen bg-slate-50/50">
-            <div className="container mx-auto px-4 py-10 md:py-16 max-w-5xl">
+        <div className="w-full">
+        <div className="w-full max-w-5xl mx-auto space-y-6">
+            <Button
+                    variant="ghost"
+                    onClick={() => router.back()}
+                    className="gap-2 text-slate-500 hover:text-slate-900 mb-6"
+                >
+                    <ArrowLeft className="h-4 w-4" /> Quay lại
+                </Button>
 
                 {/* ── Header ── */}
                 <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-8 py-8 mb-6">
@@ -79,7 +88,7 @@ export default function ContentBookDetail() {
                                 )}
                             </div>
 
-                            <h1 className="text-2xl md:text-3xl font-semibold text-slate-900 leading-snug text-balance">
+                            <h1 className="text-xl md:text-2xl font-semibold text-slate-900 leading-snug text-balance">
                                 {book.title}
                             </h1>
 

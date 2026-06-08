@@ -1,4 +1,4 @@
-import { notify } from "@/_components/utils/Notify";
+﻿import { notify } from "@/_components/utils/Notify";
 import { getErrorMessage } from "@/_lib/response-helper";
 import { backToDraftEducationApi, deleteEducationByLecturerApi, registerEducationByLecturerApi, RegisterEducationByLecturerForm, submitEducationByLecturerApi, updateEducationByLecturerApi, UpdateEducationByLecturerForm } from "./Education-Lecturer-ser";
 import { storeLecturerProfile } from '@/working-Lecturer/profile/infor/Lecturer-profile-store';
@@ -12,7 +12,7 @@ async function registerEducationByLecturerAction(educationForm: RegisterEducatio
     const { addEducation } = storeLecturerProfile.getState();
 
     const res = await registerEducationByLecturerApi(educationForm);
-    if (res.code === -1) notify.error(getErrorMessage(res.message, res.errors));
+    if (res.code !== 1) notify.error(getErrorMessage(res.message, res.errors));
 
     if (res.data !== null) {
         addEducation(res.data);
@@ -25,7 +25,7 @@ async function deleteEducationByLecturerAction(id: string) {
     const { deleteEducation } = storeLecturerProfile.getState();
 
     const res = await deleteEducationByLecturerApi(id);
-    if (res.code === -1) notify.error(getErrorMessage(res.message, res.errors));
+    if (res.code !== 1) notify.error(getErrorMessage(res.message, res.errors));
 
     else {
         deleteEducation(id);
@@ -38,7 +38,7 @@ async function updateEducationAction(payload: UpdateEducationByLecturerForm) {
     const { updateEducation } = storeLecturerProfile.getState();
 
     const res = await updateEducationByLecturerApi(payload);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getErrorMessage(res.message, res.errors));
         return;
     }
@@ -54,7 +54,7 @@ async function submitEducationAction(id: string) {
 
     const res = await submitEducationByLecturerApi(id);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getErrorMessage(res.message, res.errors));
         return;
     }
@@ -70,7 +70,7 @@ async function backToDraftEducationAction(id: string) {
 
     const res = await backToDraftEducationApi(id);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getErrorMessage(res.message, res.errors));
         return;
     }

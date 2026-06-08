@@ -1,4 +1,4 @@
-import { notify } from '@/_components/utils/Notify';
+﻿import { notify } from '@/_components/utils/Notify';
 import { storeProjectExternalListManger, storeProjectExternalDetailManager } from './project-external-manager-store';
 import { 
     getListProjectExternalManagerApi, 
@@ -13,7 +13,7 @@ export async function getListProjectExternalManagerAction() {
     setLoading(true);
 
     const res = await getListProjectExternalManagerApi();
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
     }
 
@@ -29,7 +29,7 @@ export async function getProjectExternalDetailManagerAction(id: string) {
     setLoading(true);
 
     const res = await getProjectExternalDetailManagerApi(id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
         setData(null);
     } else {
@@ -41,7 +41,7 @@ export async function getProjectExternalDetailManagerAction(id: string) {
 
 export async function verifyProjectExternalManagerAction(id: string) {
     const res = await verifyProjectExternalManagerApi(id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
         return false;
     }
@@ -52,7 +52,7 @@ export async function verifyProjectExternalManagerAction(id: string) {
 
 export async function rejectProjectExternalManagerAction(id: string) {
     const res = await rejectProjectExternalManagerApi(id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
         return false;
     }
@@ -63,7 +63,7 @@ export async function rejectProjectExternalManagerAction(id: string) {
 
 export async function togglePublishProjectExternalManagerAction(id: string) {
     const res = await togglePublishProjectExternalManagerApi(id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
         return false;
     }

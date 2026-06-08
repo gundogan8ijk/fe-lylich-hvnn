@@ -152,11 +152,11 @@ export const createQuerySlice =
                 set((state) => ({
                     query: {
                         ...state.query,
-                        perPage: v.perPage,
-                        page: v.page,
+                        perPage: v.perPage ?? state.query.perPage,
+                        page: v.page ?? state.query.page,
                     },
-                    totalCount: v.totalCount,
-                    totalPages: v.totalPages,
+                    totalCount: v.totalCount ?? state.totalCount,
+                    totalPages: v.totalPages ?? state.totalPages,
                 })),
 
             setLoadingMore: (v) => set({ loadingMore: v }),

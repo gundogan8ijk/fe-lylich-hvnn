@@ -1,4 +1,4 @@
-// lecturer-action.ts
+﻿// lecturer-action.ts
 import { notify } from '@/_components/utils/Notify'
 import { getErrorMessage } from '@/_lib/response-helper';
 import { Gender } from '@/_constants/base-constant';
@@ -50,7 +50,7 @@ async function updateLecturerField<TResponse, K extends keyof LecturerProfile>(o
 
     const res = await putLecturerProfileApi<TResponse>(options.endpoint, options.payload);
 
-    if (res.code === -1 || res.data == null) {
+    if (res.code !== 1 || res.data == null) {
         notify.error(getErrorMessage(res.message, res.errors));
         return;
     }
@@ -68,7 +68,7 @@ async function deleteLecturerField<K extends keyof LecturerProfile>(options: {
 
     const res = await deleteLecturerProfileApi(options.endpoint);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getErrorMessage(res.message, res.errors));
         return;
     }

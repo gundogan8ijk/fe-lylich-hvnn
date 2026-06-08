@@ -1,8 +1,9 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRef, useState } from 'react';
-import { ImageOff, Download, Trash2, EyeOff, Eye } from 'lucide-react';
+import { ImageOff, Download, Trash2, EyeOff, Eye, ArrowLeft } from 'lucide-react';
 import { useReactToPrint } from 'react-to-print';
 import { useRouter } from 'next/navigation';
 import {
@@ -94,28 +95,37 @@ export default function ContentLecturerDetail() {
     return (
         <>
             {/* Action buttons */}
-            <div className="max-w-5xl mx-auto mb-4 flex justify-end gap-2 px-4 xl:px-0">
-                <button
-                    onClick={() => setIsToggleDialogOpen(true)}
-                    className="flex items-center gap-1.5 bg-yellow-500 text-white px-3 py-1.5 rounded text-xs font-medium hover:bg-yellow-600 transition-colors"
+            <div className="max-w-5xl mx-auto mb-4 flex justify-between items-center px-4 xl:px-0">
+                <Link 
+                    href="/manager/lecturer" 
+                    className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 transition-colors"
                 >
-                    {background.isPublic ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                    <span>{background.isPublic ? 'Ẩn' : 'Hiện'}</span>
-                </button>
+                    <ArrowLeft className="w-4 h-4" />
+                    Quay lại
+                </Link>
+                <div className="flex gap-2">
+                    <button
+                        onClick={() => setIsToggleDialogOpen(true)}
+                        className="flex items-center gap-1.5 bg-yellow-500 text-white px-3 py-1.5 rounded text-xs font-medium hover:bg-yellow-600 transition-colors"
+                    >
+                        {background.isPublic ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                        <span>{background.isPublic ? 'Ẩn' : 'Hiện'}</span>
+                    </button>
 
-                <button
-                    onClick={() => setIsDeleteDialogOpen(true)}
-                    className="flex items-center gap-1.5 bg-red-600 text-white px-3 py-1.5 rounded text-xs font-medium hover:bg-red-700 transition-colors"
-                >
-                    <Trash2 className="w-3.5 h-3.5" />
-                    <span>Xóa</span>
-                </button>
+                    <button
+                        onClick={() => setIsDeleteDialogOpen(true)}
+                        className="flex items-center gap-1.5 bg-red-600 text-white px-3 py-1.5 rounded text-xs font-medium hover:bg-red-700 transition-colors"
+                    >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span>Xóa</span>
+                    </button>
+                </div>
             </div>
 
-            <div ref={contentRef} className="p-4 max-w-5xl mx-auto space-y-6 bg-white rounded-xl shadow-sm border border-slate-200 relative print:shadow-none print:border-none print:m-0 print:p-0">
+            <div ref={contentRef} className="p-2 md:p-4 max-w-5xl mx-auto space-y-4 bg-white rounded-xl shadow-sm border border-slate-200 relative print:shadow-none print:border-none print:m-0 print:p-0">
                 <button
                     onClick={() => setIsPrintDialogOpen(true)}
-                    className="absolute top-4 right-4 flex items-center justify-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors shadow-sm z-10 print:hidden"
+                    className="absolute top-2 right-2 md:top-4 md:right-4 flex items-center justify-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors shadow-sm z-10 print:hidden"
                     title="Tải PDF"
                 >
                     <Download className="w-4 h-4" />
@@ -123,7 +133,7 @@ export default function ContentLecturerDetail() {
                 </button>
 
                 {/* Header / Basic Info */}
-                <section className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6 border-b border-slate-100 pb-5 pt-12 md:pt-0">
+                <section className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6 border-b border-slate-100 pb-4 pt-10 md:pt-0">
                     <div className="flex-shrink-0 relative overflow-hidden w-24 h-24 rounded-full border-2 border-slate-300 shadow-sm bg-slate-200">
                         {hasAvatar ? (
                             <Image src={background.avatarUrl!} alt="Avatar" fill unoptimized className="object-cover" />
@@ -172,15 +182,17 @@ export default function ContentLecturerDetail() {
                     {background.educations.length > 0 ? (
                         <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             {background.educations.map((edu) => (
-                                <li key={edu.educationId} className="bg-white p-3.5 rounded-lg border border-slate-200 hover:shadow-sm transition-shadow">
-                                    <p className="font-semibold text-slate-800 text-base">{edu.trainingName}</p>
-                                    <div className="mt-1 flex flex-col gap-0.5">
-                                        <p className="text-sm text-slate-600"><span className="font-medium text-slate-500">Chuyên ngành:</span> {edu.majorName}</p>
-                                        <div className="text-sm text-slate-600 flex items-center justify-between mt-1">
-                                            <span><span className="font-medium text-slate-500">Tốt nghiệp:</span> {edu.graduatedAt}</span>
-                                            {renderStatus(edu.confirmedStatus)}
+                                <li key={edu.educationId}>
+                                    <Link href={`/manager/education/${edu.educationId}`} className="block bg-white p-3.5 rounded-lg border border-slate-200 hover:border-blue-400 hover:shadow-sm transition-all group">
+                                        <p className="font-semibold text-slate-800 group-hover:text-blue-600 text-base">{edu.trainingName}</p>
+                                        <div className="mt-1 flex flex-col gap-0.5">
+                                            <p className="text-sm text-slate-600"><span className="font-medium text-slate-500">Chuyên ngành:</span> {edu.majorName}</p>
+                                            <div className="text-sm text-slate-600 flex items-center justify-between mt-1">
+                                                <span><span className="font-medium text-slate-500">Tốt nghiệp:</span> {edu.graduatedAt}</span>
+                                                {renderStatus(edu.confirmedStatus)}
+                                            </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
@@ -196,15 +208,17 @@ export default function ContentLecturerDetail() {
                     {background.awards.length > 0 ? (
                         <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             {background.awards.map((award) => (
-                                <li key={award.awardId} className="bg-white p-3.5 rounded-lg border border-slate-200 hover:shadow-sm transition-shadow">
-                                    <p className="font-semibold text-slate-800 text-base">{award.awardsName}</p>
-                                    <div className="mt-1 flex items-center justify-between text-sm">
-                                        <div className="flex items-center gap-3">
-                                            <p className="text-slate-600"><span className="font-medium text-slate-500">Cấp:</span> <span className="bg-yellow-50 text-yellow-700 border border-yellow-200 px-2 py-0.5 rounded text-xs">{award.level}</span></p>
-                                            <p className="text-slate-600"><span className="font-medium text-slate-500">Ngày nhận:</span> {award.awardDate}</p>
+                                <li key={award.awardId}>
+                                    <Link href={`/manager/award/${award.awardId}`} className="block bg-white p-3.5 rounded-lg border border-slate-200 hover:border-blue-400 hover:shadow-sm transition-all group">
+                                        <p className="font-semibold text-slate-800 group-hover:text-blue-600 text-base">{award.awardsName}</p>
+                                        <div className="mt-1 flex items-center justify-between text-sm">
+                                            <div className="flex items-center gap-3">
+                                                <p className="text-slate-600"><span className="font-medium text-slate-500">Cấp:</span> <span className="bg-yellow-50 text-yellow-700 border border-yellow-200 px-2 py-0.5 rounded text-xs">{award.level}</span></p>
+                                                <p className="text-slate-600"><span className="font-medium text-slate-500">Ngày nhận:</span> {award.awardDate}</p>
+                                            </div>
+                                            {renderStatus(award.confirmedStatus)}
                                         </div>
-                                        {renderStatus(award.confirmedStatus)}
-                                    </div>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
@@ -253,11 +267,11 @@ export default function ContentLecturerDetail() {
                             {background.articles.length > 0 ? (
                                 <div className="flex flex-wrap gap-2">
                                     {background.articles.map(article => (
-                                        <div key={article.articleId} className="inline-flex items-center text-sm bg-white px-3 py-2 rounded-md border border-slate-200">
-                                            <span className="font-medium text-slate-800 line-clamp-1 max-w-sm" title={article.title}>{article.title}</span>
+                                        <Link href={`/manager/article/${article.articleId}`} key={article.articleId} className="inline-flex items-center text-sm bg-white px-3 py-2 rounded-md border border-slate-200 hover:border-blue-400 hover:shadow-sm transition-all cursor-pointer group">
+                                            <span className="font-medium text-slate-800 line-clamp-1 max-w-sm group-hover:text-blue-600" title={article.title}>{article.title}</span>
                                             <span className="text-slate-400 ml-1.5 mr-2 whitespace-nowrap">({article.publishedAt})</span>
                                             {renderStatus(article.confirmedStatus)}
-                                        </div>
+                                        </Link>
                                     ))}
                                 </div>
                             ) : <p className="text-slate-400 italic text-sm">Chưa có bài báo.</p>}
@@ -267,11 +281,11 @@ export default function ContentLecturerDetail() {
                             {background.books.length > 0 ? (
                                 <div className="flex flex-wrap gap-2">
                                     {background.books.map(book => (
-                                        <div key={book.bookId} className="inline-flex items-center text-sm bg-white px-3 py-2 rounded-md border border-slate-200">
-                                            <span className="font-medium text-slate-800 line-clamp-1 max-w-sm" title={book.title}>{book.title}</span>
+                                        <Link href={`/manager/book/${book.bookId}`} key={book.bookId} className="inline-flex items-center text-sm bg-white px-3 py-2 rounded-md border border-slate-200 hover:border-blue-400 hover:shadow-sm transition-all cursor-pointer group">
+                                            <span className="font-medium text-slate-800 line-clamp-1 max-w-sm group-hover:text-blue-600" title={book.title}>{book.title}</span>
                                             <span className="text-slate-400 ml-1.5 mr-2 whitespace-nowrap">({book.publishYear})</span>
                                             {renderStatus(book.confirmedStatus)}
-                                        </div>
+                                        </Link>
                                     ))}
                                 </div>
                             ) : <p className="text-slate-400 italic text-sm">Chưa có sách.</p>}
@@ -291,8 +305,8 @@ export default function ContentLecturerDetail() {
                             {background.projects.length > 0 ? (
                                 <ul className="space-y-2.5">
                                     {background.projects.map(proj => (
-                                        <div key={proj.projectId} className="block bg-white p-3 rounded-lg border border-slate-200">
-                                            <p className="font-semibold text-slate-800">{proj.title}</p>
+                                        <Link href={`/manager/research-projects/${proj.projectId}`} key={proj.projectId} className="block bg-white p-3 rounded-lg border border-slate-200 hover:border-blue-400 hover:shadow-sm transition-all cursor-pointer group">
+                                            <p className="font-semibold text-slate-800 group-hover:text-blue-600">{proj.title}</p>
                                             <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs">
                                                 <span className="bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded border border-slate-200 font-medium">{proj.code}</span>
                                                 <span className="text-slate-500 flex items-center">Cấp: {proj.level}</span>
@@ -300,7 +314,7 @@ export default function ContentLecturerDetail() {
                                                 {renderStatus(proj.confirmedStatus)}
                                                 {renderProjectStatus(proj.status)}
                                             </div>
-                                        </div>
+                                        </Link>
                                     ))}
                                 </ul>
                             ) : <p className="text-slate-400 italic text-sm">Chưa có đề tài nội bộ.</p>}
@@ -310,15 +324,15 @@ export default function ContentLecturerDetail() {
                             {background.projectExternals.length > 0 ? (
                                 <ul className="space-y-2.5">
                                     {background.projectExternals.map(proj => (
-                                        <div key={proj.projectId} className="block bg-white p-3 rounded-lg border border-slate-200">
-                                            <p className="font-semibold text-slate-800">{proj.title}</p>
+                                        <Link href={`/manager/project-external/${proj.projectId}`} key={proj.projectId} className="block bg-white p-3 rounded-lg border border-slate-200 hover:border-blue-400 hover:shadow-sm transition-all cursor-pointer group">
+                                            <p className="font-semibold text-slate-800 group-hover:text-blue-600">{proj.title}</p>
                                             <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs">
                                                 <span className="bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded border border-slate-200 font-medium">{proj.code}</span>
                                                 <span className="text-slate-500 flex items-center">Cấp: {proj.level}</span>
                                                 <span className="text-slate-500 flex items-center mr-1">HT: {proj.completionAt}</span>
                                                 {renderStatus(proj.confirmedStatus)}
                                             </div>
-                                        </div>
+                                        </Link>
                                     ))}
                                 </ul>
                             ) : <p className="text-slate-400 italic text-sm">Chưa có dự án ngoài.</p>}

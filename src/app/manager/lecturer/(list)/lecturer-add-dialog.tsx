@@ -91,7 +91,6 @@ export default function LecturerAddDialog() {
                         >
                             <option value={1}>Nam</option>
                             <option value={2}>Nữ</option>
-                            <option value={3}>Khác</option>
                         </select>
                     </div>
                     <div className="grid gap-2">

@@ -5,7 +5,7 @@ import LecturerCard from "./lecturer-card"
 
 export default function LecturerGrid() {
     const data = storeLecturerListManger((state) => state.data);
-    const isLoading = storeLecturerListManger((state) => state.isLoading);
+    const isLoading = storeLecturerListManger((state) => state.loading);
 
     if (isLoading) {
         return (
@@ -26,7 +26,7 @@ export default function LecturerGrid() {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 py-6">
             {data.map((lecturer) => {
-                const id = typeof lecturer.lecturerId === 'string' ? lecturer.lecturerId : (lecturer.lecturerId as any)?.value;
+                const id = typeof lecturer.lecturerId === 'string' ? lecturer.lecturerId : null;
                 return (
                     <LecturerCard key={id} lecturer={lecturer} />
                 )

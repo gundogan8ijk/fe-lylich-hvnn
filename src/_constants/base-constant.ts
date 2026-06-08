@@ -1,4 +1,14 @@
-export type Gender = "Male" | "Female";
+export type Gender = "Male" | "Female" ;
+
+export const GENDER_OPTIONS: { value: Gender; label: string }[] = [
+    { value: 'Male', label: 'Nam' },
+    { value: 'Female', label: 'Nữ' },
+];
+
+export const GENDER_LABELS: Record<Gender, string> = {
+    Male: 'Nam',
+    Female: 'Nữ',
+};
 
 export type ConfirmedStatus = "Pending" | "Verified" | "Cancelled" | "Draft";
 

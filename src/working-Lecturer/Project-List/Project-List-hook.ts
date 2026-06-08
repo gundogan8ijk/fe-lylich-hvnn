@@ -1,4 +1,4 @@
-import { notify } from "@/_components/utils/Notify";
+﻿import { notify } from "@/_components/utils/Notify";
 import { getAllErrorMessage, getErrorMessage } from "@/_lib/response-helper";
 import {
     getMyProjectsApi,
@@ -22,7 +22,7 @@ async function getMyProjectsAction() {
 
     const res = await getMyProjectsApi();
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getErrorMessage(res.message, res.errors));
         clear();
     } else if (res.code === 1) {
@@ -37,7 +37,7 @@ async function registerProjectAction(form: RegisterProjectForm): Promise<boolean
 
     const res = await registerProjectApi(form);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     } else if (res.code === 1 && res.data) {
@@ -54,7 +54,7 @@ async function deleteProjectAction(id: string) {
 
     const res = await deleteProjectApi(id);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         removeById(id);

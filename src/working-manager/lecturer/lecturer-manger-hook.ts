@@ -1,4 +1,4 @@
-import { notify } from '@/_components/utils/Notify'
+﻿import { notify } from '@/_components/utils/Notify'
 import { defaultPagination } from "@/_Common/_types/pagination-typeConfig";
 import { toSearchParams } from "@/_lib/query-options-toUrl-helper";
 import { storeLecturerListManger } from './lecturer-manger-store';
@@ -17,7 +17,7 @@ async function getListLecturerManagerAction() {
     const url = toSearchParams(query, searchField);
 
     const res = await getListLecturerManagerApi(url);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
     }
 

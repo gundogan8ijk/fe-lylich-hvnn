@@ -1,4 +1,4 @@
-import { notify } from "@/_components/utils/Notify";
+﻿import { notify } from "@/_components/utils/Notify";
 import { getAllErrorMessage, getErrorMessage } from "@/_lib/response-helper";
 import {
     getArticleDetailByLecturerApi,
@@ -41,7 +41,7 @@ async function getArticleDetailAction(articleId: string) {
 
     const res = await getArticleDetailByLecturerApi(articleId);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getErrorMessage(res.message, res.errors));
         clear();
     } else if (res.code === 1 && res.data) {
@@ -58,7 +58,7 @@ async function addInternalContributorAction(
 ) {
     const res = await addInternalContributorApi(articleId, form);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -78,7 +78,7 @@ async function addExternalContributorAction(
 ): Promise<boolean> {
     const res = await addExternalContributorApi(articleId, form);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     } else if (res.code === 1) {
@@ -97,7 +97,7 @@ async function removeInternalContributorAction(
 ): Promise<boolean> {
     const res = await removeInternalContributorApi(articleId, contributorId);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     } else if (res.code === 1) {
@@ -116,7 +116,7 @@ async function removeExternalContributorAction(
 ): Promise<boolean> {
     const res = await removeExternalContributorApi(articleId, externalContributorId);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     } else if (res.code === 1) {
@@ -136,7 +136,7 @@ async function updateExternalContributorAction(
 ): Promise<boolean> {
     const res = await updateExternalContributorApi(articleId, externalContributorId, form);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     } else if (res.code === 1) {
@@ -154,7 +154,7 @@ async function deleteArticleAction(): Promise<void> {
 
     const res = await deleteArticleByLecturerApi(data.id);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success('Xóa bài báo thành công');
@@ -169,7 +169,7 @@ async function submitArticleAction(): Promise<void> {
 
     const res = await submitArticleApi(data.id);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success('Gửi bài báo chờ duyệt thành công');
@@ -183,7 +183,7 @@ async function backToDraftArticleAction(): Promise<void> {
 
     const res = await backToDraftArticleApi(data.id);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success('Chuyển bài báo về nháp thành công');
@@ -197,7 +197,7 @@ async function updateArticleByLecturerAction(
 ): Promise<boolean> {
     const res = await updateArticleByLecturerApi(articleId, form)
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors))
         return false
     } else if (res.code === 1) {
@@ -219,7 +219,7 @@ async function addDisciplinesAction(
         return false;
     }
     const res = await addDisciplinesApi(articleId, disciplineIds);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -235,7 +235,7 @@ async function addDisciplinesAction(
 // Remove discipline
 async function removeDisciplineAction(articleId: string, disciplineId: string): Promise<boolean> {
     const res = await removeDisciplineApi(articleId, disciplineId);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }

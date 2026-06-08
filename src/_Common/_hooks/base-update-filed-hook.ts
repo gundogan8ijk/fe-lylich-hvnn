@@ -1,4 +1,4 @@
-import { updateFieldApi } from "@/_Common/_services/update-field-base";
+﻿import { updateFieldApi } from "@/_Common/_services/update-field-base";
 import { notify } from "@/_components/utils/Notify";
 
 export async function updateFieldAction<
@@ -23,7 +23,7 @@ export async function updateFieldAction<
         body
     );
 
-    if (res.code === -1 || res.data == null) {
+    if (res.code !== 1 || res.data == null) {
         notify.error(res.message);
         return;
     }

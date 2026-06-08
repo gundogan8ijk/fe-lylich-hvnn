@@ -10,6 +10,7 @@ import { useState } from "react"
 import AddContributorDialog from "./AddContributorDialog"
 import DeleteConfirmDialog from "@/_components/custom/DeleteConfirmDialog"
 import { deleteContributorByManagerAction } from "@/working-manager/project-detail/project-detail-hook"
+import Link from "next/link"
 
 export default function ContentContributorsManger() {
     const data = storeProjectManagerDetail((s) => s.data)
@@ -131,9 +132,9 @@ function ContributorRow({ contributor, canUpdate, onDelete }: {
             {/* Info */}
             <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">
+                    <Link href={`/manager/lecturer/${contributor.id}`} className="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate hover:text-blue-600 hover:underline">
                         {contributor.name}
-                    </span>
+                    </Link>
                     <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500">
                         {contributor.code}
                     </span>

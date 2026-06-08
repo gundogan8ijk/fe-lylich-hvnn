@@ -69,7 +69,7 @@ export function DisciplineDetailInfo({ id, disciplineId }: { id: string, discipl
     const createdYear = new Date(createdAt).getFullYear()
 
     return (
-        <main className="flex flex-col bg-background w-full max-w-7xl mx-auto px-4 py-12">
+        <main className="flex flex-col bg-background w-full max-w-7xl mx-auto px-4">
             <div className="w-full">
                 <Link 
                     href={`/manager/department/${id}`} 
@@ -80,10 +80,10 @@ export function DisciplineDetailInfo({ id, disciplineId }: { id: string, discipl
                 </Link>
 
                 {/* Header Section */}
-                <div className="mb-8 flex justify-between items-start">
+                <div className="mb-6 flex justify-between items-start flex-wrap gap-4">
                     <div>
                         <div className="flex items-center gap-2 mb-2">
-                            <h1 className="text-4xl font-bold text-gray-900 text-balance">{disciplineName}</h1>
+                            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-balance">{disciplineName}</h1>
                             <EditDisciplineNameDialog departmentId={id} id={disciplineId} initialName={disciplineName} onUpdated={handleRefresh} />
                             {!discipline.isPublish && (
                                 <span className="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-medium rounded-full">
@@ -91,7 +91,7 @@ export function DisciplineDetailInfo({ id, disciplineId }: { id: string, discipl
                                 </span>
                             )}
                         </div>
-                        <div className="text-lg text-gray-600 flex items-start gap-2">
+                        <div className="text-base text-gray-600 flex items-start gap-2">
                             {disciplineDescribe}
                             <EditDisciplineDescribeDialog departmentId={id} id={disciplineId} initialDescribe={disciplineDescribe} onUpdated={handleRefresh} />
                         </div>

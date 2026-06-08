@@ -1,4 +1,4 @@
-import { BarChart3, BookOpen, Briefcase, Building2, FileText, FlaskConical, HelpCircle, LucideIcon, Settings, User, UserRoundCog, Users } from "lucide-react"
+import { Award, BarChart3, BookMarked, BookOpen, Briefcase, Building2, FileText, FlaskConical, FolderKanban, GraduationCap, HelpCircle, LucideIcon, Newspaper, Settings, User, UserRoundCog, Users } from "lucide-react"
 
 export interface SidebarItem {
     icon: LucideIcon
@@ -19,14 +19,14 @@ export const lecturerMenu: SidebarItem[] = [
 ]
 
 export const managerMenu: SidebarItem[] = [
-    { icon: Users, label: 'giảng viên', href: '/manager/lecturer' },
-    { icon: BookOpen, label: 'Khoa', href: '/manager/department' },
-    { icon: FileText, label: 'Đề tài', href: '/manager/research-projects' },
-    { icon: FileText, label: 'Đề tài bên ngoài', href: '/manager/project-external'},
-    { icon: UserRoundCog, label: 'bài báo', href: '/manager/article' },
-    { icon: BarChart3, label: 'sách', href: '/manager/book' },
-    { icon: Settings, label: 'Cài đặt lớp', href: '/manager/settings' },
-    { icon: HelpCircle, label: 'Trợ giúp', href: '/manager/help' },
+    { icon: Users, label: 'Giảng viên', href: '/manager/lecturer' },
+    { icon: Building2, label: 'Khoa', href: '/manager/department' },
+    { icon: FlaskConical, label: 'Đề tài', href: '/manager/research-projects' },
+    { icon: FolderKanban, label: 'Đề tài bên ngoài', href: '/manager/project-external' },
+    { icon: Newspaper, label: 'Bài báo', href: '/manager/article' },
+    { icon: BookMarked, label: 'Sách', href: '/manager/book' },
+    { icon: GraduationCap, label: 'Bằng cấp', href: '/manager/education' },
+    { icon: Award, label: 'Giải thưởng', href: '/manager/award' },
 ]
 
 export const adminMenu: SidebarItem[] = [

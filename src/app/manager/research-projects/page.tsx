@@ -16,5 +16,3 @@ export default function ProjectMangerPage() {
         </main>
     );
 }
-
-// overflow-y-auto

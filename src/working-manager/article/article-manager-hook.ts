@@ -1,4 +1,4 @@
-import { notify } from '@/_components/utils/Notify';
+﻿import { notify } from '@/_components/utils/Notify';
 import { storeArticleListManger, storeArticleDetailManager } from './article-manager-store';
 import { 
     getListArticleManagerApi, 
@@ -13,7 +13,7 @@ export async function getListArticleManagerAction() {
     setLoading(true);
 
     const res = await getListArticleManagerApi();
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
     }
 
@@ -29,7 +29,7 @@ export async function getArticleDetailManagerAction(id: string) {
     setLoading(true);
 
     const res = await getArticleDetailManagerApi(id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
         setData(null);
     } else {
@@ -41,7 +41,7 @@ export async function getArticleDetailManagerAction(id: string) {
 
 export async function verifyArticleManagerAction(id: string) {
     const res = await verifyArticleManagerApi(id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
         return false;
     }
@@ -52,7 +52,7 @@ export async function verifyArticleManagerAction(id: string) {
 
 export async function rejectArticleManagerAction(id: string) {
     const res = await rejectArticleManagerApi(id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
         return false;
     }
@@ -63,7 +63,7 @@ export async function rejectArticleManagerAction(id: string) {
 
 export async function togglePublishArticleManagerAction(id: string) {
     const res = await togglePublishArticleManagerApi(id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
         return false;
     }

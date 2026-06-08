@@ -8,7 +8,7 @@ export default async function CourseDetailPage({
     const { id, slug, cour } = await params;
 
     return (
-        <div className="bg-slate-50 min-h-screen">
+        <div className="w-full">
             <CourseDetailClient 
                 departmentId={id} 
                 disciplineId={slug} 

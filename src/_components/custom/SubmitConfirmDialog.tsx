@@ -9,6 +9,7 @@ interface Props {
     submitting?: boolean
     title?: string
     description?: string
+    confirmLabel?: string
     onConfirm: () => void
     onCancel: () => void
 }
@@ -17,7 +18,8 @@ export default function SubmitConfirmDialog({
     open, 
     submitting, 
     title, 
-    description, 
+    description,
+    confirmLabel,
     onConfirm, 
     onCancel 
 }: Props) {
@@ -39,7 +41,7 @@ export default function SubmitConfirmDialog({
                         disabled={submitting}
                         className="bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 rounded-lg"
                     >
-                        {submitting ? 'Đang nộp...' : 'Xác nhận nộp'}
+                        {submitting ? 'Đang xử lý...' : (confirmLabel ?? 'Xác nhận nộp')}
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

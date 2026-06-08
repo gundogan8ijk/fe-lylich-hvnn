@@ -164,6 +164,7 @@ export function AwardCard({ award, onEdit, onDelete, onViewProof }: AwardCardPro
                 submitting={submitting}
                 title="Xác nhận hủy gửi phê duyệt?"
                 description={`Bạn có chắc chắn muốn chuyển thông tin giải thưởng từ "${award.name}" về trạng thái nháp không?`}
+                confirmLabel="Xác nhận hủy"
                 onConfirm={handleConfirmBackToDraft}
                 onCancel={() => setIsBackToDraftOpen(false)}
             />

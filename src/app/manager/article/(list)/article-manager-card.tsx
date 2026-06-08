@@ -3,6 +3,7 @@
 import { Card } from '@/_components/ui/card'
 import { Badge } from '@/_components/ui/badge'
 import { Button } from '@/_components/ui/button'
+import Link from 'next/link'
 import { Eye, Calendar, FileText, ExternalLink, Globe, Lock, User } from 'lucide-react'
 import { confirmedStyle, STATUS_LABELS } from '@/_constants/base-constant'
 import { getDateOnly } from '@/_lib/display-variable-helper'
@@ -39,9 +40,11 @@ export default function ArticleManagerCard({
                         <div className="flex flex-wrap items-center gap-2">
                             <FileText className="h-4 w-4 flex-shrink-0 text-blue-500" />
                             
-                            <Badge variant="secondary" className="gap-1 text-xs font-normal bg-indigo-50 text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-300 border-0">
-                                <User className="h-3 w-3" /> {item.fullName} ({item.lecturerCode})
-                            </Badge>
+                            <Link href={`/manager/lecturer/${item.lecturerCreateId}`}>
+                                <Badge variant="secondary" className="gap-1 text-xs font-normal bg-indigo-50 text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-300 border-0 hover:bg-indigo-100 transition-colors cursor-pointer">
+                                    <User className="h-3 w-3" /> {item.fullName} ({item.lecturerCode})
+                                </Badge>
+                            </Link>
 
                             {item.isPublic ? (
                                 <Badge variant="secondary" className="gap-1 text-xs font-normal bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border-0">

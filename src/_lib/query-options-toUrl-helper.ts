@@ -25,6 +25,8 @@ export function toSearchParams<TFilter, TField extends string>(
 
     params.set("page", String(q.page));
     params.set("perPage", String(q.perPage));
+    params.set("pageSize", String(q.perPage));
+    params.set("limit", String(q.perPage));
 
     return params;
 }

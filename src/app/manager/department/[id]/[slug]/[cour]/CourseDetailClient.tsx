@@ -16,6 +16,7 @@ import { UpdateCourseDescribeDialog } from "./UpdateCourseDescribeDialog";
 import { UpdateCourseCreditsDialog } from "./UpdateCourseCreditsDialog";
 import { DeleteCourseDialog } from "./DeleteCourseDialog";
 import { ToggleVisibilityDialog } from "./ToggleVisibilityDialog";
+import Link from "next/link";
 
 export default function CourseDetailClient({ 
     departmentId, 
@@ -74,7 +75,7 @@ export default function CourseDetailClient({
     };
 
     return (
-        <div className="w-full max-w-5xl mx-auto px-4 py-8 space-y-6">
+        <div className="w-full max-w-5xl mx-auto space-y-6">
             <Button variant="ghost" onClick={() => router.push(`/manager/department/${departmentId}/${disciplineId}`)} className="mb-4">
                 <ArrowLeft className="w-4 h-4 mr-2" /> Quay lại
             </Button>
@@ -82,7 +83,7 @@ export default function CourseDetailClient({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="md:col-span-2 space-y-6">
                     <Card className="border-indigo-100 shadow-md">
-                        <CardHeader className="bg-indigo-50/50 pb-8 border-b border-indigo-100">
+                        <CardHeader className="bg-indigo-50/50 pb-4 border-b border-indigo-100">
                             <div className="flex justify-between items-start">
                                 <div>
                                     <Badge variant={course.ispublic ? "default" : "secondary"} className="mb-3">
@@ -132,7 +133,7 @@ export default function CourseDetailClient({
                         <CardContent>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {course.techchinhs?.length > 0 ? course.techchinhs.map((gv) => (
-                                    <div key={gv.id} className="flex items-center gap-4 p-4 border rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
+                                    <Link href={`/manager/lecturer/${gv.id}`} key={gv.id} className="flex items-center gap-4 p-4 border rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
                                         {gv.avatarUrl ? (
                                             <Image src={gv.avatarUrl} alt={gv.fullName} width={48} height={48} className="rounded-full object-cover border border-slate-200 w-12 h-12" />
                                         ) : (
@@ -141,10 +142,10 @@ export default function CourseDetailClient({
                                             </div>
                                         )}
                                         <div>
-                                            <p className="font-semibold text-slate-800">{gv.fullName}</p>
+                                            <p className="font-semibold text-slate-800 hover:underline hover:text-indigo-600">{gv.fullName}</p>
                                             <p className="text-xs text-slate-500 font-mono">{gv.lecturerCode} • {gv.position}</p>
                                         </div>
-                                    </div>
+                                    </Link>
                                 )) : (
                                     <p className="text-sm text-slate-500 col-span-2">Chưa có giảng viên nào phụ trách môn này.</p>
                                 )}

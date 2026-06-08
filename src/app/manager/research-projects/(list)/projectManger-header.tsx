@@ -33,7 +33,7 @@ export default function ProjectMangerHeader() {
         <div className="mb-12 space-y-8">
             {/* Title */}
             <div className="relative flex justify-between flex flex-col md:flex-row">
-                <h1 className={`text-3xl pb-1 md:text-5xl font-extrabold tracking-tight ${gradientBg} bg-clip-text text-transparent text-transparent`}>
+                <h1 className="text-3xl pb-1 md:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                     Danh sách đề tài
                 </h1>
                 <Button onClick={() => setDialogOpen(true)} className="w-full sm:w-auto">tạo đề tài</Button>

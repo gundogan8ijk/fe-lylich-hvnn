@@ -1,4 +1,4 @@
-import { notify } from "@/_components/utils/Notify";
+﻿import { notify } from "@/_components/utils/Notify";
 import { getAllErrorMessage, getErrorMessage } from "@/_lib/response-helper";
 import {
     getProjectExternalDetailApi,
@@ -47,7 +47,7 @@ async function getProjectExternalDetailAction(projectId: string) {
 
     const res = await getProjectExternalDetailApi(projectId);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getErrorMessage(res.message, res.errors));
         clear();
     } else if (res.code === 1 && res.data) {
@@ -63,7 +63,7 @@ async function addInternalContributorAction(
     form: AddInternalContributorForm
 ) {
     const res = await addInternalContributorApi(projectId, form);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -78,7 +78,7 @@ async function updateInternalContributorAction(
     role: string
 ) {
     const res = await updateInternalContributorApi(projectId, contributorId, role);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -89,7 +89,7 @@ async function updateInternalContributorAction(
 
 async function removeInternalContributorAction(projectId: string, contributorId: string) {
     const res = await removeInternalContributorApi(projectId, contributorId);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -104,7 +104,7 @@ async function addExternalParticipantAction(
     form: AddExternalParticipantForm
 ): Promise<boolean> {
     const res = await addExternalParticipantApi(projectId, form);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -115,7 +115,7 @@ async function addExternalParticipantAction(
 
 async function removeExternalParticipantAction(projectId: string, participantId: string) {
     const res = await removeExternalParticipantApi(projectId, participantId);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -130,7 +130,7 @@ async function updateExternalParticipantAction(
     form: UpdateExternalParticipantForm
 ) {
     const res = await updateExternalParticipantApi(projectId, participantId, form);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -144,7 +144,7 @@ async function submitProjectExternalAction() {
     const { data } = storeProjectExternalDetail.getState();
     if (!data) return;
     const res = await submitProjectExternalApi(data.id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Gửi đề tài chờ duyệt thành công");
@@ -156,7 +156,7 @@ async function backToDraftProjectExternalAction() {
     const { data } = storeProjectExternalDetail.getState();
     if (!data) return;
     const res = await backToDraftProjectExternalApi(data.id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Chuyển về trạng thái nháp thành công");
@@ -168,7 +168,7 @@ async function deleteProjectExternalAction() {
     const { data, clear } = storeProjectExternalDetail.getState();
     if (!data) return;
     const res = await deleteProjectExternalDetailApi(data.id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Xóa đề tài thành công");
@@ -182,7 +182,7 @@ async function updateProjectExternalAction(
     form: UpdateProjectExternalForm
 ): Promise<boolean> {
     const res = await updateProjectExternalApi(projectId, form);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -198,7 +198,7 @@ async function addDisciplinesAction(projectId: string, disciplineIds: string[]):
         return false;
     }
     const res = await addDisciplinesApi(projectId, disciplineIds);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -209,7 +209,7 @@ async function addDisciplinesAction(projectId: string, disciplineIds: string[]):
 
 async function removeDisciplineAction(projectId: string, disciplineId: string): Promise<boolean> {
     const res = await removeDisciplineApi(projectId, disciplineId);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }

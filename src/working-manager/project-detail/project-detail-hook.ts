@@ -1,4 +1,4 @@
-import { defaultPagination } from "@/_Common/_types/pagination-typeConfig";
+﻿import { defaultPagination } from "@/_Common/_types/pagination-typeConfig";
 import { notify } from "@/_components/utils/Notify";
 import { toSearchParams } from "@/_lib/query-options-toUrl-helper";
 import { 
@@ -73,7 +73,7 @@ async function getMangerProjectListAction() {
     const url = toSearchParams(query);
 
     const res = await getMangerProjectListApi(url);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
     }
 
@@ -91,7 +91,7 @@ async function createProjectListAction(form: CreateProjectForm): Promise<boolean
 
     const res = await createProjectApi(form);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -110,7 +110,7 @@ async function deleteMangerProjectListAction(id: string) {
 
     const res = await deleteManagerProjectApi(id);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     }
     else if (res.code === 1) {
@@ -139,7 +139,7 @@ async function deleteMangerProjectDetailAction() {
     setDeleting(true);
     const res = await deleteManagerProjectApi(data.id);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         setDeleting(false);
     }
@@ -159,7 +159,7 @@ async function updateConfirmedProjectDetailAction(confirmedStatus: ConfirmedStat
     setUpdating(true);
     const res = await updateConfirmedProjectDetailApi(data.id, { confirmedStatus });
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         setUpdating(false);
     }
@@ -183,7 +183,7 @@ async function updateBaseInfoProjectMangerAction(form: UpdateBaseInfoProjectMang
 
     if (data.permissions.canUpdateBase) {
         const baseRes = await updateBaseInfoProjectMangerApi(data.id, { Title: form.Title, Describe: form.Describe });
-        if (baseRes.code === -1) {
+        if (baseRes.code !== 1) {
             hasError = true;
             errorMsg = baseRes.message;
             errorDetails = baseRes.errors;
@@ -192,7 +192,7 @@ async function updateBaseInfoProjectMangerAction(form: UpdateBaseInfoProjectMang
 
     if (!hasError && data.permissions.canUpdateTimeAndLevel) {
         const timeLevelRes = await updateTimeAndLevelProjectMangerApi(data.id, { Level: form.Level, StartDate: form.StartDate, EndDate: form.EndDate });
-        if (timeLevelRes.code === -1) {
+        if (timeLevelRes.code !== 1) {
             hasError = true;
             errorMsg = timeLevelRes.message;
             errorDetails = timeLevelRes.errors;
@@ -219,7 +219,7 @@ async function addDisciplinesByMangerAction(disciplineIds: string[]) {
 
     const res = await addDisciplinesByMangerApi(data.id, disciplineIds);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         setUpdating(false);
     }
@@ -240,7 +240,7 @@ async function deleteDisciplineByManagerAction(disciplineId: string) {
 
     const res = await deleteDisciplineByManagerApi(data.id, disciplineId);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         setUpdating(false);
     }
@@ -264,7 +264,7 @@ async function updateTimeEndProjectMangerAction(timeEnd: string) {
 
     const res = await updateTimeEndProjectMangerApi(data.id, timeEnd);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Cập nhật ngày kết thúc thành công");
@@ -281,7 +281,7 @@ async function updateProjectStatusAction(status: string) {
     if (!data) return;
     setUpdating(true);
     const res = await updateProjectStatusApi(data.id, status);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Cập nhật trạng thái tiến độ thành công");
@@ -299,7 +299,7 @@ async function hideProjectMangerAction() {
     setUpdating(true);
     const res = await hideProjectMangerApi(data.id);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         setUpdating(false);
     }
@@ -316,7 +316,7 @@ async function updateProjectEvaluationAction(evaluation: string) {
     if (!data) return;
     setUpdating(true);
     const res = await updateProjectEvaluationApi(data.id, evaluation);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Cập nhật kết quả đánh giá thành công");
@@ -332,7 +332,7 @@ async function updateCertificateUrlAction(url: string) {
     if (!data) return;
     setUpdating(true);
     const res = await updateCertificateUrlApi(data.id, url);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Cập nhật đường dẫn chứng chỉ thành công");
@@ -348,7 +348,7 @@ async function deleteCertificateUrlAction() {
     if (!data) return;
     setUpdating(true);
     const res = await deleteCertificateUrlApi(data.id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Xóa đường dẫn chứng chỉ thành công");
@@ -364,7 +364,7 @@ async function updateDetailUrlAction(url: string) {
     if (!data) return;
     setUpdating(true);
     const res = await updateDetailUrlApi(data.id, url);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Cập nhật tài liệu chi tiết thành công");
@@ -380,7 +380,7 @@ async function deleteDetailUrlAction() {
     if (!data) return;
     setUpdating(true);
     const res = await deleteDetailUrlApi(data.id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Xóa tài liệu chi tiết thành công");
@@ -397,7 +397,7 @@ async function addContributorByManagerAction(form: AddContributorByManagerForm):
     setUpdating(true);
     const res = await addContributorByManagerApi(data.id, form);
     setUpdating(false);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     } else if (res.code === 1) {
@@ -416,7 +416,7 @@ async function deleteContributorByManagerAction(contributorId: string) {
     setUpdating(true);
     const res = await deleteContributorByManagerApi(data.id, contributorId);
     setUpdating(false);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Xóa thành viên thành công");
@@ -432,7 +432,7 @@ async function addParticipantByManagerAction(form: AddParticipantByManagerForm):
     setUpdating(true);
     const res = await addParticipantByManagerApi(data.id, form);
     setUpdating(false);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     } else if (res.code === 1) {
@@ -451,7 +451,7 @@ async function updateParticipantByManagerAction(participantId: string, form: Add
     setUpdating(true);
     const res = await updateParticipantByManagerApi(data.id, participantId, form);
     setUpdating(false);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     } else if (res.code === 1) {
@@ -470,7 +470,7 @@ async function deleteParticipantByManagerAction(participantId: string) {
     setUpdating(true);
     const res = await deleteParticipantByManagerApi(data.id, participantId);
     setUpdating(false);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Xóa người hỗ trợ thành công");
@@ -486,7 +486,7 @@ async function addFundingByManagerAction(form: AddFundingByManagerForm): Promise
     setUpdating(true);
     const res = await addFundingByManagerApi(data.id, form);
     setUpdating(false);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     } else if (res.code === 1) {
@@ -505,7 +505,7 @@ async function deleteFundingByManagerAction(source: string) {
     setUpdating(true);
     const res = await deleteFundingByManagerApi(data.id, source);
     setUpdating(false);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Xóa nguồn kinh phí thành công");

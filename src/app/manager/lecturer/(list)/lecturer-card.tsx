@@ -14,11 +14,11 @@ export default function LecturerCard({ lecturer }: { lecturer: LecturerItemByMan
     
     const router = useRouter();
 
-    const avatarUrl = typeof lecturer.avatarUrl === 'string' ? lecturer.avatarUrl : (lecturer.avatarUrl as any)?.value;
-    const lecturerCode = typeof lecturer.lecturerCode === 'string' ? lecturer.lecturerCode : (lecturer.lecturerCode as any)?.value;
-    const departmentName = typeof lecturer.departmentName === 'string' ? lecturer.departmentName : (lecturer.departmentName as any)?.value;
-    const disciplineName = typeof lecturer.disciplineName === 'string' ? lecturer.disciplineName : (lecturer.disciplineName as any)?.value;
-    const cccd = typeof lecturer.cccd === 'string' ? lecturer.cccd : (lecturer.cccd as any)?.value;
+    const avatarUrl = lecturer.avatarUrl;
+    const lecturerCode = lecturer.lecturerCode;
+    const departmentName = lecturer.departmentName;
+    const disciplineName = lecturer.disciplineName;
+    const cccd = lecturer.cccd;
 
     return (
         <Card className="pt-0 group relative overflow-hidden bg-card border-muted hover:border-primary/50 hover:shadow-xl transition-all duration-500">
@@ -87,7 +87,7 @@ export default function LecturerCard({ lecturer }: { lecturer: LecturerItemByMan
                 </div>
 
                 <Button className="w-full mt-2 group/btn relative overflow-hidden transition-all hover:pr-8"
-                    onClick={() => router.push(`/manager/lecturer/${typeof lecturer.lecturerId === 'string' ? lecturer.lecturerId : (lecturer.lecturerId as any)?.value}`)}>
+                    onClick={() => router.push(`/manager/lecturer/${lecturer.lecturerId}`)}>
                     <span>Xem chi tiết</span>
                     <ArrowRight className="w-4 h-4 absolute right-4 opacity-0 -translate-x-2 transition-all group-hover/btn:opacity-100 group-hover/btn:translate-x-0" />
                 </Button>

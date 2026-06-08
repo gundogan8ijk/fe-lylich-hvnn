@@ -165,6 +165,7 @@ export function EducationCard({ education: edu, onEdit, onDelete, onViewProof }:
                 submitting={submitting}
                 title="Xác nhận hủy gửi phê duyệt?"
                 description={`Bạn có chắc chắn muốn chuyển thông tin học vấn từ "${edu.trainingName}" về trạng thái nháp không?`}
+                confirmLabel="Xác nhận hủy"
                 onConfirm={handleConfirmBackToDraft}
                 onCancel={() => setIsBackToDraftOpen(false)}
             />

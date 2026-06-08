@@ -24,7 +24,7 @@ export default function DepartmentHeader() {
     return (
         <div className="mb-12 space-y-8">
             <div className="relative flex justify-between items-start md:items-center flex-col md:flex-row gap-4">
-                <h1 className="text-3xl pb-1 md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                <h1 className="text-3xl pb-1 md:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                     Danh sách khoa đào tạo
                 </h1>
                 <DepartmentAddDialog />

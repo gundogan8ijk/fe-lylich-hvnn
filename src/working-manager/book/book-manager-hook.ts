@@ -1,4 +1,4 @@
-import { notify } from '@/_components/utils/Notify';
+﻿import { notify } from '@/_components/utils/Notify';
 import { storeBookListManger, storeBookDetailManager } from './book-manager-store';
 import { 
     getListBookManagerApi, 
@@ -13,7 +13,7 @@ export async function getListBookManagerAction() {
     setLoading(true);
 
     const res = await getListBookManagerApi();
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
     }
 
@@ -29,7 +29,7 @@ export async function getBookDetailManagerAction(id: string) {
     setLoading(true);
 
     const res = await getBookDetailManagerApi(id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
         setData(null);
     } else {
@@ -41,7 +41,7 @@ export async function getBookDetailManagerAction(id: string) {
 
 export async function verifyBookManagerAction(id: string) {
     const res = await verifyBookManagerApi(id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
         return false;
     }
@@ -52,7 +52,7 @@ export async function verifyBookManagerAction(id: string) {
 
 export async function rejectBookManagerAction(id: string) {
     const res = await rejectBookManagerApi(id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
         return false;
     }
@@ -63,7 +63,7 @@ export async function rejectBookManagerAction(id: string) {
 
 export async function togglePublishBookManagerAction(id: string) {
     const res = await togglePublishBookManagerApi(id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(res.message);
         return false;
     }

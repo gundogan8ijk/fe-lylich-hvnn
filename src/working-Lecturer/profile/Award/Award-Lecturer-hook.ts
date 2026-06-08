@@ -1,4 +1,4 @@
-import { notify } from "@/_components/utils/Notify";
+﻿import { notify } from "@/_components/utils/Notify";
 import { getErrorMessage } from "@/_lib/response-helper";
 import { 
     deleteAwardByLecturerApi, 
@@ -23,7 +23,7 @@ async function registerAwardByLecturerAction(awardForm: RegisterAwardByLecturerF
     const { addAward } = storeLecturerProfile.getState();
 
     const res = await registerAwardByLecturerApi(awardForm);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getErrorMessage(res.message, res.errors));
         return;
     }
@@ -38,7 +38,7 @@ async function deleteAwardByLecturerAction(id: string) {
     const { deleteAward } = storeLecturerProfile.getState();
 
     const res = await deleteAwardByLecturerApi(id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getErrorMessage(res.message, res.errors));
     } else {
         deleteAward(id);
@@ -50,7 +50,7 @@ async function updateAwardAction(payload: UpdateAwardByLecturerForm) {
     const { updateAward } = storeLecturerProfile.getState();
 
     const res = await updateAwardByLecturerApi(payload);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getErrorMessage(res.message, res.errors));
         return;
     }
@@ -67,7 +67,7 @@ async function submitAwardAction(id: string) {
 
     const res = await submitAwardByLecturerApi(id);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getErrorMessage(res.message, res.errors));
         return;
     }
@@ -83,7 +83,7 @@ async function backToDraftAwardAction(id: string) {
 
     const res = await backToDraftAwardApi(id);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getErrorMessage(res.message, res.errors));
         return;
     }

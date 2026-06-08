@@ -1,4 +1,4 @@
-import { notify } from "@/_components/utils/Notify";
+﻿import { notify } from "@/_components/utils/Notify";
 import { getAllErrorMessage, getErrorMessage } from "@/_lib/response-helper";
 import {
     getProjectDetailApi,
@@ -54,7 +54,7 @@ async function getProjectDetailAction(id: string) {
 
     const res = await getProjectDetailApi(id);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getErrorMessage(res.message, res.errors));
         clear();
     } else if (res.code === 1 && res.data) {
@@ -67,7 +67,7 @@ async function getProjectDetailAction(id: string) {
 // Update basic info
 async function updateProjectAction(id: string, form: UpdateProjectForm): Promise<boolean> {
     const res = await updateProjectApi(id, form);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -79,7 +79,7 @@ async function updateProjectAction(id: string, form: UpdateProjectForm): Promise
 // Update detail link
 async function updateProjectDetailLinkAction(id: string, form: UpdateDetailLinkForm): Promise<boolean> {
     const res = await updateProjectDetailLinkApi(id, form);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -91,7 +91,7 @@ async function updateProjectDetailLinkAction(id: string, form: UpdateDetailLinkF
 // Submit
 async function submitProjectAction(id: string): Promise<boolean> {
     const res = await submitProjectApi(id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -103,7 +103,7 @@ async function submitProjectAction(id: string): Promise<boolean> {
 // Cancel (về Draft)
 async function cancelProjectAction(id: string): Promise<boolean> {
     const res = await cancelProjectApi(id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -116,7 +116,7 @@ async function cancelProjectAction(id: string): Promise<boolean> {
 async function deleteProjectAction(id: string) {
     const { clear } = storeProjectDetail.getState();
     const res = await deleteProjectApi(id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Xóa đề tài thành công");
@@ -128,7 +128,7 @@ async function deleteProjectAction(id: string) {
 // Contributor
 async function addContributorAction(id: string, form: AddContributorForm): Promise<boolean> {
     const res = await addContributorApi(id, form);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -139,7 +139,7 @@ async function addContributorAction(id: string, form: AddContributorForm): Promi
 
 async function removeContributorAction(id: string, contributorId: string): Promise<boolean> {
     const res = await removeContributorApi(id, contributorId);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -155,7 +155,7 @@ async function addDisciplinesAction(id: string, form: AddDisciplinesForm): Promi
         return false;
     }
     const res = await addDisciplinesApi(id, form);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -166,7 +166,7 @@ async function addDisciplinesAction(id: string, form: AddDisciplinesForm): Promi
 
 async function removeDisciplineAction(id: string, disciplineId: string): Promise<boolean> {
     const res = await removeDisciplineApi(id, disciplineId);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -178,7 +178,7 @@ async function removeDisciplineAction(id: string, disciplineId: string): Promise
 // Participants
 async function addParticipantAction(id: string, form: AddParticipantForm): Promise<boolean> {
     const res = await addParticipantApi(id, form);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -193,7 +193,7 @@ async function updateParticipantAction(
     form: UpdateParticipantForm
 ): Promise<boolean> {
     const res = await updateParticipantApi(id, participantId, form);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -204,7 +204,7 @@ async function updateParticipantAction(
 
 async function removeParticipantAction(id: string, participantId: string): Promise<boolean> {
     const res = await removeParticipantApi(id, participantId);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }

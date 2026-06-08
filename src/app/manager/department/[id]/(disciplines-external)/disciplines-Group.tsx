@@ -57,7 +57,8 @@ export function DisciplinesGroup({ id }: { id: string }) {
     const paged = disciplineList.pagination;
 
     return (
-        <div className="max-w-4xl mx-auto mt-7 px-4 py-5">
+        <div className="w-full mt-8">
+            <div className="w-full max-w-7xl mx-auto">
             <div className="mb-6">
                 <div className="flex items-center justify-between mb-5">
                     <h2 className="text-2xl font-bold">Danh sách chuyên ngành</h2>
@@ -149,6 +150,7 @@ export function DisciplinesGroup({ id }: { id: string }) {
                     </Button>
                 </div>
             )}
+            </div>
         </div>
     );
 }

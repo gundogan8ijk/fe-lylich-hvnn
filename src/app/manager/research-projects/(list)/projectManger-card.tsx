@@ -9,7 +9,7 @@ import {
     ProjectStatus_OPTIONS,
     level_PROJECT_OPTIONS,
 } from '@/_constants/project-constant'
-import { ConfirmedStatus, STATUS_LABELS } from '@/_constants/base-constant'
+import { ConfirmedStatus, STATUS_LABELS, confirmedStyle } from '@/_constants/base-constant'
 import { getDateOnly, getLabel } from '@/_lib/display-variable-helper'
 import { MangerProjectItems } from '@/working-manager/project-list/project-list-type'
 
@@ -27,10 +27,18 @@ export default function MangerResearchProjectCard({
     const statusStyle = projectStatusStyle[item.status] ?? projectStatusStyle.Pending
     const confirmedInfo = confirmedStyle[item.confirmed] ?? confirmedStyle.Pending
 
+    const statusGradient: Record<ConfirmedStatus, string> = {
+        Draft: "from-slate-400 to-slate-500",
+        Pending: "from-amber-400 to-amber-500",
+        Verified: "from-emerald-400 to-emerald-500",
+        Cancelled: "from-red-400 to-red-500",
+    }
+    const gradient = statusGradient[item.confirmed as ConfirmedStatus] ?? "from-blue-500 to-purple-500"
+
     return (
         <Card className="group relative overflow-hidden border border-slate-200 bg-white transition-all duration-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950">
             {/* Accent bar */}
-            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500" />
+            <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${gradient}`} />
 
             <div className="p-4">
                 {/* Header */}
@@ -132,10 +140,4 @@ const projectStatusStyle: Record<ProjectStatusName, { bg: string; text: string }
     Completed: { bg: 'bg-green-50 dark:bg-green-950/30', text: 'text-green-700 dark:text-green-300' },
     Cancelled: { bg: 'bg-red-50 dark:bg-red-950/30', text: 'text-red-700 dark:text-red-300' },
 }
-
-const confirmedStyle: Record<ConfirmedStatus, { bg: string; text: string }> = {
-    Draft: { bg: 'bg-slate-100 dark:bg-slate-800', text: 'text-slate-500 dark:text-slate-400' },
-    Pending: { bg: 'bg-slate-100 dark:bg-slate-800', text: 'text-slate-600 dark:text-slate-300' },
-    Verified: { bg: 'bg-emerald-100 dark:bg-emerald-900/30', text: 'text-emerald-700 dark:text-emerald-300' },
-    Cancelled: { bg: 'bg-red-100 dark:bg-red-900/30', text: 'text-red-600 dark:text-red-300' },
-}
+

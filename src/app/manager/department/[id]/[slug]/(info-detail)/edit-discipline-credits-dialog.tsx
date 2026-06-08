@@ -44,8 +44,8 @@ export default function EditDisciplineCreditsDialog({ departmentId, id, initialC
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground hover:text-primary">
-                    <Pencil className="h-3 w-3" />
+                <Button variant="ghost" size="icon" className="h-5 w-5 text-muted-foreground hover:text-primary">
+                    <Pencil className="h-2.5 w-2.5" />
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">

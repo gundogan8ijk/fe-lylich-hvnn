@@ -2,8 +2,9 @@
 
 import Image from 'next/image'
 import { Card } from '@/_components/ui/card'
-import { Calendar, MapPin, Users, BookOpen, Trash2, Eye, EyeOff } from 'lucide-react'
+import { Calendar, MapPin, Users, BookOpen, Trash2, Eye, EyeOff, ArrowLeft } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from "next/navigation"
 import NotFound from '@/app/not-found'
 import Loading from '@/_components/utils/Loading'
@@ -77,8 +78,15 @@ export function DepartmentDetailInfo({ id }: { id: string }) {
     const createdYear = new Date(createdAt).getFullYear()
 
     return (
-        <main className="flex flex-col bg-background w-full max-w-7xl mx-auto px-4 py-12">
+        <main className="flex flex-col bg-background w-full max-w-7xl mx-auto px-4">
             <div className="w-full">
+                <Link 
+                    href="/manager/department" 
+                    className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 mb-6 transition-colors"
+                >
+                    <ArrowLeft className="w-4 h-4" />
+                    Quay lại danh sách khoa
+                </Link>
                 {/* Header Section */}
                 <div className="mb-8 flex justify-between items-start">
                     <div>

@@ -1,4 +1,4 @@
-import { notify } from "@/_components/utils/Notify";
+﻿import { notify } from "@/_components/utils/Notify";
 import { getAllErrorMessage, getErrorMessage } from "@/_lib/response-helper";
 import {
     getListProjectExternalApi,
@@ -20,7 +20,7 @@ async function getListProjectExternalAction() {
 
     const res = await getListProjectExternalApi();
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getErrorMessage(res.message, res.errors));
         clear();
     } else if (res.code === 1) {
@@ -35,7 +35,7 @@ async function registerProjectExternalAction(form: RegisterProjectExternalForm):
 
     const res = await registerProjectExternalApi(form);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     } else if (res.code === 1 && res.data) {
@@ -52,7 +52,7 @@ async function deleteProjectExternalAction(id: string) {
 
     const res = await deleteProjectExternalApi(id);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         removeById(id);

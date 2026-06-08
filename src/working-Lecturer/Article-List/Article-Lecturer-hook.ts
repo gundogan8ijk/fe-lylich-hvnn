@@ -1,4 +1,4 @@
-import { notify } from "@/_components/utils/Notify";
+﻿import { notify } from "@/_components/utils/Notify";
 import { getAllErrorMessage, getErrorMessage } from "@/_lib/response-helper";
 import { deleteArticleLecturerApi, getListArticleLecturerApi, RegisterArticleForm, registerArticleLecturerApi } from "./Article-Lecturer-ser";
 import { storeArticleLecturerList } from "./Article-Lecturer-store";
@@ -17,7 +17,7 @@ async function getListArticleLecturerAction() {
 
     const res = await getListArticleLecturerApi();
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getErrorMessage(res.message, res.errors));
         clear();
     } else if (res.code === 1) {
@@ -33,7 +33,7 @@ async function registerArticleLecturerAction(form: RegisterArticleForm): Promise
 
     const res = await registerArticleLecturerApi(form);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     } else if (res.code === 1 && res.data) {
@@ -50,7 +50,7 @@ async function deleteArticleLecturerAction(id: string) {
 
     const res = await deleteArticleLecturerApi(id);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         removeById(id);

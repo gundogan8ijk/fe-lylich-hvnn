@@ -1,4 +1,4 @@
-import { notify } from "@/_components/utils/Notify";
+﻿import { notify } from "@/_components/utils/Notify";
 import { getAllErrorMessage, getErrorMessage } from "@/_lib/response-helper";
 import {
     getBookDetailApi,
@@ -45,7 +45,7 @@ async function getBookDetailAction(bookId: string) {
 
     const res = await getBookDetailApi(bookId);
 
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getErrorMessage(res.message, res.errors));
         clear();
     } else if (res.code === 1 && res.data) {
@@ -61,7 +61,7 @@ async function addInternalContributorAction(
     form: AddInternalContributorForm
 ): Promise<boolean> {
     const res = await addInternalContributorApi(bookId, form);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -75,7 +75,7 @@ async function removeInternalContributorAction(
     contributorId: string
 ): Promise<boolean> {
     const res = await removeInternalContributorApi(bookId, contributorId);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -90,7 +90,7 @@ async function addExternalContributorAction(
     form: AddExternalContributorForm
 ): Promise<boolean> {
     const res = await addExternalContributorApi(bookId, form);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -104,7 +104,7 @@ async function removeExternalContributorAction(
     externalContributorId: string
 ): Promise<boolean> {
     const res = await removeExternalContributorApi(bookId, externalContributorId);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -119,7 +119,7 @@ async function updateExternalContributorAction(
     form: UpdateExternalContributorForm
 ): Promise<boolean> {
     const res = await updateExternalContributorApi(bookId, externalContributorId, form);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -133,7 +133,7 @@ async function submitBookAction() {
     const { data } = storeBookDetail.getState();
     if (!data) return;
     const res = await submitBookApi(data.id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Gửi sách chờ duyệt thành công");
@@ -145,7 +145,7 @@ async function backToDraftBookAction() {
     const { data } = storeBookDetail.getState();
     if (!data) return;
     const res = await backToDraftBookApi(data.id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Chuyển về trạng thái nháp thành công");
@@ -157,7 +157,7 @@ async function deleteBookAction() {
     const { data, clear } = storeBookDetail.getState();
     if (!data) return;
     const res = await deleteBookDetailApi(data.id);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
     } else if (res.code === 1) {
         notify.success("Xóa sách thành công");
@@ -168,7 +168,7 @@ async function deleteBookAction() {
 
 async function updateBookAction(bookId: string, form: UpdateBookForm): Promise<boolean> {
     const res = await updateBookApi(bookId, form);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -184,7 +184,7 @@ async function addDisciplinesAction(bookId: string, disciplineIds: string[]): Pr
         return false;
     }
     const res = await addDisciplinesApi(bookId, disciplineIds);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }
@@ -195,7 +195,7 @@ async function addDisciplinesAction(bookId: string, disciplineIds: string[]): Pr
 
 async function removeDisciplineAction(bookId: string, disciplineId: string): Promise<boolean> {
     const res = await removeDisciplineApi(bookId, disciplineId);
-    if (res.code === -1) {
+    if (res.code !== 1) {
         notify.error(getAllErrorMessage(res.message, res.errors));
         return false;
     }

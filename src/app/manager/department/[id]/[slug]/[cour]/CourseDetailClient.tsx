@@ -10,7 +10,6 @@ import { ArrowLeft, BookOpen, Clock, Users, GraduationCap, Calendar, Edit2, Eye,
 import { Button } from "@/_components/ui/button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { toggleCourseVisibilityAction } from '@/working-manager/department/course/course-manger-hook';
 import { UpdateCourseNameDialog } from "./UpdateCourseNameDialog";
 import { UpdateCourseDescribeDialog } from "./UpdateCourseDescribeDialog";
 import { UpdateCourseCreditsDialog } from "./UpdateCourseCreditsDialog";
@@ -66,11 +65,16 @@ export default function CourseDetailClient({
 
     const formattedDate = new Date(course.createdAt).toLocaleDateString('vi-VN');
 
-    const renderString = (val: string | { value?: string; code?: string } | null | undefined): string => {
+    const renderString = (val: unknown): string => {
         if (!val) return "";
         if (typeof val === "string") return val;
-        if ('value' in val && val.value) return val.value;
-        if ('code' in val && val.code) return val.code;
+        if (typeof val === "object" && val !== null) {
+            const obj = val as Record<string, unknown>;
+            if ('displayName' in obj && obj.displayName) return String(obj.displayName);
+            if ('value' in obj && obj.value) return String(obj.value);
+            if ('name' in obj && obj.name) return String(obj.name);
+            if ('code' in obj && obj.code) return String(obj.code);
+        }
         return String(val);
     };
 
@@ -82,17 +86,17 @@ export default function CourseDetailClient({
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="md:col-span-2 space-y-6">
-                    <Card className="border-indigo-100 shadow-md">
+                    <Card className="border-indigo-100 shadow-md pt-0">
                         <CardHeader className="bg-indigo-50/50 pb-4 border-b border-indigo-100">
-                            <div className="flex justify-between items-start">
-                                <div>
+                            <div className="flex justify-between items-start mt-3">
+                                <div className="">
                                     <Badge variant={course.ispublic ? "default" : "secondary"} className="mb-3">
                                         {course.ispublic ? "Công khai" : "Nội bộ"}
                                     </Badge>
                                     <div className="flex items-center gap-3 mb-2">
                                         <CardTitle className="text-3xl font-bold text-indigo-950">{renderString(course.name)}</CardTitle>
                                         <Button variant="ghost" size="icon" onClick={() => setNameDialogOpen(true)} className="h-8 w-8 text-indigo-600 hover:bg-indigo-100 rounded-full">
-                                            <Edit2 className="h-4 w-4" />
+                                            <Edit2 className="h-3.5 w-3.5" />
                                         </Button>
                                     </div>
                                     <CardDescription className="text-indigo-600/80 font-mono text-lg flex items-center gap-2">
@@ -116,7 +120,7 @@ export default function CourseDetailClient({
                             <div className="flex items-center justify-between mb-3">
                                         <h3 className="text-lg font-semibold text-slate-800">Mô tả môn học</h3>
                                         <Button variant="ghost" size="icon" onClick={() => setDescribeDialogOpen(true)} className="h-8 w-8 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full">
-                                            <Edit2 className="h-4 w-4" />
+                                            <Edit2 className="h-3.5 w-3.5" />
                                         </Button>
                                     </div>
                             <p className="text-slate-600 leading-relaxed whitespace-pre-wrap">{renderString(course.describe) || "Chưa có mô tả"}</p>
@@ -142,8 +146,8 @@ export default function CourseDetailClient({
                                             </div>
                                         )}
                                         <div>
-                                            <p className="font-semibold text-slate-800 hover:underline hover:text-indigo-600">{gv.fullName}</p>
-                                            <p className="text-xs text-slate-500 font-mono">{gv.lecturerCode} • {gv.position}</p>
+                                            <p className="font-semibold text-slate-800 hover:underline hover:text-indigo-600">{renderString(gv.fullName)}</p>
+                                            <p className="text-xs text-slate-500 font-mono">{renderString(gv.lecturerCode)} • {renderString(gv.position)}</p>
                                         </div>
                                     </Link>
                                 )) : (
@@ -169,7 +173,7 @@ export default function CourseDetailClient({
                                     </div>
                                 </div>
                                 <Button variant="ghost" size="icon" onClick={() => setCreditsDialogOpen(true)} className="h-8 w-8 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full">
-                                    <Edit2 className="h-4 w-4" />
+                                    <Edit2 className="h-3.5 w-3.5" />
                                 </Button>
                             </div>
                             

@@ -70,7 +70,7 @@ export function CoursesGroup({ id, disciplineId }: { id: string, disciplineId: s
     const paginatedItems = filteredItems.slice((currentPage - 1) * LocalPerPage, currentPage * LocalPerPage);
 
     return (
-        <div className="w-full mt-8">
+        <div className="w-full px-4">
             <div className="w-full max-w-7xl mx-auto">
                 <div className="mb-8">
                     <div className="flex justify-between items-center mb-6">

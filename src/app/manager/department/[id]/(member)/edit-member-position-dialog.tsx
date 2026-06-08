@@ -74,7 +74,7 @@ export default function EditMemberPositionDialog({ departmentId, lecturerId, ini
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button variant="outline" size="sm" className="h-8 w-8 p-0" title="Cập nhật chức vụ">
-                    <Pencil className="h-4 w-4 text-blue-600" />
+                    <Pencil className="h-3.5 w-3.5 text-blue-600" />
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">

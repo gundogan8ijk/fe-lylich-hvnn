@@ -57,7 +57,7 @@ export default function EditDepartmentLocationDialog({ departmentId, initialLoca
         }}>
             <DialogTrigger asChild>
                 <button className="text-gray-400 hover:text-blue-600 transition-colors p-1 ml-2 inline-flex items-center" title="Đổi địa chỉ">
-                    <Pencil size={18} />
+                    <Pencil className="w-3.5 h-3.5" />
                 </button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">

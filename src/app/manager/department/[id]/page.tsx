@@ -8,10 +8,20 @@ export default async function DepartmentDetail({ params }: {
     const id = (await params).id;
 
     return (
-        <div className="">
-            <DepartmentDetailInfo id={id} ></DepartmentDetailInfo>
-            <DisciplinesGroup id={id}></DisciplinesGroup>
-            <MembersGroup id={id}></MembersGroup>
+        <div className="flex flex-col gap-y-8 pb-12">
+            <DepartmentDetailInfo id={id} />
+            
+            <div className="w-full max-w-7xl mx-auto px-4">
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
+            </div>
+
+            <DisciplinesGroup id={id} />
+            
+            <div className="w-full max-w-7xl mx-auto px-4">
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
+            </div>
+
+            <MembersGroup id={id} />
         </div>
     );
 }

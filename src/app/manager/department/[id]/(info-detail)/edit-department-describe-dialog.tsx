@@ -46,7 +46,7 @@ export default function EditDepartmentDescribeDialog({ departmentId, initialDesc
         }}>
             <DialogTrigger asChild>
                 <button className="text-gray-400 hover:text-blue-600 transition-colors p-1 ml-2 inline-flex items-center" title="Sửa mô tả">
-                    <Pencil size={18} />
+                    <Pencil className="w-3.5 h-3.5" />
                 </button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">

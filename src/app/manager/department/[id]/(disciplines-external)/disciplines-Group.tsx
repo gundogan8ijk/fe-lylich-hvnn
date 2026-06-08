@@ -57,7 +57,7 @@ export function DisciplinesGroup({ id }: { id: string }) {
     const paged = disciplineList.pagination;
 
     return (
-        <div className="w-full mt-8">
+        <div className="w-full px-4">
             <div className="w-full max-w-7xl mx-auto">
             <div className="mb-6">
                 <div className="flex items-center justify-between mb-5">

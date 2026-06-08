@@ -76,7 +76,7 @@ export default function EditDepartmentAvatarDialog({ departmentId, initialAvatar
         }}>
             <DialogTrigger asChild>
                 <Button variant="secondary" size="icon" className="absolute top-2 right-2 rounded-full opacity-80 hover:opacity-100 shadow-sm" title="Thay đổi ảnh đại diện">
-                    <Pencil size={16} />
+                    <Pencil className="w-3.5 h-3.5" />
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">

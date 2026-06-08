@@ -17,13 +17,9 @@ export type DepartmentListPublicStore = BaseSlice<DepartmentPublicItems> & Query
 export const storeDepartmentListPublic = create<DepartmentListPublicStore>()(
     (set, get, api) => ({
         ...createBaseSlice<DepartmentPublicItems>()(set, get, api),
-        ...createQuerySlice<NoFilter, DepartmentSortField>(1, 12)(set, get, api),
-        query: {
-            ...createQuerySlice<NoFilter, DepartmentSortField>(1, 12)(set, get, api).query,
-            perPage: 12
-        },
-        searchField: DepartmentSearchOptions[0].value,
+        ...createQuerySlice<NoFilter, DepartmentSortField>(1, 10)(set, get, api),
 
+        searchField: DepartmentSearchOptions[0].value,
 
         setSearchField: (field) =>
             set((state) => ({

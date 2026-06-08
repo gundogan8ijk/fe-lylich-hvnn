@@ -17,7 +17,7 @@ export type LecturerListMangerStore = BaseSlice<LecturerItemByMangerDto> & Query
 export const storeLecturerListManger = create<LecturerListMangerStore>()(
     (set, get, api) => ({
         ...createBaseSlice<LecturerItemByMangerDto>()(set, get, api),
-        ...createQuerySlice<NoFilter, LecturerSortField>()(set, get, api),
+        ...createQuerySlice<NoFilter, LecturerSortField>(1,8)(set, get, api),
 
         searchField: LecturerSearchOptions[0].value,
         isAddDialogOpen: false,

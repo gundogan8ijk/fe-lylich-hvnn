@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Loader2, Search, X, UserCheck } from 'lucide-react'
 import { getListLecturersNameApi } from '@/working-Lecturer/profile/infor/Lecturer-Profile-ser'
 import { LecturersNameItems } from '@/working-Lecturer/profile/infor/Profile-lecurer-type'
-import { addContributorByManagerAction } from '@/working-manager/ProjectManger/hook-projects-manger'
+import { addContributorByManagerAction } from '@/working-manager/project-detail/project-detail-hook'
 
 type Props = {
     open: boolean
@@ -33,6 +33,7 @@ export default function AddContributorDialog({ open, onOpenChange, projectId }: 
 
     useEffect(() => {
         if (open) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
             setSelectedLecturer(null)
             setLecturerQuery('')
             setLecturerResults([])

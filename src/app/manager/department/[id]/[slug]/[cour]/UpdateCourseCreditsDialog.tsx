@@ -31,6 +31,7 @@ export function UpdateCourseCreditsDialog({
 
     useEffect(() => {
         if (open) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
             setTheory(currentTheory);
             setPractice(currentPractice);
         }

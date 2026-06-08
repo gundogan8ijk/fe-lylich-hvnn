@@ -25,6 +25,7 @@ export default function AddInternalSubjectDialog({ isOpen, onClose }: Props) {
     useEffect(() => {
         if (isOpen) {
             fetchDisciplineCourses();
+                // eslint-disable-next-line react-hooks/set-state-in-effect
             setSelectedCourse(null);
             setSearchTerm("");
             setDdOpen(false);

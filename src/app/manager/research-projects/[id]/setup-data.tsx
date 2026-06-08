@@ -1,5 +1,5 @@
 'use client'
-import { getProjectManagerDetailAction } from "@/working-manager/ProjectManger/hook-projects-manger";
+import { getProjectManagerDetailAction } from "@/working-manager/project-detail/project-detail-hook";
 import { useEffect } from "react"
 
 export default function SetupDataProjectMangerDetail({ id }: { id: string }) {

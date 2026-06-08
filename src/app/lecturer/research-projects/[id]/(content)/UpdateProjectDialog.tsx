@@ -23,6 +23,7 @@ export default function UpdateProjectDialog({ open, onOpenChange, project }: Pro
 
     useEffect(() => {
         if (open && project) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
             setTitle(project.title)
             setDescribe(project.describe || '')
         }

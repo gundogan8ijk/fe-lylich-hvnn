@@ -12,9 +12,9 @@ import { Search, X, Loader2, BookOpen } from 'lucide-react'
 import { DisciplinesNameItems } from '@/working-public/Discipline-Public/disciplines-type'
 import { getListDisciplinesNameApi } from '@/working-public/Discipline-Public/disciplines-Public-ser'
 import { MODAL_Manger_detail_PROJECT_KEYS } from '@/_constants/project-constant'
-import { storeProjectManagerDetail } from '@/working-manager/ProjectManger/store-detail-project-manger'
-import { ProjectManagerDetailRecord } from '@/working-manager/ProjectManger/type-detail-projects-manger'
-import { addDisciplinesByMangerAction } from '@/working-manager/ProjectManger/hook-projects-manger'
+import { storeProjectManagerDetail } from '@/working-manager/project-detail/project-detail-store'
+import { ProjectManagerDetailRecord } from '@/working-manager/project-detail/project-detail-type'
+import { addDisciplinesByMangerAction } from '@/working-manager/project-detail/project-detail-hook'
 
 export default function AddDisciplineDialog() {
     const data = storeProjectManagerDetail(s => s.data)

@@ -31,6 +31,7 @@ export default function AddDisciplineDialog({ open, onOpenChange, projectId, cur
 
     useEffect(() => {
         if (open) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
             setSelectedDisc(null)
             setDiscQuery('')
             setDiscResults([])

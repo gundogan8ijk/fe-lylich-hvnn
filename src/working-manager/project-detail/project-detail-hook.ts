@@ -33,10 +33,10 @@ import {
     addFundingByManagerApi,
     AddFundingByManagerForm,
     deleteFundingByManagerApi
-} from "./ser-projects-manger";
+} from "./project-detail-service";
 import { getAllErrorMessage } from "@/_lib/response-helper";
-import { storeProjectMangerList } from "./store-list-projects-manger";
-import { storeProjectManagerDetail } from "./store-detail-project-manger";
+import { storeProjectMangerList } from "./../project-list/project-list-store";
+import { storeProjectManagerDetail } from "./project-detail-store";
 import { ConfirmedStatus } from "@/_constants/base-constant";
 
 export {

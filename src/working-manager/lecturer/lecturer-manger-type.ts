@@ -1,24 +1,24 @@
 import { Pagination } from "@/_Common/_types/pagination-typeConfig";
 
 export type LecturerItemByMangerDto = {
-  lecturerId: string;
-  lecturerCode: string;
-  fullName: string;
-  cccd: string;
-  isPublic: boolean;
-  avatarUrl?: string;
-  departmentId?: string;
-  departmentName?: string;
-  disciplineId?: string;
-  disciplineName?: string;
+    lecturerId: string;
+    lecturerCode: string;
+    fullName: string;
+    cccd: string;
+    isPublic: boolean;
+    avatarUrl?: string;
+    departmentId?: string;
+    departmentName?: string;
+    disciplineId?: string;
+    disciplineName?: string;
 };
 
 export type CreateLecturerRequest = {
-  lastName: string;
-  firstName: string;
-  gender: number;
-  birthday: string;
-  citizenIdentificationCard: string;
+    lastName: string;
+    firstName: string;
+    gender: number;
+    birthday: string;
+    citizenIdentificationCard: string;
 };
 
 export type LecturerListPublic = {

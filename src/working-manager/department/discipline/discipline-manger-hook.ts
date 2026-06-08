@@ -1,9 +1,9 @@
 import { api } from "@/_Common/_services/axios-service-config";
-import { CourseListResponse, DisciplineDetailPublic, MemberListResponse, RenameCodeDisciplineRequest, RenameDisciplineRequest, UpdateDescribeDisciplineRequest, UpdateTotalCreditsDisciplineRequest, AddCourseRequest } from "./discipline-manger-type";
+import { CourseListResponse, DisciplineDetailPublic, MemberListResponse, RenameCodeDisciplineRequest, RenameDisciplineRequest, UpdateDescribeDisciplineRequest, UpdateTotalCreditsDisciplineRequest, AddCourseRequest , AddDisciplineRequest } from "./discipline-manger-type";
 import { ListQuery, SortDirection } from "@/_Common/_types/query-types";
 import { toSearchParams } from "@/_lib/query-options-toUrl-helper";
 import { notify } from "@/_components/utils/Notify";
-import { deleteDisciplineApi, renameCodeDisciplineApi, renameDisciplineApi, toggleDisciplineVisibilityApi, updateDescribeDisciplineApi, updateTotalCreditsDisciplineApi, addCourseDisciplineApi } from "./discipline-manger-service";
+import { deleteDisciplineApi, renameCodeDisciplineApi, renameDisciplineApi, toggleDisciplineVisibilityApi, updateDescribeDisciplineApi, updateTotalCreditsDisciplineApi, addCourseDisciplineApi , addDisciplineApi } from "./discipline-manger-service";
 
 export async function getDisciplineDetailAction(disciplineId: string): Promise<DisciplineDetailPublic | null> {
     try {
@@ -110,4 +110,9 @@ export async function addCourseDisciplineAction(disciplineId: string, data: AddC
         notify.error(res.message);
         return false;
     }
+}
+
+export async function addDisciplineAction(departmentId: string, data: AddDisciplineRequest) {
+    const res = await addDisciplineApi(departmentId, data);
+    return res;
 }

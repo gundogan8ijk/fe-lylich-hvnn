@@ -52,3 +52,26 @@ export interface AddCourseRequest {
     practice: number;
 }
 
+export interface RenameDisciplineRequest {
+    newName: string;
+}
+
+export interface RenameCodeDisciplineRequest {
+    newCode: string;
+}
+
+export interface UpdateDescribeDisciplineRequest {
+    newDescribe: string;
+}
+
+export interface UpdateTotalCreditsDisciplineRequest {
+    newTotalCredits: number;
+}
+
+export interface AddDisciplineRequest {
+    code: string;
+    name: string;
+    describe: string;
+    foundedAt: string;
+    totalCredits: number;
+}

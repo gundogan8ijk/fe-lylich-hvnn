@@ -27,6 +27,7 @@ export function UpdateCourseNameDialog({
 
     useEffect(() => {
         if (open) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
             setName(currentName);
         }
     }, [open, currentName]);

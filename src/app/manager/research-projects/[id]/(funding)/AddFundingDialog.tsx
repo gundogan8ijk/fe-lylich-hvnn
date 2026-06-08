@@ -7,7 +7,7 @@ import { Label } from '@/_components/ui/label'
 import { Input } from '@/_components/ui/input'
 import { Textarea } from '@/_components/ui/textarea'
 import { Loader2, Wallet } from 'lucide-react'
-import { addFundingByManagerAction } from '@/working-manager/ProjectManger/hook-projects-manger'
+import { addFundingByManagerAction } from '@/working-manager/project-detail/project-detail-hook'
 
 type Props = {
     open: boolean
@@ -29,6 +29,7 @@ export default function AddFundingDialog({ open, onOpenChange, projectId }: Prop
 
     useEffect(() => {
         if (open) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
             setSource('StateBudget')
             setAmount(0)
             setDescription('')

@@ -31,6 +31,7 @@ export default function AddContributorDialog({ open, onOpenChange, projectId }: 
 
     useEffect(() => {
         if (open) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
             setSelectedLecturer(null)
             setLecturerQuery('')
             setLecturerResults([])

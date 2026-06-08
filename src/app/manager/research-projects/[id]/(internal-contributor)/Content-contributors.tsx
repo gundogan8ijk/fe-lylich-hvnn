@@ -5,11 +5,11 @@ import { Button } from "@/_components/ui/button"
 import { Badge } from "@/_components/ui/badge"
 import { getDateOnly } from "@/_lib/display-variable-helper"
 import { UserPlus, Crown, Users, Trash2, ShieldCheck } from "lucide-react"
-import { storeProjectManagerDetail } from "@/working-manager/ProjectManger/store-detail-project-manger"
+import { storeProjectManagerDetail } from "@/working-manager/project-detail/project-detail-store"
 import { useState } from "react"
 import AddContributorDialog from "./AddContributorDialog"
 import DeleteConfirmDialog from "@/_components/custom/DeleteConfirmDialog"
-import { deleteContributorByManagerAction } from "@/working-manager/ProjectManger/hook-projects-manger"
+import { deleteContributorByManagerAction } from "@/working-manager/project-detail/project-detail-hook"
 
 export default function ContentContributorsManger() {
     const data = storeProjectManagerDetail((s) => s.data)

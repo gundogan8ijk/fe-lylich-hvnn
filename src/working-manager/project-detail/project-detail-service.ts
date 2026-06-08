@@ -1,9 +1,9 @@
 import { api } from "@/_Common/_services/axios-service-config"
 import { ApiResponse } from "@/_Common/_types/result-typeConfig"
-import { ProjectManagerDetailRecord } from "@/working-manager/ProjectManger/type-detail-projects-manger"
+import { ProjectManagerDetailRecord } from "./project-detail-type"
 import { fail, success } from "@/_lib/response-helper"
 import axios from "axios"
-import { MangerProjectItems, MangerProjectItemsList } from "./type-list-projects-manger"
+import { MangerProjectItems, MangerProjectItemsList } from "./../project-list/project-list-type"
 import { ConfirmedStatus } from "@/_constants/base-constant"
 
 export {

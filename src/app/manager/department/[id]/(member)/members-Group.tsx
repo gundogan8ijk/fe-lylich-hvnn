@@ -34,6 +34,7 @@ export function MembersGroup({ id }: { id: string }) {
     const [sortJoinedAt, setSortJoinedAt] = useState('desc');
 
     useEffect(() => {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
         setCurrentPage(1);
     }, [positionFilter, disciplineFilter, sortJoinedAt, searchQuery]);
 

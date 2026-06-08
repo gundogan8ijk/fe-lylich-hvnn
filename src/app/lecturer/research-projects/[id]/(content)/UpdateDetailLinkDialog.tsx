@@ -21,6 +21,7 @@ export default function UpdateDetailLinkDialog({ open, onOpenChange, project }: 
 
     useEffect(() => {
         if (open && project) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
             setDetailLink(project.detailUrl || '')
         }
     }, [open, project])

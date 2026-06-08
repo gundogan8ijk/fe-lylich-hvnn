@@ -6,7 +6,7 @@ import { Button } from '@/_components/ui/button'
 import { Label } from '@/_components/ui/label'
 import { Input } from '@/_components/ui/input'
 import { Loader2, Users, Edit } from 'lucide-react'
-import { addParticipantByManagerAction, updateParticipantByManagerAction } from '@/working-manager/ProjectManger/hook-projects-manger'
+import { addParticipantByManagerAction, updateParticipantByManagerAction } from '@/working-manager/project-detail/project-detail-hook'
 
 type Props = {
     open: boolean
@@ -34,6 +34,7 @@ export default function AddParticipantDialog({ open, onOpenChange, projectId, ed
     useEffect(() => {
         if (open) {
             if (editTarget) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
                 setFullName(editTarget.fullName)
                 setEmail(editTarget.email || '')
                 setRole(editTarget.role)

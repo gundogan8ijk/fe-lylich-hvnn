@@ -4,10 +4,10 @@ import { useState } from 'react'
 import { Card } from "@/_components/ui/card"
 import { Button } from "@/_components/ui/button"
 import { Plus, Wallet, Trash2 } from "lucide-react"
-import { storeProjectManagerDetail } from "@/working-manager/ProjectManger/store-detail-project-manger"
+import { storeProjectManagerDetail } from "@/working-manager/project-detail/project-detail-store"
 import AddFundingDialog from './AddFundingDialog'
 import DeleteConfirmDialog from '@/_components/custom/DeleteConfirmDialog'
-import { deleteFundingByManagerAction } from '@/working-manager/ProjectManger/hook-projects-manger'
+import { deleteFundingByManagerAction } from '@/working-manager/project-detail/project-detail-hook'
 
 export default function ContentFundingManger() {
     const data = storeProjectManagerDetail((s) => s.data)

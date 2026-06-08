@@ -22,8 +22,3 @@ export type LecturerProfile = {
     avatarUrl: string;
 };
 
-export type LecturersNameItems = {
-    id: string;
-    code: string;
-    name:string;
-};

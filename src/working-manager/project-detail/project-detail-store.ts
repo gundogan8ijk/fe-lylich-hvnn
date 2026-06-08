@@ -6,7 +6,7 @@ import {
     ProjectContributorRecord,
     ProjectParticipantRecord,
     ProjectDisciplineRecord,
-} from "@/working-manager/ProjectManger/type-detail-projects-manger"
+} from "./project-detail-type"
 import { BaseStore, createBaseStore } from "@/_Common/_stores/base-store";
 
 type ProjectManagerExtra = {

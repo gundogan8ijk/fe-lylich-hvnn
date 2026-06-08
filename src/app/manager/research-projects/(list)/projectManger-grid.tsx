@@ -4,8 +4,8 @@ import MangerResearchProjectCard from './projectManger-card';
 import { useState } from 'react';
 import DeleteConfirmDialog from '@/_components/custom/DeleteConfirmDialog';
 import { useRouter } from "next/navigation";
-import { storeProjectMangerList } from '@/working-manager/ProjectManger/store-list-projects-manger';
-import { deleteMangerProjectListAction } from '@/working-manager/ProjectManger/hook-projects-manger';
+import { storeProjectMangerList } from '@/working-manager/project-list/project-list-store';
+import { deleteMangerProjectListAction } from '@/working-manager/project-detail/project-detail-hook';
 
 export default function MangerProjectGrid() {
     const isLoading = storeProjectMangerList((s) => s.loading);

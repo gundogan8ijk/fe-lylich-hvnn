@@ -7,20 +7,20 @@ export interface SidebarItem {
 }
 
 export const lecturerMenu: SidebarItem[] = [
+    { icon: User, label: 'Thông tin', href: '/lecturer/background' },
+    { icon: UserRoundCog, label: 'Hồ Sơ', href: '/lecturer/profile' },
     { icon: BookOpen, label: 'Sách', href: '/lecturer/book' },
     { icon: FileText, label: 'Bài báo', href: '/lecturer/article' },
-    { icon: UserRoundCog, label: 'Hồ Sơ', href: '/lecturer/profile' },
     { icon: FlaskConical, label: 'Đề tài', href: '/lecturer/research-projects' },
     { icon: Briefcase, label: 'Đề tài bên ngoài', href: '/lecturer/project-external' },
     { icon: Building2, label: 'khoa và giảng dạy', href: '/lecturer/teaching' },
-    { icon: User, label: 'Thông tin', href: '/lecturer/background' },
     { icon: Settings, label: 'Cài đặt', href: '/lecturer/settings' },
     { icon: HelpCircle, label: 'Trợ giúp', href: '/lecturer/help' },
 ]
 
 export const managerMenu: SidebarItem[] = [
-    { icon: BookOpen, label: 'Khoa', href: '/manager/department' },
     { icon: Users, label: 'giảng viên', href: '/manager/lecturer' },
+    { icon: BookOpen, label: 'Khoa', href: '/manager/department' },
     { icon: UserRoundCog, label: 'Hồ Sơ', href: '/manager/profile' },
     { icon: FileText, label: 'Đề tài', href: '/manager/research-projects' },
     { icon: BarChart3, label: 'Đánh giá', href: '/manager/grades' },

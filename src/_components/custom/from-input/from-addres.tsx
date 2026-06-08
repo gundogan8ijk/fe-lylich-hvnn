@@ -43,7 +43,7 @@ const initialState: AddressState = {
     wards: [],
     selectedProvince: null,
     selectedDistrict: null,
-    loadingProvinces: false,
+    loadingProvinces: true,
     loadingDistricts: false,
     loadingWards: false,
 }
@@ -92,7 +92,6 @@ function useAddress() {
 
     // Load tỉnh 1 lần khi mount
     useEffect(() => {
-        dispatch({ type: 'SET_LOADING_PROVINCES', payload: true })
         fetch(`${BASE}/p/`)
             .then(r => r.json())
             .then(data => dispatch({ type: 'SET_PROVINCES', payload: data }))

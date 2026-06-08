@@ -37,6 +37,7 @@ export function PublicNavbar({ userRoles = [] }: { userRoles?: Role[] }) {
     useEffect(() => {
         const expiresAt = localStorage.getItem('auth_expires_at');
         if (expiresAt && Number(expiresAt) > Date.now()) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
             setIsLoggedIn(true);
         } else {
             setIsLoggedIn(false);

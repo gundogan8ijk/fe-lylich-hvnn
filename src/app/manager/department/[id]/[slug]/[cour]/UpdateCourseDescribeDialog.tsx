@@ -27,6 +27,7 @@ export function UpdateCourseDescribeDialog({
 
     useEffect(() => {
         if (open) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
             setDescribe(currentDescribe || "");
         }
     }, [open, currentDescribe]);

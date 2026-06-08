@@ -13,7 +13,7 @@ import {
 import { Input } from '@/_components/ui/input'
 import { Label } from '@/_components/ui/label'
 import { Textarea } from '@/_components/ui/textarea'
-import { addDisciplineAction } from '@/working-manager/disciplines/disciplines-manager-hook'
+import { addDisciplineAction } from '@/working-manager/department/discipline/discipline-manger-hook'
 
 export default function DisciplineAddDialog({ departmentId, onSuccess }: { departmentId: string, onSuccess?: () => void }) {
     const [open, setOpen] = useState(false)

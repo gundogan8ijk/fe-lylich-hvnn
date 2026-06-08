@@ -49,6 +49,7 @@ export default function ManagerContentBackground({ id }: { id: string }) {
 
     useEffect(() => {
         if (id) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
             loadData();
         }
     }, [id]);

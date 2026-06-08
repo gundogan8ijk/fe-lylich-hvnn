@@ -15,10 +15,10 @@ import {
 } from '@/_components/ui/select'
 import { FlaskConical, Loader2 } from 'lucide-react'
 import { level_PROJECT_OPTIONS, MODAL_Manger_detail_PROJECT_KEYS } from '@/_constants/project-constant'
-import { storeProjectManagerDetail } from '@/working-manager/ProjectManger/store-detail-project-manger'
-import { ProjectManagerDetailRecord } from '@/working-manager/ProjectManger/type-detail-projects-manger'
-import { UpdateBaseInfoProjectMangerForm } from '@/working-manager/ProjectManger/ser-projects-manger'
-import { updateBaseInfoProjectMangerAction } from '@/working-manager/ProjectManger/hook-projects-manger'
+import { storeProjectManagerDetail } from '@/working-manager/project-detail/project-detail-store'
+import { ProjectManagerDetailRecord } from '@/working-manager/project-detail/project-detail-type'
+import { UpdateBaseInfoProjectMangerForm } from '@/working-manager/project-detail/project-detail-service'
+import { updateBaseInfoProjectMangerAction } from '@/working-manager/project-detail/project-detail-hook'
 
 
 // ── wrapper ───────────────────────────────────────────────────────────────────

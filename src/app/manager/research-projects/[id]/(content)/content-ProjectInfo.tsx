@@ -10,7 +10,7 @@ import {
     X
 } from 'lucide-react'
 import { level_PROJECT_OPTIONS, MODAL_Manger_detail_PROJECT_KEYS, ProjectStatus_OPTIONS } from '@/_constants/project-constant'
-import { storeProjectManagerDetail } from "@/working-manager/ProjectManger/store-detail-project-manger"
+import { storeProjectManagerDetail } from "@/working-manager/project-detail/project-detail-store"
 import DisciplineSection from "../(discipline)/DisciplineSection"
 import UpdateBaseProjectDialog from "./UpdateBaseProjectDialog"
 import UpdateTimeEndDialog from "./UpdateTimeEndDialog"

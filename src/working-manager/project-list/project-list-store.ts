@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { ProjectManagerFilters, ProjectMangerSortField } from "@/_constants/project-constant";
 import { createQuerySlice, QuerySlice } from "@/_Common/_stores/base-list/query-module";
-import { MangerProjectItems } from "./type-list-projects-manger";
+import { MangerProjectItems } from "./project-list-type";
 import { BaseSlice, createBaseSlice } from "@/_Common/_stores/base-list/base-module";
 
 type ProjectMangerExtra = {

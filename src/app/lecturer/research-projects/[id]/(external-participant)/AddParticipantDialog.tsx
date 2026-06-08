@@ -34,6 +34,7 @@ export default function AddParticipantDialog({ open, onOpenChange, projectId, ed
     useEffect(() => {
         if (open) {
             if (editTarget) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
                 setFullName(editTarget.fullName)
                 setEmail(editTarget.email || '')
                 setRole(editTarget.role)

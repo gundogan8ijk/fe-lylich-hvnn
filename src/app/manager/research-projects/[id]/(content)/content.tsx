@@ -9,7 +9,7 @@ import ContentContributorsManger from "../(internal-contributor)/Content-contrib
 import ContentProjectResultManger from "./content-ProjectResult"
 import ContentParticipantsManger from "../(external-participant)/Content-participants"
 import ContentFundingManger from "../(funding)/Content-funding"
-import { storeProjectManagerDetail } from "@/working-manager/ProjectManger/store-detail-project-manger"
+import { storeProjectManagerDetail } from "@/working-manager/project-detail/project-detail-store"
 
 
 const TABS = [

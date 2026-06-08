@@ -7,7 +7,8 @@ import {
     RenameCodeDisciplineRequest, 
     UpdateDescribeDisciplineRequest, 
     UpdateTotalCreditsDisciplineRequest,
-    AddCourseRequest
+    AddCourseRequest,
+    AddDisciplineRequest
 } from "./discipline-manger-type";
 
 export const renameDisciplineApi = async (departmentId: string, id: string, data: RenameDisciplineRequest): Promise<ApiResponse<null>> => {
@@ -91,6 +92,19 @@ export const toggleDisciplineVisibilityApi = async (departmentId: string, id: st
 export const addCourseDisciplineApi = async (id: string, data: AddCourseRequest): Promise<ApiResponse<null>> => {
     try {
         const response = await api.post(`/disciplines/${id}/courses`, data);
+        return success(response.data);
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const data = error.response?.data;
+            return fail(data?.message || data?.detail, data.error);
+        }
+        return fail();
+    }
+};
+
+export const addDisciplineApi = async (departmentId: string, data: AddDisciplineRequest): Promise<ApiResponse<string>> => {
+    try {
+        const response = await api.post(`/departments/${departmentId}/disciplines`, data);
         return success(response.data);
     } catch (error) {
         if (axios.isAxiosError(error)) {

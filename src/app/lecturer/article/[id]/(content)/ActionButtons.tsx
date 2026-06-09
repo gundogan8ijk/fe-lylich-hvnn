@@ -140,7 +140,7 @@ export default function ActionButtons() {
                 onCancel={() => setDialog(null)}
             />
 
-            <div className="flex items-center justify-between gap-3 pt-5 border-t border-slate-100 dark:border-slate-800">
+            <div className="flex items-center justify-between gap-3">
                 <Button
                     variant="ghost"
                     size="sm"

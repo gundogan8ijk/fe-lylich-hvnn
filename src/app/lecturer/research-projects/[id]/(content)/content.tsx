@@ -65,34 +65,43 @@ export default function ProjectDetailContent() {
         <div className="min-h-screen bg-slate-50/50 text-slate-900 font-sans dark:bg-slate-950 dark:text-slate-100 rounded-xl overflow-hidden border border-slate-100 dark:border-slate-800">
             {/* Top bar */}
             <div className="border-b border-slate-200/80 bg-white/95 backdrop-blur sticky top-0 z-10 dark:border-slate-800 dark:bg-slate-900/80">
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-3">
-                    <button
-                        onClick={() => router.back()}
-                        className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-                    >
-                        <ArrowLeft className="w-4 h-4 text-slate-500 dark:text-slate-400" />
-                    </button>
-                    <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 flex-wrap">
-                            <span className="font-mono text-xs text-slate-600 bg-slate-100 dark:text-slate-300 dark:bg-slate-800 px-2 py-0.5 rounded">
-                                {detail.code}
-                            </span>
-                            {detail.isMyCreate && (
-                                <span className="inline-flex items-center gap-1 text-xs text-emerald-700 bg-emerald-50 border border-emerald-200/60 dark:text-emerald-400 dark:bg-emerald-500/10 dark:border-emerald-500/20 px-2 py-0.5 rounded">
-                                    <Star className="w-3 h-3" /> Đề tài của tôi
-                                </span>
-                            )}
-                            <span className={`inline-flex items-center text-xs px-2 py-0.5 rounded border ${STATUS_COLOR[detail.confirmedStatus as keyof typeof STATUS_COLOR] ?? 'bg-slate-100 text-slate-600 border-slate-200'}`}>
-                                {STATUS_LABELS[detail.confirmedStatus as keyof typeof STATUS_LABELS] || detail.confirmedStatus}
-                            </span>
-                            <span className={`inline-flex items-center text-xs px-2 py-0.5 rounded border ${STATUS_COLOR[detail.projectStatus as keyof typeof STATUS_COLOR] ?? 'bg-slate-100 text-slate-600 border-slate-200'}`}>
-                                {getLabel(ProjectStatus_OPTIONS, detail.projectStatus) || detail.projectStatus}
-                            </span>
-                        </div>
-                        <h1 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mt-1 truncate">{detail.title}</h1>
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
+                    {/* Top Row: Back & Actions */}
+                    <div className="flex items-center justify-between mb-3">
+                        <button
+                            onClick={() => router.back()}
+                            className="flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 transition-colors"
+                        >
+                            <ArrowLeft className="w-4 h-4" />
+                            <span>Quay lại</span>
+                        </button>
+                        <ActionButtons />
                     </div>
 
-                    <ActionButtons />
+                    {/* Bottom Row: Title & Badges */}
+                    <div className="flex flex-col gap-2.5">
+                        <div className="flex items-center justify-between gap-2 flex-wrap">
+                            <div className="flex items-center gap-2">
+                                <span className="font-mono text-xs font-medium text-slate-600 bg-slate-100 dark:text-slate-300 dark:bg-slate-800 px-2 py-0.5 rounded">
+                                    {detail.code}
+                                </span>
+                                {detail.isMyCreate && (
+                                    <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-200/60 dark:text-emerald-400 dark:bg-emerald-500/10 dark:border-emerald-500/20 px-2 py-0.5 rounded">
+                                        <Star className="w-3 h-3" /> Đề tài của tôi
+                                    </span>
+                                )}
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className={`inline-flex items-center text-xs font-medium px-2 py-0.5 rounded border ${STATUS_COLOR[detail.confirmedStatus as keyof typeof STATUS_COLOR] ?? 'bg-slate-100 text-slate-600 border-slate-200'}`}>
+                                    {STATUS_LABELS[detail.confirmedStatus as keyof typeof STATUS_LABELS] || detail.confirmedStatus}
+                                </span>
+                                <span className={`inline-flex items-center text-xs font-medium px-2 py-0.5 rounded border ${STATUS_COLOR[detail.projectStatus as keyof typeof STATUS_COLOR] ?? 'bg-slate-100 text-slate-600 border-slate-200'}`}>
+                                    {getLabel(ProjectStatus_OPTIONS, detail.projectStatus) || detail.projectStatus}
+                                </span>
+                            </div>
+                        </div>
+                        <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 leading-snug">{detail.title}</h1>
+                    </div>
                 </div>
             </div>
 

@@ -28,7 +28,7 @@ export default function ExternalContributorsSum() {
         ROLE_AWARD_OPTIONS.find((opt) => opt.value === role)?.label ?? role;
 
     return (
-        <div className="bg-card rounded-xl border border-border shadow-sm p-6 space-y-6">
+        <div className="space-y-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-border/60">
                 <div>
                     <h2 className="text-lg font-bold text-foreground tracking-tight">Thành viên ngoài trường</h2>

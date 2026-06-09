@@ -29,10 +29,8 @@ export default function ContentProfile() {
   const lecturerData = storeLecturerProfile((e) => e.data);
   const isLoading = storeLecturerProfile((e) => e.isLoading);
 
-
   if (isLoading) return <Loading></Loading>
   if (!lecturerData) return <></>
-
 
   return (
     <div className="space-y-6 sm:space-y-8 max-w-4xl">
@@ -64,36 +62,25 @@ export default function ContentProfile() {
         <CardHeader>
           <CardTitle className="text-lg sm:text-xl">Thông tin cá nhân</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-1">
-          <div className='flex flex-col md:flex-row'>
-            <div className="flex-1">
-              <InlineEditField label="Họ" value={lecturerData.lastName}
-                onSave={(value) => lastNameUpdateAction(value)} icon={<UserIcon size={18} />}
-              />
-            </div>
-            <div className="flex-1">
-              <InlineEditField label="Tên" value={lecturerData.firstName}
-                onSave={(value) => firstNameUpdateAction(value)} icon={<UserIcon size={18} />}
-              />
-            </div>
-          </div>
-          <div className='flex flex-col md:flex-row'>
-            <div className="flex-1">
-              <InlineEditGenderField label="Giới tính" value={lecturerData.gender}
-                onSave={(value) => genderUpdateAction(value)} icon={<UserIcon size={18} />}
-              />
-            </div>
-            <div className="flex-1">
-              <InlineEditField label="Ngày sinh" value={getDateOnly(lecturerData.birthDate)}
-                onSave={(value) => birthDateUpdateAction(value)} type="date"
-                icon={<Calendar size={18} />}
-              />
-            </div>
-          </div>
-
-          <InlineEditCitizenIdField label="CMND/CCCD" value={lecturerData.cccd}
-            onSave={(value) => cCCDUpdateAction(value)} icon={<IdCard size={18} />}
+        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1">
+          <InlineEditField label="Họ" value={lecturerData.lastName}
+            onSave={(value) => lastNameUpdateAction(value)} icon={<UserIcon size={18} />}
           />
+          <InlineEditField label="Tên" value={lecturerData.firstName}
+            onSave={(value) => firstNameUpdateAction(value)} icon={<UserIcon size={18} />}
+          />
+          <InlineEditGenderField label="Giới tính" value={lecturerData.gender}
+            onSave={(value) => genderUpdateAction(value)} icon={<UserIcon size={18} />}
+          />
+          <InlineEditField label="Ngày sinh" value={getDateOnly(lecturerData.birthDate)}
+            onSave={(value) => birthDateUpdateAction(value)} type="date"
+            icon={<Calendar size={18} />}
+          />
+          <div className="md:col-span-2">
+            <InlineEditCitizenIdField label="CMND/CCCD" value={lecturerData.cccd}
+              onSave={(value) => cCCDUpdateAction(value)} icon={<IdCard size={18} />}
+            />
+          </div>
         </CardContent>
       </Card>
 

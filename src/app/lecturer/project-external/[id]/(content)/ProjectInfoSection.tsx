@@ -14,9 +14,8 @@ export default function ProjectInfoSection() {
     const canUpdate = project.confirmedStatus === 'Draft' && project.isMyCreate;
 
     return (
-        <div className="bg-card rounded-lg border border-border shadow-sm p-8 mb-8">
-            <div className="flex justify-between items-center mb-8">
-                <h2 className="text-2xl font-semibold text-foreground">Thông tin đề tài</h2>
+        <div className="space-y-6">
+            <div className="flex justify-between items-center mb-2">
 
                 {canUpdate && (
                     <button
@@ -32,9 +31,14 @@ export default function ProjectInfoSection() {
             </div>
 
             {/* Các trường thông tin cơ bản */}
-            <div className="mb-8 space-y-2">
+            <div className="mb-6 space-y-2">
                 <label className="text-sm font-medium text-muted-foreground uppercase tracking-wide">Tên đề tài</label>
                 <p className="text-base text-foreground font-medium">{project.title}</p>
+            </div>
+
+            <div className="mb-6 space-y-2">
+                <label className="text-sm font-medium text-muted-foreground uppercase tracking-wide">Mô tả</label>
+                <p className="text-base text-foreground font-medium whitespace-pre-wrap">{project.describe || '—'}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

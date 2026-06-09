@@ -91,7 +91,7 @@ export default function ContentLecturerDetail() {
         else if (statusStr === 'UnderReview') bg = 'bg-purple-100 text-purple-700';
         else if (statusStr === 'Cancelled') bg = 'bg-red-100 text-red-600';
         else if (statusStr === 'Pending') bg = 'bg-amber-100 text-amber-700';
-        
+
         return <span className={`px-2 py-0.5 rounded text-xs font-medium border border-slate-100 ${bg}`}>{label}</span>;
     };
 
@@ -99,8 +99,8 @@ export default function ContentLecturerDetail() {
         <>
             {/* Action buttons */}
             <div className="max-w-5xl mx-auto mb-4 flex justify-between items-center px-4 xl:px-0">
-                <Link 
-                    href="/manager/lecturer" 
+                <Link
+                    href="/manager/lecturer"
                     className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 transition-colors"
                 >
                     <ArrowLeft className="w-4 h-4" />

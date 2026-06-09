@@ -4,7 +4,7 @@ import { Card } from '@/_components/ui/card';
 import { Badge } from '@/_components/ui/badge';
 import { Button } from '@/_components/ui/button';
 import { Eye, Calendar, ExternalLink, UserCheck, Globe, Lock, BookOpen } from 'lucide-react';
-import { confirmedStyle, STATUS_LABELS } from '@/_constants/base-constant';
+import { confirmedStyle, STATUS_LABELS, confirmedGradient } from '@/_constants/base-constant';
 import { getDateOnly } from '@/_lib/display-variable-helper';
 import { BookItem } from '@/working-Lecturer/Book-List/Book-List-type';
 
@@ -18,7 +18,7 @@ export default function BookCard({ item, onViewDetail }: BookCardProps) {
 
     return (
         <Card className="group relative overflow-hidden border border-slate-200 bg-white transition-all duration-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950">
-            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-500 to-orange-500" />
+            <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${confirmedGradient[item.confirmedStatus] || confirmedGradient.Pending}`} />
 
             <div className="p-4">
                 <div className="mb-3 flex flex-col gap-y-2">

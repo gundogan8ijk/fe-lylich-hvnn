@@ -4,7 +4,7 @@ import { Card } from '@/_components/ui/card'
 import { Badge } from '@/_components/ui/badge'
 import { Button } from '@/_components/ui/button'
 import { Eye, Calendar, FileText, ExternalLink, UserCheck, Globe, Lock } from 'lucide-react'
-import { confirmedStyle, STATUS_LABELS } from '@/_constants/base-constant'
+import { confirmedStyle, STATUS_LABELS, confirmedGradient } from '@/_constants/base-constant'
 import { getDateOnly } from '@/_lib/display-variable-helper'
 import { ArticleLecturerItem } from '@/working-Lecturer/Article-List/Article-Lecturer-type'
 
@@ -21,13 +21,7 @@ export default function ArticleLecturerCard({
 
     const confirmedInfo = confirmedStyle[item.confirmedStatus] ?? confirmedStyle.Pending
 
-    const statusGradient: Record<string, string> = {
-        Draft: "from-slate-400 to-slate-500",
-        Pending: "from-amber-400 to-amber-500",
-        Verified: "from-emerald-400 to-emerald-500",
-        Cancelled: "from-red-400 to-red-500",
-    }
-    const gradient = statusGradient[item.confirmedStatus] ?? "from-blue-500 to-cyan-500"
+    const gradient = confirmedGradient[item.confirmedStatus] ?? confirmedGradient.Draft
 
     return (
         <Card className="group relative overflow-hidden border border-slate-200 bg-white transition-all duration-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950">

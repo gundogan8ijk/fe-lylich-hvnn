@@ -13,9 +13,8 @@ export default function BookInfoSection() {
     const canUpdate = book.confirmedStatus === 'Draft' && book.isMyCreate;
 
     return (
-        <div className="bg-card rounded-lg border border-border shadow-sm p-8 mb-8">
-            <div className="flex justify-between items-center mb-8">
-                <h2 className="text-2xl font-semibold text-foreground">Thông tin sách</h2>
+        <div className="space-y-6">
+            <div className="flex justify-between items-center mb-2">
                 {canUpdate && (
                     <button
                         onClick={() => setDialogOpen(true)}
@@ -29,9 +28,14 @@ export default function BookInfoSection() {
                 )}
             </div>
 
-            <div className="mb-8 space-y-2">
+            <div className="mb-6 space-y-2">
                 <label className="text-sm font-medium text-muted-foreground uppercase tracking-wide">Tiêu đề sách</label>
                 <p className="text-base text-foreground font-medium">{book.title}</p>
+            </div>
+
+            <div className="mb-6 space-y-2">
+                <label className="text-sm font-medium text-muted-foreground uppercase tracking-wide">Mô tả</label>
+                <p className="text-base text-foreground font-medium whitespace-pre-wrap">{book.describe || '—'}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

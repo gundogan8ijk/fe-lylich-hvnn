@@ -7,16 +7,21 @@ import { Calendar, ExternalLink, Award, ShieldCheck, FileText, UserCheck, Users,
 import { getLabel, getDateOnly } from '@/_lib/display-variable-helper'
 import UpdateDetailLinkDialog from './UpdateDetailLinkDialog'
 import { STATUS_LABELS, ConfirmedStatus } from '@/_constants/base-constant'
-import { ProjectStatus_OPTIONS, EvaluationResult_OPTIONS } from '@/_constants/project-constant'
+import { ProjectStatus_OPTIONS, EvaluationResult_OPTIONS, PROJECT_LEVEL_OPTIONS } from '@/_constants/project-constant'
 
-export const STATUS_COLOR: Record<ConfirmedStatus | string, string> = {
+export const STATUS_COLOR: Record<string, string> = {
+    // Shared
     Draft: 'bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700',
     Pending: 'bg-amber-50 text-amber-600 border-amber-200 dark:bg-amber-950/30 dark:text-amber-400 dark:border-amber-900/50',
-    Confirmed: 'bg-emerald-50 text-emerald-600 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-400 dark:border-emerald-900/50',
-    Rejected: 'bg-rose-50 text-rose-600 border-rose-200 dark:bg-rose-950/30 dark:text-rose-400 dark:border-rose-900/50',
-    Cancelled: 'bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700',
-    Completed: 'bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-950/30 dark:text-blue-400 dark:border-blue-900/50',
-    UnderReview: 'bg-indigo-50 text-indigo-600 border-indigo-200 dark:bg-indigo-950/30 dark:text-indigo-400 dark:border-indigo-900/50'
+    Cancelled: 'bg-rose-50 text-rose-600 border-rose-200 dark:bg-rose-950/30 dark:text-rose-400 dark:border-rose-900/50',
+    
+    // ConfirmedStatus
+    Verified: 'bg-emerald-50 text-emerald-600 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-400 dark:border-emerald-900/50',
+    
+    // ProjectStatus
+    InProgress: 'bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-950/30 dark:text-blue-400 dark:border-blue-900/50',
+    UnderReview: 'bg-purple-50 text-purple-600 border-purple-200 dark:bg-purple-950/30 dark:text-purple-400 dark:border-purple-900/50',
+    Completed: 'bg-green-50 text-green-600 border-green-200 dark:bg-green-950/30 dark:text-green-400 dark:border-green-900/50',
 }
 
 function InfoRow({ label, value }: { label: string; value: React.ReactNode }) {
@@ -50,7 +55,7 @@ export default function ProjectInfoSection() {
                     <InfoRow label="Mô tả" value={
                         <span className="text-slate-600 leading-relaxed whitespace-pre-line dark:text-slate-300">{detail.describe || '—'}</span>
                     } />
-                    <InfoRow label="Cấp độ" value={<Badge variant="outline" className="font-mono text-xs border-slate-200 dark:border-slate-700">{detail.level || '—'}</Badge>} />
+                    <InfoRow label="Cấp độ" value={<Badge variant="outline" className="font-mono text-xs border-slate-200 dark:border-slate-700">{getLabel(PROJECT_LEVEL_OPTIONS, detail.level) || detail.level || '—'}</Badge>} />
                     <InfoRow label="Đánh giá" value={
                         detail.evaluation ? (
                             <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">

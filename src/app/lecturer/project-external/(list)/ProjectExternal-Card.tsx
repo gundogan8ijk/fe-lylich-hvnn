@@ -4,7 +4,7 @@ import { Card } from '@/_components/ui/card';
 import { Badge } from '@/_components/ui/badge';
 import { Button } from '@/_components/ui/button';
 import { Eye, Calendar, FileText, ExternalLink, UserCheck, Globe, Lock } from 'lucide-react';
-import { confirmedStyle, STATUS_LABELS } from '@/_constants/base-constant';
+import { confirmedStyle, STATUS_LABELS, confirmedGradient } from '@/_constants/base-constant';
 import { PROJECT_EXTERNAL_LEVEL_LABELS, EVALUATION_PROJECT_EXTERNAL_LABELS, ProjectLevelName, EvaluationProjectExternalName } from '@/_constants/ProjectExternal-constant';
 import { getDateOnly } from '@/_lib/display-variable-helper';
 import { ProjectExternalItem } from '@/working-Lecturer/ProjectExternal-List/ProjectExternal-List-type';
@@ -19,7 +19,7 @@ export default function ProjectExternalCard({ item, onViewDetail }: ProjectExter
 
     return (
         <Card className="group relative overflow-hidden border border-slate-200 bg-white transition-all duration-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950">
-            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-500 to-purple-500" />
+            <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${confirmedGradient[item.confirmedStatus] || confirmedGradient.Pending}`} />
 
             <div className="p-4">
                 {/* Header */}

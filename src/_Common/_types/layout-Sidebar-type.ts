@@ -1,4 +1,4 @@
-import { Award, BarChart3, BookMarked, BookOpen, Briefcase, Building2, FileText, FlaskConical, FolderKanban, GraduationCap, HelpCircle, LucideIcon, Newspaper, Settings, User, UserRoundCog, Users } from "lucide-react"
+import { Award, BarChart3, BookMarked, BookOpen, BookOpenText, Briefcase, Building2, FileText, FlaskConical, FolderKanban, GraduationCap, HelpCircle, LayoutDashboard, LucideIcon, Newspaper, Settings, User, UserCog, UserRoundCog, Users } from "lucide-react"
 
 export interface SidebarItem {
     icon: LucideIcon
@@ -30,12 +30,9 @@ export const managerMenu: SidebarItem[] = [
 ]
 
 export const adminMenu: SidebarItem[] = [
-    { icon: BarChart3, label: 'Tổng quan', href: '/admin/overview' },
-    { icon: BarChart3, label: 'Giảng viên', href: '/admin/lecturer-charts' },
-    { icon: BarChart3, label: 'Nghiên cứu', href: '/admin/research-charts' },
-    { icon: Users, label: 'Tài khoản', href: '/admin/accounts' },
-    { icon: Building2, label: 'giảng viên', href: '/admin/lecturers' },
-    { icon: UserRoundCog, label: 'Hồ Sơ', href: '/admin/profile' },
-    { icon: Settings, label: 'Hệ thống', href: '/admin/settings' },
-    { icon: HelpCircle, label: 'Trợ giúp', href: '/admin/help' },
-]
+    { icon: LayoutDashboard, label: 'Tổng quan', href: '/admin/overview' },
+    { icon: BarChart3,       label: 'Thống kê giảng viên', href: '/admin/lecturer-charts' },
+    { icon: BookOpenText,    label: 'Thống kê nghiên cứu', href: '/admin/research-charts' },
+    { icon: Users,           label: 'Quản lý tài khoản', href: '/admin/accounts' },
+    { icon: UserCog,         label: 'tài khoản giảng viên', href: '/admin/lecturers' },
+];

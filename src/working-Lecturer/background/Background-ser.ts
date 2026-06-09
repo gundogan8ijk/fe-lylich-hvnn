@@ -40,6 +40,7 @@ export interface EducationRecord {
     graduatedAt: string;
     trainingName: string;
     majorName: string;
+    degreeName: string;
 }
 
 export interface AwardRecord {

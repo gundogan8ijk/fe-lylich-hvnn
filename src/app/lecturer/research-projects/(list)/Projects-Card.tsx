@@ -10,7 +10,7 @@ import {
     EvaluationResultName,
     EvaluationResult_OPTIONS,
 } from '@/_constants/project-constant'
-import { ConfirmedStatus, STATUS_LABELS } from '@/_constants/base-constant'
+import { ConfirmedStatus, STATUS_LABELS, confirmedGradient } from '@/_constants/base-constant'
 import { getDateOnly, getLabel } from '@/_lib/display-variable-helper'
 import { ProjectItem } from '@/working-Lecturer/Project-List/Project-List-type'
 
@@ -31,8 +31,13 @@ export default function ResearchProjectCard({
 
     return (
         <Card className="group relative overflow-hidden border border-slate-200 bg-white transition-all duration-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950">
-            {/* Accent bar */}
-            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500" />
+            {/* Accent bars */}
+            <div 
+                className="absolute inset-x-0 top-0 h-1" 
+                style={{ 
+                    background: `linear-gradient(to right, ${confirmedColorMap[item.confirmedStatus] || confirmedColorMap.Pending} 44%, ${projectStatusColorMap[item.projectStatus] || projectStatusColorMap.Pending} 56%)` 
+                }}
+            />
 
             <div className="p-4">
                 {/* Header */}
@@ -71,15 +76,19 @@ export default function ResearchProjectCard({
                         {item.describe || 'Không có mô tả.'}
                     </p>
 
-                    {/* Badges row */}
-                    <div className="flex flex-wrap gap-x-4 gap-y-2 items-center text-xs text-slate-500 mt-2">
+                </div>
+
+                <div className="my-3 h-px bg-slate-200 dark:bg-slate-800" />
+
+                <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
                         <div className="flex items-center gap-1">
                             <Calendar className="h-3.5 w-3.5" />
-                            Cập nhật: {getDateOnly(item.lastModify)}
+                            Cập nhật: <strong>{getDateOnly(item.lastModify)}</strong>
                         </div>
 
                         {/* Trạng thái đề tài */}
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1.5">
                             <span>Trạng thái:</span>
                             <Badge className={`${statusStyle.bg} ${statusStyle.text} border-0 text-xs font-medium`}>
                                 {getLabel(ProjectStatus_OPTIONS, item.projectStatus)}
@@ -87,26 +96,22 @@ export default function ResearchProjectCard({
                         </div>
 
                         {/* Kết quả */}
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1.5">
                             <span>Kết quả:</span>
                             <Badge className={`${evalStyle.bg} ${evalStyle.text} border-0 text-xs font-medium`}>
                                 {getLabel(EvaluationResult_OPTIONS, item.evaluation)}
                             </Badge>
                         </div>
                     </div>
-                </div>
 
-                {/* Divider */}
-                <div className="my-4 h-px bg-slate-100 dark:bg-slate-800" />
-
-                {/* Actions */}
-                <div className="flex items-center justify-between">
-                    <Button variant="ghost" size="sm"
-                        className="h-8 gap-1.5 px-3 text-xs text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
-                        onClick={() => onViewDetail(item.id)}
-                    >
-                        <Eye className="h-3.5 w-3.5" /> Xem chi tiết
-                    </Button>
+                    <div className="flex items-center gap-x-2 mt-2 sm:mt-0">
+                        <Button variant="ghost" size="sm"
+                            className="h-7 gap-1.5 px-2.5 text-xs text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
+                            onClick={() => onViewDetail(item.id)}
+                        >
+                            <Eye className="h-3.5 w-3.5" /> Xem chi tiết
+                        </Button>
+                    </div>
                 </div>
             </div>
         </Card>
@@ -121,6 +126,29 @@ const projectStatusStyle: Record<ProjectStatusName, { bg: string; text: string }
     UnderReview: { bg: 'bg-purple-50 dark:bg-purple-950/30', text: 'text-purple-700 dark:text-purple-300' },
     Completed: { bg: 'bg-green-50  dark:bg-green-950/30', text: 'text-green-700  dark:text-green-300' },
     Cancelled: { bg: 'bg-red-50    dark:bg-red-950/30', text: 'text-red-700    dark:text-red-300' },
+}
+
+const projectStatusGradient: Record<ProjectStatusName, string> = {
+    Pending: 'from-yellow-400 to-yellow-500',
+    InProgress: 'from-blue-400 to-blue-500',
+    UnderReview: 'from-purple-400 to-purple-500',
+    Completed: 'from-green-400 to-green-500',
+    Cancelled: 'from-red-400 to-red-500',
+}
+
+const projectStatusColorMap: Record<ProjectStatusName, string> = {
+    Pending: '#fbbf24',    // yellow-400
+    InProgress: '#60a5fa', // blue-400
+    UnderReview: '#c084fc',// purple-400
+    Completed: '#4ade80',  // green-400
+    Cancelled: '#f87171',  // red-400
+}
+
+const confirmedColorMap: Record<ConfirmedStatus, string> = {
+    Draft: '#94a3b8',      // slate-400
+    Pending: '#fbbf24',    // amber-400
+    Verified: '#34d399',   // emerald-400
+    Cancelled: '#fb7185',  // rose-400
 }
 
 const confirmedStyle: Record<ConfirmedStatus, { bg: string; text: string }> = {

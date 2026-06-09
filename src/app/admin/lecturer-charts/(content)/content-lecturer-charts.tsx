@@ -60,7 +60,7 @@ export default function ContentLecturerCharts() {
             <CardContent>
               <div className="flex flex-col lg:flex-row items-center gap-4">
                 <div className="w-full lg:w-1/2" style={{ height: 300 }}>
-                  <ResponsiveContainer width="100%" height="100%">
+                  <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                     <PieChart>
                       <Pie
                         data={degreeStats}
@@ -95,7 +95,7 @@ export default function ContentLecturerCharts() {
             <CardContent>
               <div className="flex flex-col lg:flex-row items-center gap-4">
                 <div className="w-full lg:w-1/2" style={{ height: 300 }}>
-                  <ResponsiveContainer width="100%" height="100%">
+                  <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                     <PieChart>
                       <Pie
                         data={awardStats}
@@ -129,7 +129,7 @@ export default function ContentLecturerCharts() {
             </CardHeader>
             <CardContent>
               <div style={{ width: '100%', height: 300 }}>
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                   <BarChart data={departmentStats} layout="vertical" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis type="number" />

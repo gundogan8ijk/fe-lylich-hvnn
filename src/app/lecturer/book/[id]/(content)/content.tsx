@@ -41,11 +41,11 @@ export default function BookDetailContent() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50/50">
-      <div className="container mx-auto px-4 py-10 md:py-16 max-w-5xl">
-        {/* Header */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-8 py-8 mb-6">
-          <div className="flex flex-col md:flex-row md:items-start gap-5">
+    <div className="max-w-4xl space-y-6">
+      <ActionButtons />
+      {/* Header */}
+      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-6 py-6">
+        <div className="flex flex-col md:flex-row md:items-start gap-5">
             <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center">
               <BookOpen className="w-5 h-5 text-amber-600" />
             </div>
@@ -63,18 +63,13 @@ export default function BookDetailContent() {
                 <span>Năm XB: <strong>{book.publishYear}</strong></span>
                 {book.isbn && <span>ISBN: <strong>{book.isbn}</strong></span>}
               </div>
-              {book.describe && (
-                <p className="mt-3 text-slate-500 text-sm leading-relaxed line-clamp-3">
-                  {book.describe}
-                </p>
-              )}
             </div>
           </div>
         </div>
 
-        {/* Info */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-8 py-6 mb-6">
-          <div className="flex items-center gap-2 mb-4">
+      {/* Info */}
+      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-6 py-6">
+        <div className="flex items-center gap-2 mb-4">
             <FileText className="w-4 h-4 text-slate-400" />
             <h2 className="text-sm font-medium text-slate-600 uppercase tracking-wide">
               Thông tin sách
@@ -83,22 +78,17 @@ export default function BookDetailContent() {
           <BookInfoSection />
         </div>
 
-        {/* Contributors */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-6">
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-6 py-5">
-            <InternalContributorsSum />
-          </div>
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-6 py-5">
-            <ExternalContributorsSum />
-          </div>
+      {/* Contributors */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-6 py-5">
+          <InternalContributorsSum />
         </div>
-
-        <DisciplinesSum />
-
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm mt-5 p-3">
-          <ActionButtons />
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-6 py-5">
+          <ExternalContributorsSum />
         </div>
       </div>
+
+      <DisciplinesSum />
     </div>
   );
 }

@@ -14,6 +14,7 @@ export interface GetDetailTeachingSubjectResponse {
     departmentName?: string;
     disciplineAmount?: number;
     membersAmount?: number;
+    departmentFoundedAt?: string;
     joinedAt?: string;
     position?: string;
     lecturerId: string;

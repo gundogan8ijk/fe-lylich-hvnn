@@ -5,6 +5,8 @@ import ExternalSubjects from "../(external-subject)/ExternalSubjects";
 import { Card, CardContent, CardHeader, CardTitle } from "@/_components/ui/card";
 import { Loader2, CalendarDays, Briefcase, GraduationCap, Building2, User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/_components/ui/avatar";
+import { getLabel } from "@/_lib/display-variable-helper";
+import { ACADEMIC_POSITION_OPTIONS } from "@/_constants/department-constant";
 
 export default function ContentTeaching() {
     const { data, isLoading } = useTeachingStore();
@@ -23,21 +25,19 @@ export default function ContentTeaching() {
         <div className="flex flex-col gap-6 p-4 md:p-6 max-w-6xl mx-auto w-full">
             {/* Department Header Card */}
             <Card className="overflow-hidden border-0 shadow-sm ring-1 ring-border">
-                {/* Cover background */}
-                <div className={`h-32 sm:h-40 bg-gradient-to-r ${data.departmentId ? 'from-emerald-600 via-teal-500 to-emerald-400' : 'from-slate-400 to-slate-300'}`}></div>
-                <CardContent className="p-6 pt-0 relative sm:flex sm:items-end sm:gap-6 bg-card">
+                <CardContent className="p-6 relative sm:flex sm:items-center sm:gap-6 bg-card">
                     {/* Department Avatar */}
-                    <div className="-mt-16 sm:-mt-20 mb-4 sm:mb-0 relative z-10">
-                        <Avatar className="w-28 h-28 sm:w-36 sm:h-36 border-4 border-background shadow-md bg-white">
+                    <div className="mb-4 sm:mb-0 relative z-10 shrink-0">
+                        <Avatar className="w-24 h-24 sm:w-28 sm:h-28 shadow-sm bg-transparent">
                             {data.departmentId ? (
-                                <AvatarImage src={data.departmentAvatarUrl} className="object-contain p-2" />
+                                <AvatarImage src={data.departmentAvatarUrl} className="object-contain" />
                             ) : null}
                             <AvatarFallback className="text-3xl font-bold bg-muted text-muted-foreground">
-                                {data.departmentId ? data.departmentName?.charAt(0) : <Building2 className="w-12 h-12" />}
+                                {data.departmentId ? data.departmentName?.charAt(0) : <Building2 className="w-10 h-10" />}
                             </AvatarFallback>
                         </Avatar>
                     </div>
-                    
+
                     <div className="flex-1 space-y-2 pb-2">
                         {data.departmentId ? (
                             <>
@@ -49,25 +49,15 @@ export default function ContentTeaching() {
                                     <span>{data.disciplineAmount || 0} Bộ môn</span>
                                     <span>•</span>
                                     <span>{data.membersAmount || 0} Thành viên</span>
+                                    {data.departmentFoundedAt && (
+                                        <>
+                                            <span>•</span>
+                                            <span>Thành lập: {new Date(data.departmentFoundedAt).getFullYear()}</span>
+                                        </>
+                                    )}
                                 </div>
-                                
-                                {data.disciplineName && (
-                                    <div className="mt-3 inline-flex items-center gap-3 bg-muted/60 p-2.5 rounded-xl border border-border/50">
-                                        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-background shadow-sm border border-border">
-                                            <GraduationCap className="w-5 h-5 text-emerald-600" />
-                                        </div>
-                                        <div className="flex flex-col">
-                                            <span className="text-sm font-semibold text-foreground leading-tight">{data.disciplineName}</span>
-                                            <div className="flex gap-2 items-center text-xs text-muted-foreground mt-1">
-                                                <span className="font-mono bg-background px-1.5 py-0.5 rounded border border-border shadow-sm">
-                                                    Mã BM: {data.code || "---"}
-                                                </span>
-                                                <span>•</span>
-                                                <span>{data.disciplineMembersAmount || 0} giảng viên</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
+
+
                             </>
                         ) : (
                             <>
@@ -105,7 +95,7 @@ export default function ContentTeaching() {
                                         </p>
                                     </div>
                                 </div>
-                                
+
                                 <div className="grid gap-3 text-sm">
                                     <div className="flex justify-between items-center py-2 border-b border-border/50">
                                         <div className="flex items-center gap-2 text-muted-foreground">
@@ -121,8 +111,8 @@ export default function ContentTeaching() {
                                             <Briefcase className="w-4 h-4" />
                                             <span>Chức vụ</span>
                                         </div>
-                                        <span className="font-medium text-right text-foreground">
-                                            {data.position || "Giảng viên"}
+                                        <span className="inline-flex items-center text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-200/60 dark:text-emerald-400 dark:bg-emerald-500/10 dark:border-emerald-500/20 px-2.5 py-0.5 rounded-full">
+                                            {data.position ? getLabel(ACADEMIC_POSITION_OPTIONS, data.position) || data.position : "Giảng viên"}
                                         </span>
                                     </div>
                                     <div className="flex justify-between items-center py-2">
@@ -135,6 +125,27 @@ export default function ContentTeaching() {
                                         </span>
                                     </div>
                                 </div>
+                                
+                                {data.disciplineName && (
+                                    <div className="mt-5 pt-5 border-t border-border/50">
+                                        <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">Bộ môn trực thuộc</div>
+                                        <div className="flex items-start gap-3 bg-muted/30 p-3.5 rounded-xl border border-border/50">
+                                            <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-white dark:bg-slate-900 shadow-sm border border-border shrink-0">
+                                                <GraduationCap className="w-5 h-5 text-emerald-600" />
+                                            </div>
+                                            <div className="flex flex-col min-w-0">
+                                                <span className="text-sm font-bold text-foreground leading-tight">{data.disciplineName}</span>
+                                                <div className="flex gap-2 items-center text-xs text-muted-foreground mt-2 flex-wrap">
+                                                    <span className="font-mono bg-white dark:bg-slate-900 px-1.5 py-0.5 rounded border border-border/60 font-medium">
+                                                        Mã: {data.code || "---"}
+                                                    </span>
+                                                    <span>•</span>
+                                                    <span>{data.disciplineMembersAmount || 0} Giảng viên</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </CardContent>
                     </Card>

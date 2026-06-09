@@ -31,4 +31,11 @@ export const confirmedStyle: Record<ConfirmedStatus, { bg: string; text: string 
     Pending: { bg: 'bg-amber-50 dark:bg-amber-950/30', text: 'text-amber-700 dark:text-amber-300' },
     Verified: { bg: 'bg-emerald-100 dark:bg-emerald-900/30', text: 'text-emerald-700 dark:text-emerald-300' },
     Cancelled: { bg: 'bg-red-100 dark:bg-red-900/30', text: 'text-red-600 dark:text-red-300' },
-}
+};
+
+export const confirmedGradient: Record<ConfirmedStatus, string> = {
+    Draft: 'from-slate-400 to-slate-500',
+    Pending: 'from-amber-400 to-orange-500',
+    Verified: 'from-emerald-400 to-teal-500',
+    Cancelled: 'from-rose-400 to-red-500',
+};

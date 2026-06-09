@@ -9,6 +9,8 @@ import { useBackgroundStore } from '../../../working-Lecturer/background/Backgro
 import { AWARD_LEVEL_LABELS, AwardLevelName } from '@/_constants/award-constant';
 import { PROJECT_LEVEL_LABELS, ProjectLevelName } from '@/_constants/project-constant';
 import { PROJECT_EXTERNAL_LEVEL_LABELS } from '@/_constants/ProjectExternal-constant';
+import { DEGREE_OPTIONS } from '@/_constants/education-constant';
+import { getLabel } from '@/_lib/display-variable-helper';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -40,7 +42,7 @@ export default function ContentBackground() {
         <>
 
 
-            <div ref={contentRef} className="p-4 max-w-5xl mx-auto space-y-6 bg-white rounded-xl shadow-sm border border-slate-200 relative print:shadow-none print:border-none print:m-0 print:p-0">
+            <div ref={contentRef} className="p-4 max-w-4xl space-y-6 bg-white rounded-xl shadow-sm border border-slate-200 relative print:shadow-none print:border-none print:m-0 print:p-0">
                 {/* Nút tải PDF góc phải */}
                 <button
                     onClick={() => setIsDialogOpen(true)}
@@ -74,7 +76,7 @@ export default function ContentBackground() {
                         <div className="flex flex-wrap items-center gap-3 mt-1 text-sm font-medium text-slate-600">
                             <span className="bg-slate-100 px-2.5 py-0.5 rounded-full text-slate-700 border border-slate-200">Mã GV: {background.code}</span>
                             <span>•</span>
-                            <span>Giới tính: {background.gender}</span>
+                            <span>Giới tính: {background.gender === 'Male' ? 'Nam' : background.gender === 'Female' ? 'Nữ' : background.gender}</span>
                             <span>•</span>
                             <span>Ngày sinh: {background.birthDate}</span>
                         </div>
@@ -104,6 +106,7 @@ export default function ContentBackground() {
                                 <li key={edu.educationId} className="bg-white p-3.5 rounded-lg border border-slate-200 hover:shadow-sm transition-shadow">
                                     <p className="font-semibold text-slate-800 text-base">{edu.trainingName}</p>
                                     <div className="mt-1 flex flex-col gap-0.5">
+                                        <p className="text-sm text-slate-600"><span className="font-medium text-slate-500">Bằng cấp:</span> <span className="bg-slate-100 text-slate-700 border border-slate-200 px-1.5 py-0.5 rounded text-xs">{getLabel(DEGREE_OPTIONS, edu.degreeName) || edu.degreeName}</span></p>
                                         <p className="text-sm text-slate-600"><span className="font-medium text-slate-500">Chuyên ngành:</span> {edu.majorName}</p>
                                         <p className="text-sm text-slate-600"><span className="font-medium text-slate-500">Tốt nghiệp:</span> {edu.graduatedAt}</p>
                                     </div>

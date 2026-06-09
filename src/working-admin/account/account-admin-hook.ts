@@ -1,6 +1,6 @@
 import { toSearchParams } from "@/_lib/query-options-toUrl-helper";
 import { useAccountAdminStore } from "./account-admin-store";
-import { getAccountAdminListApi } from "./account-admin-service";
+import { getAccountAdminListApi, linkLecturerApi } from "./account-admin-service";
 import { notify } from "@/_components/utils/Notify";
 
 export const getAccountAdminListAction = async () => {
@@ -20,4 +20,16 @@ export const getAccountAdminListAction = async () => {
         notify.error("Không thể lấy danh sách tài khoản: " + response.message);
     }
     setLoading(false);
+}
+
+export const linkLecturerAction = async (accountId: string, lecturerId: string): Promise<boolean> => {
+    const response = await linkLecturerApi({ accountId, lecturerId });
+    if (response.code === 1) {
+        notify.success(response.message || "Liên kết tài khoản thành công");
+        await getAccountAdminListAction();
+        return true;
+    } else {
+        notify.error("Lỗi liên kết: " + response.message);
+        return false;
+    }
 }

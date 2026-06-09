@@ -6,7 +6,7 @@ import { useAccountAdminStore } from "@/working-admin/account/account-admin-stor
 export default function AccountPagination() {
     return (
         <div className="mt-8 flex justify-end">
-            <PaginationButtonDynamic store={useAccountAdminStore as any} />
+            <PaginationButtonDynamic store={useAccountAdminStore} />
         </div>
     );
 }

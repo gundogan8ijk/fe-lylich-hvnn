@@ -5,38 +5,33 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogD
 import { Button } from "@/_components/ui/button";
 import { Input } from "@/_components/ui/input";
 import { Label } from "@/_components/ui/label";
-import { searchNoAccountLecturersApi, registerLecturerAccountApi, LecturerNoAccountDto } from "@/working-admin/lecturer/lecturer-admin-service";
+import { searchNoAccountLecturersApi, LecturerNoAccountDto } from "@/working-admin/lecturer/lecturer-admin-service";
 import { notify } from "@/_components/utils/Notify";
 import { useDebounce } from "@/_components/query/search-Box-state";
-import { Role } from "@/Authen/auth-type";
-import { useAccountAdminStore } from "@/working-admin/account/account-admin-store";
 import { Badge } from "@/_components/ui/badge";
 import { X } from "lucide-react";
+import { AccountItemDto } from "@/working-admin/account/account-admin-type";
+import { linkLecturerAction } from "@/working-admin/account/account-admin-hook";
 
-interface DialogCreateLecturerAccountProps {
+interface DialogLinkLecturerProps {
     isOpen: boolean;
     onClose: () => void;
+    account: AccountItemDto | null;
 }
 
-export default function DialogCreateLecturerAccount({ isOpen, onClose }: DialogCreateLecturerAccountProps) {
-    const { triggerRefresh } = useAccountAdminStore();
-    
+export default function DialogLinkLecturer({ isOpen, onClose, account }: DialogLinkLecturerProps) {
     const [searchTerm, setSearchTerm] = useState("");
     const debouncedSearch = useDebounce(searchTerm, 300);
     const [lecturers, setLecturers] = useState<LecturerNoAccountDto[]>([]);
     const [loadingSearch, setLoadingSearch] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
     
+    // Lưu ý: the API cần lecturerId, LecturerNoAccountDto có trả về id và code.
+    const [selectedLecturerId, setSelectedLecturerId] = useState<string>("");
     const [selectedLecturerCode, setSelectedLecturerCode] = useState<string>("");
     const [selectedLecturerName, setSelectedLecturerName] = useState<string>("");
-    const [email, setEmail] = useState("");
-    const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
     
     const [isSubmitting, setIsSubmitting] = useState(false);
-
-    const toggleRole = (r: string) => {
-        setSelectedRoles(prev => prev.includes(r) ? prev.filter(x => x !== r) : [...prev, r]);
-    };
 
     // Fetch lecturers
     useEffect(() => {
@@ -62,40 +57,24 @@ export default function DialogCreateLecturerAccount({ isOpen, onClose }: DialogC
     // Handle close and reset state
     const handleClose = () => {
         setSearchTerm("");
+        setSelectedLecturerId("");
         setSelectedLecturerCode("");
         setSelectedLecturerName("");
-        setEmail("");
-        setSelectedRoles([]);
         onClose();
     };
 
     const handleSubmit = async () => {
-        if (!selectedLecturerCode) {
+        if (!account) return;
+        if (!selectedLecturerId) {
             notify.error("Vui lòng chọn giảng viên");
-            return;
-        }
-        if (!email) {
-            notify.error("Vui lòng nhập email");
-            return;
-        }
-        if (selectedRoles.length === 0) {
-            notify.error("Vui lòng chọn ít nhất 1 role");
             return;
         }
 
         setIsSubmitting(true);
-        const res = await registerLecturerAccountApi({
-            lecturerId: selectedLecturerCode,
-            email,
-            roles: selectedRoles
-        });
+        const success = await linkLecturerAction(account.accountId, selectedLecturerId);
         
-        if (res.code === 1) {
-            notify.success("Tạo tài khoản thành công!");
-            triggerRefresh(); // Refresh the list
+        if (success) {
             handleClose();
-        } else {
-            notify.error("Lỗi: " + res.message);
         }
         setIsSubmitting(false);
     };
@@ -104,16 +83,16 @@ export default function DialogCreateLecturerAccount({ isOpen, onClose }: DialogC
         <Dialog open={isOpen} onOpenChange={(open) => !open && handleClose()}>
             <DialogContent className="sm:max-w-[425px]" onOpenAutoFocus={(e) => e.preventDefault()}>
                 <DialogHeader>
-                    <DialogTitle>Tạo tài khoản Giảng viên</DialogTitle>
+                    <DialogTitle>Liên kết Giảng viên</DialogTitle>
                     <DialogDescription>
-                        Tìm kiếm giảng viên chưa có tài khoản và cấp tài khoản mới.
+                        Liên kết tài khoản <strong>{account?.email}</strong> với một hồ sơ giảng viên.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                     <div className="grid gap-2 relative">
                         <Label>Tìm kiếm Giảng viên {loadingSearch && <span className="text-muted-foreground text-xs">(Đang tải...)</span>}</Label>
                         
-                        {!selectedLecturerCode ? (
+                        {!selectedLecturerId ? (
                             <>
                                 <Input 
                                     placeholder="Nhập tên hoặc mã giảng viên..." 
@@ -129,9 +108,10 @@ export default function DialogCreateLecturerAccount({ isOpen, onClose }: DialogC
                                     >
                                         {lecturers.map(l => (
                                             <div 
-                                                key={l.code} 
+                                                key={l.id} 
                                                 className="px-3 py-2 text-sm hover:bg-muted cursor-pointer flex justify-between items-center"
                                                 onClick={() => {
+                                                    setSelectedLecturerId(l.id);
                                                     setSelectedLecturerCode(l.code);
                                                     setSelectedLecturerName(l.name);
                                                     setSearchTerm("");
@@ -155,50 +135,18 @@ export default function DialogCreateLecturerAccount({ isOpen, onClose }: DialogC
                                     variant="ghost" 
                                     size="sm" 
                                     className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive" 
-                                    onClick={() => setSelectedLecturerCode("")}
+                                    onClick={() => setSelectedLecturerId("")}
                                 >
                                     <X className="h-4 w-4" />
                                 </Button>
                             </div>
                         )}
                     </div>
-                    <div className="grid gap-2">
-                        <Label>Email đăng nhập</Label>
-                        <Input 
-                            type="email"
-                            placeholder="email@example.com" 
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-                    <div className="grid gap-2">
-                        <Label>Vai trò (Roles) <span className="text-destructive">*</span></Label>
-                        <div className="flex flex-col gap-2 mt-1">
-                            <label className="flex items-center gap-2 text-sm cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    className="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4"
-                                    checked={selectedRoles.includes(Role.MANAGER)}
-                                    onChange={() => toggleRole(Role.MANAGER)}
-                                />
-                                Quản lý (Manager)
-                            </label>
-                            <label className="flex items-center gap-2 text-sm cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    className="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4"
-                                    checked={selectedRoles.includes(Role.LECTURER)}
-                                    onChange={() => toggleRole(Role.LECTURER)}
-                                />
-                                Giảng viên (Lecturer)
-                            </label>
-                        </div>
-                    </div>
                 </div>
                 <DialogFooter>
                     <Button variant="outline" onClick={handleClose} disabled={isSubmitting}>Hủy</Button>
                     <Button onClick={handleSubmit} disabled={isSubmitting}>
-                        {isSubmitting ? "Đang xử lý..." : "Tạo tài khoản"}
+                        {isSubmitting ? "Đang xử lý..." : "Liên kết"}
                     </Button>
                 </DialogFooter>
             </DialogContent>

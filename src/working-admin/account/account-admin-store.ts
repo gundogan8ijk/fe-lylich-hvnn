@@ -1,10 +1,11 @@
 import { create } from "zustand";
 import { AccountItemDto, AccountListQuery } from "./account-admin-type";
 import { createQuerySlice, QuerySlice } from "@/_Common/_stores/base-list/query-module";
+import { NoFilter } from "@/_Common/_types/query-types";
 
 export type AccountSearchField = "all";
 
-interface AccountAdminState extends QuerySlice<undefined, "email"> {
+interface AccountAdminState extends QuerySlice<NoFilter, "email"> {
     data: AccountItemDto[];
     loading: boolean;
     role: string | null;
@@ -19,7 +20,7 @@ interface AccountAdminState extends QuerySlice<undefined, "email"> {
 }
 
 export const useAccountAdminStore = create<AccountAdminState>()((set, get, api) => ({
-    ...createQuerySlice<undefined, "email">()(set, get, api),
+    ...createQuerySlice<NoFilter, "email">()(set, get, api),
     data: [],
     loading: true,
     role: null,

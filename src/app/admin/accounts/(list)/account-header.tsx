@@ -10,9 +10,13 @@ import { Button } from "@/_components/ui/button";
 import { Plus } from "lucide-react";
 import DialogCreateLecturerAccount from "./dialog-create-lecturer-account";
 
+import DialogCreateManagerAccount from "./dialog-create-manager-account";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/_components/ui/dropdown-menu";
+
 export default function AccountHeader() {
-    const { query, isSearch, role, setRole, refreshTrigger, searchField, setSearchField } = useAccountAdminStore();
-    const [isAddOpen, setIsAddOpen] = useState(false);
+    const { query, isSearch, role, setRole, refreshTrigger } = useAccountAdminStore();
+    const [isAddLecturerOpen, setIsAddLecturerOpen] = useState(false);
+    const [isAddManagerOpen, setIsAddManagerOpen] = useState(false);
 
     useEffect(() => {
         import("@/working-admin/account/account-admin-hook").then((m) => m.getAccountAdminListAction());
@@ -44,19 +48,36 @@ export default function AccountHeader() {
                 </Select>
 
                 <SearchBoxState
-                    store={useAccountAdminStore as any}
+                    store={useAccountAdminStore}
                     placeholder="Tìm theo email hoặc username..."
                 />
 
-                <Button onClick={() => setIsAddOpen(true)} className="flex items-center gap-2">
-                    <Plus className="h-4 w-4" />
-                    Thêm tài khoản
-                </Button>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button className="flex items-center gap-2">
+                            <Plus className="h-4 w-4" />
+                            Thêm tài khoản
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuItem onClick={() => setIsAddLecturerOpen(true)}>
+                            Thêm Giảng viên
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setIsAddManagerOpen(true)}>
+                            Thêm Quản lý
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
 
             <DialogCreateLecturerAccount 
-                isOpen={isAddOpen} 
-                onClose={() => setIsAddOpen(false)} 
+                isOpen={isAddLecturerOpen} 
+                onClose={() => setIsAddLecturerOpen(false)} 
+            />
+            
+            <DialogCreateManagerAccount 
+                isOpen={isAddManagerOpen} 
+                onClose={() => setIsAddManagerOpen(false)} 
             />
         </div>
     );

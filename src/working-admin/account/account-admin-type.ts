@@ -1,5 +1,5 @@
-import { ListQuery } from "@/_Common/_types/query-types";
-import { PagedResultNested } from "@/_Common/_types/result-typeConfig";
+import { ListQuery, NoFilter } from "@/_Common/_types/query-types";
+import { Pagination } from "@/_Common/_types/pagination-typeConfig";
 
 export interface AccountItemDto {
     accountId: string;
@@ -13,6 +13,9 @@ export interface AccountItemDto {
     lecturerCode: string | null;
 }
 
-export interface AccountListQuery extends ListQuery<undefined, "email"> {}
+export type AccountListQuery = ListQuery<NoFilter, "email">;
 
-export interface AccountListResponse extends PagedResultNested<AccountItemDto> {}
+export interface AccountListResponse {
+    items: AccountItemDto[];
+    pagination: Pagination;
+}

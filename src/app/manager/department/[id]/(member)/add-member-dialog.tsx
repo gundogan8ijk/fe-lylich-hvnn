@@ -63,8 +63,8 @@ export default function AddMemberDialog({ departmentId, onAdded }: Props) {
         if (!open) return;
         const fetchLecturers = async () => {
             const res = await getListNoDepartmentLecturersNameApi(debouncedSearch);
-            if (res.code === 1 && res.data) {
-                setLecturers(res.data);
+            if (res.code === 1) {
+                setLecturers(res.data || []);
             } else {
                 setLecturers([]);
             }

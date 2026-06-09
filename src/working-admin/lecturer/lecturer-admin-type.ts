@@ -1,5 +1,4 @@
-import { PaginationResponse } from "@/_Common/_types/pagination-typeConfig";
-import { SortDirection } from "@/_Common/_types/query-types";
+import { Pagination } from "@/_Common/_types/pagination-typeConfig";
 
 export interface LecturerItemAccountRecord {
     lecturerId: string;
@@ -7,27 +6,17 @@ export interface LecturerItemAccountRecord {
     lecturerCode: string;
     cccd: string;
     gender: string;
-    email: string | null;
-    roles: string[];
+    email?: string;
+    accountId?: string;
+    isLocked?: boolean;
+    lockoutEnd?: string | null;
+    lockReason?: string | null;
+    roles?: string[];
     birthDate: string;
-    avatarUrl: string;
+    avatarUrl?: string;
 }
 
 export interface LecturerListAccountResponse {
     items: LecturerItemAccountRecord[];
-    pagination: PaginationResponse;
-}
-
-export type LecturerSearchField = "FullName" | "Code" | "All";
-
-export interface LecturerAdminListQuery {
-    page: number;
-    perPage: number;
-    search: string;
-    searchField?: LecturerSearchField;
-    sort?: {
-        field: string;
-        direction: SortDirection;
-    } | null;
-    role?: string;
+    pagination: Pagination;
 }

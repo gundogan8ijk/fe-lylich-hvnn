@@ -14,7 +14,7 @@ export default function LecturerGrid() {
         );
     }
 
-    if (!data || data.items.length === 0) {
+    if (!data || data.length === 0) {
         return (
             <div className="py-20 flex flex-col items-center justify-center text-muted-foreground">
                 <p>Không tìm thấy giảng viên nào phù hợp.</p>
@@ -24,7 +24,7 @@ export default function LecturerGrid() {
 
     return (
         <div className="py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {data.items.map((lecturer) => (
+            {data.map((lecturer) => (
                 <LecturerCard key={lecturer.lecturerId} data={lecturer} />
             ))}
         </div>

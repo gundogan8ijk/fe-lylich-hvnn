@@ -1,8 +1,17 @@
 "use client";
 
-import { useFetchLecturerAdminList } from "@/working-admin/lecturer/lecturer-admin-hook";
+import { useEffect, useRef } from "react";
+import { getLecturerAdminListAction } from "@/working-admin/lecturer/lecturer-admin-hook";
 
 export default function SetupDataLecturerList() {
-    useFetchLecturerAdminList();
+    const isMounted = useRef(false);
+
+    useEffect(() => {
+        if (!isMounted.current) {
+            getLecturerAdminListAction();
+            isMounted.current = true;
+        }
+    }, []);
+
     return null;
 }

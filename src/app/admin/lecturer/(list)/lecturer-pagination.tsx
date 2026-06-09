@@ -4,12 +4,11 @@ import { useLecturerAdminStore } from "@/working-admin/lecturer/lecturer-admin-s
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 
 export default function LecturerPagination() {
-    const { data, query, setQuery } = useLecturerAdminStore();
+    const { totalPages, totalCount, query, setQuery, data } = useLecturerAdminStore();
 
-    if (!data || data.pagination.totalPages <= 1) return null;
+    if (!data || data.length === 0 || totalPages <= 1) return null;
 
     const { page } = query;
-    const { totalPages, totalCount } = data.pagination;
 
     return (
         <div className="flex flex-col sm:flex-row items-center justify-between py-6 border-t border-border/50 text-sm text-muted-foreground">

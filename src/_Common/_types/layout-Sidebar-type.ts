@@ -30,8 +30,11 @@ export const managerMenu: SidebarItem[] = [
 ]
 
 export const adminMenu: SidebarItem[] = [
+    { icon: BarChart3, label: 'Tổng quan', href: '/admin/overview' },
+    { icon: BarChart3, label: 'Giảng viên', href: '/admin/lecturer-charts' },
+    { icon: BarChart3, label: 'Nghiên cứu', href: '/admin/research-charts' },
     { icon: Users, label: 'Tài khoản', href: '/admin/accounts' },
-    { icon: Building2, label: 'giảng viên', href: '/admin/lecturer' },
+    { icon: Building2, label: 'giảng viên', href: '/admin/lecturers' },
     { icon: UserRoundCog, label: 'Hồ Sơ', href: '/admin/profile' },
     { icon: Settings, label: 'Hệ thống', href: '/admin/settings' },
     { icon: HelpCircle, label: 'Trợ giúp', href: '/admin/help' },

@@ -2,14 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Search, LogIn } from 'lucide-react';
+import { Menu, X, LogIn, LogOut } from 'lucide-react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/_components/ui/button';
 import { Role } from '@/Authen/auth-type';
 import { ROLE_HOME } from '@/_constants/route-constant';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/_components/ui/dropdown-menu';
-import { LogOut } from 'lucide-react';
 import { logoutActionHook } from '@/Authen/authen-hook';
 import logo from '#/images/logoHVNN.png';
 import backgroundImage from '#/images/backgroundImage.jpg';
@@ -30,19 +29,22 @@ const navItems = [
 
 export function PublicNavbar({ userRoles = [] }: { userRoles?: Role[] }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(userRoles.length > 0);
     const pathname = usePathname();
 
     useEffect(() => {
+        if (userRoles.length > 0) {
+            setIsLoggedIn(true);
+            return;
+        }
+        
         const expiresAt = localStorage.getItem('auth_expires_at');
         if (expiresAt && Number(expiresAt) > Date.now()) {
-                // eslint-disable-next-line react-hooks/set-state-in-effect
             setIsLoggedIn(true);
         } else {
             setIsLoggedIn(false);
         }
-    }, [pathname]); // re-check mỗi khi pathname thay đổi
+    }, [pathname, userRoles.length]);
 
     return (
         <nav className="sticky top-0 z-50 w-full">
@@ -116,13 +118,12 @@ export function PublicNavbar({ userRoles = [] }: { userRoles?: Role[] }) {
                     </div>
                 </div>
 
-                {/* Bottom Row - Navigation & Search (nền riêng, không dùng background image) */}
+                {/* Bottom Row - Navigation */}
                 <div className="bg-white/90 backdrop-blur border-b border-slate-200">
                     <div className="mx-auto max-w-7xl px-6 py-3 flex items-center justify-between gap-6">
                         <div className="flex items-center gap-8">
                             {navItems.map((item) => {
-                                // const isActive = pathname === item.href;
-                                const isActive = pathname.includes(item.href);
+                                const isActive = pathname.includes(item.href) && item.href !== '/' || pathname === item.href;
 
                                 return (
                                     <Link
@@ -137,17 +138,6 @@ export function PublicNavbar({ userRoles = [] }: { userRoles?: Role[] }) {
                                     </Link>
                                 );
                             })}
-                        </div>
-
-                        <div className="relative w-full max-w-xs">
-                            <input
-                                type="text"
-                                placeholder="Tìm kiếm..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full bg-white text-slate-900 placeholder-slate-400 border border-slate-300 rounded-lg px-4 py-2 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
-                            />
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                         </div>
                     </div>
                 </div>
@@ -198,17 +188,6 @@ export function PublicNavbar({ userRoles = [] }: { userRoles?: Role[] }) {
                     <div className="mx-auto max-w-7xl px-4">
                         <div className="rounded-2xl border border-slate-200 bg-white shadow-xl overflow-hidden">
                             <div className="p-4">
-                                <div className="relative">
-                                    <input
-                                        type="text"
-                                        placeholder="Tìm kiếm..."
-                                        value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
-                                        className="w-full bg-white text-slate-900 placeholder-slate-400 border border-slate-300 rounded-lg px-4 py-2 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
-                                    />
-                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                                </div>
-
                                 <div className="mt-4 grid gap-1">
                                     {navItems.map((item) => {
                                         const isActive = pathname === item.href;
@@ -242,7 +221,7 @@ export function PublicNavbar({ userRoles = [] }: { userRoles?: Role[] }) {
                                                 );
                                             })}
                                             <Button variant="outline" className="w-full text-red-500 mt-2" size="lg" onClick={() => logoutActionHook()}>
-                                                <LogOut className="w-4 h-4 mr-2" /> Đăng xuất
+                                                        <LogOut className="w-4 h-4 mr-2" /> Đăng xuất
                                             </Button>
                                         </div>
                                     ) : pathname !== '/login' ? (

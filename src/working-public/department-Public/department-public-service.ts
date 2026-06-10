@@ -9,9 +9,8 @@ export {
     getByIdDepartmentPublicApi,
     //list
     getDepartmentsListPublicApi, getListDisciplineByDepartmentIdApiPublic, getListMemberByDepartmentIdApiPublic,
+    getPublicDepartmentsListApi
 }
-
-
 
 const getDepartmentsListPublicApi = async (
     params?: URLSearchParams
@@ -34,9 +33,30 @@ const getDepartmentsListPublicApi = async (
     }
 };
 
+const getPublicDepartmentsListApi = async (
+    params?: URLSearchParams
+
+): Promise<ApiResponse<DepartmentPublicList>> => {
+    try {
+        const departmentListUrl = "/Public/Departments";
+        const response = await api.get(departmentListUrl, {
+            params: params
+        });
+
+        return success(response.data);
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const data = error.response?.data;
+            return fail(data?.message || data?.detail, data.error);
+        }
+
+        return fail();
+    }
+};
+
 const getByIdDepartmentPublicApi = async (id: string): Promise<ApiResponse<DepartmentPublicDetail>> => {
     try {
-        const departmentDetailUrl = `/Departments/${id}`;
+        const departmentDetailUrl = `/departments/public/${id}`;
         const response = await api.get(departmentDetailUrl);
 
         return success(response.data);
@@ -52,7 +72,7 @@ const getByIdDepartmentPublicApi = async (id: string): Promise<ApiResponse<Depar
 
 const getListDisciplineByDepartmentIdApiPublic = async (id: string, param: URLSearchParams): Promise<ApiResponse<DisciplineOfDepartmentPublicList>> => {
     try {
-        const ListDisciplineUrl = `/Departments/${id}/disciplines`;
+        const ListDisciplineUrl = `/departments/public/${id}/disciplines`;
         const response = await api.get(ListDisciplineUrl, { params: param });
 
         return success(response.data);
@@ -69,7 +89,7 @@ const getListDisciplineByDepartmentIdApiPublic = async (id: string, param: URLSe
 
 const getListMemberByDepartmentIdApiPublic = async (id: string, param: URLSearchParams): Promise<ApiResponse<DepartmentMembersListPublic>> => {
     try {
-        const ListMemberUrl = `/Departments/${id}/members`;
+        const ListMemberUrl = `/departments/public/${id}/members`;
         const response = await api.get(ListMemberUrl, { params: param });
 
         return success(response.data);

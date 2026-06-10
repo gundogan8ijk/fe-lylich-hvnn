@@ -11,9 +11,9 @@ import { getInitials, getYear } from '@/_lib/display-variable-helper';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ACADEMIC_POSITION_LABELS, AcademicPositionName } from '@/_constants/department-constant';
-import { DepartmentMembersListPublic } from '@/working-manager/department/infor/department-manger-type';
+import { DepartmentMembersListManger } from '@/working-manager/department/infor/department-manger-type';
 import { ListQuery, SortDirection } from '@/_Common/_types/query-types';
-import { getListMemberDepartmentPublicAction, removeMemberDepartmentAction } from '@/working-manager/department/infor/department-manger-hook';
+import { getListMemberDepartmentMangerAction, removeMemberDepartmentAction } from '@/working-manager/department/infor/department-manger-hook';
 import AddMemberDialog from './add-member-dialog';
 import EditMemberPositionDialog, { AcademicPositions } from './edit-member-position-dialog';
 import FilterPosition from './filter-position';
@@ -23,12 +23,34 @@ import RemoveMemberDialog from './remove-member-dialog';
 
 const PerPage = 20;
 
+function AvatarWithFallback({ src, alt, fullName }: { src: string | null | undefined; alt: string; fullName: string }) {
+    const [error, setError] = useState(false);
+    if (error || !src) {
+        return (
+            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                <span className="text-sm font-semibold text-primary">{getInitials(fullName)}</span>
+            </div>
+        );
+    }
+    return (
+        <Image
+            src={src}
+            alt={alt}
+            width={48}
+            height={48}
+            unoptimized
+            className="rounded-lg object-cover flex-shrink-0"
+            onError={() => setError(true)}
+        />
+    );
+}
+
 export function MembersGroup({ id }: { id: string }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [isSearch, setIsSearch] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const LocalPerPage = 12;
-    const [memberList, setMemberList] = useState<DepartmentMembersListPublic | null>(null);
+    const [memberList, setMemberList] = useState<DepartmentMembersListManger | null>(null);
     const [isLoading, setLoading] = useState(false);
     const [refreshTrigger, setRefreshTrigger] = useState(0);
     const [positionFilter, setPositionFilter] = useState('all');
@@ -54,7 +76,7 @@ export function MembersGroup({ id }: { id: string }) {
 
             const queryParam = toSearchParams(query);
 
-            const res = await getListMemberDepartmentPublicAction(id, queryParam);
+            const res = await getListMemberDepartmentMangerAction(id, queryParam);
             if (res) setMemberList(res);
 
             setLoading(false);
@@ -150,19 +172,11 @@ export function MembersGroup({ id }: { id: string }) {
                         >
                             <div className="flex items-start justify-between gap-4">
                                 <Link href={`/manager/lecturer/${item.id}`} className="flex items-start gap-4 flex-1 min-w-0 group">
-                                    {item.avatarUrl ? (
-                                        <Image
-                                            src={item.avatarUrl}
-                                            alt={item.fullName}
-                                            width={48}
-                                            height={48}
-                                            className=" rounded-lg object-cover flex-shrink-0"
-                                        />
-                                    ) : (
-                                        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                                            <span className="text-sm font-semibold text-primary">{getInitials(item.fullName)}</span>
-                                        </div>
-                                    )}
+                                    <AvatarWithFallback
+                                        src={item.avatarUrl}
+                                        alt={item.fullName}
+                                        fullName={item.fullName}
+                                    />
 
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2 mb-3">

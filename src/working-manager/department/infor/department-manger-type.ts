@@ -51,7 +51,7 @@ export interface UpdateMemberPositionRequest {
 }
 
 
-export interface DepartmentPublicDetail {
+export interface DepartmentMangerDetail {
     id: string
     code: string
     name: string
@@ -68,7 +68,7 @@ export interface DepartmentPublicDetail {
     isPublic: boolean
 }
 
-export type DepartmentPublicItems = {
+export type DepartmentMangerItems = {
     id: string;
     code: string;
     name: string;
@@ -78,13 +78,13 @@ export type DepartmentPublicItems = {
     avatarUrl: string;
 };
 
-export type DepartmentPublicList = {
-    items: DepartmentPublicItems[];
+export type DepartmentMangerList = {
+    items: DepartmentMangerItems[];
     pagination: Pagination;
 };
 
 
-export type DepartmentMembersPublic = {
+export type DepartmentMembersManger = {
     id: string;
     fullName: string;
     lecturerCode: string;
@@ -95,18 +95,18 @@ export type DepartmentMembersPublic = {
 }
 
 
-export type DepartmentMembersListPublic = {
-    items: DepartmentMembersPublic[];
+export type DepartmentMembersListManger = {
+    items: DepartmentMembersManger[];
     pagination: Pagination;
 };
 
-export type DisciplineOfDepartmentPublicItems = {
+export type DisciplineOfDepartmentMangerItems = {
     id: string;
     name: string;
 }
 
 
-export type DisciplineOfDepartmentPublicList = {
-    items: DisciplineOfDepartmentPublicItems[];
+export type DisciplineOfDepartmentMangerList = {
+    items: DisciplineOfDepartmentMangerItems[];
     pagination: Pagination;
 };

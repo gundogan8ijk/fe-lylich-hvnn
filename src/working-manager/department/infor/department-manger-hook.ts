@@ -1,27 +1,27 @@
 ﻿import { notify } from '@/_components/utils/Notify'
 import { defaultPagination } from "@/_Common/_types/pagination-typeConfig";
 import { toSearchParams } from "@/_lib/query-options-toUrl-helper";
-import { storeDepartmentListPublic } from './department-manger-store';
-import { getByIdDepartmentPublicApi, getDepartmentsListPublicApi, getListDisciplineByDepartmentIdApiPublic, getListMemberByDepartmentIdApiPublic, addDepartmentApi, renameDepartmentApi, renameCodeDepartmentApi, updateDescribeDepartmentApi, changeOfficeLocationApi, clearOfficeLocationApi, updateAvatarDepartmentApi, removeAvatarDepartmentApi, addMemberDepartmentApi, removeMemberDepartmentApi, updateMemberPositionDepartmentApi, deleteDepartmentApi, toggleDepartmentVisibilityApi } from './department-manger-service';
-import { AddDepartmentRequest, DepartmentMembersListPublic, DepartmentPublicDetail, DisciplineOfDepartmentPublicList, RenameDepartmentRequest, RenameCodeDepartmentRequest, UpdateDescribeDepartmentRequest, ChangeOfficeLocationRequest, UpdateAvatarDepartmentRequest, AddMemberRequest, UpdateMemberPositionRequest } from './department-manger-type';
+import { storeDepartmentListManger } from './department-manger-store';
+import { getByIdDepartmentMangerApi, getDepartmentsListMangerApi, getListDisciplineByDepartmentIdApiManger, getListMemberByDepartmentIdApiManger, addDepartmentApi, renameDepartmentApi, renameCodeDepartmentApi, updateDescribeDepartmentApi, changeOfficeLocationApi, clearOfficeLocationApi, updateAvatarDepartmentApi, removeAvatarDepartmentApi, addMemberDepartmentApi, removeMemberDepartmentApi, updateMemberPositionDepartmentApi, deleteDepartmentApi, toggleDepartmentVisibilityApi } from './department-manger-service';
+import { AddDepartmentRequest, DepartmentMembersListManger, DepartmentMangerDetail, DisciplineOfDepartmentMangerList, RenameDepartmentRequest, RenameCodeDepartmentRequest, UpdateDescribeDepartmentRequest, ChangeOfficeLocationRequest, UpdateAvatarDepartmentRequest, AddMemberRequest, UpdateMemberPositionRequest } from './department-manger-type';
 
 
 export { 
-    getDepartmentsDetailPublicAction,
-    getDepartmentsListPublicAction,  getListDisciplineByDepartmentIdPublicAction ,getListMemberDepartmentPublicAction, addDepartmentPublicAction,
+    getDepartmentsDetailMangerAction,
+    getDepartmentsListMangerAction,  getListDisciplineByDepartmentIdMangerAction ,getListMemberDepartmentMangerAction, addDepartmentMangerAction,
     renameDepartmentAction, renameCodeDepartmentAction, updateDescribeDepartmentAction, changeOfficeLocationAction, clearOfficeLocationAction, updateAvatarDepartmentAction, removeAvatarDepartmentAction,
     addMemberDepartmentAction, removeMemberDepartmentAction, updateMemberPositionDepartmentAction,
     deleteDepartmentAction, toggleDepartmentVisibilityAction
 }
 
-async function getDepartmentsListPublicAction() {
+async function getDepartmentsListMangerAction() {
 
-    const { setLoading, setPagination, setData, query, searchField } = storeDepartmentListPublic.getState();
+    const { setLoading, setPagination, setData, query, searchField } = storeDepartmentListManger.getState();
     setLoading(true);
 
     const url = toSearchParams(query, searchField);
 
-    const res = await getDepartmentsListPublicApi(url);
+    const res = await getDepartmentsListMangerApi(url);
     if (res.code !== 1) {
         notify.error(res.message);
     }
@@ -35,11 +35,11 @@ async function getDepartmentsListPublicAction() {
 
 }
 
-async function addDepartmentPublicAction(data: AddDepartmentRequest) {
+async function addDepartmentMangerAction(data: AddDepartmentRequest) {
     const res = await addDepartmentApi(data);
     if (res.code === 1) {
         notify.success("Thêm khoa thành công");
-        await getDepartmentsListPublicAction();
+        await getDepartmentsListMangerAction();
         return true;
     } else {
         notify.error(res.message);
@@ -47,27 +47,27 @@ async function addDepartmentPublicAction(data: AddDepartmentRequest) {
     }
 }
 
-async function getDepartmentsDetailPublicAction(id: string): Promise<DepartmentPublicDetail | null> {
+async function getDepartmentsDetailMangerAction(id: string): Promise<DepartmentMangerDetail | null> {
 
-    const res = await getByIdDepartmentPublicApi(id);
-
-    if (res.code !== 1) return null;
-
-    return res.data;
-}
-
-async function getListDisciplineByDepartmentIdPublicAction(id: string, param: URLSearchParams): Promise<DisciplineOfDepartmentPublicList | null> {
-
-    const res = await getListDisciplineByDepartmentIdApiPublic(id, param);
+    const res = await getByIdDepartmentMangerApi(id);
 
     if (res.code !== 1) return null;
 
     return res.data;
 }
 
-async function getListMemberDepartmentPublicAction(id: string, param: URLSearchParams): Promise<DepartmentMembersListPublic| null> {
+async function getListDisciplineByDepartmentIdMangerAction(id: string, param: URLSearchParams): Promise<DisciplineOfDepartmentMangerList | null> {
 
-    const res = await getListMemberByDepartmentIdApiPublic(id, param);
+    const res = await getListDisciplineByDepartmentIdApiManger(id, param);
+
+    if (res.code !== 1) return null;
+
+    return res.data;
+}
+
+async function getListMemberDepartmentMangerAction(id: string, param: URLSearchParams): Promise<DepartmentMembersListManger| null> {
+
+    const res = await getListMemberByDepartmentIdApiManger(id, param);
 
     if (res.code !== 1) return null;
 

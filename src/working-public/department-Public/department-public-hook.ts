@@ -2,22 +2,24 @@
 import { defaultPagination } from "@/_Common/_types/pagination-typeConfig";
 import { toSearchParams } from "@/_lib/query-options-toUrl-helper";
 import { storeDepartmentListPublic } from './department-public-store';
-import { getByIdDepartmentPublicApi, getDepartmentsListPublicApi, getListDisciplineByDepartmentIdApiPublic, getListMemberByDepartmentIdApiPublic } from './department-public-service';
+import { getByIdDepartmentPublicApi, getListDisciplineByDepartmentIdApiPublic, getListMemberByDepartmentIdApiPublic, getPublicDepartmentsListApi } from './department-public-service';
 import { DepartmentMembersListPublic, DepartmentPublicDetail, DisciplineOfDepartmentPublicList } from './department-public-type';
 
 
 export { 
     getDepartmentsDetailPublicAction,
-    getDepartmentsListPublicAction,  getListDisciplineByDepartmentIdPublicAction ,getListMemberDepartmentPublicAction}
+     getListDisciplineByDepartmentIdPublicAction ,getListMemberDepartmentPublicAction, getPublicDepartmentsListAction}
 
-async function getDepartmentsListPublicAction() {
+
+
+async function getPublicDepartmentsListAction() {
 
     const { setLoading, setPagination, setData, query, searchField } = storeDepartmentListPublic.getState();
     setLoading(true);
 
     const url = toSearchParams(query, searchField);
 
-    const res = await getDepartmentsListPublicApi(url);
+    const res = await getPublicDepartmentsListApi(url);
     if (res.code !== 1) {
         notify.error(res.message);
     }

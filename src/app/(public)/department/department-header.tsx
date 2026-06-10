@@ -6,7 +6,7 @@ import React from 'react';
 import { SearchBoxWithField } from '@/_components/query/SearchBoxWithField';
 import { DepartmentSearchOptions, DepartmentSortOptions } from '@/_constants/department-constant';
 import { storeDepartmentListPublic } from '@/working-public/department-Public/department-public-store';
-import { getDepartmentsListPublicAction } from '@/working-public/department-Public/department-public-hook';
+import { getPublicDepartmentsListAction } from '@/working-public/department-Public/department-public-hook';
 
 
 export default function DepartmentHeader() {
@@ -17,7 +17,7 @@ export default function DepartmentHeader() {
     const setField = storeDepartmentListPublic((s) => s.setSearchField);
 
     React.useEffect(() => {
-        getDepartmentsListPublicAction();
+        getPublicDepartmentsListAction();
     }, [page, sort, isSearch]);
 
     return (

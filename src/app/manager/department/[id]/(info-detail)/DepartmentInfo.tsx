@@ -9,8 +9,8 @@ import { useRouter } from "next/navigation"
 import NotFound from '@/app/not-found'
 import Loading from '@/_components/utils/Loading'
 import ImageUndefine from '@/_components/utils/ImageUndefine'
-import { DepartmentPublicDetail } from '@/working-manager/department/infor/department-manger-type'
-import { getDepartmentsDetailPublicAction, deleteDepartmentAction, toggleDepartmentVisibilityAction } from '@/working-manager/department/infor/department-manger-hook'
+import { DepartmentMangerDetail } from '@/working-manager/department/infor/department-manger-type'
+import { getDepartmentsDetailMangerAction, deleteDepartmentAction, toggleDepartmentVisibilityAction } from '@/working-manager/department/infor/department-manger-hook'
 import { Button } from '@/_components/ui/button'
 import {
   AlertDialog,
@@ -30,18 +30,20 @@ import EditDepartmentLocationDialog from './edit-department-location-dialog'
 
 
 export function DepartmentDetailInfo({ id }: { id: string }) {
-    const [department, setDepartment] = React.useState<DepartmentPublicDetail | null>(null);
+    const [department, setDepartment] = React.useState<DepartmentMangerDetail | null>(null);
     const [isLoading, setLoading] = React.useState(true);
     const [notFound, setNotFound] = React.useState(false);
     const [refreshTrigger, setRefreshTrigger] = React.useState(0);
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const [showToggleDialog, setShowToggleDialog] = useState(false);
+    const [imgError, setImgError] = React.useState(false);
     const router = useRouter();
 
     useEffect(() => {
         async function fetchDepartment() {
             setLoading(true);
-            const res = await getDepartmentsDetailPublicAction(id);
+            setImgError(false);
+            const res = await getDepartmentsDetailMangerAction(id);
             if (res) setDepartment(res);
             else setNotFound(true);
             setLoading(false);
@@ -165,13 +167,15 @@ export function DepartmentDetailInfo({ id }: { id: string }) {
                     {/* Left Section - Avatar & Basic Info */}
                     <div className="lg:col-span-1">
                         <Card className="overflow-hidden pt-0 relative group">
-                            {avatarUrl ? (
+                            {avatarUrl && !imgError ? (
                                 <div className="relative w-full aspect-square bg-gray-200">
                                     <Image
                                         src={avatarUrl}
                                         alt={`Avatar của khoa ${name}`}
                                         fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         className="object-cover" loading="eager"
+                                        unoptimized
+                                        onError={() => setImgError(true)}
                                     />
                                 </div>
                             ) : (

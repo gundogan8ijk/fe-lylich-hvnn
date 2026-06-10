@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/_components/ui/select';
-import { getListDisciplineByDepartmentIdPublicAction } from '@/working-manager/department/infor/department-manger-hook';
-import { DisciplineOfDepartmentPublicItems } from '@/working-manager/department/infor/department-manger-type';
+import { getListDisciplineByDepartmentIdMangerAction } from '@/working-manager/department/infor/department-manger-hook';
+import { DisciplineOfDepartmentMangerItems } from '@/working-manager/department/infor/department-manger-type';
 import { toSearchParams } from '@/_lib/query-options-toUrl-helper';
 
 interface FilterDisciplineProps {
@@ -13,11 +13,11 @@ interface FilterDisciplineProps {
 }
 
 export default function FilterDiscipline({ departmentId, value, onChange }: FilterDisciplineProps) {
-    const [disciplines, setDisciplines] = useState<DisciplineOfDepartmentPublicItems[]>([]);
+    const [disciplines, setDisciplines] = useState<DisciplineOfDepartmentMangerItems[]>([]);
 
     useEffect(() => {
         const fetchDisciplines = async () => {
-            const res = await getListDisciplineByDepartmentIdPublicAction(departmentId, toSearchParams({ search: '', sort: null, page: 1, perPage: 100 }));
+            const res = await getListDisciplineByDepartmentIdMangerAction(departmentId, toSearchParams({ search: '', sort: null, page: 1, perPage: 100 }));
             if (res) {
                 setDisciplines(res.items);
             }

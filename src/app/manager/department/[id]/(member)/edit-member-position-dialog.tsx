@@ -14,8 +14,8 @@ import {
 import { Label } from '@/_components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/_components/ui/select'
 import { Input } from '@/_components/ui/input'
-import { updateMemberPositionDepartmentAction, getListDisciplineByDepartmentIdPublicAction } from '@/working-manager/department/infor/department-manger-hook'
-import { DisciplineOfDepartmentPublicItems } from '@/working-manager/department/infor/department-manger-type'
+import { updateMemberPositionDepartmentAction, getListDisciplineByDepartmentIdMangerAction } from '@/working-manager/department/infor/department-manger-hook'
+import { DisciplineOfDepartmentMangerItems } from '@/working-manager/department/infor/department-manger-type'
 import { toSearchParams } from '@/_lib/query-options-toUrl-helper'
 
 export const AcademicPositions = [
@@ -39,12 +39,12 @@ export default function EditMemberPositionDialog({ departmentId, lecturerId, ini
     const [position, setPosition] = useState(initialPosition)
     const [disciplineId, setDisciplineId] = useState<string>('')
     const [joinedAt, setJoinedAt] = useState<string>('')
-    const [disciplines, setDisciplines] = useState<DisciplineOfDepartmentPublicItems[]>([])
+    const [disciplines, setDisciplines] = useState<DisciplineOfDepartmentMangerItems[]>([])
 
     useEffect(() => {
         if (open && disciplines.length === 0) {
             const fetchDisciplines = async () => {
-                const res = await getListDisciplineByDepartmentIdPublicAction(departmentId, toSearchParams({ search: '', sort: null, page: 1, perPage: 100 }));
+                const res = await getListDisciplineByDepartmentIdMangerAction(departmentId, toSearchParams({ search: '', sort: null, page: 1, perPage: 100 }));
                 if (res) {
                     setDisciplines(res.items);
                 }

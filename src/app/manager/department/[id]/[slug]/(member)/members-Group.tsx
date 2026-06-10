@@ -29,6 +29,28 @@ import {
     AlertDialogTrigger,
 } from "@/_components/ui/alert-dialog";
 
+function AvatarWithFallback({ src, alt, fullName }: { src: string | null | undefined; alt: string; fullName: string }) {
+    const [error, setError] = useState(false);
+    if (error || !src) {
+        return (
+            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <span className="text-sm font-semibold text-primary">{getInitials(fullName)}</span>
+            </div>
+        );
+    }
+    return (
+        <Image
+            src={src}
+            alt={alt}
+            width={48}
+            height={48}
+            unoptimized
+            className="rounded-lg object-cover flex-shrink-0"
+            onError={() => setError(true)}
+        />
+    );
+}
+
 export function MembersGroup({ id, disciplineId }: { id: string, disciplineId: string }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [isSearch, setIsSearch] = useState(false);
@@ -152,19 +174,11 @@ export function MembersGroup({ id, disciplineId }: { id: string, disciplineId: s
                             className="p-5 bg-white border border-border rounded-xl hover:border-primary hover:shadow-lg transition-all duration-200 cursor-pointer"
                         >
                             <div className="flex items-start gap-4">
-                                {item.avatarUrl ? (
-                                    <Image
-                                        src={item.avatarUrl}
-                                        alt={item.fullName}
-                                        width={48}
-                                        height={48}
-                                        className=" rounded-lg object-cover flex-shrink-0"
-                                    />
-                                ) : (
-                                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                                        <span className="text-sm font-semibold text-primary">{getInitials(item.fullName)}</span>
-                                    </div>
-                                )}
+                                <AvatarWithFallback
+                                    src={item.avatarUrl}
+                                    alt={item.fullName}
+                                    fullName={item.fullName}
+                                />
 
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-2 mb-3">

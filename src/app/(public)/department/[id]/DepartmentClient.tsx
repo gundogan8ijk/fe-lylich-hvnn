@@ -14,6 +14,7 @@ export function DepartmentDetailClient({ id }: { id: string }) {
     const [department, setDepartment] = React.useState<DepartmentPublicDetail | null>(null);
     const [isLoading, setLoading] = React.useState(true);
     const [notFound, setNotFound] = React.useState(false);
+    const [imgError, setImgError] = React.useState(false);
 
     useEffect(() => {
         async function fetchDepartment() {
@@ -54,13 +55,15 @@ export function DepartmentDetailClient({ id }: { id: string }) {
                     {/* Left Section - Avatar & Basic Info */}
                     <div className="lg:col-span-1">
                         <Card className="overflow-hidden pt-0">
-                            {avatarUrl ? (
+                            {avatarUrl && !imgError ? (
                                 <div className="relative w-full aspect-square bg-gray-200">
                                     <Image
                                         src={avatarUrl}
                                         alt={`Avatar của khoa ${name}`}
                                         fill   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         className="object-cover" loading="eager"
+                                        unoptimized
+                                        onError={() => setImgError(true)}
                                     />
                                 </div>
                             ) : <ImageUndefine></ImageUndefine>}

@@ -21,8 +21,8 @@ const roleNameMap: Partial<Record<Role, string>> = {
 
 const navItems = [
     { label: 'Trang chủ', href: '/' },
-    { label: 'Sản phẩm', href: '/products' },
     { label: 'Khoa', href: '/department' },
+    { label: 'Sản phẩm', href: '/products' },
     { label: 'Blog', href: '/blog' },
     { label: 'Liên hệ', href: '/contact' },
 ];
@@ -33,17 +33,22 @@ export function PublicNavbar({ userRoles = [] }: { userRoles?: Role[] }) {
     const pathname = usePathname();
 
     useEffect(() => {
-        if (userRoles.length > 0) {
-            setIsLoggedIn(true);
-            return;
-        }
-        
-        const expiresAt = localStorage.getItem('auth_expires_at');
-        if (expiresAt && Number(expiresAt) > Date.now()) {
-            setIsLoggedIn(true);
-        } else {
-            setIsLoggedIn(false);
-        }
+        const checkAuth = () => {
+            if (userRoles.length > 0) {
+                setIsLoggedIn(true);
+                return;
+            }
+            
+            const expiresAt = localStorage.getItem('auth_expires_at');
+            if (expiresAt && Number(expiresAt) > Date.now()) {
+                setIsLoggedIn(true);
+            } else {
+                setIsLoggedIn(false);
+            }
+        };
+
+        const timer = setTimeout(checkAuth, 0);
+        return () => clearTimeout(timer);
     }, [pathname, userRoles.length]);
 
     return (

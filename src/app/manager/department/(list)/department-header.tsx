@@ -5,20 +5,20 @@ import { SortButtonDynamic } from '@/_components/query/sort-Button-dynamic';
 import React from 'react';
 import { SearchBoxWithField } from '@/_components/query/SearchBoxWithField';
 import { DepartmentSearchOptions, DepartmentSortOptions } from '@/_constants/department-constant';
-import { storeDepartmentListPublic } from '@/working-manager/department/infor/department-manger-store';
-import { getDepartmentsListPublicAction } from '@/working-manager/department/infor/department-manger-hook';
+import { storeDepartmentListManger } from '@/working-manager/department/infor/department-manger-store';
+import { getDepartmentsListMangerAction } from '@/working-manager/department/infor/department-manger-hook';
 import DepartmentAddDialog from './department-add-dialog';
 
 
 export default function DepartmentHeader() {
-    const page = storeDepartmentListPublic((s) => s.query.page);
-    const sort = storeDepartmentListPublic((s) => s.query.sort);
-    const field = storeDepartmentListPublic((s) => s.searchField);
-    const isSearch = storeDepartmentListPublic((s) => s.isSearch);
-    const setField = storeDepartmentListPublic((s) => s.setSearchField);
+    const page = storeDepartmentListManger((s) => s.query.page);
+    const sort = storeDepartmentListManger((s) => s.query.sort);
+    const field = storeDepartmentListManger((s) => s.searchField);
+    const isSearch = storeDepartmentListManger((s) => s.isSearch);
+    const setField = storeDepartmentListManger((s) => s.setSearchField);
 
     React.useEffect(() => {
-        getDepartmentsListPublicAction();
+        getDepartmentsListMangerAction();
     }, [page, sort, isSearch]);
 
     return (
@@ -33,7 +33,7 @@ export default function DepartmentHeader() {
             <div className="p-4 rounded-2xl border bg-card/50 backdrop-blur-sm shadow-sm flex flex-col lg:flex-row gap-6 lg:items-center">
 
                 <SearchBoxWithField
-                    store={storeDepartmentListPublic}
+                    store={storeDepartmentListManger}
                     fieldOptions={DepartmentSearchOptions}
                     field={field}
                     onFieldChange={setField}
@@ -53,7 +53,7 @@ export default function DepartmentHeader() {
                                 key={item.value}
                                 field={item.value}
                                 label={item.label}
-                                store={storeDepartmentListPublic}
+                                store={storeDepartmentListManger}
                             />
                         ))}
                     </div>

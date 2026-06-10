@@ -6,9 +6,9 @@ import Image from 'next/image'
 import { Button } from '@/_components/ui/button'
 import { GraduationCap, Users, ArrowRight, Globe, EyeOff } from 'lucide-react'
 import { useRouter } from "next/navigation";
-import { DepartmentPublicItems } from '@/working-manager/department/infor/department-manger-type'
+import { DepartmentMangerItems } from '@/working-manager/department/infor/department-manger-type'
 
-export default function DepartmentCard({ department }: { department: DepartmentPublicItems }) {
+export default function DepartmentCard({ department }: { department: DepartmentMangerItems }) {
     const getInitials = (name: string) =>
         name.split(' ').map((w) => w[0]).join('').toUpperCase().slice(0, 2)
     const router = useRouter();

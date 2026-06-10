@@ -91,6 +91,7 @@ export default function EditDepartmentAvatarDialog({ departmentId, initialAvatar
                                     src={avatarUrl}
                                     alt="Avatar Preview"
                                     fill
+                                    unoptimized
                                     className="object-contain"
                                 />
                                 <Button

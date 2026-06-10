@@ -8,8 +8,8 @@ import Loading from '@/_components/utils/Loading';
 import { toSearchParams } from '@/_lib/query-options-toUrl-helper';
 import { getPages } from '@/_lib/getPages -Button-helper';
 import { ListQuery, SortDirection } from '@/_Common/_types/query-types';
-import { DisciplineOfDepartmentPublicList } from '@/working-manager/department/infor/department-manger-type';
-import { getListDisciplineByDepartmentIdPublicAction } from '@/working-manager/department/infor/department-manger-hook';
+import { DisciplineOfDepartmentMangerList } from '@/working-manager/department/infor/department-manger-type';
+import { getListDisciplineByDepartmentIdMangerAction } from '@/working-manager/department/infor/department-manger-hook';
 import DisciplineAddDialog from './discipline-add-dialog';
 import Link from 'next/link';
 
@@ -19,7 +19,7 @@ export function DisciplinesGroup({ id }: { id: string }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [isSearch, setIsSearch] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [disciplineList, setDisciplineList] = useState<DisciplineOfDepartmentPublicList | null>(null);
+    const [disciplineList, setDisciplineList] = useState<DisciplineOfDepartmentMangerList | null>(null);
     const [isLoading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -36,7 +36,7 @@ export function DisciplinesGroup({ id }: { id: string }) {
 
             const queryParam = toSearchParams(query);
 
-            const res = await getListDisciplineByDepartmentIdPublicAction(id, queryParam);
+            const res = await getListDisciplineByDepartmentIdMangerAction(id, queryParam);
             if (res) setDisciplineList(res);
 
             setLoading(false);

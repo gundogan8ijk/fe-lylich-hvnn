@@ -2,13 +2,13 @@ import { ApiResponse } from "@/_Common/_types/result-typeConfig";
 import { success, fail } from "@/_lib/response-helper";
 import axios from "axios";
 import { api } from '@/_Common/_services/axios-service-config';
-import { AddDepartmentRequest, AddDisciplineRequest, ChangeOfficeLocationRequest, DepartmentMembersListPublic, DepartmentPublicDetail, DepartmentPublicList, DisciplineOfDepartmentPublicList, RenameCodeDepartmentRequest, RenameDepartmentRequest, UpdateAvatarDepartmentRequest, UpdateDescribeDepartmentRequest, AddMemberRequest, UpdateMemberPositionRequest } from "./department-manger-type";
+import { AddDepartmentRequest, AddDisciplineRequest, ChangeOfficeLocationRequest, DepartmentMembersListManger, DepartmentMangerDetail, DepartmentMangerList, DisciplineOfDepartmentMangerList, RenameCodeDepartmentRequest, RenameDepartmentRequest, UpdateAvatarDepartmentRequest, UpdateDescribeDepartmentRequest, AddMemberRequest, UpdateMemberPositionRequest } from "./department-manger-type";
 
 export {
     //detail
-    getByIdDepartmentPublicApi,
+    getByIdDepartmentMangerApi,
     //list
-    getDepartmentsListPublicApi, getListDisciplineByDepartmentIdApiPublic, getListMemberByDepartmentIdApiPublic,
+    getDepartmentsListMangerApi, getListDisciplineByDepartmentIdApiManger, getListMemberByDepartmentIdApiManger,
     //add
     addDepartmentApi,
     addDisciplineApi,
@@ -48,10 +48,10 @@ const addDisciplineApi = async (departmentId: string, data: AddDisciplineRequest
     }
 };
 
-const getDepartmentsListPublicApi = async (
+const getDepartmentsListMangerApi = async (
     params?: URLSearchParams
 
-): Promise<ApiResponse<DepartmentPublicList>> => {
+): Promise<ApiResponse<DepartmentMangerList>> => {
     try {
         const departmentListUrl = "/Departments";
         const response = await api.get(departmentListUrl, {
@@ -69,7 +69,7 @@ const getDepartmentsListPublicApi = async (
     }
 };
 
-const getByIdDepartmentPublicApi = async (id: string): Promise<ApiResponse<DepartmentPublicDetail>> => {
+const getByIdDepartmentMangerApi = async (id: string): Promise<ApiResponse<DepartmentMangerDetail>> => {
     try {
         const departmentDetailUrl = `/Departments/${id}`;
         const response = await api.get(departmentDetailUrl);
@@ -85,7 +85,7 @@ const getByIdDepartmentPublicApi = async (id: string): Promise<ApiResponse<Depar
     }
 };
 
-const getListDisciplineByDepartmentIdApiPublic = async (id: string, param: URLSearchParams): Promise<ApiResponse<DisciplineOfDepartmentPublicList>> => {
+const getListDisciplineByDepartmentIdApiManger = async (id: string, param: URLSearchParams): Promise<ApiResponse<DisciplineOfDepartmentMangerList>> => {
     try {
         const ListDisciplineUrl = `/Departments/${id}/disciplines`;
         const response = await api.get(ListDisciplineUrl, { params: param });
@@ -102,7 +102,7 @@ const getListDisciplineByDepartmentIdApiPublic = async (id: string, param: URLSe
 };
 
 
-const getListMemberByDepartmentIdApiPublic = async (id: string, param: URLSearchParams): Promise<ApiResponse<DepartmentMembersListPublic>> => {
+const getListMemberByDepartmentIdApiManger = async (id: string, param: URLSearchParams): Promise<ApiResponse<DepartmentMembersListManger>> => {
     try {
         const ListMemberUrl = `/Departments/${id}/members`;
         const response = await api.get(ListMemberUrl, { params: param });

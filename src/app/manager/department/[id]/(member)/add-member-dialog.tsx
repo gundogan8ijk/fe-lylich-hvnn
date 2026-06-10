@@ -15,8 +15,8 @@ import {
 import { Label } from '@/_components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/_components/ui/select'
 import { Input } from '@/_components/ui/input'
-import { addMemberDepartmentAction, getListDisciplineByDepartmentIdPublicAction } from '@/working-manager/department/infor/department-manger-hook'
-import { DisciplineOfDepartmentPublicItems } from '@/working-manager/department/infor/department-manger-type'
+import { addMemberDepartmentAction, getListDisciplineByDepartmentIdMangerAction } from '@/working-manager/department/infor/department-manger-hook'
+import { DisciplineOfDepartmentMangerItems } from '@/working-manager/department/infor/department-manger-type'
 import { getListNoDepartmentLecturersNameApi } from '@/_Common/_services/getListNameSer'
 import { LecturersNameItems } from '@/working-Lecturer/profile/infor/Profile-lecurer-type'
 import { toSearchParams } from '@/_lib/query-options-toUrl-helper'
@@ -44,7 +44,7 @@ export default function AddMemberDialog({ departmentId, onAdded }: Props) {
     const [lecturers, setLecturers] = useState<LecturersNameItems[]>([])
     const [selectedLecturerId, setSelectedLecturerId] = useState<string>('')
 
-    const [disciplines, setDisciplines] = useState<DisciplineOfDepartmentPublicItems[]>([])
+    const [disciplines, setDisciplines] = useState<DisciplineOfDepartmentMangerItems[]>([])
     const [disciplineId, setDisciplineId] = useState<string>('')
     const [position, setPosition] = useState<string>('Lecturer')
     const [joinedAt, setJoinedAt] = useState<string>('')
@@ -52,7 +52,7 @@ export default function AddMemberDialog({ departmentId, onAdded }: Props) {
     useEffect(() => {
         if (open && disciplines.length === 0) {
             const fetchDisciplines = async () => {
-                const res = await getListDisciplineByDepartmentIdPublicAction(departmentId, toSearchParams({ search: '', sort: null, page: 1, perPage: 100 }));
+                const res = await getListDisciplineByDepartmentIdMangerAction(departmentId, toSearchParams({ search: '', sort: null, page: 1, perPage: 100 }));
                 if (res) setDisciplines(res.items);
             }
             fetchDisciplines();

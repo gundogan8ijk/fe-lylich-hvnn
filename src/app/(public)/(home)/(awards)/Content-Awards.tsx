@@ -1,6 +1,7 @@
 "use client";
 
 import { Award, Trophy, User, CalendarDays } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { storePublicAwards } from "@/working-public/home/home-store";
 
 export default function ContentAwards() {
@@ -9,9 +10,10 @@ export default function ContentAwards() {
     const page = storePublicAwards((s) => s.page);
     const totalPages = storePublicAwards((s) => s.pagination.totalPages);
     const setPage = storePublicAwards((s) => s.setPage);
+    const router = useRouter();
 
     return (
-        <div className="flex flex-col h-full bg-white dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden relative">
+        <div className="flex flex-col bg-white dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-amber-400/20 rounded-bl-full blur-3xl" />
 
             <div className="p-5 border-b border-slate-100 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm z-10 sticky top-0">
@@ -23,7 +25,7 @@ export default function ContentAwards() {
                 </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar z-10 relative">
+            <div className="flex-1 p-4 space-y-3 z-10 relative">
                 {loading && (
                     <div className="py-8 flex justify-center">
                         <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-amber-500" />
@@ -39,7 +41,8 @@ export default function ContentAwards() {
                 {!loading && awards.map((item) => (
                     <div
                         key={item.awardId}
-                        className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg border border-slate-100 dark:border-slate-700 hover:border-amber-200 dark:hover:border-amber-900 transition-colors"
+                        onClick={() => router.push(`/officials/${item.lecturerId}`)}
+                        className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg border border-slate-100 dark:border-slate-700 hover:border-amber-200 dark:hover:border-amber-900 transition-colors cursor-pointer"
                     >
                         <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-100 mb-2 leading-tight">
                             {item.awardName}

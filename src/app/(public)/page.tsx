@@ -7,19 +7,19 @@ import ContentAwards from "./(home)/(awards)/Content-Awards";
 
 export default function HomePage() {
     return (
-        <div className="min-h-screen bg-slate-100 dark:bg-slate-950 p-4 md:p-8">
+        <main className="flex flex-col bg-background w-full max-w-7xl mx-auto px-4 py-8">
             <SetupDataActivities />
             <SetupDataAwards />
-            <div className="max-w-[1600px] mx-auto h-[calc(100vh-4rem)] md:h-[calc(100vh-6rem)]">
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 h-full">
-                    <div className="lg:col-span-4 h-[60vh] lg:h-full">
+            <div className="w-full py-6">
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                    <div className="lg:col-span-4 flex flex-col">
                         <ContentActivities />
                     </div>
-                    <div className="lg:col-span-1 h-[40vh] lg:h-full">
+                    <div className="lg:col-span-1 flex flex-col">
                         <ContentAwards />
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     );
 }

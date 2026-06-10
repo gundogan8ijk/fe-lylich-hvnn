@@ -22,9 +22,11 @@ const roleNameMap: Partial<Record<Role, string>> = {
 const navItems = [
     { label: 'Trang chủ', href: '/' },
     { label: 'Khoa', href: '/department' },
-    { label: 'Sản phẩm', href: '/products' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Liên hệ', href: '/contact' },
+    { label: 'Giảng viên', href: '/officials' },
+    { label: 'Sách', href: '/book' },
+    { label: 'Bài báo', href: '/article' },
+    { label: 'Đề tài nội bộ', href: '/research-projects' },
+    { label: 'Đề tài bên ngoài', href: '/project-external' },
 ];
 
 export function PublicNavbar({ userRoles = [] }: { userRoles?: Role[] }) {

@@ -16,7 +16,7 @@ export default function DepartmentCard({ department }: { department: DepartmentP
 
 
     return (
-        <Card className="pt-0 group relative overflow-hidden bg-card border-muted hover:border-primary/50 hover:shadow-xl transition-all duration-500">
+        <Card className="pt-0 group relative overflow-hidden bg-card border-muted hover:border-primary/50 hover:shadow-md transition-all duration-200">
 
             {/* IMAGE SECTION */}
             <div className="relative h-40 overflow-hidden bg-slate-100">

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Input } from '@/_components/ui/input';
 import { Button } from '@/_components/ui/button';
 import { ChevronLeft, ChevronRight, Search, BookOpen, Award, Calendar } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import Loading from '@/_components/utils/Loading';
 import { getPages } from '@/_lib/getPages -Button-helper';
 import { toSearchParams } from '@/_lib/query-options-toUrl-helper';
@@ -39,6 +40,7 @@ function AvatarWithFallback({ src, alt, fullName }: { src: string | null | undef
 }
 
 export function MembersGroup({ id }: { id: string }) {
+    const router = useRouter();
     const [searchQuery, setSearchQuery] = useState('');
     const [isSearch, setIsSearch] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
@@ -114,6 +116,7 @@ export function MembersGroup({ id }: { id: string }) {
                     items.map((item) => (
                         <div
                             key={item.id}
+                            onClick={() => router.push(`/officials/${item.id}`)}
                             className="p-5 bg-white border border-border rounded-xl hover:border-primary hover:shadow-lg transition-all duration-200 cursor-pointer"
                         >
                             <div className="flex items-start gap-4">

@@ -21,11 +21,14 @@ export default function DepartmentHeader() {
     }, [page, sort, isSearch]);
 
     return (
-        <div className="mb-12 space-y-8">
-            <div className="relative">
-                <h1 className="text-3xl pb-1 md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                    Danh sách khoa đào tạo
+        <div className="space-y-8 py-6">
+            <div className="flex flex-col gap-4">
+                <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
+                    Danh sách Khoa đào tạo
                 </h1>
+                <p className="text-muted-foreground text-sm">
+                    Xem thông tin công khai về các khoa đào tạo và danh sách cán bộ, giảng viên trực thuộc.
+                </p>
             </div>
 
             <div className="p-4 rounded-2xl border bg-card/50 backdrop-blur-sm shadow-sm flex flex-col lg:flex-row gap-6 lg:items-center">

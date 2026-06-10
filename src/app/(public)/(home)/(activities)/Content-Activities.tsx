@@ -1,6 +1,7 @@
 "use client";
 
 import { Search, BookOpen, Newspaper, Lightbulb, FolderDot } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { storePublicActivities } from "@/working-public/home/home-store";
 
 const getTypeIcon = (type: string) => {
@@ -23,7 +24,18 @@ const getTypeName = (type: string) => {
     }
 };
 
+const getItemLink = (type: string, id: string) => {
+    switch (type) {
+        case "Article": return `/article/${id}`;
+        case "Book": return `/book/${id}`;
+        case "ResearchProject": return `/research-projects/${id}`;
+        case "ProjectExternal": return `/project-external/${id}`;
+        default: return "#";
+    }
+};
+
 export default function ContentActivities() {
+    const router = useRouter();
     const activities = storePublicActivities((s) => s.activities);
     const loading = storePublicActivities((s) => s.loading);
     const page = storePublicActivities((s) => s.page);
@@ -45,7 +57,7 @@ export default function ContentActivities() {
     });
 
     return (
-        <div className="flex flex-col h-full bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur-md rounded border border-slate-200 dark:border-slate-800 p-6">
+        <div className="flex flex-col bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur-md rounded border border-slate-200 dark:border-slate-800 p-6">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                     Hoạt Động Nổi Bật
@@ -59,14 +71,14 @@ export default function ContentActivities() {
                             placeholder="Tìm kiếm..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full sm:w-64 pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                            className="w-full sm:w-64 pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all rounded-md"
                         />
                     </div>
 
                     <select
                         value={typeFilter}
                         onChange={(e) => setTypeFilter(e.target.value)}
-                        className="py-2 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-700 dark:text-slate-200"
+                        className="py-2 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-700 dark:text-slate-200 rounded-md"
                     >
                         <option value="">Tất cả phân loại</option>
                         <option value="article">Bài báo</option>
@@ -77,7 +89,7 @@ export default function ContentActivities() {
                 </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto space-y-4 pr-2 custom-scrollbar">
+            <div className="flex-1 space-y-4 pr-2">
                 {loading && filteredActivities.length === 0 ? (
                     <div className="flex justify-center items-center h-32">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
@@ -90,7 +102,8 @@ export default function ContentActivities() {
                     filteredActivities.map((item) => (
                         <div
                             key={item.id}
-                            className="group relative bg-white dark:bg-slate-800 p-5 border border-slate-100 dark:border-slate-700 transition-colors overflow-hidden"
+                            onClick={() => router.push(getItemLink(item.type, item.id))}
+                            className="group relative bg-white dark:bg-slate-800 p-5 border border-slate-100 dark:border-slate-700 transition-colors overflow-hidden cursor-pointer hover:border-indigo-200 dark:hover:border-indigo-900"
                         >
                             <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-400 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                             <div className="flex items-start gap-4">

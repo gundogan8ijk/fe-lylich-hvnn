@@ -11,7 +11,7 @@ export default async function Dashboard() {
     const accessToken = cookieStore.get(ACCESS_TOKEN_COOKIE_NAME)?.value ?? "";
 
     //const roles = accessToken ? await getRolesFromTokenSync(accessToken) : [];
-    const roles = accessToken ?  getRolesFromToken(accessToken) : [];
+    const roles = accessToken ? getRolesFromToken(accessToken) : [];
 
     //chua login
     if (roles === -1) redirect("/login");

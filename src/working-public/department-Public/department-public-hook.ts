@@ -1,14 +1,16 @@
-﻿import { notify } from '@/_components/utils/Notify'
+import { notify } from '@/_components/utils/Notify'
 import { defaultPagination } from "@/_Common/_types/pagination-typeConfig";
 import { toSearchParams } from "@/_lib/query-options-toUrl-helper";
 import { storeDepartmentListPublic } from './department-public-store';
-import { getByIdDepartmentPublicApi, getListDisciplineByDepartmentIdApiPublic, getListMemberByDepartmentIdApiPublic, getPublicDepartmentsListApi } from './department-public-service';
-import { DepartmentMembersListPublic, DepartmentPublicDetail, DisciplineOfDepartmentPublicList } from './department-public-type';
+import { getByIdDepartmentPublicApi, getListDisciplineByDepartmentIdApiPublic, getListMemberByDepartmentIdApiPublic, getPublicDepartmentsListApi, getPublicDisciplineDetailApi, getListCourseByPublicDisciplineApi, getListMemberByPublicDisciplineApi } from './department-public-service';
+import { DepartmentMembersListPublic, DepartmentPublicDetail, DisciplineOfDepartmentPublicList, DisciplineDetailPublic, DisciplineCoursePublicList } from './department-public-type';
 
 
 export { 
     getDepartmentsDetailPublicAction,
-     getListDisciplineByDepartmentIdPublicAction ,getListMemberDepartmentPublicAction, getPublicDepartmentsListAction}
+    getListDisciplineByDepartmentIdPublicAction, getListMemberDepartmentPublicAction, getPublicDepartmentsListAction,
+    getPublicDisciplineDetailAction, getListCourseByPublicDisciplineAction, getListMemberByPublicDisciplineAction
+}
 
 
 
@@ -57,5 +59,23 @@ async function getListMemberDepartmentPublicAction(id: string, param: URLSearchP
 
     if (res.code !== 1) return null;
 
+    return res.data;
+}
+
+async function getPublicDisciplineDetailAction(departmentId: string, id: string): Promise<DisciplineDetailPublic | null> {
+    const res = await getPublicDisciplineDetailApi(departmentId, id);
+    if (res.code !== 1) return null;
+    return res.data;
+}
+
+async function getListCourseByPublicDisciplineAction(departmentId: string, id: string, param: URLSearchParams): Promise<DisciplineCoursePublicList | null> {
+    const res = await getListCourseByPublicDisciplineApi(departmentId, id, param);
+    if (res.code !== 1) return null;
+    return res.data;
+}
+
+async function getListMemberByPublicDisciplineAction(departmentId: string, id: string, param: URLSearchParams): Promise<DepartmentMembersListPublic | null> {
+    const res = await getListMemberByPublicDisciplineApi(departmentId, id, param);
+    if (res.code !== 1) return null;
     return res.data;
 }

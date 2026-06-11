@@ -2,14 +2,15 @@ import { ApiResponse } from "@/_Common/_types/result-typeConfig";
 import { success, fail } from "@/_lib/response-helper";
 import axios from "axios";
 import { api } from '@/_Common/_services/axios-service-config';
-import {  DepartmentMembersListPublic, DepartmentPublicDetail, DepartmentPublicList, DisciplineOfDepartmentPublicList } from "./department-public-type";
+import {  DepartmentMembersListPublic, DepartmentPublicDetail, DepartmentPublicList, DisciplineOfDepartmentPublicList, DisciplineDetailPublic, DisciplineCoursePublicList } from "./department-public-type";
 
 export {
     //detail
     getByIdDepartmentPublicApi,
     //list
     getDepartmentsListPublicApi, getListDisciplineByDepartmentIdApiPublic, getListMemberByDepartmentIdApiPublic,
-    getPublicDepartmentsListApi
+    getPublicDepartmentsListApi,
+    getPublicDisciplineDetailApi, getListCourseByPublicDisciplineApi, getListMemberByPublicDisciplineApi
 }
 
 const getDepartmentsListPublicApi = async (
@@ -91,6 +92,54 @@ const getListMemberByDepartmentIdApiPublic = async (id: string, param: URLSearch
     try {
         const ListMemberUrl = `/departments/public/${id}/members`;
         const response = await api.get(ListMemberUrl, { params: param });
+
+        return success(response.data);
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const data = error.response?.data;
+            return fail(data?.message || data?.detail, data.error);
+        }
+
+        return fail();
+    }
+};
+
+const getPublicDisciplineDetailApi = async (departmentId: string, id: string): Promise<ApiResponse<DisciplineDetailPublic>> => {
+    try {
+        const url = `/departments/public/${departmentId}/disciplines/${id}`;
+        const response = await api.get(url);
+
+        return success(response.data);
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const data = error.response?.data;
+            return fail(data?.message || data?.detail, data.error);
+        }
+
+        return fail();
+    }
+};
+
+const getListCourseByPublicDisciplineApi = async (departmentId: string, id: string, param: URLSearchParams): Promise<ApiResponse<DisciplineCoursePublicList>> => {
+    try {
+        const url = `/departments/public/${departmentId}/disciplines/${id}/courses`;
+        const response = await api.get(url, { params: param });
+
+        return success(response.data);
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const data = error.response?.data;
+            return fail(data?.message || data?.detail, data.error);
+        }
+
+        return fail();
+    }
+};
+
+const getListMemberByPublicDisciplineApi = async (departmentId: string, id: string, param: URLSearchParams): Promise<ApiResponse<DepartmentMembersListPublic>> => {
+    try {
+        const url = `/departments/public/${departmentId}/disciplines/${id}/members`;
+        const response = await api.get(url, { params: param });
 
         return success(response.data);
     } catch (error) {

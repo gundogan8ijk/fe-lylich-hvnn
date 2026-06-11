@@ -3,31 +3,17 @@
 import { useState, useEffect } from 'react';
 import { Input } from '@/_components/ui/input';
 import { Button } from '@/_components/ui/button';
-import { ChevronLeft, ChevronRight, Search, BookOpen, Award, Calendar, Trash2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { ChevronLeft, ChevronRight, Search, BookOpen, Award, Calendar } from 'lucide-react';
 import Loading from '@/_components/utils/Loading';
 import { getPages } from '@/_lib/getPages -Button-helper';
 import { toSearchParams } from '@/_lib/query-options-toUrl-helper';
 import { getInitials, getYear } from '@/_lib/display-variable-helper';
 import Image from 'next/image';
 import { ACADEMIC_POSITION_LABELS, AcademicPositionName } from '@/_constants/department-constant';
-import { MemberListResponse } from '@/working-manager/department/discipline/discipline-manger-type';
+import { DepartmentMembersListPublic } from '@/working-public/department-Public/department-public-type';
 import { ListQuery, SortDirection } from '@/_Common/_types/query-types';
-import { getListMemberByDisciplineAction } from '@/working-manager/department/discipline/discipline-manger-hook';
-import { removeMemberDepartmentAction } from '@/working-manager/department/infor/department-manger-hook';
-import FilterPosition from '../../(member)/filter-position';
-import { AcademicPositions } from '../../(member)/edit-member-position-dialog';
-import AddDisciplineMemberDialog from './add-discipline-member-dialog';
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/_components/ui/alert-dialog";
+import { getListMemberByPublicDisciplineAction } from '@/working-public/department-Public/department-public-hook';
 
 function AvatarWithFallback({ src, alt, fullName }: { src: string | null | undefined; alt: string; fullName: string }) {
     const [error, setError] = useState(false);
@@ -51,16 +37,14 @@ function AvatarWithFallback({ src, alt, fullName }: { src: string | null | undef
     );
 }
 
-export function MembersGroup({ id, disciplineId }: { id: string, disciplineId: string }) {
+export function MembersGroupPublic({ departmentId, disciplineId }: { departmentId: string, disciplineId: string }) {
+    const router = useRouter();
     const [searchQuery, setSearchQuery] = useState('');
     const [isSearch, setIsSearch] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const LocalPerPage = 12;
-    const [memberList, setMemberList] = useState<MemberListResponse | null>(null);
+    const [memberList, setMemberList] = useState<DepartmentMembersListPublic | null>(null);
     const [isLoading, setLoading] = useState(false);
-    const [isDeleting, setIsDeleting] = useState(false);
-    const [refreshTrigger, setRefreshTrigger] = useState(0);
-    const [positionFilter, setPositionFilter] = useState('all');
 
     useEffect(() => {
         async function fetchData() {
@@ -76,27 +60,18 @@ export function MembersGroup({ id, disciplineId }: { id: string, disciplineId: s
 
             const queryParam = toSearchParams(query);
 
-            const res = await getListMemberByDisciplineAction(id, disciplineId, queryParam);
+            const res = await getListMemberByPublicDisciplineAction(departmentId, disciplineId, queryParam);
             if (res) setMemberList(res);
 
             setLoading(false);
         }
 
         fetchData();
-    }, [id, disciplineId, isSearch, refreshTrigger]);
+    }, [departmentId, disciplineId, isSearch]);
 
     const handleSearch = () => {
         setIsSearch(prev => !prev);
         setCurrentPage(1);
-    };
-
-    const handleDeleteMember = async (lecturerId: string) => {
-        setIsDeleting(true);
-        const success = await removeMemberDepartmentAction(id, lecturerId);
-        if (success) {
-            setRefreshTrigger(prev => prev + 1);
-        }
-        setIsDeleting(false);
     };
 
     if (isLoading) return <Loading></Loading>;
@@ -114,24 +89,15 @@ export function MembersGroup({ id, disciplineId }: { id: string, disciplineId: s
         );
     }
 
-    filteredItems = positionFilter === 'all'
-        ? filteredItems
-        : filteredItems.filter(item => item.position === positionFilter);
-
     const totalLocalPages = Math.ceil(filteredItems.length / LocalPerPage) || 1;
     const paginatedItems = filteredItems.slice((currentPage - 1) * LocalPerPage, currentPage * LocalPerPage);
 
     return (
         <div className="w-full px-4">
-            <div className="w-full max-w-7xl mx-auto">
+            <div className="w-full max-w-4xl mx-auto">
                 <div className="mb-8">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-2xl font-bold text-foreground">Danh sách giảng viên</h2>
-                        <AddDisciplineMemberDialog
-                            departmentId={id}
-                            disciplineId={disciplineId}
-                            onAdded={() => setRefreshTrigger(prev => prev + 1)}
-                        />
                     </div>
 
                     <div className="flex items-center gap-4 flex-wrap">
@@ -153,12 +119,6 @@ export function MembersGroup({ id, disciplineId }: { id: string, disciplineId: s
                             />
                         </div>
 
-                        {/* FILTER POSITION */}
-                        <FilterPosition value={positionFilter} onChange={(val) => {
-                            setPositionFilter(val);
-                            setCurrentPage(1);
-                        }} />
-
                         {/* INFO */}
                         <p className="text-sm whitespace-nowrap">
                             {filteredItems.length} kết quả | ({currentPage}/{totalLocalPages})
@@ -171,6 +131,7 @@ export function MembersGroup({ id, disciplineId }: { id: string, disciplineId: s
                         paginatedItems.map((item) => (
                             <div
                                 key={item.id}
+                                onClick={() => router.push(`/officials/${item.id}`)}
                                 className="p-5 bg-white border border-border rounded-xl hover:border-primary hover:shadow-lg transition-all duration-200 cursor-pointer"
                             >
                                 <div className="flex items-start gap-4">
@@ -206,34 +167,6 @@ export function MembersGroup({ id, disciplineId }: { id: string, disciplineId: s
                                                 <span>Tham gia: {getYear(item.joinedAt)}</span>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    {/* ACTION BUTTONS */}
-                                    <div className="ml-auto">
-                                        <AlertDialog>
-                                            <AlertDialogTrigger asChild>
-                                                <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-700 hover:bg-red-50" disabled={isDeleting}>
-                                                    <Trash2 className="w-5 h-5" />
-                                                </Button>
-                                            </AlertDialogTrigger>
-                                            <AlertDialogContent>
-                                                <AlertDialogHeader>
-                                                    <AlertDialogTitle>Gỡ giảng viên khỏi chuyên ngành?</AlertDialogTitle>
-                                                    <AlertDialogDescription>
-                                                        Hành động này sẽ gỡ giảng viên <strong>{item.fullName}</strong> khỏi khoa. Bạn có chắc chắn muốn tiếp tục?
-                                                    </AlertDialogDescription>
-                                                </AlertDialogHeader>
-                                                <AlertDialogFooter>
-                                                    <AlertDialogCancel>Hủy</AlertDialogCancel>
-                                                    <AlertDialogAction
-                                                        className="bg-red-500 hover:bg-red-600"
-                                                        onClick={() => handleDeleteMember(item.id)}
-                                                    >
-                                                        Xác nhận gỡ
-                                                    </AlertDialogAction>
-                                                </AlertDialogFooter>
-                                            </AlertDialogContent>
-                                        </AlertDialog>
                                     </div>
                                 </div>
                             </div>

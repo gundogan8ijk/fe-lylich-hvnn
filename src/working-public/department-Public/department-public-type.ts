@@ -57,3 +57,26 @@ export type DisciplineOfDepartmentPublicList = {
     items: DisciplineOfDepartmentPublicItems[];
     pagination: Pagination;
 };
+
+export interface DisciplineDetailPublic {
+    id: string;
+    name: string;
+    describe: string;
+    totalCredits: number;
+    departmentId: string;
+    departmentCode: string;
+    departmentName: string;
+    memberAmount: number;
+    courseAmount: number;
+}
+
+export type DisciplineCoursePublicItems = {
+    courseId: string;
+    courseName: string;
+    code: string;
+}
+
+export type DisciplineCoursePublicList = {
+    items: DisciplineCoursePublicItems[];
+    pagination: Pagination;
+}

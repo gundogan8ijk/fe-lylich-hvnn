@@ -10,6 +10,7 @@ import { getPages } from '@/_lib/getPages -Button-helper';
 import { ListQuery, SortDirection } from '@/_Common/_types/query-types';
 import { DisciplineOfDepartmentPublicList } from '@/working-public/department-Public/department-public-type';
 import { getListDisciplineByDepartmentIdPublicAction } from '@/working-public/department-Public/department-public-hook';
+import Link from 'next/link';
 
 const PerPage = 20;
 
@@ -55,9 +56,10 @@ export function DisciplinesGroup({ id }: { id: string }) {
     const paged = disciplineList.pagination;
 
     return (
-        <div className="max-w-4xl mx-auto mt-7 px-4 py-5">
-            <div className="mb-6">
-                <h2 className="text-2xl font-bold mb-5">Danh sách chuyên ngành</h2>
+        <div className="w-full px-4 py-5 mt-7">
+            <div className="max-w-4xl mx-auto">
+                <div className="mb-6">
+                    <h2 className="text-2xl font-bold mb-5">Danh sách chuyên ngành</h2>
 
                 <div className="flex items-center gap-4">
                     {/* SEARCH */}
@@ -87,12 +89,13 @@ export function DisciplinesGroup({ id }: { id: string }) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
                 {items.length > 0 ? (
                     items.map((item) => (
-                        <div
+                        <Link
                             key={item.id}
-                            className="p-4 border rounded-lg hover:shadow-md"
+                            href={`/department/${id}/${item.id}`}
+                            className="p-4 border rounded-lg hover:shadow-md block transition-shadow"
                         >
                             {item.name}
-                        </div>
+                        </Link>
                     ))
                 ) : (
                     <div className="p-8 text-center border rounded-lg col-span-full">
@@ -143,6 +146,7 @@ export function DisciplinesGroup({ id }: { id: string }) {
                     </Button>
                 </div>
             )}
+            </div>
         </div>
     );
 }

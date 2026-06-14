@@ -28,17 +28,19 @@ export default function LayoutClient({ children, userRoles = [] }: { children: R
                         onClick={() => setSidebarOpen(false)}
                     />
                 )}
-                <div className={`fixed left-0 top-16 bottom-0 w-64 z-50 transform transition-transform md:hidden ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-                    }`}>
+
+                <div className={`fixed left-0 top-16 bottom-0 w-64 z-50 transform transition-transform 
+                md:hidden ${sidebarOpen ? 'translate-x-0' : '-translate-x-full' }`}>
                     <SidebarConfig items={managerMenu} onClose={() => setSidebarOpen(false)} />
                 </div>
 
                 {/* Main Content */}
                 <main className="flex-1 overflow-y-auto w-full md:w-auto">
-                    <div className="px-4 py-3 sm:px-6 lg:px-8 lg:py-4 h-full flex flex-col"> 
+                    <div className="px-4 py-3 sm:px-6 lg:px-8 lg:py-4 h-full flex flex-col">
                         {children}
                     </div>
                 </main>
+                
             </div>
         </div>
     )

@@ -76,7 +76,7 @@ export default function ContentLecturerCharts() {
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
-                      <Tooltip formatter={(value: number) => [`${value} giảng viên`, 'Số lượng']} />
+                      <Tooltip formatter={(value) => [`${value ?? 0} giảng viên`, 'Số lượng']} />
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
@@ -111,7 +111,7 @@ export default function ContentLecturerCharts() {
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
-                      <Tooltip formatter={(value: number) => [`${value} giải thưởng`, 'Số lượng']} />
+                      <Tooltip formatter={(value) => [`${value ?? 0} giải thưởng`, 'Số lượng']} />
                     </PieChart>
                   </ResponsiveContainer>
                 </div>

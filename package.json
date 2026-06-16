@@ -36,5 +36,8 @@
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "html2canvas": "npm:html2canvas-pro@^2.0.4"
   }
 }

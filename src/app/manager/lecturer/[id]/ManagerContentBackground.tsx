@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState, useEffect } from 'react';
 import { ImageOff, Download, Trash2, EyeOff, Eye } from "lucide-react";
-import { useReactToPrint } from 'react-to-print';
+import generatePDF from 'react-to-pdf';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import {
@@ -38,7 +38,6 @@ export default function ManagerContentBackground({ id }: { id: string }) {
     const [isToggleDialogOpen, setIsToggleDialogOpen] = useState(false);
 
     const contentRef = useRef<HTMLDivElement>(null);
-    const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: "LyLichGiangVien" });
 
     const loadData = async () => {
         setIsLoading(true);
@@ -144,7 +143,7 @@ export default function ManagerContentBackground({ id }: { id: string }) {
                     title="Tải PDF"
                 >
                     <Download className="w-4 h-4" />
-                    <span className="hidden sm:inline">In PDF</span>
+                    <span className="hidden sm:inline">Xuất file PDF</span>
                 </button>
 
                 {/* Header / Basic Info */}
@@ -362,7 +361,7 @@ export default function ManagerContentBackground({ id }: { id: string }) {
                     <AlertDialogHeader>
                         <AlertDialogTitle>Xác nhận tải PDF</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Bạn có chắc chắn muốn tải thông tin lý lịch này dưới dạng PDF không?
+                            Bạn có chắc chắn muốn tải thông tin lý lịch này dưới dạng PDF về thiết bị không?
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -370,7 +369,7 @@ export default function ManagerContentBackground({ id }: { id: string }) {
                         <AlertDialogAction onClick={() => {
                             setIsPrintDialogOpen(false);
                             setTimeout(() => {
-                                if (reactToPrintFn) reactToPrintFn();
+                                generatePDF(contentRef, { filename: `${background.fullName}_LyLich.pdf`, method: 'save' });
                             }, 100);
                         }}>Đồng ý</AlertDialogAction>
                     </AlertDialogFooter>

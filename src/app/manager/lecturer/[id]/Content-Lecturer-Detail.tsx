@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 import { ImageOff, Download, Trash2, EyeOff, Eye, ArrowLeft } from 'lucide-react';
-import { useReactToPrint } from 'react-to-print';
+import generatePDF from 'react-to-pdf';
 import { useRouter } from 'next/navigation';
 import {
     AlertDialog,
@@ -33,7 +33,6 @@ export default function ContentLecturerDetail() {
     const [isToggleDialogOpen, setIsToggleDialogOpen] = useState(false);
 
     const contentRef = useRef<HTMLDivElement>(null);
-    const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: 'LyLichGiangVien' });
 
     const handleDelete = async () => {
         setIsDeleteDialogOpen(false);
@@ -132,7 +131,7 @@ export default function ContentLecturerDetail() {
                     title="Tải PDF"
                 >
                     <Download className="w-4 h-4" />
-                    <span className="hidden sm:inline">In PDF</span>
+                    <span className="hidden sm:inline">Xuất file PDF</span>
                 </button>
 
                 {/* Header / Basic Info */}
@@ -349,13 +348,13 @@ export default function ContentLecturerDetail() {
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Xác nhận tải PDF</AlertDialogTitle>
-                        <AlertDialogDescription>Bạn có chắc chắn muốn tải thông tin lý lịch này dưới dạng PDF không?</AlertDialogDescription>
+                        <AlertDialogDescription>Bạn có chắc chắn muốn tải thông tin lý lịch này dưới dạng PDF về thiết bị không?</AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Hủy</AlertDialogCancel>
                         <AlertDialogAction onClick={() => {
                             setIsPrintDialogOpen(false);
-                            setTimeout(() => { if (reactToPrintFn) reactToPrintFn(); }, 100);
+                            setTimeout(() => { generatePDF(contentRef, { filename: `${background.fullName}_LyLich.pdf`, method: 'save' }); }, 100);
                         }}>Đồng ý</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

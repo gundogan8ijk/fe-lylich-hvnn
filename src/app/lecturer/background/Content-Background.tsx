@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 import { ImageOff, Download } from "lucide-react";
-import { useReactToPrint } from 'react-to-print';
+import generatePDF from 'react-to-pdf';
 import { useBackgroundStore } from '../../../working-Lecturer/background/Background-store';
 import { AWARD_LEVEL_LABELS, AwardLevelName } from '@/_constants/award-constant';
 import { PROJECT_LEVEL_LABELS, ProjectLevelName } from '@/_constants/project-constant';
@@ -26,7 +26,6 @@ export default function ContentBackground() {
     const { background, isLoading } = useBackgroundStore();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const contentRef = useRef<HTMLDivElement>(null);
-    const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: "LyLichGiangVien" });
 
     if (isLoading) {
         return <div className="p-4 text-center text-gray-500">Đang tải dữ liệu...</div>;
@@ -50,7 +49,7 @@ export default function ContentBackground() {
                     title="Tải PDF"
                 >
                     <Download className="w-4 h-4" />
-                    <span className="hidden sm:inline">In PDF</span>
+                    <span className="hidden sm:inline">Xuất file PDF</span>
                 </button>
 
                 {/* Header / Basic Info */}
@@ -252,16 +251,15 @@ export default function ContentBackground() {
                     <AlertDialogHeader>
                         <AlertDialogTitle>Xác nhận tải PDF</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Bạn có chắc chắn muốn tải thông tin lý lịch này dưới dạng PDF bằng trình in của trình duyệt không?
+                            Bạn có chắc chắn muốn tải thông tin lý lịch này dưới dạng PDF về thiết bị không?
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Hủy</AlertDialogCancel>
                         <AlertDialogAction onClick={() => {
                             setIsDialogOpen(false);
-                            // Set timeout allows dialog to close before printing starts
                             setTimeout(() => {
-                                if (reactToPrintFn) reactToPrintFn();
+                                generatePDF(contentRef, { filename: `${background.fullName}_LyLich.pdf`, method: 'save' });
                             }, 100);
                         }}>Đồng ý</AlertDialogAction>
                     </AlertDialogFooter>

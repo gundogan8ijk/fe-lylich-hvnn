@@ -5,12 +5,14 @@ import { useLecturerChartsStore } from '@/working-admin/statistics/lecturer-char
 import { Button } from '@/_components/ui/button';
 import { useEffect, useState } from 'react';
 import { getDepartmentsListPublicApi } from '@/working-public/department-Public/department-public-service';
+import { FileSpreadsheet } from 'lucide-react';
 
 interface StatisticsFilterProps {
   onRefresh: () => void;
+  onExport?: () => void;
 }
 
-export function StatisticsFilter({ onRefresh }: StatisticsFilterProps) {
+export function StatisticsFilter({ onRefresh, onExport }: StatisticsFilterProps) {
   const { selectedYear, selectedMonth, selectedDepartmentId, setSelectedYear, setSelectedMonth, setSelectedDepartmentId } = useLecturerChartsStore();
 
   const [departments, setDepartments] = useState<{id: string, name: string}[]>([]);
@@ -116,6 +118,16 @@ export function StatisticsFilter({ onRefresh }: StatisticsFilterProps) {
       >
         Xóa bộ lọc
       </Button>
+      {onExport && (
+        <Button
+          size="sm"
+          className="bg-emerald-600 hover:bg-emerald-700 text-white flex items-center gap-1.5"
+          onClick={onExport}
+        >
+          <FileSpreadsheet className="w-4 h-4" />
+          Xuất Excel
+        </Button>
+      )}
     </div>
   );
 }

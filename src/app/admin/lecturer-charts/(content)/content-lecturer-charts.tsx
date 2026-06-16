@@ -5,13 +5,56 @@ import { useLecturerChartsStore } from '@/working-admin/statistics/lecturer-char
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { StatisticsFilter } from './statistics-filter';
 import { getLecturerChartsAction } from '@/working-admin/statistics/statistics-admin-hook';
+import { exportToExcel } from '@/_Common/_utils/excel-export';
+import { useEffect, useState } from 'react';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 
 export default function ContentLecturerCharts() {
   const { data, loading: isLoading } = useLecturerChartsStore();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const { degreeStats = [], departmentStats = [], awardStats = [] } = data || {};
+
+  const handleExportExcel = () => {
+    if (!data) return;
+    const degreeTotal = degreeStats.reduce((acc, curr) => acc + curr.value, 0);
+    const awardTotal = awardStats.reduce((acc, curr) => acc + curr.value, 0);
+    const deptTotal = departmentStats.reduce((acc, curr) => acc + curr.value, 0);
+
+    const sheets = [
+      {
+        sheetName: 'Thống kê Học vị',
+        data: degreeStats.map(item => ({
+          'Học vị / Học hàm': item.label,
+          'Số lượng': item.value,
+          'Tỉ lệ (%)': degreeTotal > 0 ? `${((item.value / degreeTotal) * 100).toFixed(1)}%` : '0.0%'
+        }))
+      },
+      {
+        sheetName: 'Thống kê Giải thưởng',
+        data: awardStats.map(item => ({
+          'Giải thưởng': item.label,
+          'Số lượng': item.value,
+          'Tỉ lệ (%)': awardTotal > 0 ? `${((item.value / awardTotal) * 100).toFixed(1)}%` : '0.0%'
+        }))
+      },
+      {
+        sheetName: 'Thống kê Khoa - Đơn vị',
+        data: departmentStats.map(item => ({
+          'Khoa / Đơn vị': item.label,
+          'Số lượng': item.value,
+          'Tỉ lệ (%)': deptTotal > 0 ? `${((item.value / deptTotal) * 100).toFixed(1)}%` : '0.0%'
+        }))
+      }
+    ];
+
+    exportToExcel(sheets, 'ThongKeGiangVien');
+  };
 
   const renderCustomLegend = (chartData: {label: string, value: number}[]) => {
     const total = chartData.reduce((acc, curr) => acc + curr.value, 0);
@@ -44,9 +87,9 @@ export default function ContentLecturerCharts() {
 
   return (
     <div className="space-y-4">
-      <StatisticsFilter onRefresh={getLecturerChartsAction} />
+      <StatisticsFilter onRefresh={getLecturerChartsAction} onExport={data ? handleExportExcel : undefined} />
 
-      {isLoading ? (
+      {!mounted || isLoading ? (
         <div className="text-sm text-muted-foreground p-4">Đang tải biểu đồ giảng viên...</div>
       ) : !data ? (
         <div className="text-sm text-destructive p-4">Không tải được dữ liệu. Vui lòng thử lại.</div>
@@ -59,8 +102,8 @@ export default function ContentLecturerCharts() {
             </CardHeader>
             <CardContent>
               <div className="flex flex-col lg:flex-row items-center gap-4">
-                <div className="w-full lg:w-1/2" style={{ height: 300 }}>
-                  <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                <div className="w-full lg:w-1/2" style={{ width: '100%', height: 300, minWidth: 0 }}>
+                  <ResponsiveContainer width="99%" height="100%" minHeight={0}>
                     <PieChart>
                       <Pie
                         data={degreeStats}
@@ -94,8 +137,8 @@ export default function ContentLecturerCharts() {
             </CardHeader>
             <CardContent>
               <div className="flex flex-col lg:flex-row items-center gap-4">
-                <div className="w-full lg:w-1/2" style={{ height: 300 }}>
-                  <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                <div className="w-full lg:w-1/2" style={{ width: '100%', height: 300, minWidth: 0 }}>
+                  <ResponsiveContainer width="99%" height="100%" minHeight={0}>
                     <PieChart>
                       <Pie
                         data={awardStats}
@@ -128,8 +171,8 @@ export default function ContentLecturerCharts() {
               <CardTitle>Số lượng Giảng viên theo Khoa/Đơn vị</CardTitle>
             </CardHeader>
             <CardContent>
-              <div style={{ width: '100%', height: 300 }}>
-                <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+              <div style={{ width: '100%', height: 300, minWidth: 0 }}>
+                <ResponsiveContainer width="99%" height="100%" minHeight={0}>
                   <BarChart data={departmentStats} layout="vertical" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis type="number" />

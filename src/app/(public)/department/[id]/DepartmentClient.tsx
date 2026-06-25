@@ -44,40 +44,44 @@ export function DepartmentDetailClient({ id }: { id: string }) {
         <main className="bg-gradient-to-br from-slate-50 to-slate-100 py-9 px-4">
             <div className="max-w-4xl mx-auto">
                 {/* Header Section */}
-                <div className="mb-8">
+                <div className="mb-6">
 
-                    <h1 className="text-4xl font-bold text-gray-900 mb-2 text-balance">{name}</h1>
-                    <p className="text-lg text-gray-600">{describe}</p>
+                    <h1 className="text-2xl font-bold text-gray-900 mb-1.5 text-balance">{name}</h1>
+                    <p className="text-sm text-gray-500">{describe}</p>
                 </div>
 
                 {/* Main Content Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                     {/* Left Section - Avatar & Basic Info */}
                     <div className="lg:col-span-1">
                         <Card className="overflow-hidden pt-0">
                             {avatarUrl && !imgError ? (
-                                <div className="relative w-full aspect-square bg-gray-200">
+                                <div className="relative w-full aspect-[4/3] bg-slate-50 border-b">
                                     <Image
                                         src={avatarUrl}
                                         alt={`Avatar của khoa ${name}`}
-                                        fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                        className="object-cover" loading="eager"
+                                        fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                                        className="object-contain" loading="eager"
                                         unoptimized
                                         onError={() => setImgError(true)}
                                     />
                                 </div>
-                            ) : <ImageUndefine></ImageUndefine>}
+                            ) : (
+                                <div className="relative w-full aspect-[4/3]">
+                                    <ImageUndefine></ImageUndefine>
+                                </div>
+                            )}
 
-                            <div className="p-5">
-                                <h2 className="text-sm font-semibold text-black uppercase tracking-wide mb-3">
+                            <div className="p-4">
+                                <h2 className="text-xs font-semibold text-black uppercase tracking-wide mb-2.5">
                                     Thông tin cơ bản
                                 </h2>
                                 <div className="flex flex-col">
-                                    <div className='flex items-baseline gap-x-2.5 text-sm uppercase'>
+                                    <div className='flex items-baseline gap-x-2 text-xs uppercase'>
                                         <p className=" font-semibold text-gray-500 ">Mã khoa :</p>
                                         <p className=" font-bold text-gray-900">{code}</p>
                                     </div>
-                                    <div className="pt-2 flex items-baseline uppercase font-semibold gap-x-3">
+                                    <div className="pt-1.5 flex items-baseline uppercase font-semibold gap-x-2 text-xs">
                                         <p className="  text-gray-500 ">thành lập :</p>
                                         <p className="text-black"> {createdYear}</p>
                                     </div>
@@ -87,7 +91,7 @@ export function DepartmentDetailClient({ id }: { id: string }) {
                     </div>
 
                     {/* Right Section - Detailed Info */}
-                    <div className="lg:col-span-2 space-y-6">
+                    <div className="lg:col-span-3 space-y-6">
                         {/* Location Card */}
                         <Card className="p-6">
                             <div className="flex gap-4">

@@ -90,13 +90,13 @@ export function DepartmentDetailInfo({ id }: { id: string }) {
                     Quay lại danh sách khoa
                 </Link>
                 {/* Header Section */}
-                <div className="mb-8 flex justify-between items-start">
+                <div className="mb-6 flex justify-between items-start">
                     <div>
-                        <div className="flex items-center gap-2 mb-2">
-                            <h1 className="text-4xl font-bold text-gray-900 text-balance">{name}</h1>
+                        <div className="flex items-center gap-2 mb-1.5">
+                            <h1 className="text-2xl font-bold text-gray-900 text-balance">{name}</h1>
                             <EditDepartmentNameDialog departmentId={id} initialName={name} onUpdated={handleUpdate} />
                         </div>
-                        <p className="text-lg text-gray-600 flex items-start">
+                        <p className="text-sm text-gray-500 flex items-start">
                             {describe}
                             <EditDepartmentDescribeDialog departmentId={id} initialDescribe={describe} onUpdated={handleUpdate} />
                         </p>
@@ -163,41 +163,41 @@ export function DepartmentDetailInfo({ id }: { id: string }) {
                 </AlertDialog>
 
                 {/* Main Content Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                     {/* Left Section - Avatar & Basic Info */}
                     <div className="lg:col-span-1">
                         <Card className="overflow-hidden pt-0 relative group">
                             {avatarUrl && !imgError ? (
-                                <div className="relative w-full aspect-square bg-gray-200">
+                                <div className="relative w-full aspect-[4/3] bg-slate-50 border-b">
                                     <Image
                                         src={avatarUrl}
                                         alt={`Avatar của khoa ${name}`}
-                                        fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                        className="object-cover" loading="eager"
+                                        fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                                        className="object-contain" loading="eager"
                                         unoptimized
                                         onError={() => setImgError(true)}
                                     />
                                 </div>
                             ) : (
-                                <div className="relative w-full aspect-square">
+                                <div className="relative w-full aspect-[4/3]">
                                     <ImageUndefine />
                                 </div>
                             )}
                             <EditDepartmentAvatarDialog departmentId={id} initialAvatarUrl={avatarUrl} onUpdated={handleUpdate} />
 
-                            <div className="p-5">
-                                <h2 className="text-sm font-semibold text-black uppercase tracking-wide mb-3">
+                            <div className="p-4">
+                                <h2 className="text-xs font-semibold text-black uppercase tracking-wide mb-2.5">
                                     Thông tin cơ bản
                                 </h2>
                                 <div className="flex flex-col">
-                                    <div className='flex items-center gap-x-2.5 text-sm uppercase'>
+                                    <div className='flex items-center gap-x-2 text-xs uppercase'>
                                         <p className=" font-semibold text-gray-500 ">Mã khoa :</p>
                                         <div className="flex items-center">
                                             <p className=" font-bold text-gray-900">{code}</p>
                                             <EditDepartmentCodeDialog departmentId={id} initialCode={code} onUpdated={handleUpdate} />
                                         </div>
                                     </div>
-                                    <div className="pt-2 flex items-baseline uppercase font-semibold gap-x-3">
+                                    <div className="pt-1.5 flex items-baseline uppercase font-semibold gap-x-2 text-xs">
                                         <p className="  text-gray-500 ">thành lập :</p>
                                         <p className="text-black"> {createdYear}</p>
                                     </div>
@@ -207,7 +207,7 @@ export function DepartmentDetailInfo({ id }: { id: string }) {
                     </div>
 
                     {/* Right Section - Detailed Info */}
-                    <div className="lg:col-span-2 space-y-6">
+                    <div className="lg:col-span-3 space-y-6">
                         {/* Location Card */}
                         <Card className="p-6">
                             <div className="flex gap-4">

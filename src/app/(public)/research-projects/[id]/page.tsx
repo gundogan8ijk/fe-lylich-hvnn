@@ -10,6 +10,7 @@ import { Badge } from '@/_components/ui/badge';
 import Loading from '@/_components/utils/Loading';
 import { ArrowLeft, Cpu, Calendar, Tag, ShieldAlert, User, DollarSign, Layers, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
+import { PROJECT_LEVEL_LABELS, ProjectLevelName, EVALUATION_RESULT_LABELS, EvaluationResultName, PROJECT_STATUS_LABELS, ProjectStatusName, CONTRIBUTOR_STATUS_LABELS, ContributorStatusName, PARTICIPANT_STATUS_LABELS, ParticipantStatusName } from '@/_constants/project-constant';
 
 export default function PublicResearchProjectDetailPage() {
     const { id } = useParams() as { id: string };
@@ -65,7 +66,7 @@ export default function PublicResearchProjectDetailPage() {
                                 <span>Đề tài khoa học công nghệ nội bộ • {project.code}</span>
                             </div>
                             <Badge className="bg-emerald-100 text-emerald-800 border-none px-2.5 py-1 font-bold text-xs">
-                                Kết quả: {project.evaluation}
+                                Kết quả: {EVALUATION_RESULT_LABELS[project.evaluation as EvaluationResultName] || project.evaluation}
                             </Badge>
                         </div>
                         <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 leading-tight">
@@ -83,11 +84,11 @@ export default function PublicResearchProjectDetailPage() {
                         </div>
                         <div className="flex items-center gap-2">
                             <Tag className="w-4 h-4 text-emerald-600 shrink-0" />
-                            <span>Cấp quản lý: <strong className="text-slate-900">{project.level}</strong></span>
+                            <span>Cấp quản lý: <strong className="text-slate-900">{PROJECT_LEVEL_LABELS[project.level as ProjectLevelName] || project.level}</strong></span>
                         </div>
                         <div className="flex items-center gap-2">
                             <ShieldAlert className="w-4 h-4 text-emerald-600 shrink-0" />
-                            <span>Trạng thái: <strong className="text-slate-900">{project.projectStatus}</strong></span>
+                            <span>Trạng thái: <strong className="text-slate-900">{PROJECT_STATUS_LABELS[project.projectStatus as ProjectStatusName] || project.projectStatus}</strong></span>
                         </div>
                     </div>
 
@@ -153,17 +154,17 @@ export default function PublicResearchProjectDetailPage() {
                             {project.contributors.length === 0 ? (
                                 <p className="text-xs text-slate-400 italic">Chưa cập nhật cán bộ tham gia.</p>
                             ) : (
-                                <div className="space-y-2">
+                                <div className="space-y-2.5">
                                     {project.contributors.map((c) => (
-                                        <div key={c.id} className="flex justify-between items-center text-xs bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                                        <div key={c.id} className="flex justify-between items-center bg-slate-50 p-3.5 rounded-xl border border-slate-200 hover:border-emerald-200 hover:bg-emerald-50/30 transition-colors">
                                             <div>
-                                                <Link href={`/officials/${c.lecturerId}`} className="font-semibold text-slate-900 hover:text-emerald-600 transition-colors">
+                                                <Link href={`/officials/${c.lecturerId}`} className="font-semibold text-sm text-slate-900 hover:text-emerald-600 transition-colors">
                                                     {c.fullName}
                                                 </Link>
-                                                <p className="text-[10px] text-slate-500">Mã: {c.code} • Ngày tham gia: {new Date(c.joinedAt).toLocaleDateString('vi-VN')}</p>
+                                                <p className="text-xs text-slate-500 mt-0.5">Mã: {c.code} • Ngày tham gia: {new Date(c.joinedAt).toLocaleDateString('vi-VN')}</p>
                                             </div>
-                                            <Badge variant="outline" className="text-[10px] border-emerald-200 text-emerald-700 bg-emerald-50 shadow-none font-medium">
-                                                {c.status}
+                                            <Badge variant="outline" className="text-xs border-emerald-200 text-emerald-700 bg-emerald-50 shadow-none font-medium shrink-0">
+                                                {CONTRIBUTOR_STATUS_LABELS[c.status as ContributorStatusName] || c.status}
                                             </Badge>
                                         </div>
                                     ))}
@@ -179,15 +180,15 @@ export default function PublicResearchProjectDetailPage() {
                             {project.participants.length === 0 ? (
                                 <p className="text-xs text-slate-400 italic">Không có thành viên ngoài học viện tham gia.</p>
                             ) : (
-                                <div className="space-y-2">
+                                <div className="space-y-2.5">
                                     {project.participants.map((p) => (
-                                        <div key={p.id} className="flex justify-between items-center text-xs bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                                        <div key={p.id} className="flex justify-between items-center bg-slate-50 p-3.5 rounded-xl border border-slate-200 hover:border-orange-200 hover:bg-orange-50/30 transition-colors">
                                             <div>
-                                                <p className="font-semibold text-slate-900">{p.fullName}</p>
-                                                <p className="text-[10px] text-slate-500">{p.email || "Không có Email"} • Ngày tham gia: {new Date(p.joinedAt).toLocaleDateString('vi-VN')}</p>
+                                                <p className="font-semibold text-sm text-slate-900">{p.fullName}</p>
+                                                <p className="text-xs text-slate-500 mt-0.5">{p.email || "Không có Email"} • Ngày tham gia: {new Date(p.joinedAt).toLocaleDateString('vi-VN')}</p>
                                             </div>
-                                            <Badge variant="outline" className="text-[10px] border-orange-200 text-orange-700 bg-orange-50 shadow-none font-medium">
-                                                {p.role}
+                                            <Badge variant="outline" className="text-xs border-orange-200 text-orange-700 bg-orange-50 shadow-none font-medium shrink-0">
+                                                {PARTICIPANT_STATUS_LABELS[p.role as ParticipantStatusName] || p.role}
                                             </Badge>
                                         </div>
                                     ))}

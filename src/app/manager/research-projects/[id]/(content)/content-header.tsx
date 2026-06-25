@@ -5,7 +5,7 @@ import { Trash2, ArrowLeft, ShieldCheck, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import DeleteConfirmDialog from "@/_components/custom/DeleteConfirmDialog";
-import { ConfirmedStatus } from "@/_constants/base-constant";
+import { ConfirmedStatus, STATUS_LABELS } from "@/_constants/base-constant";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/_components/ui/dialog";
 import {
     AlertDialog, AlertDialogAction, AlertDialogCancel,
@@ -199,10 +199,11 @@ export default function ContentHeaderProjectManger() {
     );
 }
 
-const CONFIRMED_MAP: Record<string, { label: string; cls: string }> = {
-    Pending: { label: "Chờ duyệt", cls: "bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-900/50" },
-    Verified: { label: "Đã duyệt", cls: "bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900/50" },
-    Cancelled: { label: "Từ chối", cls: "bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-emerald-900/50" },
+const CONFIRMED_MAP: Record<ConfirmedStatus, { label: string; cls: string }> = {
+    Draft: { label: STATUS_LABELS.Draft, cls: "bg-slate-50 dark:bg-slate-900/40 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800" },
+    Pending: { label: STATUS_LABELS.Pending, cls: "bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-900/50" },
+    Verified: { label: STATUS_LABELS.Verified, cls: "bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900/50" },
+    Cancelled: { label: STATUS_LABELS.Cancelled, cls: "bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-emerald-900/50" },
 };
 
 export const confirmed_Options: { value: ConfirmedStatus; label: string }[] = [

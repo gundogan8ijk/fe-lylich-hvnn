@@ -1,10 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
-import { ImageOff, Download, Trash2, EyeOff, Eye, ArrowLeft } from 'lucide-react';
-import generatePDF from 'react-to-pdf';
+import { useState } from 'react';
+import { ImageOff, Download, Trash2, EyeOff, Eye, ArrowLeft, MapPin } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import {
     AlertDialog,
@@ -20,19 +18,16 @@ import { notify } from '@/_components/utils/Notify';
 import Loading from '@/_components/utils/Loading';
 import { useLecturerDetailManagerStore } from '@/working-manager/lecturer/lecturer-detail-manager-store';
 import { deleteLecturerManagerApi, getLecturerBackgroundManagerApi, toggleLecturerVisibilityManagerApi } from '@/working-manager/lecturer/lecturer-manger-service';
-import { ConfirmedStatus, STATUS_LABELS, confirmedStyle } from '@/_constants/base-constant';
+import { ConfirmedStatus, STATUS_LABELS, confirmedStyle, GENDER_LABELS, Gender } from '@/_constants/base-constant';
 import { AWARD_LEVEL_LABELS, AwardLevelName } from '@/_constants/award-constant';
-import { PROJECT_LEVEL_LABELS, ProjectLevelName } from '@/_constants/project-constant';
+import { PROJECT_LEVEL_LABELS, ProjectLevelName, PROJECT_STATUS_LABELS, ProjectStatusName } from '@/_constants/project-constant';
 import { PROJECT_EXTERNAL_LEVEL_LABELS } from '@/_constants/ProjectExternal-constant';
 
 export default function ContentLecturerDetail() {
     const router = useRouter();
     const { background, isLoading, setBackground, setIsLoading } = useLecturerDetailManagerStore();
-    const [isPrintDialogOpen, setIsPrintDialogOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const [isToggleDialogOpen, setIsToggleDialogOpen] = useState(false);
-
-    const contentRef = useRef<HTMLDivElement>(null);
 
     const handleDelete = async () => {
         setIsDeleteDialogOpen(false);
@@ -74,16 +69,8 @@ export default function ContentLecturerDetail() {
         return <span className={`px-2 py-0.5 rounded text-xs font-medium border border-slate-100 ${style.bg} ${style.text}`}>{label}</span>;
     };
 
-    const PROJECT_STATUS_LABELS: Record<string, string> = {
-        Pending: 'Chờ xử lý',
-        InProgress: 'Đang thực hiện',
-        UnderReview: 'Đang đánh giá',
-        Completed: 'Hoàn thành',
-        Cancelled: 'Đã hủy',
-    };
-
     const renderProjectStatus = (statusStr: string) => {
-        const label = PROJECT_STATUS_LABELS[statusStr] || statusStr;
+        const label = PROJECT_STATUS_LABELS[statusStr as ProjectStatusName] || statusStr;
         let bg = 'bg-slate-100 text-slate-600';
         if (statusStr === 'InProgress') bg = 'bg-blue-100 text-blue-700';
         else if (statusStr === 'Completed') bg = 'bg-emerald-100 text-emerald-700';
@@ -91,13 +78,13 @@ export default function ContentLecturerDetail() {
         else if (statusStr === 'Cancelled') bg = 'bg-red-100 text-red-600';
         else if (statusStr === 'Pending') bg = 'bg-amber-100 text-amber-700';
 
-        return <span className={`px-2 py-0.5 rounded text-xs font-medium border border-slate-100 ${bg}`}>{label}</span>;
+        return <span className={`px-2 py-0.5 rounded text-xs font-medium border border-slate-100 ${bg}`}>Tiến độ: {label}</span>;
     };
 
     return (
         <>
             {/* Action buttons */}
-            <div className="max-w-5xl mx-auto mb-4 flex justify-between items-center px-4 xl:px-0">
+            <div className="max-w-5xl mx-auto mb-4 flex justify-between items-center px-4 xl:px-0 print:hidden">
                 <Link
                     href="/manager/lecturer"
                     className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 transition-colors"
@@ -124,54 +111,62 @@ export default function ContentLecturerDetail() {
                 </div>
             </div>
 
-            <div ref={contentRef} className="p-2 md:p-4 max-w-5xl mx-auto space-y-4 bg-white rounded-xl shadow-sm border border-slate-200 relative print:shadow-none print:border-none print:m-0 print:p-0">
+            <div className="p-2 md:p-4 max-w-5xl mx-auto space-y-4 bg-white rounded-xl shadow-sm border border-slate-200 relative print:shadow-none print:border-none print:m-0 print:p-0">
                 <button
-                    onClick={() => setIsPrintDialogOpen(true)}
+                    onClick={() => window.print()}
                     className="absolute top-2 right-2 md:top-4 md:right-4 flex items-center justify-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors shadow-sm z-10 print:hidden"
-                    title="Tải PDF"
+                    title="Xuất file PDF"
                 >
                     <Download className="w-4 h-4" />
                     <span className="hidden sm:inline">Xuất file PDF</span>
                 </button>
 
                 {/* Header / Basic Info */}
-                <section className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6 border-b border-slate-100 pb-4 pt-10 md:pt-0">
-                    <div className="flex-shrink-0 relative overflow-hidden w-24 h-24 rounded-full border-2 border-slate-300 shadow-sm bg-slate-200">
+                <section className="flex flex-col md:flex-row items-start gap-5 border-b border-slate-100 pb-4 pt-6 md:pt-4 print:flex-row print:items-start print:gap-5 print:pt-2">
+                    <div className="flex-shrink-0 overflow-hidden w-24 h-24 rounded-full border-2 border-slate-300 shadow-sm bg-slate-200">
                         {hasAvatar ? (
-                            <Image src={background.avatarUrl!} alt="Avatar" fill unoptimized className="object-cover" />
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img src={background.avatarUrl!} alt="Avatar" width={96} height={96} className="w-full h-full object-cover" />
                         ) : (
                             <div className="flex h-full w-full items-center justify-center bg-slate-200">
                                 <ImageOff className="h-16 w-16 text-slate-400" />
                             </div>
                         )}
                     </div>
-                    <div className="flex-1">
-                        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-                            {background.fullName}
-                            {!background.isPublic && (
-                                <span className="ml-3 inline-block px-2 py-1 text-xs font-semibold bg-red-100 text-red-600 rounded">Đã Ẩn</span>
-                            )}
-                        </h1>
-                        <div className="flex flex-wrap items-center gap-3 mt-1 text-sm font-medium text-slate-600">
-                            <span className="bg-slate-100 px-2.5 py-0.5 rounded-full text-slate-700 border border-slate-200">Mã GV: {background.code}</span>
-                            <span>•</span>
-                            <span>Giới tính: {background.gender}</span>
-                            <span>•</span>
-                            <span>Ngày sinh: {background.birthDate}</span>
-                            <span>•</span>
-                            <span>CCCD: {background.cccd}</span>
+                    <div className="flex-1 space-y-2.5">
+                        {/* Tên + mã */}
+                        <div className="flex flex-wrap items-center gap-2">
+                            <h1 className="text-xl font-bold text-slate-900 tracking-tight leading-tight">
+                                {background.fullName}
+                                {!background.isPublic && (
+                                    <span className="ml-3 inline-block px-2 py-1 text-xs font-semibold bg-red-100 text-red-600 rounded print:hidden">Đã Ẩn</span>
+                                )}
+                            </h1>
+                            <span className="bg-slate-100 px-2 py-0.5 rounded-full text-slate-700 border border-slate-200 font-medium text-xs">{background.code}</span>
                         </div>
+                        {/* Giới tính / Ngày sinh / CCCD */}
+                        <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
+                            <span><span className="font-semibold text-slate-700">Giới tính:</span> {GENDER_LABELS[background.gender as Gender] || background.gender}</span>
+                            <span className="text-slate-400">•</span>
+                            <span><span className="font-semibold text-slate-700">Ngày sinh:</span> {background.birthDate}</span>
+                            <span className="text-slate-400">•</span>
+                            <span><span className="font-semibold text-slate-700">CCCD:</span> {background.cccd}</span>
+                        </div>
+                        {/* Khoa / Bộ môn */}
                         {(background.department || background.discipline) && (
-                            <div className="mt-2 flex flex-col gap-1 text-sm text-slate-700">
-                                {background.department && <p><span className="font-semibold text-slate-600">Đơn vị:</span> {background.department.departmentName}</p>}
-                                {background.discipline && <p><span className="font-semibold text-slate-600">Bộ môn:</span> {background.discipline.disciplineName}</p>}
+                            <div className="flex flex-wrap gap-x-4 gap-y-0.5 text-sm text-slate-700">
+                                {background.department && <span><span className="font-semibold text-slate-500">Khoa:</span> {background.department.departmentName}</span>}
+                                {background.discipline && <span><span className="font-semibold text-slate-500">Bộ môn:</span> {background.discipline.disciplineName}</span>}
                             </div>
                         )}
-                        <div className="mt-3 flex flex-wrap gap-4 text-sm text-slate-500">
-                            {background.email && <div className="flex items-center gap-1.5"><span className="text-slate-400">✉</span> {background.email}</div>}
-                            {background.phoneNumber && <div className="flex items-center gap-1.5"><span className="text-slate-400">☏</span> {background.phoneNumber}</div>}
-                            {background.address && <div className="flex items-center gap-1.5"><span className="text-slate-400">⌂</span> {background.address}</div>}
-                        </div>
+                        {/* Liên hệ */}
+                        {(background.email || background.phoneNumber || background.address) && (
+                            <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-sm text-slate-500 pt-1.5 border-t border-slate-100 mt-1">
+                                {background.email && <div className="flex items-center gap-1.5"><span className="text-slate-400">✉</span> {background.email}</div>}
+                                {background.phoneNumber && <div className="flex items-center gap-1.5"><span className="text-slate-400">☏</span> {background.phoneNumber}</div>}
+                                {background.address && <div className="flex items-center gap-1.5"><MapPin className="w-4 h-4 text-slate-400 shrink-0" /> {background.address}</div>}
+                            </div>
+                        )}
                     </div>
                 </section>
 
@@ -337,28 +332,13 @@ export default function ContentLecturerDetail() {
                                         </Link>
                                     ))}
                                 </ul>
-                            ) : <p className="text-slate-400 italic text-sm">Chưa có dự án ngoài.</p>}
+                            ) : (
+                                <p className="text-slate-400 italic text-sm">Chưa có dự án ngoài.</p>
+                            )}
                         </div>
                     </div>
                 </section>
             </div>
-
-            {/* Dialogs */}
-            <AlertDialog open={isPrintDialogOpen} onOpenChange={setIsPrintDialogOpen}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>Xác nhận tải PDF</AlertDialogTitle>
-                        <AlertDialogDescription>Bạn có chắc chắn muốn tải thông tin lý lịch này dưới dạng PDF về thiết bị không?</AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>Hủy</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => {
-                            setIsPrintDialogOpen(false);
-                            setTimeout(() => { generatePDF(contentRef, { filename: `${background.fullName}_LyLich.pdf`, method: 'save' }); }, 100);
-                        }}>Đồng ý</AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
 
             <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
                 <AlertDialogContent>

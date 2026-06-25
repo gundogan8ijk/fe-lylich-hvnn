@@ -10,6 +10,7 @@ import { storeProjectExternalListPublic } from '@/working-public/project-externa
 import { getPublicProjectExternalsListAction } from '@/working-public/project-external-Public/project-external-public-hook';
 import PaginationButtonStore from '@/_components/query/paginationButton-dynamic';
 import { Badge } from '@/_components/ui/badge';
+import { PROJECT_EXTERNAL_LEVEL_LABELS, ProjectLevelName, EVALUATION_PROJECT_EXTERNAL_LABELS, EvaluationProjectExternalName } from '@/_constants/ProjectExternal-constant';
 
 export default function ContentProjectExternalPublic() {
     const data = storeProjectExternalListPublic((state) => state.data);
@@ -80,7 +81,7 @@ export default function ContentProjectExternalPublic() {
                                         <span>Đề tài ngoài trường • {proj.code}</span>
                                     </div>
                                     <Badge className="bg-cyan-50 text-cyan-800 border-none text-[10px] font-bold">
-                                        {proj.evaluation}
+                                        {EVALUATION_PROJECT_EXTERNAL_LABELS[proj.evaluation as EvaluationProjectExternalName] || proj.evaluation}
                                     </Badge>
                                 </div>
                                 <h3 className="text-lg font-bold text-slate-900 leading-snug line-clamp-2">
@@ -96,7 +97,7 @@ export default function ContentProjectExternalPublic() {
                                     </div>
                                     <div className="flex items-center gap-1.5 line-clamp-1">
                                         <Bookmark className="w-3.5 h-3.5 text-slate-400" />
-                                        <span className="truncate">Cấp đề tài: {proj.level}</span>
+                                        <span className="truncate">Cấp đề tài: {PROJECT_EXTERNAL_LEVEL_LABELS[proj.level as ProjectLevelName] || proj.level}</span>
                                     </div>
                                 </div>
                             </div>

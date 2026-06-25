@@ -12,31 +12,33 @@ export default function LayoutClient({ children, userRoles = [] }: { children: R
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
     return (
-        <div className="flex flex-col h-screen bg-background">
-            <NavbarProtected config={managerNavbarConfig} notifications={notifications}
-                sidebarOpen={sidebarOpen} onSidebarToggle={() => setSidebarOpen(!sidebarOpen)} userRoles={userRoles} />
-            <div className="flex flex-1 overflow-hidden">
+        <div className="flex flex-col h-screen bg-background print:h-auto print:block print:overflow-visible">
+            <div className="print:hidden">
+                <NavbarProtected config={managerNavbarConfig} notifications={notifications}
+                    sidebarOpen={sidebarOpen} onSidebarToggle={() => setSidebarOpen(!sidebarOpen)} userRoles={userRoles} />
+            </div>
+            <div className="flex flex-1 overflow-hidden print:block print:overflow-visible">
                 {/* Sidebar - ẩn trên mobile, hiển thị từ md trở lên */}
-                <div className="hidden md:block md:w-64 lg:w-72">
+                <div className="hidden md:block md:w-64 lg:w-72 print:hidden">
                     <SidebarConfig items={managerMenu} />
                 </div>
 
                 {/* Mobile Sidebar - Overlay */}
                 {sidebarOpen && (
                     <div
-                        className="fixed inset-0 bg-black/50 z-40 md:hidden"
+                        className="fixed inset-0 bg-black/50 z-40 md:hidden print:hidden"
                         onClick={() => setSidebarOpen(false)}
                     />
                 )}
 
                 <div className={`fixed left-0 top-16 bottom-0 w-64 z-50 transform transition-transform 
-                md:hidden ${sidebarOpen ? 'translate-x-0' : '-translate-x-full' }`}>
+                md:hidden print:hidden ${sidebarOpen ? 'translate-x-0' : '-translate-x-full' }`}>
                     <SidebarConfig items={managerMenu} onClose={() => setSidebarOpen(false)} />
                 </div>
 
                 {/* Main Content */}
-                <main className="flex-1 overflow-y-auto w-full md:w-auto">
-                    <div className="px-4 py-3 sm:px-6 lg:px-8 lg:py-4 h-full flex flex-col">
+                <main className="flex-1 overflow-y-auto w-full md:w-auto print:overflow-visible print:h-auto">
+                    <div className="px-4 py-3 sm:px-6 lg:px-8 lg:py-4 h-full flex flex-col print:h-auto print:p-0">
                         {children}
                     </div>
                 </main>

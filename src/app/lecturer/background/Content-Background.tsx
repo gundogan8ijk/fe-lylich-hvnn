@@ -1,31 +1,16 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
-import { ImageOff, Download } from "lucide-react";
-import generatePDF from 'react-to-pdf';
+import { ImageOff, Download, MapPin } from "lucide-react";
 import { useBackgroundStore } from '../../../working-Lecturer/background/Background-store';
 import { AWARD_LEVEL_LABELS, AwardLevelName } from '@/_constants/award-constant';
 import { PROJECT_LEVEL_LABELS, ProjectLevelName } from '@/_constants/project-constant';
 import { PROJECT_EXTERNAL_LEVEL_LABELS } from '@/_constants/ProjectExternal-constant';
 import { DEGREE_OPTIONS } from '@/_constants/education-constant';
 import { getLabel } from '@/_lib/display-variable-helper';
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-} from "@/_components/ui/alert-dialog";
 
 export default function ContentBackground() {
     const { background, isLoading } = useBackgroundStore();
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const contentRef = useRef<HTMLDivElement>(null);
 
     if (isLoading) {
         return <div className="p-4 text-center text-gray-500">Đang tải dữ liệu...</div>;
@@ -35,34 +20,35 @@ export default function ContentBackground() {
         return <div className="p-4 text-center text-red-500">Không tìm thấy thông tin lý lịch.</div>;
     }
 
-    const hasAvatar = background.avatarUrl && background.avatarUrl.trim() !== "" && background.avatarUrl !== "null";
+    const hasAvatar = !!(background?.avatarUrl && background.avatarUrl.trim() !== '' && background.avatarUrl !== 'null');
 
     return (
         <>
 
 
-            <div ref={contentRef} className="p-4 max-w-4xl space-y-6 bg-white rounded-xl shadow-sm border border-slate-200 relative print:shadow-none print:border-none print:m-0 print:p-0">
-                {/* Nút tải PDF góc phải */}
+        <div className="p-4 max-w-4xl space-y-6 bg-white rounded-xl shadow-sm border border-slate-200 relative print:shadow-none print:border-none print:m-0 print:p-0">
+                {/* Nút xuất PDF */}
                 <button
-                    onClick={() => setIsDialogOpen(true)}
+                    onClick={() => window.print()}
                     className="absolute top-4 right-4 flex items-center justify-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors shadow-sm z-10 print:hidden"
-                    title="Tải PDF"
+                    title="Xuất file PDF"
                 >
                     <Download className="w-4 h-4" />
                     <span className="hidden sm:inline">Xuất file PDF</span>
                 </button>
 
                 {/* Header / Basic Info */}
-                <section className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6 border-b border-slate-100 pb-5 pt-12 md:pt-0">
+                <section className="flex flex-col md:flex-row items-start gap-5 border-b border-slate-100 pb-5 pt-6 md:pt-4 print:flex-row print:items-start print:gap-5 print:pt-2">
 
-                    <div className="flex-shrink-0 relative overflow-hidden w-24 h-24 rounded-full border-2 border-slate-300 shadow-sm bg-slate-200">
+                    <div className="flex-shrink-0 overflow-hidden w-24 h-24 rounded-full border-2 border-slate-300 shadow-sm bg-slate-200">
                         {hasAvatar ? (
-                            <Image
-                                src={background.avatarUrl!}
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                                src={background!.avatarUrl!}
                                 alt="Avatar"
-                                fill
-                                unoptimized
-                                className="object-cover"
+                                width={96}
+                                height={96}
+                                className="w-full h-full object-cover"
                             />
                         ) : (
                             <div className="flex h-full w-full items-center justify-center bg-slate-200">
@@ -70,26 +56,35 @@ export default function ContentBackground() {
                             </div>
                         )}
                     </div>
-                    <div className="flex-1">
-                        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">{background.fullName}</h1>
-                        <div className="flex flex-wrap items-center gap-3 mt-1 text-sm font-medium text-slate-600">
-                            <span className="bg-slate-100 px-2.5 py-0.5 rounded-full text-slate-700 border border-slate-200">Mã GV: {background.code}</span>
-                            <span>•</span>
-                            <span>Giới tính: {background.gender === 'Male' ? 'Nam' : background.gender === 'Female' ? 'Nữ' : background.gender}</span>
-                            <span>•</span>
-                            <span>Ngày sinh: {background.birthDate}</span>
+
+                    <div className="flex-1 space-y-2.5">
+                        {/* Tên + mã */}
+                        <div className="flex flex-wrap items-center gap-2 gap-x-3.5">
+                            <h1 className="text-xl font-bold text-slate-900 tracking-tight leading-tight">{background.fullName}</h1>
+                            <span className="bg-slate-100 px-2 py-0.5 rounded-full text-slate-700 border border-slate-200 font-medium text-xs print:hidden">{background.code}</span>
                         </div>
+                        <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
+                            <span><span className="font-semibold text-slate-700">Giới tính:</span> {background.gender === 'Male' ? 'Nam' : background.gender === 'Female' ? 'Nữ' : background.gender}</span>
+                            <span className="text-slate-400">•</span>
+                            <span><span className="font-semibold text-slate-700">Ngày sinh:</span> {background.birthDate}</span>
+                        </div>
+
+                        {/* Đơn vị / Bộ môn */}
                         {(background.department || background.discipline) && (
-                            <div className="mt-2 flex flex-col gap-1 text-sm text-slate-700">
-                                {background.department && <p><span className="font-semibold text-slate-600">Đơn vị:</span> {background.department.departmentName}</p>}
-                                {background.discipline && <p><span className="font-semibold text-slate-600">Bộ môn:</span> {background.discipline.disciplineName}</p>}
+                            <div className="flex flex-wrap gap-x-4 gap-y-0.5 text-sm text-slate-700">
+                                {background.department && <span><span className="font-semibold text-slate-500">Khoa:</span> {background.department.departmentName}</span>}
+                                {background.discipline && <span><span className="font-semibold text-slate-500">Bộ môn:</span> {background.discipline.disciplineName}</span>}
                             </div>
                         )}
-                        <div className="mt-3 flex flex-wrap gap-4 text-sm text-slate-500">
-                            {background.email && <div className="flex items-center gap-1.5"><span className="text-slate-400">✉</span> {background.email}</div>}
-                            {background.phoneNumber && <div className="flex items-center gap-1.5"><span className="text-slate-400">☏</span> {background.phoneNumber}</div>}
-                            {background.address && <div className="flex items-center gap-1.5"><span className="text-slate-400">⌂</span> {background.address}</div>}
-                        </div>
+
+                        {/* Liên hệ */}
+                        {(background.email || background.phoneNumber || background.address) && (
+                            <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-sm text-slate-500 pt-1.5 border-t border-slate-100 mt-1">
+                                {background.email && <div className="flex items-center gap-1.5"><span className="text-slate-400">✉</span> {background.email}</div>}
+                                {background.phoneNumber && <div className="flex items-center gap-1.5"><span className="text-slate-400">☏</span> {background.phoneNumber}</div>}
+                                {background.address && <div className="flex items-center gap-1.5"><MapPin className="w-4 h-4 text-slate-400 shrink-0" /> {background.address}</div>}
+                            </div>
+                        )}
                     </div>
                 </section>
 
@@ -246,25 +241,6 @@ export default function ContentBackground() {
                     </div>
                 </section>
             </div>
-            <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>Xác nhận tải PDF</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            Bạn có chắc chắn muốn tải thông tin lý lịch này dưới dạng PDF về thiết bị không?
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>Hủy</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => {
-                            setIsDialogOpen(false);
-                            setTimeout(() => {
-                                generatePDF(contentRef, { filename: `${background.fullName}_LyLich.pdf`, method: 'save' });
-                            }, 100);
-                        }}>Đồng ý</AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
         </>
     );
 }

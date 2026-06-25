@@ -126,16 +126,16 @@ export default function PublicBookDetailPage() {
                             {book.internalContributors.length === 0 ? (
                                 <p className="text-xs text-slate-400 italic">Không có đồng tác giả trong học viện.</p>
                             ) : (
-                                <div className="space-y-2">
+                                <div className="space-y-2.5">
                                     {book.internalContributors.map((c) => (
-                                        <div key={c.id} className="flex justify-between items-center text-xs bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                                        <div key={c.id} className="flex justify-between items-center bg-slate-50 p-3.5 rounded-xl border border-slate-200 hover:border-emerald-200 hover:bg-emerald-50/30 transition-colors">
                                             <div>
-                                                <Link href={`/officials/${c.lecturerId}`} className="font-semibold text-slate-900 hover:text-emerald-600 transition-colors">
+                                                <Link href={`/officials/${c.lecturerId}`} className="font-semibold text-sm text-slate-900 hover:text-emerald-600 transition-colors">
                                                     {c.fullName}
                                                 </Link>
-                                                <p className="text-[10px] text-slate-500">Mã: {c.code}</p>
+                                                <p className="text-xs text-slate-500 mt-0.5">Mã: {c.code}</p>
                                             </div>
-                                            <Badge variant="outline" className="text-[10px] border-emerald-200 text-emerald-700 bg-emerald-50 shadow-none font-medium">
+                                            <Badge variant="outline" className="text-xs border-emerald-200 text-emerald-700 bg-emerald-50 shadow-none font-medium shrink-0">
                                                 {c.bookRole}
                                             </Badge>
                                         </div>
@@ -152,14 +152,14 @@ export default function PublicBookDetailPage() {
                             {book.externalContributors.length === 0 ? (
                                 <p className="text-xs text-slate-400 italic">Không có đồng tác giả ngoài học viện.</p>
                             ) : (
-                                <div className="space-y-2">
+                                <div className="space-y-2.5">
                                     {book.externalContributors.map((c) => (
-                                        <div key={c.id} className="flex justify-between items-center text-xs bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                                        <div key={c.id} className="flex justify-between items-center bg-slate-50 p-3.5 rounded-xl border border-slate-200 hover:border-orange-200 hover:bg-orange-50/30 transition-colors">
                                             <div>
-                                                <p className="font-semibold text-slate-900">{c.fullName}</p>
-                                                {c.email && <p className="text-[10px] text-slate-500">{c.email}</p>}
+                                                <p className="font-semibold text-sm text-slate-900">{c.fullName}</p>
+                                                {c.email && <p className="text-xs text-slate-500 mt-0.5">{c.email}</p>}
                                             </div>
-                                            <Badge variant="outline" className="text-[10px] border-orange-200 text-orange-700 bg-orange-50 shadow-none font-medium">
+                                            <Badge variant="outline" className="text-xs border-orange-200 text-orange-700 bg-orange-50 shadow-none font-medium shrink-0">
                                                 {c.bookRole}
                                             </Badge>
                                         </div>

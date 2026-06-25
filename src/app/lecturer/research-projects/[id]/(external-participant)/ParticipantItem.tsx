@@ -2,6 +2,7 @@
 
 import { Edit, Trash2 } from 'lucide-react'
 import { ProjectParticipant } from '@/working-Lecturer/Project-Detail/Project-Detail-type'
+import { PARTICIPANT_STATUS_LABELS, ParticipantStatusName } from '@/_constants/project-constant'
 
 type Props = {
     participant: ProjectParticipant
@@ -24,7 +25,7 @@ export default function ParticipantItem({ participant: p, disabled, onEditClick,
                     </div>
                 </div>
                 <span className="text-xs px-2 py-0.5 rounded border border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400 shrink-0">
-                    {p.role}
+                    {PARTICIPANT_STATUS_LABELS[p.role as ParticipantStatusName] || p.role}
                 </span>
             </div>
             {!disabled && (

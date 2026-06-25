@@ -10,6 +10,7 @@ import { storeResearchProjectListPublic } from '@/working-public/research-projec
 import { getPublicResearchProjectsListAction } from '@/working-public/research-project-Public/research-project-public-hook';
 import PaginationButtonStore from '@/_components/query/paginationButton-dynamic';
 import { Badge } from '@/_components/ui/badge';
+import { PROJECT_LEVEL_LABELS, ProjectLevelName, EVALUATION_RESULT_LABELS, EvaluationResultName } from '@/_constants/project-constant';
 
 export default function ContentProjectPublic() {
     const data = storeResearchProjectListPublic((state) => state.data);
@@ -77,10 +78,10 @@ export default function ContentProjectPublic() {
                                 <div className="flex justify-between items-center gap-2">
                                     <div className="flex items-center gap-2 text-xs text-emerald-700 font-semibold uppercase">
                                         <Cpu className="w-3.5 h-3.5" />
-                                        <span>Đề tài cấp {proj.level} • {proj.code}</span>
+                                        <span>Đề tài cấp {PROJECT_LEVEL_LABELS[proj.level as ProjectLevelName] || proj.level} • {proj.code}</span>
                                     </div>
                                     <Badge className="bg-emerald-50 text-emerald-800 border-none text-[10px] font-bold">
-                                        {proj.evaluation}
+                                        {EVALUATION_RESULT_LABELS[proj.evaluation as EvaluationResultName] || proj.evaluation}
                                     </Badge>
                                 </div>
                                 <h3 className="text-lg font-bold text-slate-900 leading-snug line-clamp-2">
@@ -96,7 +97,7 @@ export default function ContentProjectPublic() {
                                     </div>
                                     <div className="flex items-center gap-1.5 line-clamp-1">
                                         <Bookmark className="w-3.5 h-3.5 text-slate-400" />
-                                        <span className="truncate">Cấp đề tài: {proj.level}</span>
+                                        <span className="truncate">Cấp đề tài: {PROJECT_LEVEL_LABELS[proj.level as ProjectLevelName] || proj.level}</span>
                                     </div>
                                 </div>
                             </div>

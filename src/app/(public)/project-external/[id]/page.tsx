@@ -10,6 +10,7 @@ import { Badge } from '@/_components/ui/badge';
 import Loading from '@/_components/utils/Loading';
 import { ArrowLeft, Cpu, Calendar, Tag, ShieldAlert, User, Building2, Layers, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
+import { PROJECT_EXTERNAL_LEVEL_LABELS, ProjectLevelName, EVALUATION_PROJECT_EXTERNAL_LABELS, EvaluationProjectExternalName, PROJECT_EXTERNAL_MEMBER_ROLE_LABELS, ProjectExternalMemberRoleName } from '@/_constants/ProjectExternal-constant';
 
 export default function PublicProjectExternalDetailPage() {
     const { id } = useParams() as { id: string };
@@ -65,7 +66,7 @@ export default function PublicProjectExternalDetailPage() {
                                 <span>Đề tài hợp tác khoa học bên ngoài • {project.code}</span>
                             </div>
                             <Badge className="bg-cyan-50 text-cyan-800 border-none px-2.5 py-1 font-bold text-xs">
-                                Kết quả: {project.evaluation}
+                                Kết quả: {EVALUATION_PROJECT_EXTERNAL_LABELS[project.evaluation as EvaluationProjectExternalName] || project.evaluation}
                             </Badge>
                         </div>
                         <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 leading-tight">
@@ -83,7 +84,7 @@ export default function PublicProjectExternalDetailPage() {
                         </div>
                         <div className="flex items-center gap-2">
                             <Tag className="w-4 h-4 text-cyan-600 shrink-0" />
-                            <span>Cấp quản lý: <strong className="text-slate-900">{project.level}</strong></span>
+                            <span>Cấp quản lý: <strong className="text-slate-900">{PROJECT_EXTERNAL_LEVEL_LABELS[project.level as ProjectLevelName] || project.level}</strong></span>
                         </div>
                         <div className="flex items-center gap-2">
                             <Building2 className="w-4 h-4 text-cyan-600 shrink-0" />
@@ -133,17 +134,17 @@ export default function PublicProjectExternalDetailPage() {
                             {project.contributors.length === 0 ? (
                                 <p className="text-xs text-slate-400 italic">Chưa cập nhật cán bộ tham gia.</p>
                             ) : (
-                                <div className="space-y-2">
+                                <div className="space-y-2.5">
                                     {project.contributors.map((c) => (
-                                        <div key={c.id} className="flex justify-between items-center text-xs bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                                        <div key={c.id} className="flex justify-between items-center bg-slate-50 p-3.5 rounded-xl border border-slate-200 hover:border-cyan-200 hover:bg-cyan-50/30 transition-colors">
                                             <div>
-                                                <Link href={`/officials/${c.lecturerId}`} className="font-semibold text-slate-900 hover:text-cyan-600 transition-colors">
+                                                <Link href={`/officials/${c.lecturerId}`} className="font-semibold text-sm text-slate-900 hover:text-cyan-600 transition-colors">
                                                     {c.fullName}
                                                 </Link>
-                                                <p className="text-[10px] text-slate-500">Mã: {c.code} • Ngày tham gia: {new Date(c.joinedAt).toLocaleDateString('vi-VN')}</p>
+                                                <p className="text-xs text-slate-500 mt-0.5">Mã: {c.code} • Ngày tham gia: {new Date(c.joinedAt).toLocaleDateString('vi-VN')}</p>
                                             </div>
-                                            <Badge variant="outline" className="text-[10px] border-cyan-200 text-cyan-700 bg-cyan-50 shadow-none font-medium">
-                                                {c.role}
+                                            <Badge variant="outline" className="text-xs border-cyan-200 text-cyan-700 bg-cyan-50 shadow-none font-medium shrink-0">
+                                                {PROJECT_EXTERNAL_MEMBER_ROLE_LABELS[c.role as ProjectExternalMemberRoleName] || c.role}
                                             </Badge>
                                         </div>
                                     ))}
@@ -159,15 +160,15 @@ export default function PublicProjectExternalDetailPage() {
                             {project.participants.length === 0 ? (
                                 <p className="text-xs text-slate-400 italic">Không có thành viên ngoài học viện tham gia.</p>
                             ) : (
-                                <div className="space-y-2">
+                                <div className="space-y-2.5">
                                     {project.participants.map((p) => (
-                                        <div key={p.id} className="flex justify-between items-center text-xs bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                                        <div key={p.id} className="flex justify-between items-center bg-slate-50 p-3.5 rounded-xl border border-slate-200 hover:border-orange-200 hover:bg-orange-50/30 transition-colors">
                                             <div>
-                                                <p className="font-semibold text-slate-900">{p.fullName}</p>
-                                                <p className="text-[10px] text-slate-500">{p.email || "Không có Email"} • Ngày tham gia: {new Date(p.joinedAt).toLocaleDateString('vi-VN')}</p>
+                                                <p className="font-semibold text-sm text-slate-900">{p.fullName}</p>
+                                                <p className="text-xs text-slate-500 mt-0.5">{p.email || "Không có Email"} • Ngày tham gia: {new Date(p.joinedAt).toLocaleDateString('vi-VN')}</p>
                                             </div>
-                                            <Badge variant="outline" className="text-[10px] border-orange-200 text-orange-700 bg-orange-50 shadow-none font-medium">
-                                                {p.role}
+                                            <Badge variant="outline" className="text-xs border-orange-200 text-orange-700 bg-orange-50 shadow-none font-medium shrink-0">
+                                                {PROJECT_EXTERNAL_MEMBER_ROLE_LABELS[p.role as ProjectExternalMemberRoleName] || p.role}
                                             </Badge>
                                         </div>
                                     ))}

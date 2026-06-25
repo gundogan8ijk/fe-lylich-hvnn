@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { getPublicLecturerDetailAction } from '@/working-public/lecturer-Public/lecturer-public-hook';
 import { LecturerPublicDetail } from '@/working-public/lecturer-Public/lecturer-public-type';
@@ -8,13 +8,17 @@ import { Card } from '@/_components/ui/card';
 import { Button } from '@/_components/ui/button';
 import { Badge } from '@/_components/ui/badge';
 import Loading from '@/_components/utils/Loading';
-import ImageUndefine from '@/_components/utils/ImageUndefine';
 import Image from 'next/image';
-import { 
-    ArrowLeft, Mail, Phone, MapPin, GraduationCap, Award, BookOpen, 
-    FileText, Cpu, ExternalLink, Calendar
+import {
+    ArrowLeft, Mail, Phone, MapPin, GraduationCap, Award, BookOpen,
+    FileText, Cpu, User
 } from 'lucide-react';
 import Link from 'next/link';
+import { DEGREE_LABELS, DegreeName } from '@/_constants/education-constant';
+import { AWARD_LEVEL_LABELS, AwardLevelName } from '@/_constants/award-constant';
+import { PROJECT_LEVEL_LABELS, ProjectLevelName, EVALUATION_RESULT_LABELS, EvaluationResultName } from '@/_constants/project-constant';
+import { PROJECT_EXTERNAL_LEVEL_LABELS, EVALUATION_PROJECT_EXTERNAL_LABELS, EvaluationProjectExternalName } from '@/_constants/ProjectExternal-constant';
+import { GENDER_LABELS, Gender } from '@/_constants/base-constant';
 
 export default function PublicLecturerDetailPage() {
     const { id } = useParams() as { id: string };
@@ -59,7 +63,7 @@ export default function PublicLecturerDetailPage() {
                     onClick={() => router.push('/officials  ')}
                     className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 transition-colors font-medium"
                 >
-                    <ArrowLeft className="w-4 h-4" /> Quay lại 
+                    <ArrowLeft className="w-4 h-4" /> Quay lại
                 </button>
 
                 {/* Profile Overview Card */}
@@ -106,6 +110,10 @@ export default function PublicLecturerDetailPage() {
                                     <Phone className="w-4 h-4 text-slate-400" />
                                     <span>{lecturer.phoneNumber || "Chưa cập nhật"}</span>
                                 </div>
+                                <div className="flex items-center gap-2.5 justify-center md:justify-start">
+                                    <User className="w-4 h-4 text-slate-400" />
+                                    <span>Giới tính: {GENDER_LABELS[lecturer.gender as Gender] || lecturer.gender || "Chưa cập nhật"}</span>
+                                </div>
                                 <div className="flex items-center gap-2.5 justify-center md:justify-start sm:col-span-2">
                                     <MapPin className="w-4 h-4 text-slate-400" />
                                     <span>Địa chỉ: {lecturer.address || "Chưa cập nhật"}</span>
@@ -132,7 +140,7 @@ export default function PublicLecturerDetailPage() {
                                         <div key={edu.educationId} className="relative pl-4 border-l-2 border-slate-100 last:pb-0 pb-2">
                                             <div className="absolute -left-1.5 top-1.5 w-3 h-3 rounded-full bg-emerald-500" />
                                             <p className="text-xs font-semibold text-emerald-700">{edu.graduatedAt ? new Date(edu.graduatedAt).getFullYear() : 'N/A'}</p>
-                                            <p className="font-semibold text-slate-800 text-sm">{edu.degree} - {edu.majorName}</p>
+                                            <p className="font-semibold text-slate-800 text-sm">{DEGREE_LABELS[edu.degree as DegreeName] || edu.degree} - {edu.majorName}</p>
                                             <p className="text-xs text-slate-500">{edu.trainingName}</p>
                                         </div>
                                     ))}
@@ -154,7 +162,7 @@ export default function PublicLecturerDetailPage() {
                                             <Award className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
                                             <div>
                                                 <p className="font-semibold text-slate-800 text-sm">{aw.awardName}</p>
-                                                <p className="text-xs text-slate-500">Cấp: {aw.level} • Năm {aw.awardDate ? new Date(aw.awardDate).getFullYear() : 'N/A'}</p>
+                                                <p className="text-xs text-slate-500">Cấp: {AWARD_LEVEL_LABELS[aw.level as AwardLevelName] || aw.level} • Năm {aw.awardDate ? new Date(aw.awardDate).getFullYear() : 'N/A'}</p>
                                             </div>
                                         </div>
                                     ))}
@@ -264,7 +272,7 @@ export default function PublicLecturerDetailPage() {
                                                     <Badge variant="outline" className="text-[10px] text-emerald-700 border-emerald-200 bg-emerald-50 px-1 py-0 shadow-none">Đề tài nội bộ</Badge>
                                                 </div>
                                                 <p className="text-xs text-slate-500 mt-1">
-                                                    Mã số: {proj.code} • Cấp đề tài: {proj.level} {proj.endDate && `• Hoàn thành: ${new Date(proj.endDate).getFullYear()}`} {proj.evaluation && `• Đánh giá: ${proj.evaluation}`}
+                                                    Mã số: {proj.code} • Cấp đề tài: {PROJECT_LEVEL_LABELS[proj.level as ProjectLevelName] || proj.level} {proj.endDate && `• Hoàn thành: ${new Date(proj.endDate).getFullYear()}`} {proj.evaluation && `• Đánh giá: ${EVALUATION_RESULT_LABELS[proj.evaluation as EvaluationResultName] || proj.evaluation}`}
                                                 </p>
                                             </div>
                                             <Button variant="ghost" size="sm" className="text-emerald-600 hover:text-emerald-800" asChild>
@@ -284,7 +292,7 @@ export default function PublicLecturerDetailPage() {
                                                     <Badge variant="outline" className="text-[10px] text-cyan-700 border-cyan-200 bg-cyan-50 px-1 py-0 shadow-none">Đề tài bên ngoài</Badge>
                                                 </div>
                                                 <p className="text-xs text-slate-500 mt-1">
-                                                    Mã số: {proj.code} • Cấp đề tài: {proj.level} {proj.completionAt && `• Hoàn thành: ${new Date(proj.completionAt).getFullYear()}`} {proj.evaluation && `• Đánh giá: ${proj.evaluation}`}
+                                                    Mã số: {proj.code} • Cấp đề tài: {PROJECT_EXTERNAL_LEVEL_LABELS[proj.level as ProjectLevelName] || proj.level} {proj.completionAt && `• Hoàn thành: ${new Date(proj.completionAt).getFullYear()}`} {proj.evaluation && `• Đánh giá: ${EVALUATION_PROJECT_EXTERNAL_LABELS[proj.evaluation as EvaluationProjectExternalName] || proj.evaluation}`}
                                                 </p>
                                             </div>
                                             <Button variant="ghost" size="sm" className="text-cyan-600 hover:text-cyan-800" asChild>

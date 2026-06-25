@@ -3,8 +3,8 @@
 import Loading from '@/_components/utils/Loading';
 import { storeProjectExternalDetailManager } from '@/working-manager/project-external/project-external-manager-store';
 import { STATUS_LABELS } from '@/_constants/base-constant';
-import { PROJECT_EXTERNAL_LEVEL_LABELS, EVALUATION_PROJECT_EXTERNAL_LABELS } from '@/_constants/ProjectExternal-constant';
-import { ProjectLevelName, EvaluationProjectExternalName } from '@/_constants/ProjectExternal-constant';
+import { PROJECT_EXTERNAL_LEVEL_LABELS, EVALUATION_PROJECT_EXTERNAL_LABELS, PROJECT_EXTERNAL_MEMBER_ROLE_LABELS } from '@/_constants/ProjectExternal-constant';
+import { ProjectLevelName, EvaluationProjectExternalName, ProjectExternalMemberRoleName } from '@/_constants/ProjectExternal-constant';
 import { Briefcase, FileText, CheckCircle, XCircle, Globe, Lock, ArrowLeft } from 'lucide-react';
 import { Button } from '@/_components/ui/button';
 import { useRouter } from 'next/navigation';
@@ -186,7 +186,7 @@ export default function ContentProjectExternalDetail() {
                                     <li key={c.id} className="p-3 bg-slate-50 rounded-lg border border-slate-100 transition-colors hover:bg-slate-100">
                                         <Link href={`/manager/lecturer/${c.lecturerId}`} className="block">
                                             <p className="font-medium text-sm text-blue-600 hover:underline">{c.fullName} - <span className="text-muted-foreground">{c.code}</span></p>
-                                            <p className="text-xs text-slate-500 mt-1">Vai trò: {c.role}</p>
+                                            <p className="text-xs text-slate-500 mt-1">Vai trò: {PROJECT_EXTERNAL_MEMBER_ROLE_LABELS[c.role as ProjectExternalMemberRoleName] || c.role}</p>
                                         </Link>
                                     </li>
                                 ))}
@@ -205,7 +205,7 @@ export default function ContentProjectExternalDetail() {
                                 {project.externalParticipants.map((c) => (
                                     <li key={c.id} className="p-3 bg-slate-50 rounded-lg border border-slate-100">
                                         <p className="font-medium text-sm">{c.fullName}</p>
-                                        <p className="text-xs text-slate-500 mt-1">Email: {c.email || 'N/A'} • Vai trò: {c.role}</p>
+                                        <p className="text-xs text-slate-500 mt-1">Email: {c.email || 'N/A'} • Vai trò: {PROJECT_EXTERNAL_MEMBER_ROLE_LABELS[c.role as ProjectExternalMemberRoleName] || c.role}</p>
                                     </li>
                                 ))}
                             </ul>

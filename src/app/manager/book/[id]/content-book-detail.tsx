@@ -3,6 +3,7 @@
 import Loading from '@/_components/utils/Loading';
 import { storeBookDetailManager } from '@/working-manager/book/book-manager-store';
 import { STATUS_LABELS } from '@/_constants/base-constant';
+import { BOOK_CONTRIBUTOR_ROLE_OPTIONS, BookContributorRoleName } from '@/_constants/Book-constant';
 import { Book, FileText, CheckCircle, XCircle, Globe, Lock, ArrowLeft } from 'lucide-react';
 import { Button } from '@/_components/ui/button';
 import { useRouter } from 'next/navigation';
@@ -180,7 +181,7 @@ export default function ContentBookDetail() {
                                     <li key={c.id} className="p-3 bg-slate-50 rounded-lg border border-slate-100 transition-colors hover:bg-slate-100">
                                         <Link href={`/manager/lecturer/${c.lecturerId}`} className="block">
                                             <p className="font-medium text-sm text-blue-600 hover:underline">{c.fullName} - <span className="text-muted-foreground">{c.code}</span></p>
-                                            <p className="text-xs text-slate-500 mt-1">Vai trò: {c.role}</p>
+                                            <p className="text-xs text-slate-500 mt-1">Vai trò: {BOOK_CONTRIBUTOR_ROLE_OPTIONS.find(o => o.value === c.role)?.label || c.role}</p>
                                         </Link>
                                     </li>
                                 ))}
@@ -199,7 +200,7 @@ export default function ContentBookDetail() {
                                 {book.externalContributors.map((c) => (
                                     <li key={c.id} className="p-3 bg-slate-50 rounded-lg border border-slate-100">
                                         <p className="font-medium text-sm">{c.fullName}</p>
-                                        <p className="text-xs text-slate-500 mt-1">Email: {c.email || 'N/A'} • Vai trò: {c.role}</p>
+                                        <p className="text-xs text-slate-500 mt-1">Email: {c.email || 'N/A'} • Vai trò: {BOOK_CONTRIBUTOR_ROLE_OPTIONS.find(o => o.value === c.role)?.label || c.role}</p>
                                     </li>
                                 ))}
                             </ul>

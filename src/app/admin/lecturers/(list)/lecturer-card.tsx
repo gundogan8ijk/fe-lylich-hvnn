@@ -4,6 +4,7 @@ import { LecturerItemAccountRecord } from "@/working-admin/lecturer/lecturer-adm
 import { User, PlusCircle, Key, Hash, Phone, CreditCard, Mail, Plus, MoreVertical, Lock, Unlock, ShieldAlert, Trash2, X } from "lucide-react";
 import { useState } from "react";
 import { Role } from "@/Authen/auth-type";
+import { GENDER_LABELS, Gender } from "@/_constants/base-constant";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -167,7 +168,7 @@ export default function LecturerCard({ data }: Props) {
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                             <User className="w-4 h-4 shrink-0" />
-                            <span>{data.gender || "Chưa xác định"}</span>
+                            <span>{data.gender ? (GENDER_LABELS[data.gender as Gender] || data.gender) : "Chưa xác định"}</span>
                         </div>
                         {data.isLocked && (
                             <button 

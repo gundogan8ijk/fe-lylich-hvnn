@@ -16,10 +16,10 @@ export default function DepartmentCard({ department }: { department: DepartmentP
 
 
     return (
-        <Card className="pt-0 group relative overflow-hidden bg-card border-muted hover:border-primary/50 hover:shadow-md transition-all duration-200">
+        <Card className="h-full flex flex-col pt-0 group relative overflow-hidden bg-card border-muted hover:border-primary/50 hover:shadow-md transition-all duration-200">
 
             {/* IMAGE SECTION */}
-            <div className="relative h-40 overflow-hidden bg-slate-100">
+            <div className="relative h-40 overflow-hidden bg-slate-100 flex-shrink-0">
                 {/* Overlay gradient để text bên dưới nổi bật hơn (nếu cần) */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10" />
 
@@ -49,8 +49,8 @@ export default function DepartmentCard({ department }: { department: DepartmentP
             </div>
 
             {/* CONTENT SECTION */}
-            <div className="p-5 flex flex-col gap-4">
-                <div>
+            <div className="p-5 flex flex-col gap-4 flex-1">
+                <div className="flex-1">
                     <h3 className="text-lg font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2 pb-2">
                         {department.name}
                     </h3>
